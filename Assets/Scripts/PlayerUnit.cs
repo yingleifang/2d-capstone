@@ -31,14 +31,15 @@ public class PlayerUnit : Unit
         }
         switch(type)
         {
-            case Racoon:
+            case Type.Racoon:
                 //TODO racoon ability
                 break;
-            case Ram:
+            case Type.Ram:
                 //TODO access unit on coordinates
                 break;
-            case Lizard:
+            case Type.Lizard:
                 //TODO damage to all units in line from lizard and 
+                break;
 
         }
         return false;
