@@ -26,11 +26,13 @@ public class HexMapEditor : MonoBehaviour {
 		Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
 		if (Physics.Raycast(inputRay, out hit)) {
+			Debug.Log(hit.point);
 			hexGrid.ColorCell(hit.point, activeColor);
 		}
 	}
 
 	public void SelectColor (int index) {
 		activeColor = colors[index];
+		Debug.Log(activeColor);
 	}
 }

@@ -1,48 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public abstract class Unit: MonoBehaviour
 {
-    public int health;
-    public int attackDamage;
-    public int attackRange;
-    public int movementSpeed;
-    public int coolDown;
-    public int[] location;
+    [HideInInspector]
+    public int currentHealth, currentAttackDamage, currentAttackRange,
+            currentMovementSpeed, currentCoolDown;
+
+    public int health, attackDamage, attackRange, movementSpeed, coolDown;
+
+    public Vector3Int location;
+    public Tilemap map;
+
+    public TileManager tileManager;
+
+    private void Awake() 
+    {
+        currentHealth = health;
+        currentAttackDamage = attackDamage;
+        currentAttackRange = attackRange;
+        currentMovementSpeed = movementSpeed;
+        currentCoolDown = coolDown;
+        transform.position = map.CellToWorld(location);
+        tileManager.AddUnit(location, this);
+    }
+
 
     //TODO have public Class name here associated with map
 
-    public abstract bool useAbility(int i, int j);
+    public abstract bool useAbility(Vector3Int target);
 
     public void doAttack(Unit target)
     {
-        target.takeDamage(attackDamage);
+        target.changeHealth(currentAttackDamage * -1);
     }
 
-    public void doMovement(int i, int j)
+    public void doMovement(Vector3Int target)
     {
-        location[0] += i;
-        location[1] += j;
 
         //TODO Check bounds here. Access map classs to do this.
         //Trigger animations here
     }
 
-    public void setLocation(int i, int j)
+    public void setLocation(Vector3Int target)
     {
-        location[0] += i;
-        location[1] += j;
 
         //TODO Check bounds here. Access map classs to do this.        
     }
 
-    public void takeDamage(int damage)
+    public void changeHealth(int amount)
     {
-        health -= damage;
-        if (health < 0)
+        currentHealth += amount;
+        if (currentHealth < 0)
         {
-            health = 0;
+            currentHealth = 0;
         }
     }
 }

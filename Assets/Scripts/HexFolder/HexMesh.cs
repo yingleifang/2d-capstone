@@ -28,10 +28,6 @@ public class HexMesh : MonoBehaviour {
 		var curcolor = cells[0].color;
 
         for (int i = 0; i < cells.Length; i++) {
-			if (cells[i].color.Equals(curcolor))
-			{
-                Debug.Log(cells[i].color);
-            }
 			Triangulate(cells[i]);
 		}
 		hexMesh.vertices = vertices.ToArray();
