@@ -50,7 +50,7 @@ public class TileManager : MonoBehaviour
             Vector3Int gridPosition = map.WorldToCell(mapPosition);
 
             TileBase clickedTile = map.GetTile(gridPosition);
-            Debug.Log(clickedTile);
+            Debug.Log(gridPosition);
         }
     }
 
