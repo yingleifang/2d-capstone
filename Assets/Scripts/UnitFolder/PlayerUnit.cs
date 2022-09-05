@@ -10,7 +10,7 @@ public class PlayerUnit : Unit
     private bool selected;
     private Type type;
 
-    public override bool useAbility(Vector3Int target)
+    public override bool UseAbility(Vector3Int target)
     {
         if (currentCoolDown > 0)
         {

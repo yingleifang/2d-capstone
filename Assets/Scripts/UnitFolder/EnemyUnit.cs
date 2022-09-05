@@ -8,7 +8,7 @@ public class EnemyUnit : Unit
 
     Type type;
 
-    public override bool useAbility(Vector3Int target)
+    public override bool UseAbility(Vector3Int target)
     {
         return false;
     }

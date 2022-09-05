@@ -30,27 +30,27 @@ public abstract class Unit: MonoBehaviour
 
     //TODO have public Class name here associated with map
 
-    public abstract bool useAbility(Vector3Int target);
+    public abstract bool UseAbility(Vector3Int target);
 
-    public void doAttack(Unit target)
+    public void DoAttack(Unit target)
     {
-        target.changeHealth(currentAttackDamage * -1);
+        target.ChangeHealth(currentAttackDamage * -1);
     }
 
-    public void doMovement(Vector3Int target)
+    public void DoMovement(Vector3Int target)
     {
 
         //TODO Check bounds here. Access map classs to do this.
         //Trigger animations here
     }
 
-    public void setLocation(Vector3Int target)
+    public void SetLocation(Vector3Int target)
     {
 
         //TODO Check bounds here. Access map classs to do this.        
     }
 
-    public void changeHealth(int amount)
+    public void ChangeHealth(int amount)
     {
         currentHealth += amount;
         if (currentHealth < 0)
