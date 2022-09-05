@@ -50,6 +50,11 @@ public class TileManager : MonoBehaviour
             Vector3Int gridPosition = map.WorldToCell(mapPosition);
 
             TileBase clickedTile = map.GetTile(gridPosition);
+
+            if (dynamicTileDatas[gridPosition].unit == null)
+            {
+
+            }
             Debug.Log(gridPosition);
         }
     }
@@ -58,4 +63,5 @@ public class TileManager : MonoBehaviour
     {
         dynamicTileDatas[location].unit = unit;
     }
+
 }
