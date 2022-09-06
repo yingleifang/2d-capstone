@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
+using Priority_Queue;
 
 public class CubeCoord {
     private Vector3Int coords;
@@ -66,7 +67,9 @@ public class TileManager : MonoBehaviour
     private Tilemap map;
     
     [SerializeField]
-    private List<TileDataScriptableObject> tileDatas; 
+    private List<TileDataScriptableObject> tileDatas;
+
+    private List<Vector3Int> coloredTiles = new List<Vector3Int>();
 
     private CubeCoord[] directions = {new CubeCoord(1, 0, -1), new CubeCoord(1, -1, 0), 
              new CubeCoord(0, -1, 1), new CubeCoord(-1, 0, 1), new CubeCoord(-1, 1, 0), new CubeCoord(0, 1, -1)};
@@ -123,7 +126,14 @@ public class TileManager : MonoBehaviour
             {
 
             }
-            CubeCoord cubePosition = UnityCellToCube(gridPosition);
+            Debug.Log("Clicked: " + gridPosition);
+            ClearHighlights();
+            List<Vector3Int> path = FindShortestPath(Vector3Int.zero, gridPosition);
+            foreach(Vector3Int tile in path)
+            {
+                Debug.Log(tile);
+            }
+            HighlightPath(path, Color.yellow);
         }
     }
 
@@ -145,7 +155,13 @@ public class TileManager : MonoBehaviour
 
     public bool IsImpassable(Vector3Int cellCoords)
     {
-        return baseTileDatas[map.GetTile(cellCoords)].impassable;
+        TileBase tile = map.GetTile(cellCoords);
+        if(!tile)
+        {
+            // Tiles outside map are impassible
+            return true;
+        }
+        return false; // TODO: baseTileDatas doesn't work. Will probably need to make child of Tile class ?
     }
 
     public bool IsImpassable(CubeCoord cubeCoords) 
@@ -160,6 +176,96 @@ public class TileManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal)
+    {
+        return FindShortestPath(start, goal, (pos) => 10);
+    }
+
+    public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, System.Func<Vector3Int, float> tileCostFunction)
+    {
+        if(!map.GetTile(start))
+        {
+            return new List<Vector3Int>();
+        }
+
+        SimplePriorityQueue<Vector3Int> frontier = new SimplePriorityQueue<Vector3Int>();
+        frontier.Enqueue(start, 0);
+        Dictionary<Vector3Int, Vector3Int> came_from = new Dictionary<Vector3Int, Vector3Int>();
+        Dictionary<Vector3Int, float> cost_so_far = new Dictionary<Vector3Int, float>();
+        came_from[start] = start;
+        cost_so_far[start] = 0;
+
+        while(frontier.Count > 0)
+        {
+            Vector3Int current = frontier.Dequeue();
+
+            if(current == goal)
+            {
+                break;
+            }
+
+            foreach(CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
+            {
+                Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
+                if(!IsImpassable(next))
+                {
+                    float new_cost = cost_so_far[current] + tileCostFunction(next);
+                    if(!cost_so_far.ContainsKey(next) || new_cost < cost_so_far[next])
+                    {
+                        cost_so_far[next] = new_cost;
+                        float priority = new_cost + Distance(next, goal);
+                        frontier.Enqueue(next, priority);
+                        came_from[next] = current;
+                    }
+                }
+            }
+        }
+
+        List<Vector3Int> path = new List<Vector3Int>();
+        Vector3Int last = goal;
+        if(!came_from.ContainsKey(last))
+        {
+            return path;
+        }
+        path.Insert(0, last);
+        while(!came_from[last].Equals(start))
+        {
+            last = came_from[last];
+            path.Insert(0, last);
+        }
+
+        return path;
+    }
+
+    public void SetTileColor(Vector3Int cellCoord, Color color)
+    {
+        map.SetTileFlags(cellCoord, TileFlags.None);
+        map.SetColor(cellCoord, color);
+        coloredTiles.Add(cellCoord);
+    }
+
+    public void HighlightPath(List<Vector3Int> path, Color color)
+    {
+        foreach(Vector3Int tile in path)
+        {
+            SetTileColor(tile, color);
+        }
+    }
+
+    public void ClearHighlights()
+    {
+        foreach(Vector3Int tile in coloredTiles)
+        {
+            map.SetColor(tile, Color.white);
+        }
+        coloredTiles.Clear();
+    }
+
+    public CubeCoord CubeNeighbor(Vector3Int cellCoord, CubeDirections direction)
+    {
+        return CubeNeighbor(UnityCellToCube(cellCoord), direction);
     }
 
     public CubeCoord CubeNeighbor(CubeCoord cubeCoords, CubeDirections direction)
