@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
 using Priority_Queue;
+using System.Diagnostics.Tracing;
+using Unity.PlasticSCM.Editor.WebApi;
+using System.Linq;
 
 public class CubeCoord {
     private Vector3Int coords;
@@ -180,7 +183,8 @@ public class TileManager : MonoBehaviour
 
     public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal)
     {
-        return FindShortestPath(start, goal, (pos) => 10);
+        return FindShortestPath2(start, goal);
+        //return FindShortestPath(start, goal, (pos) => 10);
     }
 
     public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, System.Func<Vector3Int, float> tileCostFunction)
@@ -235,9 +239,45 @@ public class TileManager : MonoBehaviour
             last = came_from[last];
             path.Insert(0, last);
         }
+        path.Add(start);
 
         return path;
     }
+
+    public List<Vector3Int> FindShortestPath2(Vector3Int start, Vector3Int goal)
+    {
+        var frontier = new Queue<Vector3Int>();
+        frontier.Enqueue(start);
+        Dictionary<Vector3Int, Vector3Int> came_from = new Dictionary<Vector3Int, Vector3Int>();
+        came_from[start] = start;
+
+        while (frontier.Count > 0)
+        {
+            var current = frontier.Dequeue();
+            foreach (CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
+            {
+                Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
+                if (IsImpassable(next)) continue;
+                if (!came_from.ContainsKey(next))
+                {
+                    frontier.Enqueue((Vector3Int)next);
+                    came_from[next] = current;
+                }
+            }
+        }
+        var tarverse = goal;
+        var path = new List<Vector3Int>();
+        while (tarverse != start)
+        {
+            path.Add(tarverse);
+            tarverse = came_from[tarverse];
+        }
+        path.Add(start);
+
+        return path;
+
+    }
+
 
     public void SetTileColor(Vector3Int cellCoord, Color color)
     {
