@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerUnit : Unit
 {
 
-    enum Type {Racoon, Ram, Lizard};
+    enum Type {RACOON, RAM, LIZARD};
 
     private bool selected;
     private Type type;
@@ -18,13 +18,13 @@ public class PlayerUnit : Unit
         }
         switch(type)
         {
-            case Type.Racoon:
+            case Type.RACOON:
                 //TODO racoon ability
                 break;
-            case Type.Ram:
+            case Type.RAM:
                 //TODO access unit on coordinates
                 break;
-            case Type.Lizard:
+            case Type.LIZARD:
                 //TODO damage to all units in line from lizard and 
                 break;
 

@@ -125,13 +125,22 @@ public class TileManager : MonoBehaviour
 
             TileBase clickedTile = map.GetTile(gridPosition);
 
-            if (dynamicTileDatas[gridPosition].unit == null)
+            Unit curUnit = dynamicTileDatas[gridPosition].unit;
+            if (curUnit != null)
             {
-
+                selectedUnit = dynamicTileDatas[gridPosition].unit;
             }
-            Debug.Log("Clicked: " + gridPosition);
+            else if (curUnit == null && selectedUnit != null)
+            {
+                selectedUnit.DoMovement(gridPosition);
+            }
+            else
+            {
+                selectedUnit = dynamicTileDatas[gridPosition].unit;
+            }
+
             ClearHighlights();
-            List<Vector3Int> path = FindShortestPath(Vector3Int.zero, gridPosition);
+            List<Vector3Int> path = FindShortestPathBFS(Vector3Int.zero, gridPosition);
             foreach(Vector3Int tile in path)
             {
                 Debug.Log(tile);
@@ -143,6 +152,11 @@ public class TileManager : MonoBehaviour
     public void AddUnit(Vector3Int location, Unit unit)
     {
         dynamicTileDatas[location].unit = unit;
+    }
+
+    public void RemoveUnit(Vector3Int location)
+    {
+        dynamicTileDatas[location].unit = null;
     }
 
     public int Distance(CubeCoord start, CubeCoord end)
@@ -183,7 +197,7 @@ public class TileManager : MonoBehaviour
 
     public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal)
     {
-        return FindShortestPath2(start, goal);
+        return FindShortestPath(start, goal);
         //return FindShortestPath(start, goal, (pos) => 10);
     }
 
@@ -244,7 +258,7 @@ public class TileManager : MonoBehaviour
         return path;
     }
 
-    public List<Vector3Int> FindShortestPath2(Vector3Int start, Vector3Int goal)
+    public List<Vector3Int> FindShortestPathBFS(Vector3Int start, Vector3Int goal)
     {
         var frontier = new Queue<Vector3Int>();
         frontier.Enqueue(start);
@@ -265,12 +279,12 @@ public class TileManager : MonoBehaviour
                 }
             }
         }
-        var tarverse = goal;
+        var traverse = goal;
         var path = new List<Vector3Int>();
-        while (tarverse != start)
+        while (traverse != start)
         {
-            path.Add(tarverse);
-            tarverse = came_from[tarverse];
+            path.Add(traverse);
+            traverse = came_from[traverse];
         }
         path.Add(start);
 

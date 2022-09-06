@@ -16,7 +16,7 @@ public abstract class Unit: MonoBehaviour
 
     public TileManager tileManager;
 
-    private void Awake() 
+    public void Start() 
     {
         currentHealth = health;
         currentAttackDamage = attackDamage;
@@ -25,10 +25,8 @@ public abstract class Unit: MonoBehaviour
         currentCoolDown = coolDown;
         transform.position = map.CellToWorld(location);
         tileManager.AddUnit(location, this);
+        Debug.Log("HERE");
     }
-
-
-    //TODO have public Class name here associated with map
 
     public abstract bool UseAbility(Vector3Int target);
 
@@ -39,7 +37,10 @@ public abstract class Unit: MonoBehaviour
 
     public void DoMovement(Vector3Int target)
     {
-
+        tileManager.RemoveUnit(location);
+        location = target;
+        tileManager.AddUnit(location, this);
+        transform.position = map.CellToWorld(location);
         //TODO Check bounds here. Access map classs to do this.
         //Trigger animations here
     }
