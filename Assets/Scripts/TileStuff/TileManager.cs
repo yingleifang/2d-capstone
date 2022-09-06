@@ -12,6 +12,18 @@ public class TileManager : MonoBehaviour
     [SerializeField]
     private List<TileDataScriptableObject> tileDatas; 
 
+    private Vector3Int[] directions = {new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0), 
+             new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1), new Vector3Int(-1, 1, 0), new Vector3Int(0, 1, -1)};
+
+    public enum CubeDirections : int {
+        RIGHT = 0,
+        TOP_RIGHT = 1,
+        TOP_LEFT = 2,
+        LEFT = 3,
+        BOTTOM_LEFT = 4,
+        BOTTOM_RIGHT = 5
+    }
+
     private Dictionary<TileBase, TileDataScriptableObject> baseTileDatas;  
     public Dictionary<Vector3Int, DynamicTileData> dynamicTileDatas;
     
@@ -55,7 +67,7 @@ public class TileManager : MonoBehaviour
             {
 
             }
-            Debug.Log(UnityCellToCube(gridPosition));
+            Vector3Int cubePosition = UnityCellToCube(gridPosition);
         }
     }
 
@@ -64,22 +76,32 @@ public class TileManager : MonoBehaviour
         dynamicTileDatas[location].unit = unit;
     }
 
-    //Taken from https://github.com/Unity-Technologies/2d-extras/issues/69
+    public Vector3Int CubeNeighbor(Vector3Int cubeCoords, CubeDirections direction)
+    {
+        return cubeCoords + GetCubeDirection(direction);
+    }
+
+    private Vector3Int GetCubeDirection(CubeDirections direction)
+    {
+        return directions[(int) direction];
+    }
+
     private Vector3Int UnityCellToCube(Vector3Int cell)
     {
-        var yCell = cell.x; 
-        var xCell = cell.y;
-        var x = yCell - (xCell - (xCell & 1)) / 2;
-        var z = xCell;
-        var y = -x - z;
-        return new Vector3Int(x, y, z);
+        var col = cell.x; 
+        var row = cell.y * -1;
+        var q = col - (row - (row & 1)) / 2;
+        var r = row;
+        var s = -q - r;
+        return new Vector3Int(q, r, s);
     }
+
     private Vector3Int CubeToUnityCell(Vector3Int cube)
     {
-        var x = cube.x;
-        var z = cube.z;
-        var col = x + (z - (z & 1)) / 2;
-        var row = z;
+        var q = cube.x;
+        var r = cube.y;
+        var col = q + (r - (r & 1)) / 2;
+        var row = r * -1;
 
         return new Vector3Int(col, row,  0);
     }
