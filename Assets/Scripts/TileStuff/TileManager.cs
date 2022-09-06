@@ -4,6 +4,62 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
 
+public class CubeCoord {
+    private Vector3Int coords;
+
+    public CubeCoord(int x, int y, int z) 
+    {
+        coords = new Vector3Int(x, y, z);
+    }
+
+    public CubeCoord(Vector3Int vec)
+    {
+        coords = vec;
+    }
+
+    public int x {
+        get { return coords.x; }
+        set { coords.x = value; }
+    }
+
+    public int y {
+        get { return coords.y; }
+        set { coords.y = value; }
+    }
+
+    public int z {
+        get { return coords.z; }
+        set { coords.z = value; }
+    }
+
+    public int q {
+        get { return coords.x; }
+        set { coords.x = value; }
+    }
+
+    public int r {
+        get { return coords.y; }
+        set { coords.y = value; }
+    }
+
+    public int s {
+        get { return coords.z; }
+        set { coords.z = value; }
+    }
+
+    public static CubeCoord operator +(CubeCoord a, CubeCoord b) {
+        return new CubeCoord(a.coords + b.coords);
+    }
+
+    public static CubeCoord operator -(CubeCoord a, CubeCoord b) {
+        return new CubeCoord(a.coords + b.coords);
+    }
+
+    public override string ToString() {
+        return coords.ToString();
+    }
+}
+
 public class TileManager : MonoBehaviour
 {
     [SerializeField]
@@ -12,8 +68,8 @@ public class TileManager : MonoBehaviour
     [SerializeField]
     private List<TileDataScriptableObject> tileDatas; 
 
-    private Vector3Int[] directions = {new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0), 
-             new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1), new Vector3Int(-1, 1, 0), new Vector3Int(0, 1, -1)};
+    private CubeCoord[] directions = {new CubeCoord(1, 0, -1), new CubeCoord(1, -1, 0), 
+             new CubeCoord(0, -1, 1), new CubeCoord(-1, 0, 1), new CubeCoord(-1, 1, 0), new CubeCoord(0, 1, -1)};
 
     public enum CubeDirections : int {
         RIGHT = 0,
@@ -67,7 +123,7 @@ public class TileManager : MonoBehaviour
             {
 
             }
-            Vector3Int cubePosition = UnityCellToCube(gridPosition);
+            CubeCoord cubePosition = UnityCellToCube(gridPosition);
         }
     }
 
@@ -76,27 +132,57 @@ public class TileManager : MonoBehaviour
         dynamicTileDatas[location].unit = unit;
     }
 
-    public Vector3Int CubeNeighbor(Vector3Int cubeCoords, CubeDirections direction)
+    public int Distance(CubeCoord start, CubeCoord end)
+    {
+        CubeCoord temp = start - end;
+        return Mathf.Max(Mathf.Abs(temp.x), Mathf.Abs(temp.y), Mathf.Abs(temp.z));
+    }
+
+    public int Distance(Vector3Int start, Vector3Int end) 
+    {
+        return Distance(UnityCellToCube(start), UnityCellToCube(end));
+    }
+
+    public bool IsImpassable(Vector3Int cellCoords)
+    {
+        return baseTileDatas[map.GetTile(cellCoords)].impassable;
+    }
+
+    public bool IsImpassable(CubeCoord cubeCoords) 
+    {
+        return IsImpassable(CubeToUnityCell(cubeCoords));
+    }
+
+    public bool InBounds(Vector3Int cellCoords)
+    {
+        if (dynamicTileDatas.ContainsKey(cellCoords))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public CubeCoord CubeNeighbor(CubeCoord cubeCoords, CubeDirections direction)
     {
         return cubeCoords + GetCubeDirection(direction);
     }
 
-    private Vector3Int GetCubeDirection(CubeDirections direction)
+    private CubeCoord GetCubeDirection(CubeDirections direction)
     {
         return directions[(int) direction];
     }
 
-    private Vector3Int UnityCellToCube(Vector3Int cell)
+    private CubeCoord UnityCellToCube(Vector3Int cell)
     {
         var col = cell.x; 
         var row = cell.y * -1;
         var q = col - (row - (row & 1)) / 2;
         var r = row;
         var s = -q - r;
-        return new Vector3Int(q, r, s);
+        return new CubeCoord(q, r, s);
     }
 
-    private Vector3Int CubeToUnityCell(Vector3Int cube)
+    private Vector3Int CubeToUnityCell(CubeCoord cube)
     {
         var q = cube.x;
         var r = cube.y;
