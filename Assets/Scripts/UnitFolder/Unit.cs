@@ -18,7 +18,9 @@ public abstract class Unit: MonoBehaviour
     [SerializeField]
     private AudioSource deathSound;
     [SerializeField]
-    SpriteRenderer spriteRenderer;
+    private AudioSource attackSound;
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
 
     public void Start() 
     {
@@ -36,6 +38,7 @@ public abstract class Unit: MonoBehaviour
     public void DoAttack(Unit target)
     {
         target.ChangeHealth(currentAttackDamage * -1);
+        attackSound.Play();
     }
 
     public bool DoMovement(Vector3Int target)
