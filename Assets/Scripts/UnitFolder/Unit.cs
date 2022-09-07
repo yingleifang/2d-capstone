@@ -13,8 +13,12 @@ public abstract class Unit: MonoBehaviour
 
     public Vector3Int location;
     public Tilemap map;
-
     public TileManager tileManager;
+
+    [SerializeField]
+    private AudioSource deathSound;
+    [SerializeField]
+    SpriteRenderer spriteRenderer;
 
     public void Start() 
     {
@@ -25,7 +29,6 @@ public abstract class Unit: MonoBehaviour
         currentCoolDown = coolDown;
         transform.position = map.CellToWorld(location);
         tileManager.AddUnit(location, this);
-        Debug.Log("HERE");
     }
 
     public abstract bool UseAbility(Vector3Int target);
@@ -35,12 +38,18 @@ public abstract class Unit: MonoBehaviour
         target.ChangeHealth(currentAttackDamage * -1);
     }
 
-    public void DoMovement(Vector3Int target)
+    public bool DoMovement(Vector3Int target)
     {
+        if (map.GetTile(target) == null)
+        {
+            return false;
+        }
         tileManager.RemoveUnit(location);
         location = target;
         tileManager.AddUnit(location, this);
         transform.position = map.CellToWorld(location);
+
+        return true;
         //TODO Check bounds here. Access map classs to do this.
         //Trigger animations here
     }
@@ -57,6 +66,16 @@ public abstract class Unit: MonoBehaviour
         if (currentHealth < 0)
         {
             currentHealth = 0;
+            Die();
         }
     }
+
+    public void Die() 
+    {
+        deathSound.Play();
+        spriteRenderer.enabled = false;
+        tileManager.RemoveUnit(location);
+        Destroy(this.gameObject, 5);
+    }
+    
 }

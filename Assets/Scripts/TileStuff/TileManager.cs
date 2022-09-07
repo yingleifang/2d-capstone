@@ -124,28 +124,40 @@ public class TileManager : MonoBehaviour
             Vector3Int gridPosition = map.WorldToCell(mapPosition);
 
             TileBase clickedTile = map.GetTile(gridPosition);
+            Debug.Log(gridPosition);
 
             Unit curUnit = dynamicTileDatas[gridPosition].unit;
-            if (curUnit != null)
+            if (curUnit is PlayerUnit)
             {
+                ClearHighlights();
                 selectedUnit = dynamicTileDatas[gridPosition].unit;
+                SetTileColor(gridPosition, Color.yellow);
+            }
+            else if (curUnit is EnemyUnit && selectedUnit is PlayerUnit &&
+                        selectedUnit.attackRange <= FindShortestPathBFS(selectedUnit.location, curUnit.location).Count())
+            {
+                selectedUnit.DoAttack(curUnit);
             }
             else if (curUnit == null && selectedUnit != null)
             {
-                selectedUnit.DoMovement(gridPosition);
+                if(selectedUnit.DoMovement(gridPosition))
+                {
+                    ClearHighlights();
+                }
+                SetTileColor(gridPosition, Color.yellow);
             }
-            else
+            else 
             {
-                selectedUnit = dynamicTileDatas[gridPosition].unit;
+                selectedUnit = null;
             }
 
-            ClearHighlights();
+            
             List<Vector3Int> path = FindShortestPathBFS(Vector3Int.zero, gridPosition);
             foreach(Vector3Int tile in path)
             {
-                Debug.Log(tile);
+                
             }
-            HighlightPath(path, Color.yellow);
+            
         }
     }
 
