@@ -18,7 +18,7 @@ public abstract class Unit: MonoBehaviour
     [SerializeField]
     private AudioSource deathSound;
     [SerializeField]
-    private AudioSource attackSound;
+    private AudioSource attackSound, damageSound;
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
@@ -32,7 +32,7 @@ public abstract class Unit: MonoBehaviour
         tileManager = FindObjectOfType<TileManager>();
         map = FindObjectOfType<Tilemap>();
         transform.position = map.CellToWorld(location);
-        tileManager.AddUnit(location, this);
+        tileManager.SpawnUnit(location, this);
 
     }
 
@@ -50,10 +50,17 @@ public abstract class Unit: MonoBehaviour
         {
             return false;
         }
-        tileManager.RemoveUnit(location);
+        tileManager.RemoveUnitFromTile(location);
         location = target;
-        tileManager.AddUnit(location, this);
+        tileManager.AddUnitToTile(location, this);
+        
         transform.position = map.CellToWorld(location);
+
+        if (tileManager.IsHazardous(target))
+        {
+            ChangeHealth(-1);
+            damageSound.Play();
+        }
 
         return true;
         //TODO Check bounds here. Access map classs to do this.
@@ -80,7 +87,7 @@ public abstract class Unit: MonoBehaviour
     {
         deathSound.Play();
         spriteRenderer.enabled = false;
-        tileManager.RemoveUnit(location);
+        tileManager.KillUnit(location);
         Destroy(this.gameObject, 5);
     }
     

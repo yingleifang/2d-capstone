@@ -72,6 +72,9 @@ public class TileManager : MonoBehaviour
     [SerializeField]
     private List<TileDataScriptableObject> tileDatas;
 
+    [SerializeField]
+    private BattleManager battleManager;
+
     private List<Vector3Int> coloredTiles = new List<Vector3Int>();
 
     private CubeCoord[] directions = {new CubeCoord(1, 0, -1), new CubeCoord(1, -1, 0), 
@@ -165,13 +168,24 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public void AddUnit(Vector3Int location, Unit unit)
+    public void SpawnUnit(Vector3Int location, Unit unit)
     {
         dynamicTileDatas[location].unit = unit;
-        
+        battleManager.SpawnUnit(unit);
     }
 
-    public void RemoveUnit(Vector3Int location)
+    public void AddUnitToTile(Vector3Int location, Unit unit)
+    {
+        dynamicTileDatas[location].unit = unit;
+    }
+
+    public void KillUnit(Vector3Int location)
+    {
+        battleManager.KillUnit(dynamicTileDatas[location].unit);
+        dynamicTileDatas[location].unit = null;
+    }
+
+    public void RemoveUnitFromTile(Vector3Int location)
     {
         dynamicTileDatas[location].unit = null;
     }
@@ -200,6 +214,21 @@ public class TileManager : MonoBehaviour
     public bool IsImpassable(CubeCoord cubeCoords) 
     {
         return IsImpassable(CubeToUnityCell(cubeCoords));
+    }
+
+    public bool IsHazardous(Vector3Int cellCoords)
+    {
+        TileBase tile = map.GetTile(cellCoords);
+        if(tile == null || baseTileDatas[tile].hazardous)
+        {
+            return true;
+        }
+        return false;       
+    }
+
+    public bool IsHazardous(CubeCoord cubeCoords)
+    {
+        return IsHazardous(CubeToUnityCell(cubeCoords));
     }
 
     public bool InBounds(Vector3Int cellCoords)
