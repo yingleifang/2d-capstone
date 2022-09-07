@@ -133,18 +133,22 @@ public class TileManager : MonoBehaviour
                 selectedUnit = dynamicTileDatas[gridPosition].unit;
                 SetTileColor(gridPosition, Color.yellow);
             }
-            else if (curUnit is EnemyUnit && selectedUnit is PlayerUnit &&
-                        selectedUnit.attackRange <= FindShortestPathBFS(selectedUnit.location, curUnit.location).Count())
+            else if (curUnit is EnemyUnit && selectedUnit is PlayerUnit)
             {
-                selectedUnit.DoAttack(curUnit);
+                if (FindShortestPathBFS(selectedUnit.location, curUnit.location).Count() - 1 <= selectedUnit.attackRange)
+                {
+                    selectedUnit.DoAttack(curUnit);
+                }   
             }
             else if (curUnit == null && selectedUnit != null)
             {
-                if(selectedUnit.DoMovement(gridPosition))
+                Debug.Log(FindShortestPathBFS(selectedUnit.location, gridPosition).Count);
+                if(FindShortestPathBFS(selectedUnit.location, gridPosition).Count - 1 <= selectedUnit.movementSpeed)
                 {
+                    selectedUnit.DoMovement(gridPosition);
                     ClearHighlights();
+                    SetTileColor(gridPosition, Color.yellow);
                 }
-                SetTileColor(gridPosition, Color.yellow);
             }
             else 
             {
@@ -185,12 +189,11 @@ public class TileManager : MonoBehaviour
     public bool IsImpassable(Vector3Int cellCoords)
     {
         TileBase tile = map.GetTile(cellCoords);
-        if(!tile)
+        if(tile == null || baseTileDatas[tile].impassable)
         {
-            // Tiles outside map are impassible
             return true;
         }
-        return false; // TODO: baseTileDatas doesn't work. Will probably need to make child of Tile class ?
+        return false;
     }
 
     public bool IsImpassable(CubeCoord cubeCoords) 
