@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerUnit : Unit
 {
 
-    enum Type {RACOON, RAM, LIZARD};
+    enum UnitType {RACOON, RAM, LIZARD};
 
     private bool selected;
-    private Type type;
+    private UnitType type;
     public bool hasMoved = false;
     public bool hasAttacked = false;
 
@@ -42,13 +42,13 @@ public class PlayerUnit : Unit
         }
         switch(type)
         {
-            case Type.RACOON:
+            case UnitType.RACOON:
                 //TODO racoon ability
                 break;
-            case Type.RAM:
+            case UnitType.RAM:
                 //TODO access unit on coordinates
                 break;
-            case Type.LIZARD:
+            case UnitType.LIZARD:
                 //TODO damage to all units in line from lizard and 
                 break;
 

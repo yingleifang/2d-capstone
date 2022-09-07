@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 [System.Serializable]
 public class BattleState
@@ -21,6 +23,7 @@ public class BattleManager : MonoBehaviour
     public bool isBattleOver;
     public bool isPlayerTurn = true;
     public Unit selectedUnit;
+    public UIController ui;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +41,50 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(performEnemyMoves());
     }
 
+    public void SpawnUnit(Unit unit)
+    {
+        if (unit is PlayerUnit)
+        {
+            state.playerUnits.Add((PlayerUnit)unit);
+        }
+        else if (unit is EnemyUnit)
+        {
+            state.enemyUnits.Add((EnemyUnit)unit);
+        }
+        else
+        {
+            Debug.Log("Adding a null unit");
+        }
+    }
+
+    public void KillUnit(Unit unit)
+    {
+        if (unit is PlayerUnit)
+        {
+            state.playerUnits.Remove((PlayerUnit)unit);
+        }
+        else if (unit is EnemyUnit)
+        {
+            state.enemyUnits.Remove((EnemyUnit)unit);
+        }
+        else
+        {
+            Debug.Log("Removing a null unit");
+        }
+        Debug.Log(state.enemyUnits.Count);
+
+        if (state.playerUnits.Count <= 0)
+        {
+            StartCoroutine(ui.SwitchScene("GameOverScreen"));
+        }
+        if (state.enemyUnits.Count <= 0)
+        {
+            StartCoroutine(ui.SwitchScene());
+        }
+        Debug.Log(state.enemyUnits.Count);
+    }
+
+    
     IEnumerator performEnemyMoves()
     {
         foreach(EnemyUnit enemy in state.enemyUnits)

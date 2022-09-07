@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
-  m_Name: PlainsSO
+  m_Name: SpikeTileSO
   m_EditorClassIdentifier: 
-  tiles: []
+  tiles:
+  - {fileID: 11400000, guid: 67efd6ef0fdd59d479e5a5f135aa6fce, type: 2}
   movementSpeedModifier: 0
+  impassable: 0
+  hazardous: 1
