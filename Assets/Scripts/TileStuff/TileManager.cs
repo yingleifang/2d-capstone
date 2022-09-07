@@ -298,7 +298,7 @@ public class TileManager : MonoBehaviour
             foreach(CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
             {
                 Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
-                if(!IsImpassable(next, unitBlocks))
+                if(!IsImpassable(next, unitBlocks) || next == goal)
                 {
                     float new_cost = cost_so_far[current] + tileCostFunction(next);
                     if(!cost_so_far.ContainsKey(next) || new_cost < cost_so_far[next])

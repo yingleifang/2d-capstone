@@ -142,7 +142,8 @@ MonoBehaviour:
   coolDown: 2
   location: {x: 1, y: 1, z: 0}
   deathSound: {fileID: 6535854469244272139}
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 6535854469244272139}
+  damageSound: {fileID: 6535854469244272139}
   spriteRenderer: {fileID: 1447998723661349570}
 --- !u!82 &6535854469244272139
 AudioSource:

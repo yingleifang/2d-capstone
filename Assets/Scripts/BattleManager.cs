@@ -89,7 +89,7 @@ public class BattleManager : MonoBehaviour
     {
         foreach(EnemyUnit enemy in enemyUnits)
         {   
-            //yield return enemy.performAction(state);
+            yield return enemy.performAction(state);
         }
 
         StartOfPlayerTurn();
