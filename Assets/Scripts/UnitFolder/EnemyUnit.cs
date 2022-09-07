@@ -12,5 +12,4 @@ public class EnemyUnit : Unit
     {
         return false;
     }
-
 }

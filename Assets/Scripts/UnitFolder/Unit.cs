@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
 
 public abstract class Unit: MonoBehaviour
 {
@@ -38,13 +39,18 @@ public abstract class Unit: MonoBehaviour
 
     public abstract bool UseAbility(Vector3Int target);
 
-    public void DoAttack(Unit target)
+    public virtual void DoAttack(Unit target)
     {
         target.ChangeHealth(currentAttackDamage * -1);
         attackSound.Play();
     }
 
-    public bool DoMovement(Vector3Int target)
+    public virtual void StartOfTurn()
+    {
+        return;
+    }
+
+    public virtual bool DoMovement(Vector3Int target)
     {
         if (map.GetTile(target) == null)
         {
@@ -65,6 +71,34 @@ public abstract class Unit: MonoBehaviour
         return true;
         //TODO Check bounds here. Access map classs to do this.
         //Trigger animations here
+    }
+
+    public virtual List<Vector3Int> GetTilesInMoveRange(TileManager map)
+    {
+        // Can override this method for unique move ranges
+        return map.GetTilesInRange(location, currentMovementSpeed);
+    }
+
+    public virtual bool IsTileInMoveRange(Vector3Int tile, TileManager map)
+    {
+        return map.RealDistance(location, tile) <= currentMovementSpeed;
+    }
+
+    public virtual List<Vector3Int> GetTilesInAttackRange(TileManager map)
+    {
+        // Can override this method for unique attack ranges
+        return map.GetTilesInRange(location, currentAttackRange, false);
+    }
+
+    public virtual bool IsTileInAttackRange(Vector3Int tile, TileManager map)
+    {
+        return map.RealDistance(location, tile, false) <= currentAttackRange;
+    }
+
+    public virtual List<Vector3Int> GetTilesInThreatRange(TileManager map)
+    {
+        // Can override this method for unique threat ranges
+        return map.GetTilesInRange(location, currentMovementSpeed + currentAttackRange, false);
     }
 
     public void SetLocation(Vector3Int target)

@@ -120,7 +120,7 @@ public class TileManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        /*if(Input.GetMouseButtonDown(0))
         {
             Vector2 mapPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int gridPosition = map.WorldToCell(mapPosition);
@@ -164,13 +164,28 @@ public class TileManager : MonoBehaviour
                 
             }
             
-        }
+        }*/
+    }
+
+    public Vector3Int GetTileAtScreenPosition(Vector3 pos)
+    {
+        Vector2 screenPos = Camera.main.ScreenToWorldPoint(pos);
+        return map.WorldToCell(screenPos);
     }
 
     public void SpawnUnit(Vector3Int location, Unit unit)
     {
         dynamicTileDatas[location].unit = unit;
         battleManager.SpawnUnit(unit);
+    }
+
+    public Unit GetUnit(Vector3Int tilePos)
+    {
+        if (!dynamicTileDatas.ContainsKey(tilePos))
+        {
+            return null;
+        }
+        return dynamicTileDatas[tilePos].unit;
     }
 
     public void AddUnitToTile(Vector3Int location, Unit unit)
@@ -200,14 +215,26 @@ public class TileManager : MonoBehaviour
         return Distance(UnityCellToCube(start), UnityCellToCube(end));
     }
 
-    public bool IsImpassable(Vector3Int cellCoords)
+    public int RealDistance(Vector3Int start, Vector3Int end, bool unitBlocks = true)
+    {
+        return FindShortestPath(start, end, unitBlocks).Count - 1;
+    }
+
+    public bool IsImpassable(Vector3Int cellCoords, bool unitsBlock = true)
     {
         TileBase tile = map.GetTile(cellCoords);
         if(tile == null || baseTileDatas[tile].impassable)
         {
             return true;
         }
-        return false;
+        if(unitsBlock)
+        {
+            if(GetUnit(cellCoords))
+            {
+                return true;
+            }
+        }
+        return false; // TODO: baseTileDatas doesn't work. Will probably need to make child of Tile class ?
     }
 
     public bool IsImpassable(CubeCoord cubeCoords) 
@@ -239,13 +266,12 @@ public class TileManager : MonoBehaviour
         return false;
     }
 
-    public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal)
+    public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, bool unitBlocks = true)
     {
-        return FindShortestPath(start, goal);
-        //return FindShortestPath(start, goal, (pos) => 10);
+        return FindShortestPath(start, goal, (pos) => 10, unitBlocks);
     }
 
-    public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, System.Func<Vector3Int, float> tileCostFunction)
+    public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, System.Func<Vector3Int, float> tileCostFunction, bool unitBlocks = true)
     {
         if(!map.GetTile(start))
         {
@@ -271,7 +297,7 @@ public class TileManager : MonoBehaviour
             foreach(CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
             {
                 Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
-                if(!IsImpassable(next))
+                if(!IsImpassable(next, unitBlocks))
                 {
                     float new_cost = cost_so_far[current] + tileCostFunction(next);
                     if(!cost_so_far.ContainsKey(next) || new_cost < cost_so_far[next])
@@ -298,6 +324,40 @@ public class TileManager : MonoBehaviour
             path.Insert(0, last);
         }
         path.Add(start);
+
+        return path;
+    }
+
+    public List<Vector3Int> GetTilesInRange(Vector3Int start, int range, bool unitsBlock = true)
+    {
+        List<Vector3Int> path = new List<Vector3Int>();
+        path.Add(start);
+        var frontier = new Queue<Vector3Int>();
+        var nextFrontier = new Queue<Vector3Int>();
+        frontier.Enqueue(start);
+        /*Dictionary<Vector3Int, Vector3Int> came_from = new Dictionary<Vector3Int, Vector3Int>();
+        came_from[start] = start;*/
+
+        for(int i = 0; i < range; i++)
+        {
+            while(frontier.Count > 0)
+            {
+                var current = frontier.Dequeue();
+                foreach (CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
+                {
+                    Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
+                    if (IsImpassable(next, unitsBlock)) continue;
+                    if (!path.Contains(next))
+                    {
+                        nextFrontier.Enqueue(next);
+                        path.Add(next);
+                    }
+                }
+            }
+            Queue<Vector3Int> temp = frontier;
+            frontier = nextFrontier;
+            nextFrontier = temp;
+        }
 
         return path;
     }
@@ -334,6 +394,11 @@ public class TileManager : MonoBehaviour
 
         return path;
 
+    }
+
+    public TileBase GetTile(Vector3Int tilePos)
+    {
+        return map.GetTile(tilePos);
     }
 
 
