@@ -395,7 +395,7 @@ MonoBehaviour:
   tileDatas:
   - {fileID: 11400000, guid: c794c8b7bd2d1f44ebb60bd9386a82c7, type: 2}
   - {fileID: 11400000, guid: c2fb84ff8790f634ba60e9f39a23e146, type: 2}
-  battleManager: {fileID: 2036777095}
+  battleManager: {fileID: 0}
 --- !u!4 &1141602838
 Transform:
   m_ObjectHideFlags: 0
@@ -1309,6 +1309,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+--- !u!114 &1873856491 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7243422476876719891, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+  m_PrefabInstance: {fileID: 1873856490}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49352f861f314a5438ce49a31a84b02c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1902515052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1650,12 +1661,18 @@ MonoBehaviour:
   state:
     playerUnits: []
     enemyUnits: []
-    hexGrid: {fileID: 0}
+    map: {fileID: 0}
     battleManager: {fileID: 0}
+  playerUnits:
+  - {fileID: 2108222063}
+  enemyUnits:
+  - {fileID: 1241662621447715532}
+  - {fileID: 1873856491}
+  map: {fileID: 1141602837}
   isBattleOver: 0
-  isPlayerTurnOver: 0
-  selectedPlayerUnit: {fileID: 0}
-  ui: {fileID: 1323364096}
+  isPlayerTurn: 1
+  selectedUnit: {fileID: 0}
+  ui: {fileID: 0}
 --- !u!4 &2036777096
 Transform:
   m_ObjectHideFlags: 0
@@ -1733,6 +1750,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8264826747215317850, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
   m_PrefabInstance: {fileID: 2108222061}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2108222063 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8264826747215317851, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
+  m_PrefabInstance: {fileID: 2108222061}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7337200a38e9344187314b9d1bfe583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1241662621447715531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1810,3 +1838,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+--- !u!114 &1241662621447715532 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7243422476876719891, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+  m_PrefabInstance: {fileID: 1241662621447715531}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953726711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49352f861f314a5438ce49a31a84b02c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

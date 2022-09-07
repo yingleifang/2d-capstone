@@ -91,8 +91,19 @@ public class BattleManager : MonoBehaviour
         {   
             //yield return enemy.performAction(state);
         }
-        isPlayerTurn = true;
+
+        StartOfPlayerTurn();
         yield return null;
+    }
+
+    public void StartOfPlayerTurn()
+    {
+        foreach(PlayerUnit unit in playerUnits)
+        {
+            unit.StartOfTurn();
+        }
+
+        isPlayerTurn = true;
     }
 
     // Update is called once per frame

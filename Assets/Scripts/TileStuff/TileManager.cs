@@ -172,7 +172,6 @@ public class TileManager : MonoBehaviour
     {
         Vector2 screenPos = Camera.main.ScreenToWorldPoint(pos);
         return map.WorldToCell(screenPos);
-        }
     }
 
     public void SpawnUnit(Vector3Int location, Unit unit)
