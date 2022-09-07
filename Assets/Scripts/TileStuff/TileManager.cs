@@ -227,6 +227,7 @@ public class TileManager : MonoBehaviour
         {
             return true;
         }
+
         if(unitsBlock)
         {
             if(GetUnit(cellCoords))
@@ -234,7 +235,7 @@ public class TileManager : MonoBehaviour
                 return true;
             }
         }
-        return false; // TODO: baseTileDatas doesn't work. Will probably need to make child of Tile class ?
+        return false;
     }
 
     public bool IsImpassable(CubeCoord cubeCoords) 

@@ -45,11 +45,11 @@ public class BattleManager : MonoBehaviour
     {
         if (unit is PlayerUnit)
         {
-            state.playerUnits.Add((PlayerUnit)unit);
+            playerUnits.Add((PlayerUnit)unit);
         }
         else if (unit is EnemyUnit)
         {
-            state.enemyUnits.Add((EnemyUnit)unit);
+            enemyUnits.Add((EnemyUnit)unit);
         }
         else
         {
@@ -61,33 +61,33 @@ public class BattleManager : MonoBehaviour
     {
         if (unit is PlayerUnit)
         {
-            state.playerUnits.Remove((PlayerUnit)unit);
+            playerUnits.Remove((PlayerUnit)unit);
         }
         else if (unit is EnemyUnit)
         {
-            state.enemyUnits.Remove((EnemyUnit)unit);
+            enemyUnits.Remove((EnemyUnit)unit);
         }
         else
         {
             Debug.Log("Removing a null unit");
         }
-        Debug.Log(state.enemyUnits.Count);
+        Debug.Log(enemyUnits.Count);
 
-        if (state.playerUnits.Count <= 0)
+        if (playerUnits.Count <= 0)
         {
             StartCoroutine(ui.SwitchScene("GameOverScreen"));
         }
-        if (state.enemyUnits.Count <= 0)
+        if (enemyUnits.Count <= 0)
         {
             StartCoroutine(ui.SwitchScene());
         }
-        Debug.Log(state.enemyUnits.Count);
+        Debug.Log(enemyUnits.Count);
     }
 
     
     IEnumerator performEnemyMoves()
     {
-        foreach(EnemyUnit enemy in state.enemyUnits)
+        foreach(EnemyUnit enemy in enemyUnits)
         {   
             //yield return enemy.performAction(state);
         }
