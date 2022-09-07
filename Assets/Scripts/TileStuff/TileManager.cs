@@ -168,6 +168,7 @@ public class TileManager : MonoBehaviour
     public void AddUnit(Vector3Int location, Unit unit)
     {
         dynamicTileDatas[location].unit = unit;
+        
     }
 
     public void RemoveUnit(Vector3Int location)

@@ -12,8 +12,8 @@ public abstract class Unit: MonoBehaviour
     public int health, attackDamage, attackRange, movementSpeed, coolDown;
 
     public Vector3Int location;
-    public Tilemap map;
-    public TileManager tileManager;
+    private Tilemap map;
+    private TileManager tileManager;
 
     [SerializeField]
     private AudioSource deathSound;
@@ -29,8 +29,11 @@ public abstract class Unit: MonoBehaviour
         currentAttackRange = attackRange;
         currentMovementSpeed = movementSpeed;
         currentCoolDown = coolDown;
+        tileManager = FindObjectOfType<TileManager>();
+        map = FindObjectOfType<Tilemap>();
         transform.position = map.CellToWorld(location);
         tileManager.AddUnit(location, this);
+
     }
 
     public abstract bool UseAbility(Vector3Int target);

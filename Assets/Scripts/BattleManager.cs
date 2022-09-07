@@ -31,6 +31,25 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(performEnemyMoves());
     }
 
+    public void AddUnit(Unit unit)
+    {
+        if (unit is PlayerUnit)
+        {
+            state.playerUnits.Add((PlayerUnit)unit);
+        }
+        else if (unit is EnemyUnit)
+        {
+            state.enemyUnits.Add((EnemyUnit)unit);
+        }
+        else
+        {
+            Debug.Log("Adding a null unit");
+        }
+        
+    }
+
+    
+
     public void highlightPlayerRange(PlayerUnit unit)
     {
         Debug.Log("Highlighting player range");

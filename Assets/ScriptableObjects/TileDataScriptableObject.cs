@@ -9,6 +9,5 @@ public class TileDataScriptableObject : ScriptableObject
     public TileBase[] tiles;
     public int movementSpeedModifier;
     public bool impassable;
-    
-    
+    public bool hazardous;
 }
