@@ -9,6 +9,30 @@ public class PlayerUnit : Unit
 
     private bool selected;
     private Type type;
+    public bool hasMoved = false;
+    public bool hasAttacked = false;
+
+    public override void DoAttack(Unit target)
+    {
+        base.DoAttack(target);
+        hasAttacked = true;
+    }
+
+    public override bool DoMovement(Vector3Int target)
+    {
+        bool success = base.DoMovement(target);
+        if(success)
+        {
+            hasMoved = true;
+        }
+        return success;
+    }
+
+    public override void StartOfTurn()
+    {
+        hasMoved = false;
+        hasAttacked = false;
+    }
 
     public override bool UseAbility(Vector3Int target)
     {

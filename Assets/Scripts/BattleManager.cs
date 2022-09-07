@@ -7,55 +7,35 @@ public class BattleState
 {
     public List<PlayerUnit> playerUnits;
     public List<EnemyUnit> enemyUnits;
-    public HexGrid hexGrid;
+    public TileManager map;
     [HideInInspector] public BattleManager battleManager;
 }
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField]
+    [HideInInspector]
     public BattleState state;
+    public List<PlayerUnit> playerUnits;
+    public List<EnemyUnit> enemyUnits;
+    public TileManager map;
     public bool isBattleOver;
-    public bool isPlayerTurnOver;
-    public PlayerUnit selectedPlayerUnit;
+    public bool isPlayerTurn = true;
+    public Unit selectedUnit;
 
     // Start is called before the first frame update
     void Start()
     {
+        state.playerUnits = playerUnits;
+        state.enemyUnits = enemyUnits;
+        state.map = map;
         state.battleManager = this;
     }
 
     public void onPlayerEndTurn()
     {
         Debug.Log("Player ended turn");
+        isPlayerTurn = false;
         StartCoroutine(performEnemyMoves());
-    }
-
-    public void highlightPlayerRange(PlayerUnit unit)
-    {
-        Debug.Log("Highlighting player range");
-
-        /*List<HexCell> cells;
-        Color highlightColor;
-        if(unit.canMove)
-        {
-            cells = unit.getMoveRange(state);
-            highlightColor = Color.blue;
-        } else if(unit.canAttack)
-        {
-            cells = unit.getAttackRange(state);
-            highlightColor = Color.red;
-        } else
-        {
-            selectedPlayerUnit = null;
-            return;
-        }
-        
-        foreach(HexCell cell in cells) {
-            state.hexGrid.ColorCell(cell, highlightColor);
-        }*/
-
-        selectedPlayerUnit = unit;
     }
 
     IEnumerator performEnemyMoves()
@@ -64,13 +44,102 @@ public class BattleManager : MonoBehaviour
         {   
             //yield return enemy.performAction(state);
         }
-
+        isPlayerTurn = true;
         yield return null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
+            Debug.Log(tilePos);
+
+            Unit curUnit = map.GetUnit(tilePos);
+            Debug.Log(curUnit);
+            if(!map.GetTile(tilePos))
+            {
+                DeselectUnit();
+            } else if (curUnit is PlayerUnit)
+            {
+                SelectUnit(curUnit);    
+            }
+            else if (curUnit is EnemyUnit)
+            {
+                if (isPlayerTurn && selectedUnit is PlayerUnit unit 
+                    && unit.hasMoved && !unit.hasAttacked && unit.IsTileInAttackRange(tilePos, map))
+                {
+                    unit.DoAttack(curUnit);
+                    DeselectUnit();
+                }
+                else
+                {
+                    SelectUnit(curUnit);
+                }
+            }
+            else if (curUnit == null)
+            {
+                if(isPlayerTurn && selectedUnit is PlayerUnit unit
+                    && !unit.hasMoved && unit.IsTileInMoveRange(tilePos, map))
+                {
+                    unit.DoMovement(tilePos);
+                    ShowUnitAttackRange(unit);
+                }
+                 else
+                {
+                    DeselectUnit();
+                }
+                
+            }
+            else
+            {
+                DeselectUnit();
+            }
+        }
+    }
+
+    public void SelectUnit(Unit unit)
+    {
+        map.ClearHighlights();
+        selectedUnit = unit;
+        if(unit is PlayerUnit player)
+        {
+            if (!player.hasMoved)
+            {
+                ShowUnitMoveRange(unit);
+            }
+            else if (!player.hasAttacked)
+            {
+                ShowUnitAttackRange(unit);
+            }
+        } else if(unit is EnemyUnit)
+        {
+            ShowUnitThreatRange(unit);
+        }
+    }
+
+    public void DeselectUnit()
+    {
+        map.ClearHighlights();
+        selectedUnit = null;
+    }
+
+    private void ShowUnitMoveRange(Unit unit)
+    {
+        map.ClearHighlights();
+        map.HighlightPath(unit.GetTilesInMoveRange(map), Color.blue);
+    }
+
+    private void ShowUnitAttackRange(Unit unit)
+    {
+        map.ClearHighlights();
+        map.HighlightPath(unit.GetTilesInAttackRange(map), Color.red);
+    }
+
+    private void ShowUnitThreatRange(Unit unit)
+    {
+        map.ClearHighlights();
+        map.HighlightPath(unit.GetTilesInThreatRange(map), Color.red);
     }
 }
