@@ -25,6 +25,8 @@ public class BattleManager : MonoBehaviour
     public Unit selectedUnit;
     public UIController ui;
 
+    PlayerUnit playerUnit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,8 @@ public class BattleManager : MonoBehaviour
         state.enemyUnits = enemyUnits;
         state.map = map;
         state.battleManager = this;
+
+        playerUnit = FindObjectOfType<PlayerUnit>();
     }
 
     public void onPlayerEndTurn()

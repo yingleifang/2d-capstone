@@ -17,7 +17,6 @@ public class UIController : MonoBehaviour
         while (blackSquare.GetComponent<Image>().color.a < 1)
         {
             newA = goColor.a + (fadeSpeed * Time.deltaTime);
-            Debug.Log(newA);
             goColor = new Color (goColor.r, goColor.g, goColor.b, newA);
             blackSquare.GetComponent<Image>().color = goColor;
             yield return null;

@@ -20,7 +20,7 @@ public class PlayerUnit : Unit
 
     public override bool DoMovement(Vector3Int target)
     {
-        bool success = base.DoMovement(target);
+        bool success = base.DoMovementAlongPath(target);
         if(success)
         {
             hasMoved = true;

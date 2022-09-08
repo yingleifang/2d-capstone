@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
+using UnityEngine.UIElements;
 
 public abstract class Unit: MonoBehaviour
 {
@@ -23,6 +24,12 @@ public abstract class Unit: MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
+    protected int currentWaypointIndex = 0;
+    protected List<Vector3Int> path = null;
+    protected BattleManager battleManager;
+
+    public bool inMovement = false;
+
     public void Start() 
     {
         currentHealth = health;
@@ -35,6 +42,8 @@ public abstract class Unit: MonoBehaviour
         transform.position = map.CellToWorld(location);
         tileManager.SpawnUnit(location, this);
 
+        battleManager = FindObjectOfType<BattleManager>();
+        battleManager = FindObjectOfType<BattleManager>();
     }
 
     public abstract bool UseAbility(Vector3Int target);
@@ -71,6 +80,43 @@ public abstract class Unit: MonoBehaviour
         return true;
         //TODO Check bounds here. Access map classs to do this.
         //Trigger animations here
+    }
+
+    public virtual bool DoMovementAlongPath(Vector3Int target)
+    {
+        if (map.GetTile(target) == null)
+        {
+            return false;
+        }
+        if (this.path == null)
+        {
+            this.path = battleManager.state.map.FindShortestPath(location, target);
+            this.inMovement = true;
+        }
+        StartCoroutine(smoothMovement());
+
+        return true;
+        //TODO Check bounds here. Access map classs to do this.
+        //Trigger animations here
+    }
+
+    IEnumerator smoothMovement()
+    {
+
+        while (currentWaypointIndex < path.Count)
+        {
+            Debug.Log(String.Format("currentwayIndex: {0} ; pathCount: {1}", currentWaypointIndex, path.Count));
+            var step = movementSpeed * Time.deltaTime * 10;
+            Vector3 worldPostion = tileManager.GetTileAtScreenPosition(path[currentWaypointIndex]);
+            transform.position = Vector3.MoveTowards(transform.position, worldPostion, step);
+            if (Vector3.Distance(transform.position, worldPostion) < 0.00001f)
+            {
+                currentWaypointIndex++;
+            }
+            yield return null;
+        }
+        this.path = null;
+        this.inMovement = false;
     }
 
     public virtual List<Vector3Int> GetTilesInMoveRange(TileManager map)
