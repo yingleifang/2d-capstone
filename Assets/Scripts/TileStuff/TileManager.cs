@@ -173,6 +173,11 @@ public class TileManager : MonoBehaviour
         return map.WorldToCell(screenPos);
     }
 
+    public Vector3 CellToWorldPosition(Vector3Int pos)
+    {
+        return map.CellToWorld(pos);
+    }
+
     public void SpawnUnit(Vector3Int location, Unit unit)
     {
         dynamicTileDatas[location].unit = unit;

@@ -107,7 +107,7 @@ public abstract class Unit: MonoBehaviour
         {
             Debug.Log(String.Format("currentwayIndex: {0} ; pathCount: {1}", currentWaypointIndex, path.Count));
             var step = movementSpeed * Time.deltaTime * 10;
-            Vector3 worldPostion = tileManager.GetTileAtScreenPosition(path[currentWaypointIndex]);
+            Vector3 worldPostion = tileManager.CellToWorldPosition(path[currentWaypointIndex]);
             transform.position = Vector3.MoveTowards(transform.position, worldPostion, step);
             if (Vector3.Distance(transform.position, worldPostion) < 0.00001f)
             {
