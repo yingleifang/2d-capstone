@@ -87,7 +87,8 @@ public class BattleManager : MonoBehaviour
     
     IEnumerator performEnemyMoves()
     {
-        foreach(EnemyUnit enemy in enemyUnits)
+        EnemyUnit[] enemies = enemyUnits.ToArray();
+        foreach(EnemyUnit enemy in enemies)
         {   
             yield return enemy.performAction(state);
         }
