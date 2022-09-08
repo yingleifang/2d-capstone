@@ -329,7 +329,6 @@ public class TileManager : MonoBehaviour
             last = came_from[last];
             path.Insert(0, last);
         }
-        path.Add(start);
 
         return path;
     }
@@ -396,7 +395,6 @@ public class TileManager : MonoBehaviour
             path.Add(traverse);
             traverse = came_from[traverse];
         }
-        path.Add(start);
 
         return path;
 

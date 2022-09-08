@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class Unit: MonoBehaviour
 {
@@ -88,19 +89,16 @@ public abstract class Unit: MonoBehaviour
         {
             return false;
         }
-        if (this.path == null)
-        {
-            this.path = battleManager.state.map.FindShortestPath(location, target);
-            this.inMovement = true;
-        }
-        StartCoroutine(smoothMovement());
+        this.path = battleManager.state.map.FindShortestPath(location, target);
+        this.inMovement = true;
+        StartCoroutine(smoothMovement(target));
 
         return true;
         //TODO Check bounds here. Access map classs to do this.
         //Trigger animations here
     }
 
-    IEnumerator smoothMovement()
+    IEnumerator smoothMovement(Vector3Int target)
     {
 
         while (currentWaypointIndex < path.Count)
@@ -117,6 +115,14 @@ public abstract class Unit: MonoBehaviour
         }
         this.path = null;
         this.inMovement = false;
+        location = target;
+        transform.position = map.CellToWorld(location);
+
+        if (tileManager.IsHazardous(target))
+        {
+            ChangeHealth(-1);
+            damageSound.Play();
+        }
     }
 
     public virtual List<Vector3Int> GetTilesInMoveRange(TileManager map)
