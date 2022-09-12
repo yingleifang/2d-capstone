@@ -40,7 +40,6 @@ public class BattleManager : MonoBehaviour
 
     public void onPlayerEndTurn()
     {
-        Debug.Log("Player ended turn");
         isPlayerTurn = false;
         StartCoroutine(performEnemyMoves());
     }
@@ -176,7 +175,8 @@ public class BattleManager : MonoBehaviour
             {
                 ShowUnitAttackRange(unit);
             }
-        } else if(unit is EnemyUnit)
+        } 
+        else if(unit is EnemyUnit)
         {
             ShowUnitThreatRange(unit);
         }
@@ -190,12 +190,14 @@ public class BattleManager : MonoBehaviour
 
     private void ShowUnitMoveRange(Unit unit)
     {
+        Debug.Log("Show move range");
         map.ClearHighlights();
         map.HighlightPath(unit.GetTilesInMoveRange(map), Color.blue);
     }
 
     private void ShowUnitAttackRange(Unit unit)
     {
+        Debug.Log("Show attack range");
         map.ClearHighlights();
         map.HighlightPath(unit.GetTilesInAttackRange(map), Color.red);
     }

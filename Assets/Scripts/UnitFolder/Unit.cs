@@ -94,6 +94,9 @@ public abstract class Unit: MonoBehaviour
             path = battleManager.state.map.FindShortestPath(location, target);
             inMovement = true;
         }
+        tileManager.RemoveUnitFromTile(location);
+        location = target;
+        tileManager.AddUnitToTile(target, this);
         StartCoroutine(smoothMovement(target));
 
         return true;
@@ -106,7 +109,6 @@ public abstract class Unit: MonoBehaviour
 
         while (currentWaypointIndex < path.Count)
         {
-            Debug.Log(String.Format("currentwayIndex: {0} ; pathCount: {1}", currentWaypointIndex, path.Count));
             var step = movementSpeed * Time.deltaTime * 10;
             Vector3 worldPostion = tileManager.CellToWorldPosition(path[currentWaypointIndex]);
             transform.position = Vector3.MoveTowards(transform.position, worldPostion, step);
@@ -120,9 +122,6 @@ public abstract class Unit: MonoBehaviour
         path = null;
         inMovement = false;
         currentWaypointIndex = 0;
-        tileManager.RemoveUnitFromTile(location);
-        location = target;
-        tileManager.AddUnitToTile(location, this);
         transform.position = map.CellToWorld(location);
 
         if (tileManager.IsHazardous(target))
