@@ -20,15 +20,38 @@ public class EnemyUnit : Unit
         if(!closest)
         {
             // No player units? Something's wrong
-            yield return null;
+            yield break;
         }
 
         // Move as far as possible towards the closest unit
         List<Vector3Int> path = state.map.FindShortestPath(location, closest.location);
-        Vector3Int goal = path[currentMovementSpeed];
+        Vector3Int goal;
+        int goalIndex;
+        if(currentMovementSpeed > path.Count)
+        {
+            goalIndex = path.Count - 1;
+        } else
+        {
+            goalIndex = currentMovementSpeed - 1;
+        }
+
+        if(goalIndex < 0)
+        {
+            goal = location;
+        } else
+        {
+            goal = path[goalIndex];
+        }
+
         if(goal == closest.location)
         {
-            goal = path[currentMovementSpeed - 1];
+            if(goalIndex - 1 < 0)
+            {
+                goal = location;
+            } else
+            {
+                goal = path[goalIndex - 1];
+            }
         }
         DoMovement(goal);
         yield return new WaitForSeconds(0.2f);

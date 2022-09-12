@@ -98,7 +98,7 @@ public class BattleManager : MonoBehaviour
         }
 
         StartOfPlayerTurn();
-        yield return null;
+        yield break;
     }
 
     public void StartOfPlayerTurn()
