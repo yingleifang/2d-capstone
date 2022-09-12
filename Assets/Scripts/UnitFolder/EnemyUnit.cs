@@ -53,7 +53,7 @@ public class EnemyUnit : Unit
                 goal = path[goalIndex - 1];
             }
         }
-        DoMovementAlongPath(goal);
+        DoMovement(goal);
         yield return new WaitForSeconds(0.2f);
 
         // Attack the unit if they're in range

@@ -18,16 +18,6 @@ public class PlayerUnit : Unit
         hasAttacked = true;
     }
 
-    public override bool DoMovement(Vector3Int target)
-    {
-        bool success = base.DoMovementAlongPath(target);
-        if(success)
-        {
-            hasMoved = true;
-        }
-        return success;
-    }
-
     public override void StartOfTurn()
     {
         hasMoved = false;

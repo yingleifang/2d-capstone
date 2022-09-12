@@ -66,29 +66,6 @@ public abstract class Unit: MonoBehaviour
         {
             return false;
         }
-        tileManager.RemoveUnitFromTile(location);
-        location = target;
-        tileManager.AddUnitToTile(location, this);
-        
-        transform.position = map.CellToWorld(location);
-
-        if (tileManager.IsHazardous(target))
-        {
-            ChangeHealth(-1);
-            damageSound.Play();
-        }
-
-        return true;
-        //TODO Check bounds here. Access map classs to do this.
-        //Trigger animations here
-    }
-
-    public virtual bool DoMovementAlongPath(Vector3Int target)
-    {
-        if (map.GetTile(target) == null)
-        {
-            return false;
-        }
         if (path == null)
         {
             path = battleManager.state.map.FindShortestPath(location, target);
@@ -159,10 +136,25 @@ public abstract class Unit: MonoBehaviour
         return map.GetTilesInRange(location, currentMovementSpeed + currentAttackRange, false);
     }
 
-    public void SetLocation(Vector3Int target)
+    public bool SetLocation(Vector3Int target)
     {
+        if (map.GetTile(target) == null)
+        {
+            return false;
+        }
+        tileManager.RemoveUnitFromTile(location);
+        location = target;
+        tileManager.AddUnitToTile(location, this);
+        
+        transform.position = map.CellToWorld(location);
 
-        //TODO Check bounds here. Access map classs to do this.        
+        if (tileManager.IsHazardous(target))
+        {
+            ChangeHealth(-1);
+            damageSound.Play();
+        }
+
+        return true;     
     }
 
     public void ChangeHealth(int amount)
