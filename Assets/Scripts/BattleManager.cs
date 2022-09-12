@@ -25,7 +25,27 @@ public class BattleManager : MonoBehaviour
     public Unit selectedUnit;
     public UIController ui;
 
+    [HideInInspector]
+    public static BattleManager instance;
+
     PlayerUnit playerUnit;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void EndTurn()
+    {
+        instance.onPlayerEndTurn();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -78,13 +98,65 @@ public class BattleManager : MonoBehaviour
 
         if (playerUnits.Count <= 0)
         {
-            StartCoroutine(ui.SwitchScene("GameOverScreen"));
+            StartCoroutine(ShowGameOver());
         }
         if (enemyUnits.Count <= 0)
         {
-            StartCoroutine(ui.SwitchScene());
+            StartCoroutine(NextLevel());
         }
         Debug.Log(enemyUnits.Count);
+    }
+
+    IEnumerator ShowGameOver()
+    {
+        foreach (EnemyUnit unit in enemyUnits.ToArray())
+        {
+            Destroy(unit.gameObject);
+        }
+        yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));
+        Destroy(gameObject); // Or similarly reset the battle manager
+    }
+
+    IEnumerator NextLevel()
+    {
+        List<Unit> unitsToSpawn = new List<Unit>();
+        unitsToSpawn.AddRange(enemyUnits);
+        unitsToSpawn.AddRange(playerUnits);
+
+        yield return StartCoroutine(ui.SwitchScene());
+        Debug.Log("Next level finished loading");
+        
+        yield return null; // Wait a frame for Start() methods. May not be needed
+
+        // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
+        map = FindObjectOfType<TileManager>();
+        // Should also probably be refactored. Kind of clunky and annoying
+        state.map = map;
+
+        foreach (Unit unit in unitsToSpawn.ToArray())
+        {
+            Vector3Int spawnLocation = unit.location;
+            Unit mapUnit = map.GetUnit(spawnLocation);
+            if(mapUnit)
+            {
+                mapUnit.ChangeHealth(-1);
+                if(!map.FindClosestFreeTile(spawnLocation, out spawnLocation))
+                {
+                    // No empty space on map for falling unit
+                    KillUnit(unit);
+                    Destroy(unit.gameObject);
+                    continue;
+                }
+                unit.ChangeHealth(-1);
+            }
+
+            map.AddUnitToTile(spawnLocation, unit);
+            // This is kind of gross but until we refactor the Unit class this is needed
+            unit.tileManager = map;
+            unit.map = map.map;
+        }
+
+        StartOfPlayerTurn();
     }
 
     

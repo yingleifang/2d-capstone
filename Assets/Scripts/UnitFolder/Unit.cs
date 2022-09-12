@@ -15,8 +15,8 @@ public abstract class Unit: MonoBehaviour
     public int health, attackDamage, attackRange, movementSpeed, coolDown;
 
     public Vector3Int location;
-    private Tilemap map;
-    private TileManager tileManager;
+    public Tilemap map;
+    public TileManager tileManager;
 
     [SerializeField]
     private AudioSource deathSound;
@@ -30,6 +30,11 @@ public abstract class Unit: MonoBehaviour
     protected BattleManager battleManager;
 
     public bool inMovement = false;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
 
     public void Start() 
     {
