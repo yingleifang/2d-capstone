@@ -89,8 +89,11 @@ public abstract class Unit: MonoBehaviour
         {
             return false;
         }
-        this.path = battleManager.state.map.FindShortestPath(location, target);
-        this.inMovement = true;
+        if (path == null)
+        {
+            path = battleManager.state.map.FindShortestPath(location, target);
+            inMovement = true;
+        }
         StartCoroutine(smoothMovement(target));
 
         return true;
@@ -113,9 +116,13 @@ public abstract class Unit: MonoBehaviour
             }
             yield return null;
         }
-        this.path = null;
-        this.inMovement = false;
+
+        path = null;
+        inMovement = false;
+        currentWaypointIndex = 0;
+        tileManager.RemoveUnitFromTile(location);
         location = target;
+        tileManager.AddUnitToTile(location, this);
         transform.position = map.CellToWorld(location);
 
         if (tileManager.IsHazardous(target))
