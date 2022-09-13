@@ -211,10 +211,10 @@ public class BattleManager : MonoBehaviour
     {
         if (curUnit == null)
         {
-            map.SpawnUnit(tilePos, ui.selectedPrefab.GetComponent<PlayerUnit>());
+            map.SpawnUnit(tilePos, ui.selectedPrefab);
             isBattleOver = false;
             isPlacingUnit = false;
-            StartCoroutine(ui.SwitchScene());
+            StartCoroutine(NextLevel());
         }
     }
 

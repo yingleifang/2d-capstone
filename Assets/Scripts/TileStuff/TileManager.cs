@@ -140,6 +140,14 @@ public class TileManager : MonoBehaviour
         BattleManager.instance.SpawnUnit(unit);
     }
 
+    public void SpawnUnit(Vector3Int location, GameObject unitPrefab)
+    {
+        GameObject go = (GameObject)Instantiate(unitPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        go.GetComponent<PlayerUnit>().SetLocation(location);
+        dynamicTileDatas[location].unit = go.GetComponent<PlayerUnit>();
+        BattleManager.instance.SpawnUnit(go.GetComponent<PlayerUnit>());
+    }
+
     public Unit GetUnit(Vector3Int tilePos)
     {
         if (!dynamicTileDatas.ContainsKey(tilePos))

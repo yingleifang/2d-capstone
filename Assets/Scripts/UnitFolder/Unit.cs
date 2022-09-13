@@ -27,12 +27,13 @@ public abstract class Unit: MonoBehaviour
 
     protected int currentWaypointIndex = 0;
     protected List<Vector3Int> path = null;
-    protected BattleManager battleManager;
 
     public bool inMovement = false;
 
     private void Awake()
     {
+        tileManager = FindObjectOfType<TileManager>();
+        map = FindObjectOfType<Tilemap>();
         DontDestroyOnLoad(this);
     }
 
@@ -43,13 +44,7 @@ public abstract class Unit: MonoBehaviour
         currentAttackRange = attackRange;
         currentMovementSpeed = movementSpeed;
         currentCoolDown = coolDown;
-        tileManager = FindObjectOfType<TileManager>();
-        battleManager = FindObjectOfType<BattleManager>();
-        
-        map = FindObjectOfType<Tilemap>();
         tileManager.SpawnUnit(location, this);
-
-        
     }
 
     public abstract bool UseAbility(Vector3Int target);
@@ -73,7 +68,7 @@ public abstract class Unit: MonoBehaviour
         }
         if (path == null)
         {
-            path = battleManager.state.map.FindShortestPath(location, target);
+            path = BattleManager.instance.state.map.FindShortestPath(location, target);
             inMovement = true;
         }
         tileManager.RemoveUnitFromTile(location);
@@ -147,9 +142,10 @@ public abstract class Unit: MonoBehaviour
             return false;
         }
         tileManager.RemoveUnitFromTile(location);
-        tileManager.AddUnitToTile(location, this);
+        tileManager.AddUnitToTile(target, this);
+        location = target;
         
-        transform.position = map.CellToWorld(location);
+        transform.position = map.CellToWorld(target);
 
         if (tileManager.IsHazardous(target))
         {
