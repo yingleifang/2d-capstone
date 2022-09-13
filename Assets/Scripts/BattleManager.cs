@@ -206,13 +206,19 @@ public class BattleManager : MonoBehaviour
                 HandlePlacingClicks(tilePos, curUnit);
             }
         }
+        if (isPlacingUnit)
+        {
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            worldPos.z = 0;
+            ui.selectedPrefab.transform.position = worldPos;
+        }
     }
 
     private void HandlePlacingClicks(Vector3Int tilePos, Unit curUnit)
     {
         if (curUnit == null)
         {
-            map.SpawnUnit(tilePos, ui.selectedPrefab);
+            map.SpawnUnit(tilePos, ui.selectedPrefab.GetComponent<PlayerUnit>());
             isBattleOver = false;
             isPlacingUnit = false;
             StartCoroutine(NextLevel());

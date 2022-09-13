@@ -34,7 +34,8 @@ public class PurchasableScript : MonoBehaviour
     {
         Debug.Log("MOUSEDOWN");
         battleManager.isPlacingUnit = true;
-        battleManager.ui.selectedPrefab = unitPrefab;
+        battleManager.ui.selectedPrefab = (GameObject)Instantiate(unitPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        Debug.Log("MOUSEDOWN");
         battleManager.ui.UnloadUnitSelection();
     }
 }
