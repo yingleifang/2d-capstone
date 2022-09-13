@@ -90,12 +90,14 @@ public class TileManager : MonoBehaviour
 
     private Dictionary<TileBase, TileDataScriptableObject> baseTileDatas;  
     public Dictionary<Vector3Int, DynamicTileData> dynamicTileDatas;
+    public static TileManager Instance {get; private set;}
     
     private Unit selectedUnit;
 
     // Start is called before the first frame update
     void Awake()
     {
+
         baseTileDatas = new Dictionary<TileBase, TileDataScriptableObject>();
         dynamicTileDatas = new Dictionary<Vector3Int, DynamicTileData>();
         foreach (TileDataScriptableObject tileData in tileDatas)
@@ -120,51 +122,7 @@ public class TileManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if(Input.GetMouseButtonDown(0))
-        {
-            Vector2 mapPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int gridPosition = map.WorldToCell(mapPosition);
 
-            TileBase clickedTile = map.GetTile(gridPosition);
-            Debug.Log(gridPosition);
-
-            Unit curUnit = dynamicTileDatas[gridPosition].unit;
-            if (curUnit is PlayerUnit)
-            {
-                ClearHighlights();
-                selectedUnit = dynamicTileDatas[gridPosition].unit;
-                SetTileColor(gridPosition, Color.yellow);
-            }
-            else if (curUnit is EnemyUnit && selectedUnit is PlayerUnit)
-            {
-                if (FindShortestPathBFS(selectedUnit.location, curUnit.location).Count() - 1 <= selectedUnit.attackRange)
-                {
-                    selectedUnit.DoAttack(curUnit);
-                }   
-            }
-            else if (curUnit == null && selectedUnit != null)
-            {
-                Debug.Log(FindShortestPathBFS(selectedUnit.location, gridPosition).Count);
-                if(FindShortestPathBFS(selectedUnit.location, gridPosition).Count - 1 <= selectedUnit.movementSpeed)
-                {
-                    selectedUnit.DoMovement(gridPosition);
-                    ClearHighlights();
-                    SetTileColor(gridPosition, Color.yellow);
-                }
-            }
-            else 
-            {
-                selectedUnit = null;
-            }
-
-            
-            List<Vector3Int> path = FindShortestPathBFS(Vector3Int.zero, gridPosition);
-            foreach(Vector3Int tile in path)
-            {
-                
-            }
-            
-        }*/
     }
 
     public Vector3Int GetTileAtScreenPosition(Vector3 pos)
@@ -181,6 +139,7 @@ public class TileManager : MonoBehaviour
     public void SpawnUnit(Vector3Int location, Unit unit)
     {
         dynamicTileDatas[location].unit = unit;
+        unit.SetLocation(location);
         battleManager.SpawnUnit(unit);
     }
 
@@ -196,6 +155,7 @@ public class TileManager : MonoBehaviour
     public void AddUnitToTile(Vector3Int location, Unit unit)
     {
         dynamicTileDatas[location].unit = unit;
+        unit.location = location;
     }
 
     public void KillUnit(Vector3Int location)

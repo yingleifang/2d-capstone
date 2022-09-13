@@ -23,7 +23,7 @@ public abstract class Unit: MonoBehaviour
     [SerializeField]
     private AudioSource attackSound, damageSound;
     [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
 
     protected int currentWaypointIndex = 0;
     protected List<Vector3Int> path = null;
@@ -39,12 +39,12 @@ public abstract class Unit: MonoBehaviour
         currentMovementSpeed = movementSpeed;
         currentCoolDown = coolDown;
         tileManager = FindObjectOfType<TileManager>();
+        battleManager = FindObjectOfType<BattleManager>();
+        
         map = FindObjectOfType<Tilemap>();
-        transform.position = map.CellToWorld(location);
         tileManager.SpawnUnit(location, this);
 
-        battleManager = FindObjectOfType<BattleManager>();
-        battleManager = FindObjectOfType<BattleManager>();
+        
     }
 
     public abstract bool UseAbility(Vector3Int target);
@@ -72,7 +72,6 @@ public abstract class Unit: MonoBehaviour
             inMovement = true;
         }
         tileManager.RemoveUnitFromTile(location);
-        location = target;
         tileManager.AddUnitToTile(target, this);
         StartCoroutine(smoothMovement(target));
 
@@ -116,7 +115,7 @@ public abstract class Unit: MonoBehaviour
 
     public virtual bool IsTileInMoveRange(Vector3Int tile, TileManager map)
     {
-        return map.RealDistance(location, tile) <= currentMovementSpeed;
+        return map.RealDistance(location, tile) <= currentMovementSpeed - 1;
     }
 
     public virtual List<Vector3Int> GetTilesInAttackRange(TileManager map)
@@ -127,7 +126,7 @@ public abstract class Unit: MonoBehaviour
 
     public virtual bool IsTileInAttackRange(Vector3Int tile, TileManager map)
     {
-        return map.RealDistance(location, tile, false) <= currentAttackRange;
+        return map.RealDistance(location, tile, false) <= currentAttackRange - 1;
     }
 
     public virtual List<Vector3Int> GetTilesInThreatRange(TileManager map)
@@ -143,7 +142,6 @@ public abstract class Unit: MonoBehaviour
             return false;
         }
         tileManager.RemoveUnitFromTile(location);
-        location = target;
         tileManager.AddUnitToTile(location, this);
         
         transform.position = map.CellToWorld(location);

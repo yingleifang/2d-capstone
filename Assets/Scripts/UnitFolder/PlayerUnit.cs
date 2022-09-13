@@ -5,12 +5,18 @@ using UnityEngine;
 public class PlayerUnit : Unit
 {
 
-    enum UnitType {RACOON, RAM, LIZARD};
+    public enum UnitType {RACOON, RAM, LIZARD};
 
     private bool selected;
-    private UnitType type;
+    public UnitType type;
     public bool hasMoved = false;
     public bool hasAttacked = false;
+
+    public override bool DoMovement(Vector3Int target)
+    {
+        hasMoved = true;
+        return base.DoMovement(target);
+    }
 
     public override void DoAttack(Unit target)
     {
