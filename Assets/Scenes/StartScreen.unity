@@ -431,6 +431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackSquare: {fileID: 227931026}
+  translucentRect: {fileID: 0}
+  unitPrefabs: []
+  selectedPrefab: {fileID: 0}
 --- !u!1 &724136140
 GameObject:
   m_ObjectHideFlags: 0
