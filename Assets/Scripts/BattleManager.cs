@@ -139,6 +139,7 @@ public class BattleManager : MonoBehaviour
         foreach (Unit unit in unitsToSpawn.ToArray())
         {
             Vector3Int spawnLocation = unit.location;
+            Debug.Log(spawnLocation);
             Unit mapUnit = map.GetUnit(spawnLocation);
             if(mapUnit)
             {
