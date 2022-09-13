@@ -66,13 +66,10 @@ public class CubeCoord {
 public class TileManager : MonoBehaviour
 {
     [SerializeField]
-    private Tilemap map;
+    public Tilemap map;
     
     [SerializeField]
     private List<TileDataScriptableObject> tileDatas;
-
-    [SerializeField]
-    private BattleManager battleManager;
 
     private List<Vector3Int> coloredTiles = new List<Vector3Int>();
 
@@ -140,7 +137,7 @@ public class TileManager : MonoBehaviour
     {
         dynamicTileDatas[location].unit = unit;
         unit.SetLocation(location);
-        battleManager.SpawnUnit(unit);
+        BattleManager.instance.SpawnUnit(unit);
     }
 
     public Unit GetUnit(Vector3Int tilePos)
@@ -160,7 +157,7 @@ public class TileManager : MonoBehaviour
 
     public void KillUnit(Vector3Int location)
     {
-        battleManager.KillUnit(dynamicTileDatas[location].unit);
+        BattleManager.instance.KillUnit(dynamicTileDatas[location].unit);
         dynamicTileDatas[location].unit = null;
     }
 
@@ -358,6 +355,36 @@ public class TileManager : MonoBehaviour
 
         return path;
 
+    }
+
+    public bool FindClosestFreeTile(Vector3Int start, out Vector3Int end)
+    {
+        end = start;
+        if(!IsImpassable(start))
+        {
+            return true;
+        }
+
+        var frontier = new Queue<Vector3Int>();
+        frontier.Enqueue(start);
+
+        while(frontier.Count > 0)
+        {
+            var current = frontier.Dequeue();
+            foreach (CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
+            {
+                Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
+                if (IsImpassable(next))
+                {
+                    frontier.Enqueue(next);
+                }
+                end = next;
+                return true;
+            }
+        }
+
+        // No free tiles found
+        return false;
     }
 
     public TileBase GetTile(Vector3Int tilePos)
