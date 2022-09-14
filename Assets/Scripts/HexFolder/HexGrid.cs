@@ -49,7 +49,6 @@ public class HexGrid : MonoBehaviour {
 		HexCoordinates coordinates = HexCoordinates.FromPosition(position);
 		int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
 		HexCell cell = cells[index];
-		Debug.Log("??????");
 		cell.color = color;
 		hexMesh.Triangulate(cells, index);
 	}

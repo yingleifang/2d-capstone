@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +14,7 @@ public class BattleState
     public List<EnemyUnit> enemyUnits;
     public TileManager map;
     [HideInInspector] public BattleManager battleManager;
+
 }
 
 public class BattleManager : MonoBehaviour
@@ -29,7 +33,11 @@ public class BattleManager : MonoBehaviour
     [HideInInspector]
     public static BattleManager instance;
 
+    EnemyPosNextScene enemyPosNextScene;
+
     PlayerUnit playerUnit;
+
+    bool showPreview = false;
 
     private void Awake()
     {
@@ -56,8 +64,17 @@ public class BattleManager : MonoBehaviour
         state.enemyUnits = enemyUnits;
         state.map = map;
         state.battleManager = this;
-
         playerUnit = FindObjectOfType<PlayerUnit>();
+        Save();
+        Load(1);
+        foreach(var pos in enemyPosNextScene.locations)
+        {
+            Debug.Log(pos);
+        }
+    }
+    public void ShowBattlePreview()
+    {
+        showPreview = !showPreview;
     }
 
     public void onPlayerEndTurn()
@@ -65,6 +82,8 @@ public class BattleManager : MonoBehaviour
         isPlayerTurn = false;
         StartCoroutine(performEnemyMoves());
     }
+
+
 
     public void SpawnUnit(Unit unit)
     {
@@ -189,8 +208,12 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (showPreview)
+        {
+        }
         if (Input.GetMouseButtonDown(0))
         {
+            ShowBattlePreview();
             Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
             Debug.Log(tilePos);
 
@@ -312,5 +335,32 @@ public class BattleManager : MonoBehaviour
     {
         map.ClearHighlights();
         map.HighlightPath(unit.GetTilesInThreatRange(map), Color.red);
+    }
+    private class EnemyPosNextScene
+    {
+        public List<Vector3Int> locations = new List<Vector3Int>();
+    }
+
+    private void Save()
+    {
+        EnemyPosNextScene enemyPos = new EnemyPosNextScene();        
+        foreach (var curUnit in enemyUnits)
+        {
+            enemyPos.locations.Add(curUnit.location);
+        }
+        string json = JsonUtility.ToJson(enemyPos);
+        File.WriteAllText(Application.dataPath + string.Format("/posData{0}.json", SceneManager.GetActiveScene().buildIndex), json);
+    }
+
+    private void Load(int sceneIndex)
+    {
+        if (File.Exists(Application.dataPath + string.Format("/posData{0}.json", SceneManager.GetActiveScene().buildIndex + 1))){
+            string savestring = File.ReadAllText(Application.dataPath + string.Format("/posData{0}.json", SceneManager.GetActiveScene().buildIndex + 1));
+            enemyPosNextScene = JsonUtility.FromJson<EnemyPosNextScene>(savestring);
+        }
+        else
+        {
+            Debug.Log("Can't find file");
+        }
     }
 }
