@@ -11,10 +11,12 @@ public abstract class Unit: MonoBehaviour
 
     public Vector3Int location;
 
+    public Animator anim;
+
+    public AudioComponent audio;
+
     [SerializeField]
-    private AudioSource deathSound;
-    [SerializeField]
-    private AudioSource attackSound, damageSound;
+    private SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
     [SerializeField]
     public SpriteRenderer spriteRenderer;
 
@@ -28,6 +30,14 @@ public abstract class Unit: MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this);
+        if(!anim)
+        {
+            audio = GetComponent<AudioComponent>();
+        }
+        if(!anim)
+        {
+            anim = GetComponent<Animator>();
+        }
     }
 
     public void Start() 
@@ -45,7 +55,7 @@ public abstract class Unit: MonoBehaviour
     public virtual IEnumerator DoAttack(Unit target)
     {
         target.ChangeHealth(currentAttackDamage * -1);
-        attackSound.Play();
+        audio.PlaySound(attackSound);
         yield break;
     }
 
@@ -102,7 +112,7 @@ public abstract class Unit: MonoBehaviour
         if (state.map.IsHazardous(target))
         {
             ChangeHealth(-1);
-            damageSound.Play();
+            audio.PlayDisposable(hitSound);
         }
     }
 
@@ -134,23 +144,33 @@ public abstract class Unit: MonoBehaviour
         return map.GetTilesInRange(location, currentMovementSpeed + currentAttackRange, false);
     }
 
-    public bool SetLocation(BattleState state, Vector3Int target)
+    public IEnumerator SetLocation(BattleState state, Vector3Int target)
     {
         if (state.map.GetTile(target) == null)
         {
-            return false;
+            yield break;
         }
 
         location = target;
         
         transform.position = state.map.CellToWorldPosition(target);
 
-        return true;     
+        anim.SetBool("Hide", false);
+        anim.SetTrigger("Appear");
+    }
+
+    public void PlayPlacementSound()
+    {
+        audio.PlayDisposable(placementSound);
     }
 
     public void ChangeHealth(int amount)
     {
         currentHealth += amount;
+        if (amount < 0)
+        {
+            audio.PlayDisposable(hitSound);
+        }
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -160,7 +180,7 @@ public abstract class Unit: MonoBehaviour
 
     public IEnumerator Die() 
     {
-        deathSound.Play();
+        audio.PlayDisposable(deathSound);
         spriteRenderer.enabled = false;
         Destroy(gameObject);
         yield break;

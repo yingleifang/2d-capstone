@@ -36,6 +36,7 @@ public class BattleManager : MonoBehaviour
     {
         isPlacingUnit = true;
         unitToPlace = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+        unitToPlace.anim.SetBool("Hide", false); // Replace with method
     }
 
     private void Awake()
@@ -75,6 +76,7 @@ public class BattleManager : MonoBehaviour
         foreach (Unit unit in unitsToSpawn.ToArray())
         {
             animations.Add(StartCoroutine(SpawnUnit(unit.location, unit)));
+            yield return new WaitForSeconds(0.1f);
         }
 
         foreach(Coroutine anim in animations)
@@ -157,7 +159,7 @@ public class BattleManager : MonoBehaviour
         }
 
         map.AddUnitToTile(spawnLocation, unit);
-        unit.SetLocation(GetState(), spawnLocation);
+        yield return StartCoroutine(unit.SetLocation(GetState(), spawnLocation));
 
         yield return StartCoroutine(map.OnUnitFallOnTile(GetState(), unit, spawnLocation));
     }
