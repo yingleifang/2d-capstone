@@ -48,7 +48,7 @@ public class UIController : MonoBehaviour
 
     public void PlayAgainButton()
     {
-        StartCoroutine(SwitchScene("StartScreen"));
+        StartCoroutine(SwitchScene("StartMenu"));
     }
 
     public IEnumerator ShowSelectionWindow()
