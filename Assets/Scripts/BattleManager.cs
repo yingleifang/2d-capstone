@@ -16,20 +16,27 @@ public class BattleState
 public class BattleManager : MonoBehaviour
 {
     [HideInInspector]
-    public BattleState state;
+    private BattleState state;
     public List<PlayerUnit> playerUnits;
     public List<EnemyUnit> enemyUnits;
+    public List<Unit> unitsToSpawn;
     public TileManager map;
     public bool isBattleOver = false;
     public bool isPlayerTurn = true;
     public bool isPlacingUnit = false;
+    public bool acceptingInput = true;
     public Unit selectedUnit;
     public UIController ui;
+    public PlayerUnit unitToPlace;
 
     [HideInInspector]
     public static BattleManager instance;
 
-    PlayerUnit playerUnit;
+    public void SetUnitToPlace(PlayerUnit prefab)
+    {
+        isPlacingUnit = true;
+        unitToPlace = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+    }
 
     private void Awake()
     {
@@ -41,48 +48,121 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        state = new BattleState();
     }
 
     public void EndTurn()
     {
-        instance.onPlayerEndTurn();
+        instance.OnPlayerEndTurn();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        ui.UnloadUnitSelection();
-        state.playerUnits = playerUnits;
-        state.enemyUnits = enemyUnits;
-        state.map = map;
-        state.battleManager = this;
-
-        playerUnit = FindObjectOfType<PlayerUnit>();
+        StartCoroutine(ui.HideSelectionWindow());
+        StartCoroutine(InitializeBattle());
     }
 
-    public void onPlayerEndTurn()
+    private IEnumerator InitializeBattle()
     {
-        isPlayerTurn = false;
-        StartCoroutine(performEnemyMoves());
+        // Done to delay coroutine to allow units to add themselves to unitsToSpawn
+        yield return new WaitForFixedUpdate();
+
+        // Place units waiting to be spawned on new map
+        Debug.Log("Units to spawn: " + unitsToSpawn.Count);
+        List<Coroutine> animations = new List<Coroutine>();
+        foreach (Unit unit in unitsToSpawn.ToArray())
+        {
+            animations.Add(StartCoroutine(SpawnUnit(unit.location, unit)));
+        }
+
+        foreach(Coroutine anim in animations)
+        {
+            yield return anim;
+        }
+
+        yield return StartCoroutine(UpdateBattleState());
+
+        animations.Clear();
+
+        // Activate any start of battle abilities
+        foreach (Unit unit in unitsToSpawn.ToArray())
+        {
+            animations.Add(StartCoroutine(unit.StartOfBattleAbility(GetState())));
+        }
+
+        foreach (Coroutine anim in animations)
+        {
+            yield return anim;
+        }
+
+        yield return StartCoroutine(UpdateBattleState());
+
+        unitsToSpawn.Clear();
+
+        yield return StartCoroutine(StartOfPlayerTurn());
+        isBattleOver = false;
+        selectedUnit = null;
+        acceptingInput = true;
+        isPlayerTurn = true;
     }
 
-    public void SpawnUnit(Unit unit)
+
+
+    public void OnPlayerEndTurn()
     {
-        if (unit is PlayerUnit)
+        if(isPlayerTurn && acceptingInput)
         {
-            playerUnits.Add((PlayerUnit)unit);
-        }
-        else if (unit is EnemyUnit)
-        {
-            enemyUnits.Add((EnemyUnit)unit);
-        }
-        else
-        {
-            Debug.Log("Adding a null unit");
+            isPlayerTurn = false;
+            StartCoroutine(performEnemyMoves());
         }
     }
 
-    public void KillUnit(Unit unit)
+    public IEnumerator SpawnUnit(Vector3Int location, Unit unit, bool addToUnitList = true)
+    {
+        if(addToUnitList)
+        {
+            if (unit is PlayerUnit)
+            {
+                playerUnits.Add((PlayerUnit)unit);
+            }
+            else if (unit is EnemyUnit)
+            {
+                enemyUnits.Add((EnemyUnit)unit);
+            }
+            else
+            {
+                Debug.Log("Adding a null unit");
+                yield break;
+            }
+        }
+
+        Vector3Int spawnLocation = location;
+        Debug.Log(spawnLocation);
+        Unit mapUnit = map.GetUnit(spawnLocation);
+        if (mapUnit)
+        {
+            // Unit fell on another unit!
+            Debug.Log("Falling unit collision!");
+            mapUnit.ChangeHealth(-1);
+            if (!map.FindClosestFreeTile(spawnLocation, out spawnLocation))
+            {
+                // No empty space on map for falling unit
+                KillUnit(unit);
+                Destroy(unit.gameObject);
+                yield break;
+            }
+            unit.ChangeHealth(-1);
+        }
+
+        map.AddUnitToTile(spawnLocation, unit);
+        unit.SetLocation(GetState(), spawnLocation);
+
+        yield return StartCoroutine(map.OnUnitFallOnTile(GetState(), unit, spawnLocation));
+    }
+
+    public IEnumerator KillUnit(Unit unit)
     {
         if (unit is PlayerUnit)
         {
@@ -98,69 +178,81 @@ public class BattleManager : MonoBehaviour
         }
         Debug.Log(enemyUnits.Count);
 
+        map.KillUnit(unit.location);
+        yield return StartCoroutine(unit.Die());
+
+        
+    }
+
+    public void CheckIfBattleOver()
+    {
         if (playerUnits.Count <= 0)
         {
+            isBattleOver = true;
             StartCoroutine(ShowGameOver());
         }
         if (enemyUnits.Count <= 0)
         {
             isBattleOver = true;
-            ui.LoadUnitSelection();
+            StartCoroutine(ui.ShowSelectionWindow());
         }
-        Debug.Log(enemyUnits.Count);
+        Debug.Log("Enemies left: " + enemyUnits.Count);
+    }
+
+    public BattleState GetState()
+    {
+        state.playerUnits = playerUnits;
+        state.enemyUnits = enemyUnits;
+        state.map = map;
+        state.battleManager = this;
+        return state;
     }
 
     IEnumerator ShowGameOver()
     {
+        yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));
         foreach (EnemyUnit unit in enemyUnits.ToArray())
         {
             Destroy(unit.gameObject);
         }
-        yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));
         Destroy(gameObject); // Or similarly reset the battle manager
     }
 
     IEnumerator NextLevel()
     {
-        List<Unit> unitsToSpawn = new List<Unit>();
+        acceptingInput = false;
+
         unitsToSpawn.AddRange(enemyUnits);
         unitsToSpawn.AddRange(playerUnits);
 
+        enemyUnits.Clear();
+        playerUnits.Clear();
+
         yield return StartCoroutine(ui.SwitchScene());
         Debug.Log("Next level finished loading");
-        
-        yield return null; // Wait a frame for Start() methods. May not be needed
+
+        yield return null; // Need to wait a frame for the new level to load
 
         // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
         map = FindObjectOfType<TileManager>();
-        // Should also probably be refactored. Kind of clunky and annoying
-        state.map = map;
+        // This is probably also unnecessary if we structure things better
+        ui = FindObjectOfType<UIController>();
+        Debug.Log("Found new TileManager: " + map != null);
 
-        foreach (Unit unit in unitsToSpawn.ToArray())
+        // If statement below destroys everything if we reach the win screen
+        // Should probably be handled more elegantly
+        if (map == null || ui == null)
         {
-            Vector3Int spawnLocation = unit.location;
-            Debug.Log(spawnLocation);
-            Unit mapUnit = map.GetUnit(spawnLocation);
-            if(mapUnit)
+            Debug.Log("No TileManager or UIController found. Destroying GameManager");
+            foreach (Unit unit in unitsToSpawn)
             {
-                mapUnit.ChangeHealth(-1);
-                if(!map.FindClosestFreeTile(spawnLocation, out spawnLocation))
-                {
-                    // No empty space on map for falling unit
-                    KillUnit(unit);
-                    Destroy(unit.gameObject);
-                    continue;
-                }
-                unit.ChangeHealth(-1);
+                Destroy(unit.gameObject);
             }
 
-            map.AddUnitToTile(spawnLocation, unit);
-            // This is kind of gross but until we refactor the Unit class this is needed
-            unit.tileManager = map;
-            unit.map = map.map;
+            Destroy(gameObject);
         }
 
-        StartOfPlayerTurn();
+        StartCoroutine(InitializeBattle());
     }
 
     
@@ -169,14 +261,47 @@ public class BattleManager : MonoBehaviour
         EnemyUnit[] enemies = enemyUnits.ToArray();
         foreach(EnemyUnit enemy in enemies)
         {   
-            yield return enemy.performAction(state);
+            yield return enemy.performAction(GetState());
+            yield return StartCoroutine(UpdateBattleState());
+            if(isBattleOver)
+            {
+                yield break;
+            }
         }
 
-        StartOfPlayerTurn();
+        yield return StartCoroutine(StartOfPlayerTurn());
+        DeselectUnit();
         yield break;
     }
 
-    public void StartOfPlayerTurn()
+    public IEnumerator UpdateBattleState()
+    {
+        List<Coroutine> animations = new List<Coroutine>();
+        foreach (Unit unit in playerUnits.ToArray())
+        {
+            if (unit.isDead)
+            {
+                animations.Add(StartCoroutine(KillUnit(unit)));
+            }
+        }
+
+        foreach (Unit unit in enemyUnits.ToArray())
+        {
+            if (unit.isDead)
+            {
+                animations.Add(StartCoroutine(KillUnit(unit)));
+            }
+        }
+
+        foreach (Coroutine anim in animations)
+        {
+            yield return anim;
+        }
+
+        CheckIfBattleOver();
+    }
+
+    public IEnumerator StartOfPlayerTurn()
     {
         foreach(PlayerUnit unit in playerUnits)
         {
@@ -184,12 +309,13 @@ public class BattleManager : MonoBehaviour
         }
 
         isPlayerTurn = true;
+        yield break;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (acceptingInput && Input.GetMouseButtonDown(0))
         {
             Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
             Debug.Log(tilePos);
@@ -197,35 +323,39 @@ public class BattleManager : MonoBehaviour
             Unit curUnit = map.GetUnit(tilePos);
             Debug.Log(curUnit);
 
-            if (!isBattleOver)
+            if (!isBattleOver && acceptingInput)
             {
-                HandleBattleClicks(tilePos, curUnit);
+                acceptingInput = false;
+                StartCoroutine(HandleBattleClicks(tilePos, curUnit));
             }
             else if (isPlacingUnit)
             {
-                HandlePlacingClicks(tilePos, curUnit);
+                StartCoroutine(HandlePlacingClicks(tilePos, curUnit));
             }
         }
         if (isPlacingUnit)
         {
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldPos.z = 0;
-            ui.selectedPrefab.transform.position = worldPos;
+            unitToPlace.transform.position = worldPos;
         }
     }
 
-    private void HandlePlacingClicks(Vector3Int tilePos, Unit curUnit)
+    private IEnumerator HandlePlacingClicks(Vector3Int tilePos, Unit curUnit)
     {
-        if (curUnit == null)
+        if (map.InBounds(tilePos) && curUnit == null)
         {
-            map.SpawnUnit(tilePos, ui.selectedPrefab.GetComponent<PlayerUnit>());
-            isBattleOver = false;
+            Debug.Log("Unit placement location: " + tilePos);
             isPlacingUnit = false;
+            unitToPlace.location = tilePos;
+            yield return StartCoroutine(SpawnUnit(tilePos, unitToPlace));
+            unitsToSpawn.Remove(unitToPlace);
+            unitToPlace = null;
             StartCoroutine(NextLevel());
         }
     }
 
-    private void HandleBattleClicks(Vector3Int tilePos, Unit curUnit)
+    private IEnumerator HandleBattleClicks(Vector3Int tilePos, Unit curUnit)
     {
         if(!map.GetTile(tilePos))
         {
@@ -239,8 +369,13 @@ public class BattleManager : MonoBehaviour
             if (isPlayerTurn && selectedUnit is PlayerUnit unit 
                 && unit.hasMoved && !unit.hasAttacked && unit.IsTileInAttackRange(tilePos, map))
             {
-                unit.DoAttack(curUnit);
-                DeselectUnit();
+                map.ClearHighlights();
+                yield return StartCoroutine(unit.DoAttack(curUnit));
+                if(curUnit.isDead)
+                {
+                    yield return StartCoroutine(KillUnit(curUnit));
+                    yield return StartCoroutine(UpdateBattleState());
+                }
             }
             else
             {
@@ -252,8 +387,13 @@ public class BattleManager : MonoBehaviour
             if(isPlayerTurn && selectedUnit is PlayerUnit unit
                 && !unit.hasMoved && unit.IsTileInMoveRange(tilePos, map))
             {
-                unit.DoMovement(tilePos);
-                ShowUnitAttackRange(unit);
+                map.ClearHighlights();
+                yield return StartCoroutine(unit.DoMovement(state, tilePos));
+                yield return StartCoroutine(UpdateBattleState());
+                if(!isBattleOver && unit && !unit.isDead)
+                {
+                    ShowUnitAttackRange(unit);
+                }
             }
                 else
             {
@@ -265,6 +405,7 @@ public class BattleManager : MonoBehaviour
         {
             DeselectUnit();
         }
+        acceptingInput = true;
     }
 
     public void SelectUnit(Unit unit)
@@ -298,19 +439,28 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("Show move range");
         map.ClearHighlights();
-        map.HighlightPath(unit.GetTilesInMoveRange(map), Color.blue);
+        if(isPlayerTurn)
+        {
+            map.HighlightPath(unit.GetTilesInMoveRange(map), Color.blue);
+        }
     }
 
     private void ShowUnitAttackRange(Unit unit)
     {
         Debug.Log("Show attack range");
         map.ClearHighlights();
-        map.HighlightPath(unit.GetTilesInAttackRange(map), Color.red);
+        if(isPlayerTurn)
+        {
+            map.HighlightPath(unit.GetTilesInAttackRange(map), Color.red);
+        }
     }
 
     private void ShowUnitThreatRange(Unit unit)
     {
         map.ClearHighlights();
-        map.HighlightPath(unit.GetTilesInThreatRange(map), Color.red);
+        if(isPlayerTurn)
+        {
+            map.HighlightPath(unit.GetTilesInThreatRange(map), Color.red);
+        }
     }
 }
