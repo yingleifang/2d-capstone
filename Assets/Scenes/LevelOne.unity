@@ -232,9 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 0}
-  tileManager: {fileID: 0}
-  battleManager: {fileID: 0}
-  popText: {fileID: 0}
+  image: {fileID: 0}
 --- !u!114 &61090696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,9 +960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 0}
-  tileManager: {fileID: 0}
-  battleManager: {fileID: 0}
-  popText: {fileID: 0}
+  image: {fileID: 0}
 --- !u!114 &200812627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1138,6 +1134,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 260573069}
   m_CullTransparentMesh: 1
+--- !u!1 &270826227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 270826229}
+  - component: {fileID: 270826228}
+  m_Layer: 0
+  m_Name: PreviewLayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &270826228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270826227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f54f62d150cda04ebab86c2a31d7f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
+--- !u!4 &270826229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270826227}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.638672, y: 10.873677, z: -0.32383567}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &564718174
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,7 +1401,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1275022860}
         m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: onPlayerEndTurn
+        m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1594,9 +1635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 0}
-  tileManager: {fileID: 0}
-  battleManager: {fileID: 0}
-  popText: {fileID: 0}
+  image: {fileID: 0}
 --- !u!114 &848999153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1668,12 +1707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackSquare: {fileID: 1223422473}
-  translucentRect: {fileID: 1215822919}
-  unitPrefabs:
-  - {fileID: 8264826747215317848, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
-  - {fileID: 8264826747215317848, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
-  - {fileID: 8264826747215317848, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
-  selectedPrefab: {fileID: 0}
+  selectionWindow: {fileID: 5939622120962527892, guid: a68927fa1117a464a95aa7901b58125e, type: 3}
 --- !u!224 &922542333
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1978,7 +2012,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0048676, y: 0.0099945}
+  m_AnchoredPosition: {x: 94, y: -28}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1223422475
@@ -2085,19 +2119,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063fe14bc54547849abcc6e4e1cf0656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state:
-    playerUnits: []
-    enemyUnits: []
-    map: {fileID: 0}
-    battleManager: {fileID: 0}
   playerUnits: []
   enemyUnits: []
+  unitsToSpawn: []
   map: {fileID: 1862399854}
   isBattleOver: 0
   isPlayerTurn: 1
   isPlacingUnit: 0
+  acceptingInput: 1
   selectedUnit: {fileID: 0}
   ui: {fileID: 922542332}
+  unitToPlace: {fileID: 0}
+  previewLayer: {fileID: 270826227}
 --- !u!4 &1275022861
 Transform:
   m_ObjectHideFlags: 0
@@ -2340,7 +2373,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 612802831941484922, guid: d58e1342823f34940bd1a637e94fcd09, type: 3}
         m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: ShowBattlePreview
+        m_MethodName: TurnOnPreview
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

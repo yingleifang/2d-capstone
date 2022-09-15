@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.GraphicsBuffer;
 
 
 [System.Serializable]
@@ -33,20 +34,18 @@ public class BattleManager : MonoBehaviour
     public UIController ui;
     public PlayerUnit unitToPlace;
 
+    public GameObject previewLayer;
+    bool hasPreview = false;
+
     [HideInInspector]
     public static BattleManager instance;
-
     public void SetUnitToPlace(PlayerUnit prefab)
     {
         isPlacingUnit = true;
         unitToPlace = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
         unitToPlace.anim.SetBool("Hide", false); // Replace with method
     }
-    EnemyPosNextScene enemyPosNextScene;
-
-    PlayerUnit playerUnit;
-
-    bool showPreview = false;
+    public EnemyPosNextScene enemyPosNextScene;
 
     private void Awake()
     {
@@ -67,11 +66,29 @@ public class BattleManager : MonoBehaviour
         instance.OnPlayerEndTurn();
     }
 
+    public void TurnOnPreview()
+    {
+        Debug.Log("!!!!!");
+        if (instance.hasPreview)
+        {
+            instance.hasPreview = false;
+            instance.previewLayer.SetActive(false);
+        }
+        else
+        {
+            instance.hasPreview = true;
+            instance.previewLayer.SetActive(true);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(ui.HideSelectionWindow());
         StartCoroutine(ui.HideSelectionWindow());
         StartCoroutine(InitializeBattle());
+        Save();
+        Load(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private IEnumerator InitializeBattle()
@@ -328,13 +345,9 @@ public class BattleManager : MonoBehaviour
     {
         if (acceptingInput && Input.GetMouseButtonDown(0))
         {
-            ShowBattlePreview();
             Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
-            Debug.Log(tilePos);
 
             Unit curUnit = map.GetUnit(tilePos);
-            Debug.Log(curUnit);
-
             if (!isBattleOver && acceptingInput)
             {
                 acceptingInput = false;
@@ -351,6 +364,7 @@ public class BattleManager : MonoBehaviour
             worldPos.z = 0;
             unitToPlace.transform.position = worldPos;
         }
+        
     }
 
     private IEnumerator HandlePlacingClicks(Vector3Int tilePos, Unit curUnit)
@@ -470,9 +484,13 @@ public class BattleManager : MonoBehaviour
     private void ShowUnitThreatRange(Unit unit)
     {
         map.ClearHighlights();
-        map.HighlightPath(unit.GetTilesInThreatRange(map), Color.red);
+        if (isPlayerTurn)
+        {
+            map.HighlightPath(unit.GetTilesInThreatRange(map), Color.red);
+        }
     }
-    private class EnemyPosNextScene
+
+    public class EnemyPosNextScene
     {
         public List<Vector3Int> locations = new List<Vector3Int>();
     }
@@ -480,9 +498,13 @@ public class BattleManager : MonoBehaviour
     private void Save()
     {
         EnemyPosNextScene enemyPos = new EnemyPosNextScene();        
-        foreach (var curUnit in enemyUnits)
+        foreach (var curUnit in unitsToSpawn)
         {
-            enemyPos.locations.Add(curUnit.location);
+            if (curUnit is EnemyUnit)
+            {
+                Debug.Log(curUnit.location);
+                enemyPos.locations.Add(curUnit.location);
+            }
         }
         string json = JsonUtility.ToJson(enemyPos);
         File.WriteAllText(Application.dataPath + string.Format("/posData{0}.json", SceneManager.GetActiveScene().buildIndex), json);
@@ -497,12 +519,6 @@ public class BattleManager : MonoBehaviour
         else
         {
             Debug.Log("Can't find file");
-        }
-    }
-}
-        if(isPlayerTurn)
-        {
-            map.HighlightPath(unit.GetTilesInThreatRange(map), Color.red);
         }
     }
 }
