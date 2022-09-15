@@ -8,9 +8,9 @@ public class EnemyUnit : Unit
 
     Type type;
 
-    public override bool UseAbility(Vector3Int target)
+    public override IEnumerator UseAbility(Vector3Int target)
     {
-        return false;
+        yield break;
     }
 
     public IEnumerator performAction(BattleState state)
@@ -53,14 +53,14 @@ public class EnemyUnit : Unit
                 goal = path[goalIndex - 1];
             }
         }
-        DoMovement(goal);
-        yield return new WaitForSeconds(0.2f);
+        yield return StartCoroutine(DoMovement(state, goal));
+        yield return new WaitForSeconds(0.1f);
 
         // Attack the unit if they're in range
-        if(IsTileInAttackRange(closest.location, state.map))
+        if(!isDead && IsTileInAttackRange(closest.location, state.map))
         {
-            DoAttack(closest);
-            yield return new WaitForSeconds(0.4f);
+            yield return StartCoroutine(DoAttack(closest));
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
@@ -70,9 +70,11 @@ public class EnemyUnit : Unit
         int closest = 100000;
         foreach (PlayerUnit unit in state.playerUnits)
         {
-            if(state.map.RealDistance(location, unit.location) < closest)
+            int distance = state.map.RealDistance(location, unit.location);
+            if (distance < closest)
             {
                 closestUnit = unit;
+                closest = distance;
             }
         }
 

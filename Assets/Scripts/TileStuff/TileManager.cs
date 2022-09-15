@@ -87,9 +87,8 @@ public class TileManager : MonoBehaviour
 
     private Dictionary<TileBase, TileDataScriptableObject> baseTileDatas;  
     public Dictionary<Vector3Int, DynamicTileData> dynamicTileDatas;
+    public Dictionary<Unit, Vector3Int> unitLocations;
     public static TileManager Instance {get; private set;}
-    
-    private Unit selectedUnit;
 
     // Start is called before the first frame update
     void Awake()
@@ -97,6 +96,7 @@ public class TileManager : MonoBehaviour
 
         baseTileDatas = new Dictionary<TileBase, TileDataScriptableObject>();
         dynamicTileDatas = new Dictionary<Vector3Int, DynamicTileData>();
+        unitLocations = new Dictionary<Unit, Vector3Int>();
         foreach (TileDataScriptableObject tileData in tileDatas)
         {
             foreach (TileBase tile in tileData.tiles)
@@ -135,9 +135,12 @@ public class TileManager : MonoBehaviour
 
     public void SpawnUnit(Vector3Int location, Unit unit)
     {
+        if(unitLocations.ContainsKey(unit))
+        {
+            RemoveUnitFromTile(unitLocations[unit]);
+        }
         dynamicTileDatas[location].unit = unit;
-        unit.SetLocation(location);
-        BattleManager.instance.SpawnUnit(unit);
+        unitLocations[unit] = location;
     }
 
     public Unit GetUnit(Vector3Int tilePos)
@@ -151,19 +154,31 @@ public class TileManager : MonoBehaviour
 
     public void AddUnitToTile(Vector3Int location, Unit unit)
     {
+        if (unitLocations.ContainsKey(unit))
+        {
+            RemoveUnitFromTile(unitLocations[unit]);
+        }
         dynamicTileDatas[location].unit = unit;
+        unitLocations[unit] = location;
         unit.location = location;
     }
 
     public void KillUnit(Vector3Int location)
     {
-        BattleManager.instance.KillUnit(dynamicTileDatas[location].unit);
-        dynamicTileDatas[location].unit = null;
+        if(dynamicTileDatas.ContainsKey(location))
+        {
+            unitLocations.Remove(dynamicTileDatas[location].unit);
+            dynamicTileDatas[location].unit = null;
+        }
     }
 
     public void RemoveUnitFromTile(Vector3Int location)
     {
-        dynamicTileDatas[location].unit = null;
+        if (dynamicTileDatas.ContainsKey(location))
+        {
+            unitLocations.Remove(dynamicTileDatas[location].unit);
+            dynamicTileDatas[location].unit = null;
+        }
     }
 
     public int Distance(CubeCoord start, CubeCoord end)
@@ -179,7 +194,26 @@ public class TileManager : MonoBehaviour
 
     public int RealDistance(Vector3Int start, Vector3Int end, bool unitBlocks = true)
     {
-        return FindShortestPath(start, end, unitBlocks).Count - 1;
+        return FindShortestPath(start, end, unitBlocks).Count;
+    }
+
+    public IEnumerator OnUnitFallOnTile(BattleState state, Unit unit, Vector3Int TilePos)
+    {
+        // Eventually want different effects for each tile
+        if (IsHazardous(TilePos)) {
+            unit.ChangeHealth(-1);
+        }
+        yield break;
+    }
+
+    public IEnumerator OnUnitWalkOnTile(BattleState state, Unit unit, Vector3Int TilePos)
+    {
+        // Eventually want different effects for each tile
+        if (IsHazardous(TilePos))
+        {
+            unit.ChangeHealth(-1);
+        }
+        yield break;
     }
 
     public bool IsImpassable(Vector3Int cellCoords, bool unitsBlock = true)
@@ -222,7 +256,7 @@ public class TileManager : MonoBehaviour
 
     public bool InBounds(Vector3Int cellCoords)
     {
-        if (dynamicTileDatas.ContainsKey(cellCoords))
+        if (GetTile(cellCoords))
         {
             return true;
         }
@@ -374,12 +408,15 @@ public class TileManager : MonoBehaviour
             foreach (CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
             {
                 Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
+                if (!InBounds(next)) continue;
                 if (IsImpassable(next))
                 {
                     frontier.Enqueue(next);
+                } else if (InBounds(next))
+                {
+                    end = next;
+                    return true;
                 }
-                end = next;
-                return true;
             }
         }
 

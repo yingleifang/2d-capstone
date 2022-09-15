@@ -1,29 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using System;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 public abstract class Unit: MonoBehaviour
 {
-    [HideInInspector]
     public int currentHealth, currentAttackDamage, currentAttackRange,
             currentMovementSpeed, currentCoolDown;
 
     public int health, attackDamage, attackRange, movementSpeed, coolDown;
 
     public Vector3Int location;
-    public Tilemap map;
-    public TileManager tileManager;
+
+    public Animator anim;
+
+    public AudioComponent audio;
 
     [SerializeField]
-    private AudioSource deathSound;
-    [SerializeField]
-    private AudioSource attackSound, damageSound;
+    private SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
     [SerializeField]
     public SpriteRenderer spriteRenderer;
+
+    public bool isDead = false;
 
     protected int currentWaypointIndex = 0;
     protected List<Vector3Int> path = null;
@@ -32,9 +29,15 @@ public abstract class Unit: MonoBehaviour
 
     private void Awake()
     {
-        tileManager = FindObjectOfType<TileManager>();
-        map = FindObjectOfType<Tilemap>();
         DontDestroyOnLoad(this);
+        if(!anim)
+        {
+            audio = GetComponent<AudioComponent>();
+        }
+        if(!anim)
+        {
+            anim = GetComponent<Animator>();
+        }
     }
 
     public void Start() 
@@ -44,15 +47,21 @@ public abstract class Unit: MonoBehaviour
         currentAttackRange = attackRange;
         currentMovementSpeed = movementSpeed;
         currentCoolDown = coolDown;
-        tileManager.SpawnUnit(location, this);
+        BattleManager.instance.unitsToSpawn.Add(this);
     }
 
-    public abstract bool UseAbility(Vector3Int target);
+    public abstract IEnumerator UseAbility(Vector3Int target);
 
-    public virtual void DoAttack(Unit target)
+    public virtual IEnumerator DoAttack(Unit target)
     {
         target.ChangeHealth(currentAttackDamage * -1);
-        attackSound.Play();
+        audio.PlaySound(attackSound);
+        yield break;
+    }
+
+    public virtual IEnumerator StartOfBattleAbility(BattleState state)
+    {
+        yield break;
     }
 
     public virtual void StartOfTurn()
@@ -60,33 +69,33 @@ public abstract class Unit: MonoBehaviour
         return;
     }
 
-    public virtual bool DoMovement(Vector3Int target)
+    public virtual IEnumerator DoMovement(BattleState state, Vector3Int target)
     {
-        if (map.GetTile(target) == null)
+        if (state.map.GetTile(target) == null)
         {
-            return false;
+            yield break;
         }
         if (path == null)
         {
-            path = BattleManager.instance.state.map.FindShortestPath(location, target);
+            path = state.map.FindShortestPath(location, target);
             inMovement = true;
         }
-        tileManager.RemoveUnitFromTile(location);
-        tileManager.AddUnitToTile(target, this);
-        StartCoroutine(smoothMovement(target));
+        state.map.RemoveUnitFromTile(location);
+        state.map.AddUnitToTile(target, this);
+        yield return StartCoroutine(smoothMovement(state, target));
 
-        return true;
+        yield break;
         //TODO Check bounds here. Access map classs to do this.
         //Trigger animations here
     }
 
-    IEnumerator smoothMovement(Vector3Int target)
+    IEnumerator smoothMovement(BattleState state, Vector3Int target)
     {
 
         while (currentWaypointIndex < path.Count)
         {
             var step = movementSpeed * Time.deltaTime * 10;
-            Vector3 worldPostion = tileManager.CellToWorldPosition(path[currentWaypointIndex]);
+            Vector3 worldPostion = state.map.CellToWorldPosition(path[currentWaypointIndex]);
             transform.position = Vector3.MoveTowards(transform.position, worldPostion, step);
             if (Vector3.Distance(transform.position, worldPostion) < 0.00001f)
             {
@@ -98,12 +107,12 @@ public abstract class Unit: MonoBehaviour
         path = null;
         inMovement = false;
         currentWaypointIndex = 0;
-        transform.position = map.CellToWorld(location);
+        transform.position = state.map.CellToWorldPosition(location);
 
-        if (tileManager.IsHazardous(target))
+        if (state.map.IsHazardous(target))
         {
             ChangeHealth(-1);
-            damageSound.Play();
+            audio.PlayDisposable(hitSound);
         }
     }
 
@@ -115,7 +124,7 @@ public abstract class Unit: MonoBehaviour
 
     public virtual bool IsTileInMoveRange(Vector3Int tile, TileManager map)
     {
-        return map.RealDistance(location, tile) <= currentMovementSpeed - 1;
+        return map.RealDistance(location, tile) <= currentMovementSpeed;
     }
 
     public virtual List<Vector3Int> GetTilesInAttackRange(TileManager map)
@@ -126,7 +135,7 @@ public abstract class Unit: MonoBehaviour
 
     public virtual bool IsTileInAttackRange(Vector3Int tile, TileManager map)
     {
-        return map.RealDistance(location, tile, false) <= currentAttackRange - 1;
+        return map.RealDistance(location, tile, false) <= currentAttackRange;
     }
 
     public virtual List<Vector3Int> GetTilesInThreatRange(TileManager map)
@@ -135,43 +144,46 @@ public abstract class Unit: MonoBehaviour
         return map.GetTilesInRange(location, currentMovementSpeed + currentAttackRange, false);
     }
 
-    public bool SetLocation(Vector3Int target)
+    public IEnumerator SetLocation(BattleState state, Vector3Int target)
     {
-        if (map.GetTile(target) == null)
+        if (state.map.GetTile(target) == null)
         {
-            return false;
+            yield break;
         }
-        tileManager.RemoveUnitFromTile(location);
-        tileManager.AddUnitToTile(target, this);
+
         location = target;
         
-        transform.position = map.CellToWorld(target);
+        transform.position = state.map.CellToWorldPosition(target);
 
-        if (tileManager.IsHazardous(target))
-        {
-            ChangeHealth(-1);
-            damageSound.Play();
-        }
+        anim.SetBool("Hide", false);
+        anim.SetTrigger("Appear");
+    }
 
-        return true;     
+    public void PlayPlacementSound()
+    {
+        audio.PlayDisposable(placementSound);
     }
 
     public void ChangeHealth(int amount)
     {
         currentHealth += amount;
-        if (currentHealth < 0)
+        if (amount < 0)
+        {
+            audio.PlayDisposable(hitSound);
+        }
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Die();
+            isDead = true;
         }
     }
 
-    public void Die() 
+    public IEnumerator Die() 
     {
-        deathSound.Play();
+        audio.PlayDisposable(deathSound);
         spriteRenderer.enabled = false;
-        tileManager.KillUnit(location);
-        Destroy(this.gameObject, 5);
+        Destroy(gameObject);
+        yield break;
     }
     
 }
