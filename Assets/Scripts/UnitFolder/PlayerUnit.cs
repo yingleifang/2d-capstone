@@ -7,21 +7,20 @@ public class PlayerUnit : Unit
 
     public enum UnitType {RACOON, RAM, LIZARD};
 
-    private bool selected;
     public UnitType type;
     public bool hasMoved = false;
     public bool hasAttacked = false;
 
-    public override bool DoMovement(Vector3Int target)
+    public override IEnumerator DoMovement(BattleState state, Vector3Int target)
     {
         hasMoved = true;
-        return base.DoMovement(target);
+        return base.DoMovement(state, target);
     }
 
-    public override void DoAttack(Unit target)
+    public override IEnumerator DoAttack(Unit target)
     {
-        base.DoAttack(target);
         hasAttacked = true;
+        return base.DoAttack(target);
     }
 
     public override void StartOfTurn()
@@ -30,11 +29,11 @@ public class PlayerUnit : Unit
         hasAttacked = false;
     }
 
-    public override bool UseAbility(Vector3Int target)
+    public override IEnumerator UseAbility(Vector3Int target)
     {
         if (currentCoolDown > 0)
         {
-            return false;
+            yield break;
         }
         switch(type)
         {
@@ -49,7 +48,9 @@ public class PlayerUnit : Unit
                 break;
 
         }
-        return false;
+        hasAttacked = true;
+        currentCoolDown = coolDown;
+        yield break;
     }
     
 }
