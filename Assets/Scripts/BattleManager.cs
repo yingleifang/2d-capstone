@@ -33,6 +33,7 @@ public class BattleManager : MonoBehaviour
     public Unit selectedUnit;
     public UIController ui;
     public PlayerUnit unitToPlace;
+    public TurnCountDown turnCounter;
 
     public GameObject previewLayer;
     bool hasPreview = false;
@@ -84,7 +85,6 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(ui.HideSelectionWindow());
         StartCoroutine(ui.HideSelectionWindow());
         StartCoroutine(InitializeBattle());
         Save();
@@ -145,6 +145,7 @@ public class BattleManager : MonoBehaviour
             isPlayerTurn = false;
             StartCoroutine(performEnemyMoves());
         }
+        turnCounter.SetCount();
     }
 
     public IEnumerator SpawnUnit(Vector3Int location, Unit unit, bool addToUnitList = true)
