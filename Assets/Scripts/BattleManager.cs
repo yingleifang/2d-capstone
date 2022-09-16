@@ -129,6 +129,18 @@ public class BattleManager : MonoBehaviour
 
         unitsToSpawn.Clear();
 
+        yield return new WaitForSeconds(0.5f);
+
+        // Place unit at start of round
+        isPlayerTurn = false;
+        isPlacingUnit = true;
+        unitToPlace = null;
+        yield return StartCoroutine(ui.ShowSelectionWindow());
+
+        yield return new WaitUntil(() => !isPlacingUnit);
+
+        CheckIfBattleOver();
+
         yield return StartCoroutine(StartOfPlayerTurn());
         isBattleOver = false;
         selectedUnit = null;
@@ -223,7 +235,7 @@ public class BattleManager : MonoBehaviour
         if (enemyUnits.Count <= 0)
         {
             isBattleOver = true;
-            StartCoroutine(ui.ShowSelectionWindow());
+            StartCoroutine(NextLevel());
         }
         Debug.Log("Enemies left: " + enemyUnits.Count);
     }
@@ -292,6 +304,7 @@ public class BattleManager : MonoBehaviour
         {   
             yield return enemy.performAction(GetState());
             yield return StartCoroutine(UpdateBattleState());
+            CheckIfBattleOver();
             if(isBattleOver)
             {
                 yield break;
@@ -326,8 +339,6 @@ public class BattleManager : MonoBehaviour
         {
             yield return anim;
         }
-
-        CheckIfBattleOver();
     }
 
     public IEnumerator StartOfPlayerTurn()
@@ -349,17 +360,17 @@ public class BattleManager : MonoBehaviour
             Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
 
             Unit curUnit = map.GetUnit(tilePos);
-            if (!isBattleOver && acceptingInput)
+
+            if (isPlacingUnit)
+            {
+                StartCoroutine(HandlePlacingClicks(tilePos, curUnit));
+            } else if (!isBattleOver && acceptingInput)
             {
                 acceptingInput = false;
                 StartCoroutine(HandleBattleClicks(tilePos, curUnit));
             }
-            else if (isPlacingUnit)
-            {
-                StartCoroutine(HandlePlacingClicks(tilePos, curUnit));
-            }
         }
-        if (isPlacingUnit)
+        if (isPlacingUnit && unitToPlace)
         {
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldPos.z = 0;
@@ -370,7 +381,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator HandlePlacingClicks(Vector3Int tilePos, Unit curUnit)
     {
-        if (map.InBounds(tilePos) && curUnit == null)
+        if (map.InBounds(tilePos) && curUnit == null && unitToPlace)
         {
             Debug.Log("Unit placement location: " + tilePos);
             isPlacingUnit = false;
@@ -378,7 +389,6 @@ public class BattleManager : MonoBehaviour
             yield return StartCoroutine(SpawnUnit(tilePos, unitToPlace));
             unitsToSpawn.Remove(unitToPlace);
             unitToPlace = null;
-            StartCoroutine(NextLevel());
         }
     }
 
@@ -402,6 +412,7 @@ public class BattleManager : MonoBehaviour
                 {
                     yield return StartCoroutine(KillUnit(curUnit));
                     yield return StartCoroutine(UpdateBattleState());
+                    CheckIfBattleOver();
                 }
             }
             else
@@ -417,6 +428,7 @@ public class BattleManager : MonoBehaviour
                 map.ClearHighlights();
                 yield return StartCoroutine(unit.DoMovement(state, tilePos));
                 yield return StartCoroutine(UpdateBattleState());
+                CheckIfBattleOver();
                 if(!isBattleOver && unit && !unit.isDead)
                 {
                     ShowUnitAttackRange(unit);
