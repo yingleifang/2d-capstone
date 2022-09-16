@@ -392,6 +392,13 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private IEnumerator MoveUnit(Unit unit, Vector3Int tilePos)
+    {
+        map.ClearHighlights();
+        yield return StartCoroutine(unit.DoMovement(state, tilePos));
+        yield return StartCoroutine(UpdateBattleState());
+    }
+
     private IEnumerator HandleBattleClicks(Vector3Int tilePos, Unit curUnit)
     {
         if(!map.GetTile(tilePos))
@@ -399,7 +406,17 @@ public class BattleManager : MonoBehaviour
             DeselectUnit();
         } else if (curUnit is PlayerUnit)
         {
-            SelectUnit(curUnit);    
+            if (isPlayerTurn && selectedUnit is PlayerUnit unit
+                && !unit.hasMoved && unit == curUnit)
+            {
+                yield return StartCoroutine(MoveUnit(unit, tilePos));
+                CheckIfBattleOver();
+                if(!isBattleOver && unit && !unit.isDead)
+                {
+                    ShowUnitAttackRange(unit);
+                }
+            }
+            SelectUnit(curUnit);
         }
         else if (curUnit is EnemyUnit)
         {
@@ -425,9 +442,7 @@ public class BattleManager : MonoBehaviour
             if(isPlayerTurn && selectedUnit is PlayerUnit unit
                 && !unit.hasMoved && unit.IsTileInMoveRange(tilePos, map))
             {
-                map.ClearHighlights();
-                yield return StartCoroutine(unit.DoMovement(state, tilePos));
-                yield return StartCoroutine(UpdateBattleState());
+                yield return StartCoroutine(MoveUnit(unit, tilePos));
                 CheckIfBattleOver();
                 if(!isBattleOver && unit && !unit.isDead)
                 {
@@ -451,7 +466,7 @@ public class BattleManager : MonoBehaviour
     {
         map.ClearHighlights();
         selectedUnit = unit;
-        if(unit is PlayerUnit player)
+        if(unit is PlayerUnit player && isPlayerTurn)
         {
             if (!player.hasMoved)
             {
