@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: hextile_ice
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: f267c5ce42e1aad42afb28a45b7e1926, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e353c2811fd775742bb0c4a8618e5d35, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
