@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: PlainTileSO
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: 2924d64d740cc644dafe37c6e227b79a, type: 2}
+  - {fileID: 11400000, guid: d5f957c8ec8f12a44bee3c15e9af12af, type: 2}
   movementSpeedModifier: 0
+  impassable: 0
+  hazardous: 0

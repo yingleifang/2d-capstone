@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpikeTileSO
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: 67efd6ef0fdd59d479e5a5f135aa6fce, type: 2}
+  - {fileID: 11400000, guid: 4795b560e75ac6b4db86bbf3712f7b2d, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 1
