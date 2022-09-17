@@ -59,6 +59,14 @@ MonoBehaviour:
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: 31881298027716544}
   audio: {fileID: 1657812232248823373}
+  startOfBattleAbilityFunction:
+    _target: {fileID: 11400000, guid: 1d8062989d59bc949ab728be25c1a814, type: 2}
+    _methodName: Nothing
+    _args: []
+    _dynamic: 0
+    _typeName: Unit+BattleCoroutine, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    dirty: 0
   deathSound:
     clip: {fileID: 8300000, guid: 1527c37c535617f48b9f3f7dac67421c, type: 3}
     volume: 0.5

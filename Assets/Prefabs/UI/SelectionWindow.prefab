@@ -535,8 +535,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitPrefabs:
   - {fileID: 8264826747215317851, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
-  - {fileID: 8264826747215317851, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
-  - {fileID: 8264826747215317851, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
+  - {fileID: 8264826747215317851, guid: 84d59a4ce5b7d374189f95244eca2ac4, type: 3}
+  - {fileID: 8264826747215317851, guid: e8d5fec484d603b42bcc5b58fe71f066, type: 3}
   unitIcons:
   - {fileID: 5939622118959646484}
   - {fileID: 5939622119781047907}

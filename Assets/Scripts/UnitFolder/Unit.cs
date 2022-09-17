@@ -1,19 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public abstract class Unit: MonoBehaviour
 {
-    public int currentHealth, currentAttackDamage, currentAttackRange,
-            currentMovementSpeed, currentCoolDown;
+    public int health;
+    [ReadOnly] public int currentHealth;
 
-    public int health, attackDamage, attackRange, movementSpeed, coolDown;
+    public int attackDamage;
+    [ReadOnly] public int currentAttackDamage;
+
+    public int attackRange;
+    [ReadOnly] public int currentAttackRange;
+
+    public int movementSpeed;
+    [ReadOnly] public int currentMovementSpeed;
+
+    public int coolDown;
+    [ReadOnly] public int currentCoolDown;
+
 
     public Vector3Int location;
 
     public Animator anim;
 
-    public AudioComponent audio;
+    public new AudioComponent audio;
+
+    [Serializable]
+    public class BattleCoroutine : SerializableCallback<BattleState, Unit, IEnumerator> {}
+
+    public BattleCoroutine startOfBattleAbilityFunction;
 
     [SerializeField]
     private SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
@@ -61,12 +78,19 @@ public abstract class Unit: MonoBehaviour
 
     public virtual IEnumerator StartOfBattleAbility(BattleState state)
     {
-        yield break;
+        return startOfBattleAbilityFunction?.Invoke(state, this);
     }
 
     public virtual void StartOfTurn()
     {
         return;
+    }
+
+    public virtual void StartOfBattle()
+    {
+        currentMovementSpeed = movementSpeed;
+        currentAttackDamage = attackDamage;
+        currentAttackRange = attackRange;
     }
 
     public virtual IEnumerator DoMovement(BattleState state, Vector3Int target)

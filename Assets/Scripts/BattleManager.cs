@@ -9,7 +9,7 @@ using static UnityEngine.GraphicsBuffer;
 
 
 [System.Serializable]
-public class BattleState
+public class BattleState : ScriptableObject
 {
     public List<PlayerUnit> playerUnits;
     public List<EnemyUnit> enemyUnits;
@@ -113,6 +113,11 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(UpdateBattleState());
 
         animations.Clear();
+
+        foreach(Unit unit in unitsToSpawn)
+        {
+            unit.StartOfBattle();
+        }
 
         // Activate any start of battle abilities
         foreach (Unit unit in unitsToSpawn.ToArray())
