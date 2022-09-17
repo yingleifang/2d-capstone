@@ -430,10 +430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55038df8b944ca047aa6df443ed8cc39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackSquare: {fileID: 227931026}
-  translucentRect: {fileID: 0}
-  unitPrefabs: []
-  selectedPrefab: {fileID: 0}
 --- !u!1 &724136140
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,6 +442,7 @@ GameObject:
   - component: {fileID: 724136143}
   - component: {fileID: 724136142}
   - component: {fileID: 724136141}
+  - component: {fileID: 724136145}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -536,6 +533,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &724136145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724136140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76dffee3ee29264ca204825d0ce1ecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackSquare: {fileID: 227931026}
+  unitSelectionWindow: {fileID: 0}
+  unitInfoWindow: {fileID: 0}
 --- !u!1 &1105108695
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +836,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 635767192}
+      - m_Target: {fileID: 724136145}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: StartButton
         m_Mode: 1

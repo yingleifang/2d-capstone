@@ -350,7 +350,6 @@ MonoBehaviour:
   location: {x: 1, y: 1, z: 0}
   anim: {fileID: 7421535317744620689}
   audio: {fileID: 4594956451681412236}
-<<<<<<< Updated upstream
   startOfBattleAbilityFunction:
     _target: {fileID: 11400000, guid: 1d8062989d59bc949ab728be25c1a814, type: 2}
     _methodName: Nothing
@@ -359,10 +358,8 @@ MonoBehaviour:
     _typeName: Unit+BattleCoroutine, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     dirty: 0
-=======
-  portrait: {fileID: 21300000, guid: f826c198a66746e439e539aaf0dbfc6d, type: 3}
-  characterName: Fishbelly White
->>>>>>> Stashed changes
+  portrait: {fileID: 21300000, guid: 5acc72183f3efa441b8eb54d2518019b, type: 3}
+  characterName: White Fishbelly
   deathSound:
     clip: {fileID: 8300000, guid: 4deaad608afc1474599d03cdcb1a2619, type: 3}
     volume: 0.5
