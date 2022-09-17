@@ -87,6 +87,7 @@ public class BattleManager : MonoBehaviour
     {
         StartCoroutine(ui.HideSelectionWindow());
         StartCoroutine(InitializeBattle());
+        ui.HideUnitInfoWindow();
         Save();
         Load(SceneManager.GetActiveScene().buildIndex + 1);
     }
@@ -475,21 +476,25 @@ public class BattleManager : MonoBehaviour
         {
             if (!player.hasMoved)
             {
+                ui.ShowUnitInfoWindow(unit);
                 ShowUnitMoveRange(unit);
             }
             else if (!player.hasAttacked)
             {
+                ui.ShowUnitInfoWindow(unit);
                 ShowUnitAttackRange(unit);
             }
         } 
         else if(unit is EnemyUnit)
         {
+            ui.ShowUnitInfoWindow(unit);
             ShowUnitThreatRange(unit);
         }
     }
 
     public void DeselectUnit()
     {
+        ui.HideUnitInfoWindow();
         map.ClearHighlights();
         selectedUnit = null;
     }

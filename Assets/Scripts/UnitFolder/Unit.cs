@@ -32,6 +32,9 @@ public abstract class Unit: MonoBehaviour
 
     public BattleCoroutine startOfBattleAbilityFunction;
 
+    public Sprite portrait;
+    public string characterName;
+
     [SerializeField]
     private SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
     [SerializeField]

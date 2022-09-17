@@ -8,7 +8,9 @@ using UnityEngine.SceneManagement;
 public class UIController : MonoBehaviour
 {
     public GameObject blackSquare;
-    public UnitSelectionWindow selectionWindow;
+    public UnitSelectionWindow unitSelectionWindow;
+    public UnitInfoWindow unitInfoWindow;
+
 
     public IEnumerator SwitchScene(int fadeSpeed = 2)
     {
@@ -41,6 +43,16 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void ShowUnitInfoWindow(Unit unit)
+    {
+        unitInfoWindow.ShowStats(unit);
+    }
+
+    public void HideUnitInfoWindow()
+    {
+        unitInfoWindow.HideStats();
+    }
+
     public void StartButton()
     {
         StartCoroutine(SwitchScene());
@@ -54,11 +66,12 @@ public class UIController : MonoBehaviour
     public IEnumerator ShowSelectionWindow()
     {
         Debug.Log("Showing window");
-        return selectionWindow.Show();
+        return unitSelectionWindow.Show();
     }
 
     public IEnumerator HideSelectionWindow()
     {
-        return selectionWindow.Hide();
+        return unitSelectionWindow.Hide();
     }
+
 }
