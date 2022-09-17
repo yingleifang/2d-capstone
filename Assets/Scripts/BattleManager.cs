@@ -64,6 +64,7 @@ public class BattleManager : MonoBehaviour
 
     public void EndTurn()
     {
+        Debug.Log("CALLED");
         instance.OnPlayerEndTurn();
     }
 
@@ -158,8 +159,10 @@ public class BattleManager : MonoBehaviour
 
     public void OnPlayerEndTurn()
     {
+        Debug.Log("CAKKED");
         if(isPlayerTurn && acceptingInput)
         {
+            Debug.Log("CALLED");
             isPlayerTurn = false;
             StartCoroutine(performEnemyMoves());
         }

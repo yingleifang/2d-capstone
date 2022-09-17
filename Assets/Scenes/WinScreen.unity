@@ -768,7 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76dffee3ee29264ca204825d0ce1ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackSquare: {fileID: 0}
+  blackSquare: {fileID: 2023135007}
   unitSelectionWindow: {fileID: 0}
   unitInfoWindow: {fileID: 0}
 --- !u!1 &1700100913
