@@ -8,7 +8,7 @@ public class TurnCountDown : MonoBehaviour
 {
     public int totalTurn = 10;
 
-    private int currentTurn = 10;
+    public int currentTurn = 10;
 
     public Slider slider;
 
@@ -16,10 +16,6 @@ public class TurnCountDown : MonoBehaviour
     {
         currentTurn -= 1;
         slider.value = currentTurn;
-        if (currentTurn < 0)
-        {
-            //Do Stuff
-        }
     }
 
     // Start is called before the first frame update

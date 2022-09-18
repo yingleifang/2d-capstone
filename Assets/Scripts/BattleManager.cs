@@ -246,6 +246,11 @@ public class BattleManager : MonoBehaviour
             isBattleOver = true;
             StartCoroutine(NextLevel());
         }
+        if (turnCounter.currentTurn <= 0)
+        {
+            isBattleOver = true;
+            StartCoroutine(NextLevel());
+        }
         Debug.Log("Enemies left: " + enemyUnits.Count);
     }
 
