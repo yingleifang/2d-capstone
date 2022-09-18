@@ -64,6 +64,7 @@ public class BattleManager : MonoBehaviour
 
     public void EndTurn()
     {
+        Debug.Log("CALLED");
         instance.OnPlayerEndTurn();
     }
 
@@ -87,6 +88,7 @@ public class BattleManager : MonoBehaviour
     {
         StartCoroutine(ui.HideSelectionWindow());
         StartCoroutine(InitializeBattle());
+        ui.HideUnitInfoWindow();
         Save();
         Load(SceneManager.GetActiveScene().buildIndex + 1);
     }
@@ -157,8 +159,10 @@ public class BattleManager : MonoBehaviour
 
     public void OnPlayerEndTurn()
     {
+        Debug.Log("CAKKED");
         if(isPlayerTurn && acceptingInput)
         {
+            Debug.Log("CALLED");
             isPlayerTurn = false;
             StartCoroutine(performEnemyMoves());
         }
@@ -475,21 +479,25 @@ public class BattleManager : MonoBehaviour
         {
             if (!player.hasMoved)
             {
+                ui.ShowUnitInfoWindow(unit);
                 ShowUnitMoveRange(unit);
             }
             else if (!player.hasAttacked)
             {
+                ui.ShowUnitInfoWindow(unit);
                 ShowUnitAttackRange(unit);
             }
         } 
         else if(unit is EnemyUnit)
         {
+            ui.ShowUnitInfoWindow(unit);
             ShowUnitThreatRange(unit);
         }
     }
 
     public void DeselectUnit()
     {
+        ui.HideUnitInfoWindow();
         map.ClearHighlights();
         selectedUnit = null;
     }

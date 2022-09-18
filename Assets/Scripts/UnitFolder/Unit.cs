@@ -27,6 +27,9 @@ public abstract class Unit: MonoBehaviour
 
     public new AudioComponent audio;
 
+    public Sprite portrait;
+    public string characterName;
+
     [SerializeField]
     private SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
     [SerializeField]
