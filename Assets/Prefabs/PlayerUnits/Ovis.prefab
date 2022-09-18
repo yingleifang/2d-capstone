@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8264826747215317850}
-  - component: {fileID: 8264826747215317851}
+  - component: {fileID: 5203591249091125894}
   - component: {fileID: 31881298027716544}
   m_Layer: 0
   m_Name: Ovis
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8264826747215317851
+--- !u!114 &5203591249091125894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,45 +43,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 8264826747215317848}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7337200a38e9344187314b9d1bfe583, type: 3}
+  m_Script: {fileID: 11500000, guid: 17b3e7a4ae496314289f1e5ba9a5d520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
-  currentAttackDamage: 0
-  currentAttackRange: 0
-  currentMovementSpeed: 0
-  currentCoolDown: 0
   health: 4
+  currentHealth: 0
   attackDamage: 2
+  currentAttackDamage: 0
   attackRange: 1
+  currentAttackRange: 0
   movementSpeed: 2
+  currentMovementSpeed: 0
   coolDown: 2
+  currentCoolDown: 0
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: 31881298027716544}
   audio: {fileID: 1657812232248823373}
-  startOfBattleAbilityFunction:
-    _target: {fileID: 11400000, guid: 1d8062989d59bc949ab728be25c1a814, type: 2}
-    _methodName: AttackAdjacent
-    _args:
-    - boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      objectValue: {fileID: 0}
-      argType: 5
-      _typeName: BattleState, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    - boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      objectValue: {fileID: 0}
-      argType: 5
-      _typeName: Unit, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    _dynamic: 1
-    _typeName: Unit+BattleCoroutine, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    dirty: 0
   deathSound:
     clip: {fileID: 8300000, guid: f1a9fa645abe054498e66f3ed508c0cf, type: 3}
     volume: 0.5
@@ -105,9 +82,13 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8264826747869016569}
   isDead: 0
   inMovement: 0
-  type: 0
+  type: 1
   hasMoved: 0
   hasAttacked: 0
+  StartOfBattleAbilitySound:
+    clip: {fileID: 8300000, guid: 22024711b6acbaa4e88432676e84d7d3, type: 3}
+    volume: 0.5
+    pitchFluctuation: 0
 --- !u!95 &31881298027716544
 Animator:
   serializedVersion: 4

@@ -27,11 +27,6 @@ public abstract class Unit: MonoBehaviour
 
     public new AudioComponent audio;
 
-    [Serializable]
-    public class BattleCoroutine : SerializableCallback<BattleState, Unit, IEnumerator> {}
-
-    public BattleCoroutine startOfBattleAbilityFunction;
-
     [SerializeField]
     private SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
     [SerializeField]
@@ -78,7 +73,7 @@ public abstract class Unit: MonoBehaviour
 
     public virtual IEnumerator StartOfBattleAbility(BattleState state)
     {
-        return startOfBattleAbilityFunction?.Invoke(state, this);
+        yield break;
     }
 
     public virtual void StartOfTurn()
