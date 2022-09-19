@@ -43,7 +43,6 @@ public class BattleManager : MonoBehaviour
     [HideInInspector]
     public static BattleManager instance;
 
-    public Button endTurnButton;
     public void SetUnitToPlace(PlayerUnit prefab)
     {
         isPlacingUnit = true;
@@ -95,7 +94,6 @@ public class BattleManager : MonoBehaviour
         ui.HideUnitInfoWindow();
         Save();
         Load(SceneManager.GetActiveScene().buildIndex + 1);
-        endTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
     }
 
     private IEnumerator InitializeBattle()
@@ -164,11 +162,9 @@ public class BattleManager : MonoBehaviour
 
     public void OnPlayerEndTurn()
     {
-        Debug.Log("CAKKED");
         if(isPlayerTurn && acceptingInput)
         {
-            Debug.Log("CALLED");
-            endTurnButton.interactable = false;
+            ui.DisableEndTurnButton();
             isPlayerTurn = false;
             StartCoroutine(performEnemyMoves());
         }
@@ -369,7 +365,7 @@ public class BattleManager : MonoBehaviour
             unit.StartOfTurn();
         }
 
-        endTurnButton.interactable = true;
+        ui.DisableEndTurnButton();
         isPlayerTurn = true;
         yield break;
     }

@@ -10,7 +10,20 @@ public class UIController : MonoBehaviour
     public GameObject blackSquare;
     public UnitSelectionWindow unitSelectionWindow;
     public UnitInfoWindow unitInfoWindow;
+    public Button endTurnButton;
 
+
+    public IEnumerator DisableEndTurnButton()
+    {
+        endTurnButton.interactable = false;
+        yield break;
+    }
+
+    public IEnumerator EnableEndTurnButton()
+    {
+        endTurnButton.interactable = true;
+        yield break;
+    }
 
     public IEnumerator SwitchScene(int fadeSpeed = 2)
     {
