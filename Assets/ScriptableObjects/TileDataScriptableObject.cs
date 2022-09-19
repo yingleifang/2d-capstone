@@ -10,4 +10,5 @@ public class TileDataScriptableObject : ScriptableObject
     public int movementSpeedModifier;
     public bool impassable;
     public bool hazardous;
+    public int weight = 1;
 }

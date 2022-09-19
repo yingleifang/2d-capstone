@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using Priority_Queue;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Security.Cryptography;
 
 public class CubeCoord {
     private Vector3Int coords;
@@ -90,10 +91,45 @@ public class TileManager : MonoBehaviour
     public Dictionary<Unit, Vector3Int> unitLocations;
     public static TileManager Instance {get; private set;}
 
+    private List<TileBase> mapConfig = new List<TileBase>();
+
+    private void SetMapConfig()
+    {
+        int total_weight = 0;
+        foreach (var tile in tileDatas)
+            total_weight += tile.weight;
+        int quickFix = 5;
+        for (int x = -4; x < quickFix; x++)
+        {
+            for (int y = -2; y < 3; y++)
+            {
+                if (y % 2 == 0)
+                {
+                    quickFix = 4;
+                }
+                else
+                {
+                    quickFix = 5;
+                }
+                    var rngNum = RandomNumberGenerator.GetInt32(1, total_weight + 1);
+                    int index = 0;
+                    while(rngNum > 0)
+                    {
+                        rngNum -= tileDatas[index].weight;
+                        index++;
+                    }
+                    mapConfig.Add(tileDatas[index - 1].tiles[0]);
+                map.SetTile(new Vector3Int(x, y, 0), tileDatas[index - 1].tiles[0]);
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
 
+        //map.ClearAllTiles();
+        SetMapConfig();
         baseTileDatas = new Dictionary<TileBase, TileDataScriptableObject>();
         dynamicTileDatas = new Dictionary<Vector3Int, DynamicTileData>();
         unitLocations = new Dictionary<Unit, Vector3Int>();
@@ -114,12 +150,6 @@ public class TileManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public Vector3Int GetTileAtScreenPosition(Vector3 pos)

@@ -373,7 +373,6 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(acceptingInput);
         if (acceptingInput && Input.GetMouseButtonDown(0))
         {
             Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
@@ -553,7 +552,6 @@ public class BattleManager : MonoBehaviour
         {
             if (curUnit is EnemyUnit)
             {
-                Debug.Log(curUnit.location);
                 enemyPos.locations.Add(curUnit.location);
             }
         }
