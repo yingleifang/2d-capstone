@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 
@@ -40,6 +42,8 @@ public class BattleManager : MonoBehaviour
 
     [HideInInspector]
     public static BattleManager instance;
+
+    public Button endTurnButton;
     public void SetUnitToPlace(PlayerUnit prefab)
     {
         isPlacingUnit = true;
@@ -91,6 +95,7 @@ public class BattleManager : MonoBehaviour
         ui.HideUnitInfoWindow();
         Save();
         Load(SceneManager.GetActiveScene().buildIndex + 1);
+        endTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
     }
 
     private IEnumerator InitializeBattle()
@@ -163,10 +168,10 @@ public class BattleManager : MonoBehaviour
         if(isPlayerTurn && acceptingInput)
         {
             Debug.Log("CALLED");
+            endTurnButton.interactable = false;
             isPlayerTurn = false;
             StartCoroutine(performEnemyMoves());
         }
-        turnCounter.SetCount();
     }
 
     public IEnumerator SpawnUnit(Vector3Int location, Unit unit, bool addToUnitList = true)
@@ -241,13 +246,14 @@ public class BattleManager : MonoBehaviour
             isBattleOver = true;
             StartCoroutine(ShowGameOver());
         }
-        if (enemyUnits.Count <= 0)
+        else if (enemyUnits.Count <= 0)
         {
             isBattleOver = true;
             StartCoroutine(NextLevel());
         }
-        if (turnCounter.currentTurn <= 0)
-        {
+        else if (turnCounter.currentTurn <= 0)
+        { 
+            turnCounter.currentTurn = turnCounter.totalTurn;
             isBattleOver = true;
             StartCoroutine(NextLevel());
         }
@@ -327,6 +333,7 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(StartOfPlayerTurn());
         DeselectUnit();
+        turnCounter.SetCount();
         yield break;
     }
 
@@ -362,6 +369,7 @@ public class BattleManager : MonoBehaviour
             unit.StartOfTurn();
         }
 
+        endTurnButton.interactable = true;
         isPlayerTurn = true;
         yield break;
     }
@@ -369,6 +377,7 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(acceptingInput);
         if (acceptingInput && Input.GetMouseButtonDown(0))
         {
             Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
