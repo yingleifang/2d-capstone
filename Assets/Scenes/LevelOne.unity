@@ -954,6 +954,10 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 594874417}
+    - target: {fileID: 7243422476876719891, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+      propertyPath: hitSound.volume
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 7439754414042797085, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1328,6 +1332,7 @@ MonoBehaviour:
   unitToPlace: {fileID: 0}
   turnCounter: {fileID: 1608420423}
   previewLayer: {fileID: 270826227}
+  endTurnButton: {fileID: 0}
 --- !u!4 &1275022861
 Transform:
   m_ObjectHideFlags: 0
@@ -1667,6 +1672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalTurn: 10
+  currentTurn: 10
   slider: {fileID: 1608420422}
 --- !u!222 &1608420424
 CanvasRenderer:
@@ -1837,11 +1843,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 97c742d6f505dd34497b34b4dbfcd013, type: 3}
+  m_audioClip: {fileID: 8300000, guid: df54097ec98ab0e4bbbac3e372b6b1d2, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.33
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

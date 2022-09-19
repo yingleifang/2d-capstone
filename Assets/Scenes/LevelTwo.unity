@@ -234,11 +234,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 97c742d6f505dd34497b34b4dbfcd013, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e8276a9b277eff846b0745b90c358f4b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.33
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1392,6 +1392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalTurn: 10
+  currentTurn: 10
   slider: {fileID: 949615400}
 --- !u!222 &949615402
 CanvasRenderer:
@@ -1504,6 +1505,7 @@ MonoBehaviour:
   unitToPlace: {fileID: 0}
   turnCounter: {fileID: 949615401}
   previewLayer: {fileID: 0}
+  endTurnButton: {fileID: 0}
 --- !u!4 &1258529770
 Transform:
   m_ObjectHideFlags: 0

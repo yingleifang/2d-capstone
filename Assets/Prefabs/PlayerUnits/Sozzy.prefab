@@ -59,13 +59,15 @@ MonoBehaviour:
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: 31881298027716544}
   audio: {fileID: 1657812232248823373}
+  portrait: {fileID: 0}
+  characterName: 
   deathSound:
     clip: {fileID: 8300000, guid: 61ac36e9ab579424583f7f30c4659145, type: 3}
     volume: 0.5
     pitchFluctuation: 0
   hitSound:
     clip: {fileID: 8300000, guid: 5d1d15a79600e37489ceddbd0399e795, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitchFluctuation: 0
   attackSound:
     clip: {fileID: 0}
