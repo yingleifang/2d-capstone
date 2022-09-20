@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public abstract class Unit: MonoBehaviour
 {
@@ -29,6 +30,8 @@ public abstract class Unit: MonoBehaviour
 
     public Sprite portrait;
     public string characterName;
+    public GameObject healthBarFill;
+    public GameObject healthBarBackground;
 
     [SerializeField]
     private SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
@@ -198,6 +201,21 @@ public abstract class Unit: MonoBehaviour
             currentHealth = 0;
             isDead = true;
         }
+        healthBarFill.GetComponent<Image>().fillAmount = (float) currentHealth / (float) health;
+    }
+
+    private void OnMouseEnter()
+    {
+        Debug.Log("ENTER");
+        healthBarBackground.SetActive(true);
+        healthBarFill.SetActive(true);
+    }
+
+    private void OnMouseExit()
+    {
+        Debug.Log("LEAVE");
+        healthBarBackground.SetActive(false);
+        healthBarFill.SetActive(false);
     }
 
     public IEnumerator Die() 
