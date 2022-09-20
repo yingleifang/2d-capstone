@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
-  m_Name: PlainTileSO
+  m_Name: MagmaRockTileSO
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: d5f957c8ec8f12a44bee3c15e9af12af, type: 2}
+  - {fileID: 11400000, guid: 56d192c6cd1fee749b4e7f4b7273eda5, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 0
