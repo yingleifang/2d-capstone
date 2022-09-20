@@ -68,12 +68,14 @@ public abstract class Unit: MonoBehaviour
     public IEnumerator PlayAttackAnimation()
     {
         anim.SetTrigger("Attack");
+        yield return null; // Wait a frame for the animation to start
         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base_Layer.Attacking"));
     }
 
     public IEnumerator PlayDeathAnimation()
     {
         anim.SetBool("isDead", true);
+        yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
     }
 
