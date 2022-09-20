@@ -2,18 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyUnit : Unit
+public class FishEnemy : EnemyUnit
 {
-    enum Type {Fish};
-
-    Type type;
-
-    public override IEnumerator UseAbility(Vector3Int target)
-    {
-        yield break;
-    }
-
-    public IEnumerator performAction(BattleState state)
+    public override IEnumerator performAction(BattleState state)
     {
         PlayerUnit closest = FindClosestPlayerUnit(state);
 
@@ -62,22 +53,5 @@ public class EnemyUnit : Unit
             yield return StartCoroutine(DoAttack(closest));
             yield return new WaitForSeconds(0.2f);
         }
-    }
-
-    public PlayerUnit FindClosestPlayerUnit(BattleState state)
-    {
-        PlayerUnit closestUnit = null;
-        int closest = 100000;
-        foreach (PlayerUnit unit in state.playerUnits)
-        {
-            int distance = state.map.RealDistance(location, unit.location);
-            if (distance < closest)
-            {
-                closestUnit = unit;
-                closest = distance;
-            }
-        }
-
-        return closestUnit;
     }
 }

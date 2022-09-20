@@ -108,7 +108,6 @@ public abstract class Unit: MonoBehaviour
     public void FlipSprite(Vector3 target)
     {
         float sign = Mathf.Sign(target.x - transform.position.x);
-        Debug.Log("Sign: " + sign);
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * sign, transform.localScale.y, transform.localScale.z);
     }
 
@@ -254,14 +253,12 @@ public abstract class Unit: MonoBehaviour
 
     private void OnMouseEnter()
     {
-        Debug.Log("ENTER");
         healthBarBackground.SetActive(true);
         healthBarFill.SetActive(true);
     }
 
     private void OnMouseExit()
     {
-        Debug.Log("LEAVE");
         healthBarBackground.SetActive(false);
         healthBarFill.SetActive(false);
     }

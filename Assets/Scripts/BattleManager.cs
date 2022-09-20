@@ -42,6 +42,7 @@ public class BattleManager : MonoBehaviour
 
     [HideInInspector]
     public static BattleManager instance;
+    public EnemyPosNextScene enemyPosNextScene;
 
     public void SetUnitToPlace(PlayerUnit prefab)
     {
@@ -49,7 +50,6 @@ public class BattleManager : MonoBehaviour
         unitToPlace = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
         unitToPlace.anim.SetBool("Hide", false); // Replace with method
     }
-    public EnemyPosNextScene enemyPosNextScene;
 
     private void Awake()
     {
@@ -67,13 +67,11 @@ public class BattleManager : MonoBehaviour
 
     public void EndTurn()
     {
-        Debug.Log("CALLED");
         instance.OnPlayerEndTurn();
     }
 
     public void TurnOnPreview()
     {
-        Debug.Log("!!!!!");
         if (instance.hasPreview)
         {
             instance.hasPreview = false;
@@ -227,7 +225,6 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("Removing a null unit");
         }
-        Debug.Log(enemyUnits.Count);
 
         map.KillUnit(unit.location);
         yield return StartCoroutine(unit.Die());
