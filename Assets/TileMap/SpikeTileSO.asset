@@ -17,3 +17,4 @@ MonoBehaviour:
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 1
+  weight: 1
