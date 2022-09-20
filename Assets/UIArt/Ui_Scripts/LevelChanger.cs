@@ -13,9 +13,14 @@ public class LevelChanger : MonoBehaviour
         
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("UI_StartAnim");
+    }
+
     public void PlayGame()
     {
-        SceneManager.LoadScene("LevelOne");
+        SceneManager.LoadScene("UI_Level1");
     }
 
     public void QuitGame()
