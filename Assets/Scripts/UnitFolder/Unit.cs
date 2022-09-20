@@ -68,10 +68,54 @@ public abstract class Unit: MonoBehaviour
         BattleManager.instance.unitsToSpawn.Add(this);
     }
 
+    public IEnumerator PlayAttackAnimation()
+    {
+        anim.SetTrigger("Attack");
+        yield return null; // Wait a frame for the animation to start
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base_Layer.Attacking"));
+    }
+
+    public IEnumerator PlayDeathAnimation()
+    {
+        anim.SetBool("isDead", true);
+        yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+    }
+
+    public void StartMovingAnimation()
+    {
+        anim.SetBool("isMoving", true);
+    }
+
+    public void StopMovingAnimation()
+    {
+        anim.SetBool("isMoving", false);
+    }
+
+    public IEnumerator PlayFallingAnimation()
+    {
+        yield break;
+    }
+
+    public IEnumerator PlayDamageAnimation()
+    {
+        anim.SetTrigger("Damaged");
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base_Layer.Damaged"));
+    }
+
     public abstract IEnumerator UseAbility(Vector3Int target);
+
+    public void FlipSprite(Vector3 target)
+    {
+        float sign = Mathf.Sign(target.x - transform.position.x);
+        Debug.Log("Sign: " + sign);
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * sign, transform.localScale.y, transform.localScale.z);
+    }
 
     public virtual IEnumerator DoAttack(Unit target)
     {
+        FlipSprite(target.transform.position);
+        yield return StartCoroutine(PlayAttackAnimation());
         target.ChangeHealth(currentAttackDamage * -1);
         audio.PlaySound(attackSound);
         yield break;
@@ -116,7 +160,8 @@ public abstract class Unit: MonoBehaviour
 
     IEnumerator smoothMovement(BattleState state, Vector3Int target)
     {
-
+        FlipSprite(state.map.CellToWorldPosition(target));
+        StartMovingAnimation();
         while (currentWaypointIndex < path.Count)
         {
             var step = movementSpeed * Time.deltaTime * 10;
@@ -128,6 +173,8 @@ public abstract class Unit: MonoBehaviour
             }
             yield return null;
         }
+
+        StopMovingAnimation();
 
         path = null;
         inMovement = false;
@@ -195,6 +242,7 @@ public abstract class Unit: MonoBehaviour
         if (amount < 0)
         {
             audio.PlayDisposable(hitSound);
+            StartCoroutine(PlayDamageAnimation());
         }
         if (currentHealth <= 0)
         {
@@ -221,7 +269,7 @@ public abstract class Unit: MonoBehaviour
     public IEnumerator Die() 
     {
         audio.PlayDisposable(deathSound);
-        spriteRenderer.enabled = false;
+        yield return StartCoroutine(PlayDeathAnimation());
         Destroy(gameObject);
         yield break;
     }
