@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class EnemyUnit : Unit
 {
-    enum Type {Fish};
+    public enum Type {Fish};
 
-    Type type;
+    public Type type;
 
     public override IEnumerator UseAbility(Vector3Int target)
     {

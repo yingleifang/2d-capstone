@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,15 +15,14 @@ public class generatePreviews : MonoBehaviour
     {
         battleManager = FindObjectOfType<BattleManager>();
         transform.position = battleManager.GetState().map.transform.position;
-        ShowPreview(battleManager.enemyPosNextScene, battleManager.GetState());
+        ShowPreview(battleManager.levelManager.nextSceneenemyInfo, battleManager.GetState());
     }
 
-    private void ShowPreview(EnemyPosNextScene enemyPosNextScene, BattleState state)
+    private void ShowPreview(List<(int, Vector3Int)> enemyPosNextScene, BattleState state)
     {
-        Debug.Log(enemyPosNextScene.locations.Count);
-        foreach (var loc in enemyPosNextScene.locations)
+        foreach (var loc in enemyPosNextScene)
         {
-            var targetTransform = state.map.CellToWorldPosition(loc);
+            var targetTransform = state.map.CellToWorldPosition(loc.Item2);
             GameObject gameObject = Instantiate(enemyAvatar, targetTransform, Quaternion.identity);
             gameObject.transform.SetParent(transform, false);
         }

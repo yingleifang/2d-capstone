@@ -1498,6 +1498,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fish (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8109192335271719319, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e35ec94664806fc42a197278a56b4966, type: 3}
 --- !u!1 &417689204
@@ -2891,6 +2895,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fish
       objectReference: {fileID: 0}
+    - target: {fileID: 8109192335271719319, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e35ec94664806fc42a197278a56b4966, type: 3}
 --- !u!1 &1028710163
@@ -3139,6 +3147,7 @@ MonoBehaviour:
   unitToPlace: {fileID: 0}
   turnCounter: {fileID: 949615401}
   previewLayer: {fileID: 0}
+  levelManager: {fileID: 0}
 --- !u!4 &1258529770
 Transform:
   m_ObjectHideFlags: 0

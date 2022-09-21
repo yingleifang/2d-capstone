@@ -42,7 +42,8 @@ public class BattleManager : MonoBehaviour
 
     [HideInInspector]
     public static BattleManager instance;
-    public EnemyPosNextScene enemyPosNextScene;
+
+    public LevelManager levelManager;
 
     public void SetUnitToPlace(PlayerUnit prefab)
     {
@@ -87,13 +88,23 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        setEnemyData();
         StartCoroutine(ui.HideSelectionWindow());
         StartCoroutine(InitializeBattle());
         ui.HideUnitInfoWindow();
-        Save();
-        Load(SceneManager.GetActiveScene().buildIndex + 1);
+        //Save();
+        //Load(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    private void setEnemyData()
+    {
+        levelManager = FindObjectOfType<LevelManager>();
+        foreach (var curInfo in levelManager.enemyInfo)
+        {
+            EnemyUnit curEnemy = Instantiate(levelManager.typesOfEnemiesToSpawn[curInfo.Item1]);
+            curEnemy.location = curInfo.Item2;
+        }
+    }
     private IEnumerator InitializeBattle()
     {
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
@@ -307,6 +318,8 @@ public class BattleManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        levelManager.PreparNextBattle();
+        setEnemyData();
         StartCoroutine(InitializeBattle());
     }
 
@@ -561,7 +574,7 @@ public class BattleManager : MonoBehaviour
     {
         if (File.Exists(Application.dataPath + string.Format("/posData{0}.json", SceneManager.GetActiveScene().buildIndex + 1))){
             string savestring = File.ReadAllText(Application.dataPath + string.Format("/posData{0}.json", SceneManager.GetActiveScene().buildIndex + 1));
-            enemyPosNextScene = JsonUtility.FromJson<EnemyPosNextScene>(savestring);
+            //enemyPosNextScene = JsonUtility.FromJson<EnemyPosNextScene>(savestring);
         }
         else
         {
