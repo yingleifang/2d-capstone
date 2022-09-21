@@ -70,7 +70,7 @@ public class TileManager : MonoBehaviour
     public Tilemap map;
     
     [SerializeField]
-    private List<TileDataScriptableObject> tileDatas;
+    public List<TileDataScriptableObject> tileDatas;
 
     private List<Vector3Int> coloredTiles = new List<Vector3Int>();
 
@@ -91,43 +91,22 @@ public class TileManager : MonoBehaviour
     public Dictionary<Unit, Vector3Int> unitLocations;
     public static TileManager Instance {get; private set;}
 
-    private List<TileBase> mapConfig = new List<TileBase>();
+    LevelManager levelManager;
 
     private void SetMapConfig()
     {
-        int total_weight = 0;
-        foreach (var tile in tileDatas)
-            total_weight += tile.weight;
-        int quickFix = 5;
-        for (int x = -4; x < quickFix; x++)
+        foreach (var info in levelManager.tileInfo)
         {
-            for (int y = -2; y < 3; y++)
-            {
-                if (y % 2 == 0)
-                {
-                    quickFix = 4;
-                }
-                else
-                {
-                    quickFix = 5;
-                }
-                    var rngNum = RandomNumberGenerator.GetInt32(1, total_weight + 1);
-                    int index = 0;
-                    while(rngNum > 0)
-                    {
-                        rngNum -= tileDatas[index].weight;
-                        index++;
-                    }
-                    mapConfig.Add(tileDatas[index - 1].tiles[0]);
-                map.SetTile(new Vector3Int(x, y, 0), tileDatas[index - 1].tiles[0]);
-            }
+            Debug.Log(info.Item2);
+            Debug.Log(info.Item1.tiles[0]);
+            map.SetTile(info.Item2, info.Item1.tiles[0]);
         }
     }
 
     // Start is called before the first frame update
     void Awake()
     {
-
+        levelManager = FindObjectOfType<LevelManager>();
         //map.ClearAllTiles();
         SetMapConfig();
         baseTileDatas = new Dictionary<TileBase, TileDataScriptableObject>();
