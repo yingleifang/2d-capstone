@@ -68,6 +68,11 @@ public abstract class Unit: MonoBehaviour
         BattleManager.instance.unitsToSpawn.Add(this);
     }
 
+    public void PlaySoundAnim(AnimationEvent sound)
+    {
+        audio.PlaySoundAnim(sound);
+    }
+
     public IEnumerator PlayAttackAnimation()
     {
         anim.SetTrigger("Attack");

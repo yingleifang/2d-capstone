@@ -20,7 +20,7 @@ public class LevelChanger : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("UI_Level1");
+        SceneManager.LoadScene("LevelOne");
     }
 
     public void QuitGame()
