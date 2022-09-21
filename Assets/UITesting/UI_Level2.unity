@@ -184,7 +184,7 @@ MonoBehaviour:
   blackSquare: {fileID: 1544589323}
   unitSelectionWindow: {fileID: 196113205}
   unitInfoWindow: {fileID: 1000913123}
-  endTurnButton: {fileID: 0}
+  endTurnButton: {fileID: 1024984799}
 --- !u!114 &109875693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1151415848}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1325,7 +1325,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1482743268820001000, guid: c965a24dee1eced44a55f617401f1a51, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 10.6
+      value: 10.600006
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782569495902099994, guid: c965a24dee1eced44a55f617401f1a51, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 23.799988
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c965a24dee1eced44a55f617401f1a51, type: 3}
@@ -1418,11 +1422,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3287922799981939696, guid: d297c49cbd7dd5f499cd4b653a7a3dd3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -123.19791
+      value: -123.19794
       objectReference: {fileID: 0}
     - target: {fileID: 3287922799981939696, guid: d297c49cbd7dd5f499cd4b653a7a3dd3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 46.85417
+      value: 46.854187
       objectReference: {fileID: 0}
     - target: {fileID: 3287922799981939696, guid: d297c49cbd7dd5f499cd4b653a7a3dd3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1451,6 +1455,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3287922799981939696, guid: d297c49cbd7dd5f499cd4b653a7a3dd3, type: 3}
   m_PrefabInstance: {fileID: 1024984797}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1024984799 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3287922799981939697, guid: d297c49cbd7dd5f499cd4b653a7a3dd3, type: 3}
+  m_PrefabInstance: {fileID: 1024984797}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1124330462
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,7 +2047,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 98.98651, y: -46.45729}
+  m_AnchoredPosition: {x: 98.98651, y: -46.457275}
   m_SizeDelta: {x: 154.68, y: 60.2516}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1526158022

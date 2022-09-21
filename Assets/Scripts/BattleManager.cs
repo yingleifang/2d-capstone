@@ -178,6 +178,7 @@ public class BattleManager : MonoBehaviour
             }
             else if (unit is EnemyUnit)
             {
+                
                 enemyUnits.Add((EnemyUnit)unit);
             }
             else

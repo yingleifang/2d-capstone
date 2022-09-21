@@ -33,9 +33,9 @@ EditorBuildSettings:
     path: Assets/UITesting/UI_StartAnim.unity
     guid: 0835dd84eaca4644bb75d66cb0852499
   - enabled: 1
-    path: Assets/UITesting/UI_Level2.unity
-    guid: 3e27550ec54392a46b57e23a9679bcbf
-  - enabled: 1
     path: Assets/UITesting/UI_Level1.unity
     guid: a0d8471c36c6ea64f8f0ea76a83576af
+  - enabled: 1
+    path: Assets/UITesting/UI_Level2.unity
+    guid: 3e27550ec54392a46b57e23a9679bcbf
   m_configObjects: {}
