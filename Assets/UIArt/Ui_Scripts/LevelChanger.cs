@@ -15,7 +15,7 @@ public class LevelChanger : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("UI_StartAnim");
+        SceneManager.LoadScene("StartMenu");
     }
 
     public void PlayGame()
