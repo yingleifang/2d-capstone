@@ -187,32 +187,32 @@ public abstract class Unit: MonoBehaviour
         }
     }
 
-    public virtual List<Vector3Int> GetTilesInMoveRange(TileManager map)
+    public virtual List<Vector3Int> GetTilesInMoveRange()
     {
         // Can override this method for unique move ranges
-        return map.GetTilesInRange(location, currentMovementSpeed);
+        return BattleManager.instance.map.GetTilesInRange(location, currentMovementSpeed);
     }
 
-    public virtual bool IsTileInMoveRange(Vector3Int tile, TileManager map)
+    public virtual bool IsTileInMoveRange(Vector3Int tile)
     {
-        return map.RealDistance(location, tile) <= currentMovementSpeed;
+        return BattleManager.instance.map.RealDistance(location, tile) <= currentMovementSpeed;
     }
 
-    public virtual List<Vector3Int> GetTilesInAttackRange(TileManager map)
+    public virtual List<Vector3Int> GetTilesInAttackRange()
     {
         // Can override this method for unique attack ranges
-        return map.GetTilesInRange(location, currentAttackRange, false);
+        return BattleManager.instance.map.GetTilesInRange(location, currentAttackRange, false);
     }
 
-    public virtual bool IsTileInAttackRange(Vector3Int tile, TileManager map)
+    public virtual bool IsTileInAttackRange(Vector3Int tile)
     {
-        return map.RealDistance(location, tile, false) <= currentAttackRange;
+        return BattleManager.instance.map.RealDistance(location, tile, false) <= currentAttackRange;
     }
 
-    public virtual List<Vector3Int> GetTilesInThreatRange(TileManager map)
+    public virtual List<Vector3Int> GetTilesInThreatRange()
     {
         // Can override this method for unique threat ranges
-        return map.GetTilesInRange(location, currentMovementSpeed + currentAttackRange, false);
+        return BattleManager.instance.map.GetTilesInRange(location, currentMovementSpeed + currentAttackRange, false);
     }
 
     public IEnumerator SetLocation(BattleState state, Vector3Int target)

@@ -123,37 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &91701829
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 91701830}
-  m_Layer: 0
-  m_Name: Angler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &91701830
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91701829}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.1184444, y: 0.8710009, z: 81.72125}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &126890230
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,11 +877,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &623157924 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5971552602486580692, guid: e35ec94664806fc42a197278a56b4966, type: 3}
-  m_PrefabInstance: {fileID: 845633138}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &760407540 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3287922799981939696, guid: d297c49cbd7dd5f499cd4b653a7a3dd3, type: 3}
@@ -928,14 +892,6 @@ PrefabInstance:
     - target: {fileID: 7439754414042797085, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439754414042797085, guid: e35ec94664806fc42a197278a56b4966, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439754414042797085, guid: e35ec94664806fc42a197278a56b4966, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7439754414042797085, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: m_LocalPosition.x
@@ -981,71 +937,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fish
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7243422476876719891, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e35ec94664806fc42a197278a56b4966, type: 3}
---- !u!1 &893015172 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8109192335271719319, guid: e35ec94664806fc42a197278a56b4966, type: 3}
-  m_PrefabInstance: {fileID: 845633138}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &893015175 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7421535317744620689, guid: e35ec94664806fc42a197278a56b4966, type: 3}
-  m_PrefabInstance: {fileID: 845633138}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &893015178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 893015172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36e7ab1ba02b8204b841a3a1e83db655, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 3
-  currentHealth: 0
-  attackDamage: 1
-  currentAttackDamage: 0
-  attackRange: 1
-  currentAttackRange: 0
-  movementSpeed: 2
-  currentMovementSpeed: 0
-  coolDown: 2
-  currentCoolDown: 0
-  location: {x: 0, y: 0, z: 0}
-  anim: {fileID: 893015175}
-  audio: {fileID: 1079262203}
-  portrait: {fileID: 21300000, guid: f826c198a66746e439e539aaf0dbfc6d, type: 3}
-  characterName: White Fishbelly
-  healthBarFill: {fileID: 623157924}
-  healthBarBackground: {fileID: 1430953154}
-  deathSound:
-    clip: {fileID: 8300000, guid: 4deaad608afc1474599d03cdcb1a2619, type: 3}
-    volume: 1
-    pitchFluctuation: 0
-  hitSound:
-    clip: {fileID: 8300000, guid: 5d1d15a79600e37489ceddbd0399e795, type: 3}
-    volume: 1
-    pitchFluctuation: 0
-  attackSound:
-    clip: {fileID: 0}
-    volume: 1
-    pitchFluctuation: 0
-  placementSound:
-    clip: {fileID: 8300000, guid: 8fdb829d46c9442468a58eda05057130, type: 3}
-    volume: 1
-    pitchFluctuation: 0
-  fallSound:
-    clip: {fileID: 0}
-    volume: 1
-    pitchFluctuation: 0
-  spriteRenderer: {fileID: 1079262199}
-  isDead: 0
-  inMovement: 0
 --- !u!1 &922542331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,22 +1130,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1079262199 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1447998723661349570, guid: e35ec94664806fc42a197278a56b4966, type: 3}
-  m_PrefabInstance: {fileID: 845633138}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1079262203 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4594956451681412236, guid: e35ec94664806fc42a197278a56b4966, type: 3}
-  m_PrefabInstance: {fileID: 845633138}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccedfe85a5d0a4446adcaf051253aad8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1158958024 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5939622120962527883, guid: a68927fa1117a464a95aa7901b58125e, type: 3}
@@ -1602,11 +1479,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a68927fa1117a464a95aa7901b58125e, type: 3}
---- !u!1 &1430953154 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2337026979172989889, guid: e35ec94664806fc42a197278a56b4966, type: 3}
-  m_PrefabInstance: {fileID: 845633138}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1608420419
 GameObject:
   m_ObjectHideFlags: 0
@@ -2516,6 +2388,10 @@ PrefabInstance:
     - target: {fileID: 1482743268820001000, guid: c965a24dee1eced44a55f617401f1a51, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782569495902099994, guid: c965a24dee1eced44a55f617401f1a51, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 23.799988
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c965a24dee1eced44a55f617401f1a51, type: 3}

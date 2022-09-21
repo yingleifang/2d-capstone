@@ -48,7 +48,7 @@ public class FishEnemy : EnemyUnit
         yield return new WaitForSeconds(0.1f);
 
         // Attack the unit if they're in range
-        if(!isDead && IsTileInAttackRange(closest.location, state.map))
+        if(!isDead && IsTileInAttackRange(closest.location))
         {
             yield return StartCoroutine(DoAttack(closest));
             yield return new WaitForSeconds(0.2f);

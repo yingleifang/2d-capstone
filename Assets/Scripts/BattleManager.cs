@@ -225,7 +225,7 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("Removing a null unit");
         }
-
+        Debug.Log("ENEMY UNITS: " + enemyUnits.Count);
         map.KillUnit(unit.location);
         yield return StartCoroutine(unit.Die());
 
@@ -436,7 +436,7 @@ public class BattleManager : MonoBehaviour
         else if (curUnit is EnemyUnit)
         {
             if (isPlayerTurn && selectedUnit is PlayerUnit unit 
-                && unit.hasMoved && !unit.hasAttacked && unit.IsTileInAttackRange(tilePos, map))
+                && unit.hasMoved && !unit.hasAttacked && unit.IsTileInAttackRange(tilePos))
             {
                 map.ClearHighlights();
                 yield return StartCoroutine(unit.DoAttack(curUnit));
@@ -455,7 +455,7 @@ public class BattleManager : MonoBehaviour
         else if (curUnit == null)
         {
             if(isPlayerTurn && selectedUnit is PlayerUnit unit
-                && !unit.hasMoved && unit.IsTileInMoveRange(tilePos, map))
+                && !unit.hasMoved && unit.IsTileInMoveRange(tilePos))
             {
                 yield return StartCoroutine(MoveUnit(unit, tilePos));
                 CheckIfBattleOver();
@@ -514,7 +514,7 @@ public class BattleManager : MonoBehaviour
         map.ClearHighlights();
         if(isPlayerTurn)
         {
-            map.HighlightPath(unit.GetTilesInMoveRange(map), Color.blue);
+            map.HighlightPath(unit.GetTilesInMoveRange(), Color.blue);
         }
     }
 
@@ -524,7 +524,7 @@ public class BattleManager : MonoBehaviour
         map.ClearHighlights();
         if(isPlayerTurn)
         {
-            map.HighlightPath(unit.GetTilesInAttackRange(map), Color.red);
+            map.HighlightPath(unit.GetTilesInAttackRange(), Color.red);
         }
     }
 
@@ -533,7 +533,7 @@ public class BattleManager : MonoBehaviour
         map.ClearHighlights();
         if (isPlayerTurn)
         {
-            map.HighlightPath(unit.GetTilesInThreatRange(map), Color.red);
+            map.HighlightPath(unit.GetTilesInThreatRange(), Color.red);
         }
     }
 

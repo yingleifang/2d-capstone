@@ -755,11 +755,11 @@ MonoBehaviour:
   healthBarBackground: {fileID: 2337026979172989889}
   deathSound:
     clip: {fileID: 8300000, guid: 4deaad608afc1474599d03cdcb1a2619, type: 3}
-    volume: 0.5
+    volume: 1
     pitchFluctuation: 0
   hitSound:
     clip: {fileID: 8300000, guid: 5d1d15a79600e37489ceddbd0399e795, type: 3}
-    volume: 0.3
+    volume: 1
     pitchFluctuation: 0
   attackSound:
     clip: {fileID: 0}
@@ -767,7 +767,7 @@ MonoBehaviour:
     pitchFluctuation: 0
   placementSound:
     clip: {fileID: 8300000, guid: 8fdb829d46c9442468a58eda05057130, type: 3}
-    volume: 0.2
+    volume: 1
     pitchFluctuation: 0
   fallSound:
     clip: {fileID: 0}
