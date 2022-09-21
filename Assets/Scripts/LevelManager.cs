@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
     public int y_max = 3;
 
     public int currentLevel = 0;
-    public int enemyNum = 0;
+    public int enemyNumToSpawn = 0;
 
     public List<(TileDataScriptableObject, Vector3Int)> tileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
     public List<(TileDataScriptableObject, Vector3Int)> nextSceneTileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
