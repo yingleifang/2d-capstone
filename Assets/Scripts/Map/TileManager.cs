@@ -350,7 +350,7 @@ public class TileManager : MonoBehaviour
             last = came_from[last];
             path.Insert(0, last);
         }
-
+        
         return path;
     }
 

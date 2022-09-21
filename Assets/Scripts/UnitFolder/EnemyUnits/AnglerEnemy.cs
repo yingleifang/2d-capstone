@@ -4,61 +4,67 @@ using UnityEngine;
 
 public class AnglerEnemy : EnemyUnit
 {
+    private PlayerUnit target = null;
+    private int numSpacesLured = 1;
     public override IEnumerator performAction(BattleState state)
     {
-        PlayerUnit furthest = FindFurthestPlayerUnit(state);
+        if (coolDown > 0)
+        {
+            coolDown--;
+        }
+        if (target == null || target.currentHealth <= 0)
+        {
+            target = FindFurthestPlayerUnit(state);
+        }
 
-        if(!furthest)
+        if(!target)
         {
             // No player units? Something's wrong
             yield break;
         }
 
         // Move as far as possible towards the furthest unit
-        List<Vector3Int> path = state.map.FindShortestPath(location, furthest.location);
-        Vector3Int goal;
-        int goalIndex;
-        if(currentMovementSpeed > path.Count)
-        {
-            goalIndex = path.Count - 1;
-        } else
-        {
-            goalIndex = currentMovementSpeed - 1;
-        }
+        yield return StartCoroutine(MoveTowards(state, target.location, currentMovementSpeed));
 
-        if(goalIndex < 0)
+        PlayerUnit abilityAlternateTarget = FindFurthestPlayerUnit(state);
+        if (currentCoolDown > 0 || BattleManager.instance.map.RealDistance(location, abilityAlternateTarget.location) < numSpacesLured)
         {
-            goal = location;
-        } else
-        {
-            goal = path[goalIndex];
-        }
+            if (IsTileInAttackRange(target.location))
+            {
+                yield return StartCoroutine(DoAttack(target));
+                yield return new WaitForSeconds(0.2f);   
+            }
+            else
+            {
+                List<Vector3Int> tilesInRange = GetTilesInAttackRange();
+                PlayerUnit targetUnit = null;
 
-        if(goal == furthest.location)
-        {
-            if(goalIndex - 1 < 0)
-            {
-                goal = location;
-            } else
-            {
-                goal = path[goalIndex - 1];
+                foreach (Vector3Int coord in tilesInRange)
+                {
+                    Unit currentUnit = BattleManager.instance.map.dynamicTileDatas[coord].unit;
+                    if(!isDead && currentUnit != null && currentUnit is PlayerUnit)
+                    {
+                        targetUnit = (PlayerUnit)currentUnit;
+                        break;
+                    }
+                }
+                if (targetUnit != null)
+                {
+                    yield return StartCoroutine(DoAttack(targetUnit));
+                    yield return new WaitForSeconds(0.2f);
+                }
             }
         }
-        yield return StartCoroutine(DoMovement(state, goal));
-        yield return new WaitForSeconds(0.1f);
-
-        List<Vector3Int> tilesInRange = GetTilesInAttackRange();
-        Unit targetUnit = null;
-
-        foreach (Vector3Int coord in tilesInRange)
+        else
         {
-            if(!isDead && BattleManager.instance.map.dynamicTileDatas[coord].unit != null)
+            if (IsTileInAttackRange(target.location))
             {
-                targetUnit = BattleManager.instance.map.dynamicTileDatas[coord].unit;
-                break;
+                yield return StartCoroutine(abilityAlternateTarget.MoveTowards(state, location, numSpacesLured));
+            }
+            else
+            {
+                yield return StartCoroutine(target.MoveTowards(state, location, numSpacesLured));
             }
         }
-        yield return StartCoroutine(DoAttack(targetUnit));
-        yield return new WaitForSeconds(0.2f);
     }
 }

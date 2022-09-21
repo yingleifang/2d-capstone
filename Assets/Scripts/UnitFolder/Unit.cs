@@ -137,7 +137,7 @@ public abstract class Unit: MonoBehaviour
         currentAttackRange = attackRange;
     }
 
-    public virtual IEnumerator DoMovement(BattleState state, Vector3Int target)
+    public virtual IEnumerator DoMovement(BattleState state, Vector3Int target, bool unitBlocks = true)
     {
         if (state.map.GetTile(target) == null)
         {
@@ -145,7 +145,7 @@ public abstract class Unit: MonoBehaviour
         }
         if (path == null)
         {
-            path = state.map.FindShortestPath(location, target);
+            path = state.map.FindShortestPath(location, target, unitBlocks);
             inMovement = true;
         }
         state.map.RemoveUnitFromTile(location);
@@ -155,6 +155,41 @@ public abstract class Unit: MonoBehaviour
         yield break;
         //TODO Check bounds here. Access map classs to do this.
         //Trigger animations here
+    }
+
+    public IEnumerator MoveTowards(BattleState state, Vector3Int targetLocation, int numMove)
+    {
+        List<Vector3Int> path = state.map.FindShortestPath(location, targetLocation);
+        Vector3Int goal;
+        int goalIndex;
+        if(numMove > path.Count)
+        {
+            goalIndex = path.Count - 1;
+        } else
+        {
+            goalIndex = numMove - 1;
+        }
+
+        if(goalIndex < 0)
+        {
+            goal = location;
+        } else
+        {
+            goal = path[goalIndex];
+        }
+
+        if(goal == targetLocation)
+        {
+            if(goalIndex - 1 < 0)
+            {
+                goal = location;
+            } else
+            {
+                goal = path[goalIndex - 1];
+            }
+        }
+        yield return StartCoroutine(DoMovement(state, goal));
+        yield return new WaitForSeconds(0.1f);
     }
 
     IEnumerator smoothMovement(BattleState state, Vector3Int target)

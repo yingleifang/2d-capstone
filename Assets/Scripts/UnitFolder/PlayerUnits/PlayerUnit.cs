@@ -11,7 +11,7 @@ public class PlayerUnit : Unit
     public bool hasMoved = false;
     public bool hasAttacked = false;
 
-    public override IEnumerator DoMovement(BattleState state, Vector3Int target)
+    public override IEnumerator DoMovement(BattleState state, Vector3Int target, bool unitBlocks = true)
     {
         hasMoved = true;
         return base.DoMovement(state, target);
