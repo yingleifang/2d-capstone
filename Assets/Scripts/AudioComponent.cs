@@ -37,6 +37,10 @@ public class AudioComponent : MonoBehaviour
 
     public void PlaySound(SoundEffect sound)
     {
+        if(sound == null)
+        {
+            return;
+        }
         if(sound.clip != null)
         {
             if (sound.pitchFluctuation != 0)
