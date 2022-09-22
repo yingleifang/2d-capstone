@@ -115,13 +115,7 @@ public class BattleManager : MonoBehaviour
         List<Coroutine> animations = new List<Coroutine>();
         foreach (Unit unit in unitsToSpawn.ToArray())
         {
-            animations.Add(StartCoroutine(SpawnUnit(unit.location, unit)));
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        foreach(Coroutine anim in animations)
-        {
-            yield return anim;
+            yield return StartCoroutine(SpawnUnit(unit.location, unit));
         }
 
         yield return StartCoroutine(UpdateBattleState());

@@ -81,7 +81,7 @@ public abstract class Unit: MonoBehaviour
     {
         anim.SetTrigger("Attack");
         yield return null; // Wait a frame for the animation to start
-        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base_Layer.Attacking"));
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Attacking"));
     }
 
     public IEnumerator PlayDeathAnimation()
@@ -101,6 +101,14 @@ public abstract class Unit: MonoBehaviour
         anim.SetBool("isMoving", false);
     }
 
+    public IEnumerator PlayAppearAnimation()
+    {
+        anim.SetBool("Hide", false);
+        anim.SetTrigger("Appear");
+        yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
+    }
+
     public IEnumerator PlayFallingAnimation()
     {
         yield break;
@@ -109,7 +117,7 @@ public abstract class Unit: MonoBehaviour
     public IEnumerator PlayDamageAnimation()
     {
         anim.SetTrigger("Damaged");
-        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base_Layer.Damaged"));
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Damaged"));
     }
 
     public abstract IEnumerator UseAbility(Vector3Int target);
@@ -270,8 +278,7 @@ public abstract class Unit: MonoBehaviour
         
         transform.position = state.map.CellToWorldPosition(target);
 
-        anim.SetBool("Hide", false);
-        anim.SetTrigger("Appear");
+        yield return StartCoroutine(PlayAppearAnimation());
     }
 
     public void PlayPlacementSound()
