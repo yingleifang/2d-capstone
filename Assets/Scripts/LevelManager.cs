@@ -30,7 +30,18 @@ public class LevelManager : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        RefreshNewGame();
+    }
+
+    public void RefreshNewGame()
+    {
+        Debug.Log("$$$$$$$$$$$$$$$$$");        
         tileManager = FindObjectOfType<TileManager>();
+        currentLevel = 0;
+        tileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
+        nextSceneTileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
+        nextSceneenemyInfo = new List<(int, Vector3Int)>();
+        enemyInfo = new List<(int, Vector3Int)>();
         fillTileInfo(tileInfo);
         fillTileInfo(nextSceneTileInfo);
         fillEnemyInfo(enemyInfo, 0);
