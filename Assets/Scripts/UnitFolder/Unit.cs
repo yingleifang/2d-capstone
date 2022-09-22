@@ -300,7 +300,7 @@ public abstract class Unit: MonoBehaviour
         if (amount < 0)
         {
             audio.PlayDisposable(hitSound);
-            SpawnDamageNumber(amount.ToString(), Color.white);
+            SpawnDamageNumber(Mathf.Abs(amount).ToString(), Color.white);
             StartCoroutine(PlayDamageAnimation());
         }
         if (currentHealth <= 0)
