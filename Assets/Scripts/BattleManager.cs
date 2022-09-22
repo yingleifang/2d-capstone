@@ -277,6 +277,7 @@ public class BattleManager : MonoBehaviour
     IEnumerator ShowGameOver()
     {
         yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));
+        levelManager.RefreshNewGame();
         foreach (EnemyUnit unit in enemyUnits.ToArray())
         {
             Destroy(unit.gameObject);
