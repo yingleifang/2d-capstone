@@ -443,6 +443,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &4954003847549342874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6815674942770168943}
+  m_Layer: 0
+  m_Name: DamageNumberSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6815674942770168943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4954003847549342874}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8264826747215317850}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7737565812669046197
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,6 +609,7 @@ Transform:
   m_Children:
   - {fileID: 6029206412187194005}
   - {fileID: 6833088228239802162}
+  - {fileID: 6815674942770168943}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -606,10 +638,13 @@ MonoBehaviour:
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: 31881298027716544}
   audio: {fileID: 8250693603298723489}
+  spriteRenderer: {fileID: 8086473267470530364}
   portrait: {fileID: 21300000, guid: 94871490b194bdf4784fc640a1ae141d, type: 3}
   characterName: Locke
   healthBarFill: {fileID: 3446229116067933134}
   healthBarBackground: {fileID: 473347124578990022}
+  damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
+  damageNumberSpawnPoint: {fileID: 6815674942770168943}
   deathSound:
     clip: {fileID: 8300000, guid: 1527c37c535617f48b9f3f7dac67421c, type: 3}
     volume: 0.5
@@ -630,7 +665,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ba1af60cbb31d7741b3441ca74993e07, type: 3}
     volume: 1
     pitchFluctuation: 0
-  spriteRenderer: {fileID: 8086473267470530364}
   isDead: 0
   inMovement: 0
   type: 0

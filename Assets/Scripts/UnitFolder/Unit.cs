@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class Unit: MonoBehaviour
 {
@@ -28,15 +29,18 @@ public abstract class Unit: MonoBehaviour
 
     public new AudioComponent audio;
 
+    public SpriteRenderer spriteRenderer;
     public Sprite portrait;
     public string characterName;
     public GameObject healthBarFill;
     public GameObject healthBarBackground;
+    public DamageNumber damageNumberPrefab;
+    public Transform damageNumberSpawnPoint;
 
     [SerializeField]
     private SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
     [SerializeField]
-    public SpriteRenderer spriteRenderer;
+    
 
     public bool isDead = false;
 
@@ -275,12 +279,28 @@ public abstract class Unit: MonoBehaviour
         audio.PlayDisposable(placementSound);
     }
 
+    /// <summary>
+    /// Spawns a damage number prefab at damageNumberSpawnPoint
+    /// with the given parameters.
+    /// </summary>
+    /// <param name="text">the text to display</param>
+    /// <param name="color">the color of the pop up</param>
+    public void SpawnDamageNumber(string text, Color color)
+    {
+        if(damageNumberPrefab)
+        {
+            DamageNumber instance = Instantiate(damageNumberPrefab, damageNumberSpawnPoint.position, Quaternion.identity);
+            instance.Initialize(text, color);
+        }
+    }
+
     public void ChangeHealth(int amount)
     {
         currentHealth += amount;
         if (amount < 0)
         {
             audio.PlayDisposable(hitSound);
+            SpawnDamageNumber(amount.ToString(), Color.white);
             StartCoroutine(PlayDamageAnimation());
         }
         if (currentHealth <= 0)

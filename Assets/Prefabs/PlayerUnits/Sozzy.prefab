@@ -178,6 +178,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2413458513442574099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7674478909558676814}
+  m_Layer: 0
+  m_Name: DamageNumberSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7674478909558676814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2413458513442574099}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8264826747215317850}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7982651925906382191
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +318,7 @@ Transform:
   m_Children:
   - {fileID: 8264826747869016568}
   - {fileID: 1309586364135896786}
+  - {fileID: 7674478909558676814}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -315,10 +347,13 @@ MonoBehaviour:
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: 31881298027716544}
   audio: {fileID: 1657812232248823373}
+  spriteRenderer: {fileID: 8264826747869016569}
   portrait: {fileID: 0}
   characterName: 
   healthBarFill: {fileID: 2236256011217497494}
   healthBarBackground: {fileID: 7982651925906382191}
+  damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
+  damageNumberSpawnPoint: {fileID: 7674478909558676814}
   deathSound:
     clip: {fileID: 8300000, guid: 61ac36e9ab579424583f7f30c4659145, type: 3}
     volume: 0.5
@@ -339,7 +374,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 95b60d14ead48c645b8745b931fc0db4, type: 3}
     volume: 1
     pitchFluctuation: 0
-  spriteRenderer: {fileID: 8264826747869016569}
   isDead: 0
   inMovement: 0
   type: 2
