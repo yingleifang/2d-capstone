@@ -5,7 +5,19 @@ using UnityEngine;
 public class AnglerEnemy : EnemyUnit
 {
     private PlayerUnit target = null;
+    
+    //Number of spaces the ability lures the target unit
     private int numSpacesLured = 1;
+
+    //Target Logic: 
+    //Chooses the furthest player unit away from him as a target and maintains
+    //this same target until the target dies. Chooses his next target the same way.
+    //
+    //Ability Logic: 
+    //Uses his ability on his target. If his target is in attack range, uses it instead
+    //on the unit furthest away from him
+    //
+    //Movement Logic: Does not avoid hazards
     public override IEnumerator performAction(BattleState state)
     {
         if (coolDown > 0)

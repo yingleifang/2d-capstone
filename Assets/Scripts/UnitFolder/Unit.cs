@@ -44,9 +44,9 @@ public abstract class Unit: MonoBehaviour
 
     public bool isDead = false;
 
+    //For pathfinding
     protected int currentWaypointIndex = 0;
     protected List<Vector3Int> path = null;
-
     public bool inMovement = false;
 
     private void Awake()
@@ -142,6 +142,7 @@ public abstract class Unit: MonoBehaviour
         yield break;
     }
 
+    //Player unit function. Overridden in PlayerUnit.cs
     public virtual void StartOfTurn()
     {
         return;
@@ -167,11 +168,9 @@ public abstract class Unit: MonoBehaviour
         }
         state.map.RemoveUnitFromTile(location);
         state.map.AddUnitToTile(target, this);
+        
         yield return StartCoroutine(smoothMovement(state, target));
-
         yield break;
-        //TODO Check bounds here. Access map classs to do this.
-        //Trigger animations here
     }
 
     public IEnumerator MoveTowards(BattleState state, Vector3Int targetLocation, int numMove)

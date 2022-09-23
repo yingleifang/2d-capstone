@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FishEnemy : EnemyUnit
 {
+    //Target Logic: Always the closest player unit
+    //Ability Logic: No ablity
+    //Movement Logic: Does not avoid hazards
     public override IEnumerator performAction(BattleState state)
     {
         PlayerUnit closest = FindClosestPlayerUnit(state);
