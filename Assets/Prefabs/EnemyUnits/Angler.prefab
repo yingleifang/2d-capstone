@@ -141,6 +141,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4316785244231713794}
   portrait: {fileID: 0}
   characterName: Dumbell
+  characterDescription: 
   healthBarFill: {fileID: 5316833990255598534}
   healthBarBackground: {fileID: 1463624315805780811}
   damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
@@ -437,7 +438,7 @@ GameObject:
   - component: {fileID: 6491901244820095278}
   - component: {fileID: 6366223119964443981}
   m_Layer: 0
-  m_Name: AnglerSprite
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
