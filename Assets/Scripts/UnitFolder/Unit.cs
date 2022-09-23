@@ -68,7 +68,7 @@ public abstract class Unit: MonoBehaviour
         currentAttackDamage = attackDamage;
         currentAttackRange = attackRange;
         currentMovementSpeed = movementSpeed;
-        currentCoolDown = coolDown;
+        currentCoolDown = 0;
         BattleManager.instance.unitsToSpawn.Add(this);
     }
 

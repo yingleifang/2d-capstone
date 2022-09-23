@@ -20,6 +20,7 @@ public class AnglerEnemy : EnemyUnit
         if(!target)
         {
             // No player units? Something's wrong
+            Debug.Log("No player units detected (AnglerEnemy performAction method) :(");
             yield break;
         }
 
@@ -27,8 +28,12 @@ public class AnglerEnemy : EnemyUnit
         yield return StartCoroutine(MoveTowards(state, target.location, currentMovementSpeed));
 
         PlayerUnit abilityAlternateTarget = FindFurthestPlayerUnit(state);
-        if (currentCoolDown > 0 || BattleManager.instance.map.RealDistance(location, abilityAlternateTarget.location) < numSpacesLured)
+        
+        //Don't want to use ability if it is on cooldown, or if there are no units who can move any closer to us
+        Debug.Log("real distance: " + state.map.RealDistance(location, abilityAlternateTarget.location));
+        if (currentCoolDown > 0 || state.map.RealDistance(location, abilityAlternateTarget.location) <= numSpacesLured)
         {
+            Debug.Log("Attacking");
             if (IsTileInAttackRange(target.location))
             {
                 yield return StartCoroutine(DoAttack(target));
@@ -41,7 +46,7 @@ public class AnglerEnemy : EnemyUnit
 
                 foreach (Vector3Int coord in tilesInRange)
                 {
-                    Unit currentUnit = BattleManager.instance.map.dynamicTileDatas[coord].unit;
+                    Unit currentUnit = state.map.dynamicTileDatas[coord].unit;
                     if(!isDead && currentUnit != null && currentUnit is PlayerUnit)
                     {
                         targetUnit = (PlayerUnit)currentUnit;
@@ -57,6 +62,8 @@ public class AnglerEnemy : EnemyUnit
         }
         else
         {
+            Debug.Log("Using ability");
+            currentCoolDown = coolDown;
             if (IsTileInAttackRange(target.location))
             {
                 yield return StartCoroutine(abilityAlternateTarget.MoveTowards(state, location, numSpacesLured));

@@ -39,13 +39,15 @@ public abstract class EnemyUnit : Unit
         foreach (PlayerUnit unit in state.playerUnits)
         {
             int distance = state.map.RealDistance(location, unit.location);
-            if (distance < furthest)
+            
+            if (distance > furthest)
             {
+                
                 furthestUnit = unit;
                 furthest = distance;
             }
         }
-
+        Debug.Log(furthestUnit);
         return furthestUnit;        
     }
 }

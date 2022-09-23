@@ -11,6 +11,7 @@ public class FishEnemy : EnemyUnit
         if(!closest)
         {
             // No player units? Something's wrong
+            Debug.Log("No player units detected (FishEnemy performAction method) :(");
             yield break;
         }
 
