@@ -30,10 +30,8 @@ public class AnglerEnemy : EnemyUnit
         PlayerUnit abilityAlternateTarget = FindFurthestPlayerUnit(state);
         
         //Don't want to use ability if it is on cooldown, or if there are no units who can move any closer to us
-        Debug.Log("real distance: " + state.map.RealDistance(location, abilityAlternateTarget.location));
         if (currentCoolDown > 0 || state.map.RealDistance(location, abilityAlternateTarget.location) <= numSpacesLured)
         {
-            Debug.Log("Attacking");
             if (IsTileInAttackRange(target.location))
             {
                 yield return StartCoroutine(DoAttack(target));
@@ -62,7 +60,6 @@ public class AnglerEnemy : EnemyUnit
         }
         else
         {
-            Debug.Log("Using ability");
             currentCoolDown = coolDown;
             if (IsTileInAttackRange(target.location))
             {
