@@ -24,8 +24,7 @@ public class LevelManager : MonoBehaviour
     public List<(int, Vector3Int)> nextSceneenemyInfo = new List<(int, Vector3Int)>();
 
     public List<EnemyUnit> typesOfEnemiesToSpawn;
-
-    public TileManager tileManager;
+    public List<TileDataScriptableObject> typesOfTilesToSpawn;
 
     void Awake()
     {
@@ -35,8 +34,6 @@ public class LevelManager : MonoBehaviour
 
     public void RefreshNewGame()
     {
-        Debug.Log("$$$$$$$$$$$$$$$$$");        
-        tileManager = FindObjectOfType<TileManager>();
         currentLevel = 0;
         tileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
         nextSceneTileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
@@ -51,7 +48,7 @@ public class LevelManager : MonoBehaviour
     public void fillTileInfo(List<(TileDataScriptableObject, Vector3Int)> curTileInfo)
     {
         int total_weight = 0;
-        foreach (var tile in tileManager.tileDatas)
+        foreach (var tile in typesOfTilesToSpawn)
             total_weight += tile.weight;
 
         for (int x = -3; x < 4; x++)
@@ -62,10 +59,10 @@ public class LevelManager : MonoBehaviour
                 int index = 0;
                 while (rngNum > 0)
                 {
-                    rngNum -= tileManager.tileDatas[index].weight;
+                    rngNum -= typesOfTilesToSpawn[index].weight;
                     index++;
                 }
-                curTileInfo.Add((tileManager.tileDatas[index - 1], new Vector3Int(x, y, 0)));
+                curTileInfo.Add((typesOfTilesToSpawn[index - 1], new Vector3Int(x, y, 0)));
             }
         }
     }
@@ -106,7 +103,6 @@ public class LevelManager : MonoBehaviour
     public void PreparNextBattle()
     {
         currentLevel++;
-        tileManager = FindObjectOfType<TileManager>();
         tileInfo = nextSceneTileInfo;
         nextSceneTileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
         fillTileInfo(nextSceneTileInfo);

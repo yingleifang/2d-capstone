@@ -54,7 +54,7 @@ public class BattleManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -88,6 +88,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //levelManager.RefreshNewGame();
         setEnemyData();
         StartCoroutine(ui.HideSelectionWindow());
         StartCoroutine(InitializeBattle());
@@ -270,8 +271,8 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator ShowGameOver()
     {
-        yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));
         levelManager.RefreshNewGame();
+        yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));
         foreach (EnemyUnit unit in enemyUnits.ToArray())
         {
             Destroy(unit.gameObject);
@@ -281,6 +282,7 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator NextLevel()
     {
+        levelManager.PreparNextBattle();
         acceptingInput = false;
 
         unitsToSpawn.AddRange(enemyUnits);
@@ -304,6 +306,7 @@ public class BattleManager : MonoBehaviour
         // Should probably be handled more elegantly
         if (map == null || ui == null)
         {
+            levelManager.RefreshNewGame();
             Debug.Log("No TileManager or UIController found. Destroying GameManager");
             foreach (Unit unit in unitsToSpawn)
             {
@@ -312,8 +315,6 @@ public class BattleManager : MonoBehaviour
 
             Destroy(gameObject);
         }
-
-        levelManager.PreparNextBattle();
         setEnemyData();
         StartCoroutine(InitializeBattle());
     }
