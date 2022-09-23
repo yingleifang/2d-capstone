@@ -282,7 +282,8 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator NextLevel()
     {
-        levelManager.PreparNextBattle();
+        levelManager.PrepareNextBattle();
+
         acceptingInput = false;
 
         unitsToSpawn.AddRange(enemyUnits);
@@ -383,6 +384,7 @@ public class BattleManager : MonoBehaviour
         if (acceptingInput && Input.GetMouseButtonDown(0))
         {
             Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
+            Debug.Log(tilePos);
 
             Unit curUnit = map.GetUnit(tilePos);
 

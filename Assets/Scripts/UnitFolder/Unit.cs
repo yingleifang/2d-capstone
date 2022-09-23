@@ -32,6 +32,7 @@ public abstract class Unit: MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite portrait;
     public string characterName;
+    public string characterDescription;
     public GameObject healthBarFill;
     public GameObject healthBarBackground;
     public DamageNumber damageNumberPrefab;
@@ -168,7 +169,7 @@ public abstract class Unit: MonoBehaviour
         }
         state.map.RemoveUnitFromTile(location);
         state.map.AddUnitToTile(target, this);
-        
+
         yield return StartCoroutine(smoothMovement(state, target));
         yield break;
     }

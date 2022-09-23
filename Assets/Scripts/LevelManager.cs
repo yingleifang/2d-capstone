@@ -17,6 +17,8 @@ public class LevelManager : MonoBehaviour
     public int currentLevel = 0;
     public int enemyNumToSpawn = 0;
 
+    public bool random = true;
+
     public List<(TileDataScriptableObject, Vector3Int)> tileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
     public List<(TileDataScriptableObject, Vector3Int)> nextSceneTileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
 
@@ -29,7 +31,10 @@ public class LevelManager : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        RefreshNewGame();
+        if (random)
+        {
+            RefreshNewGame();
+        }
     }
 
     public void RefreshNewGame()
@@ -100,9 +105,15 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void PreparNextBattle()
+    public void PrepareNextBattle()
     {
         currentLevel++;
+
+        if (!random)
+        {
+            return;
+        }
+
         tileInfo = nextSceneTileInfo;
         nextSceneTileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
         fillTileInfo(nextSceneTileInfo);

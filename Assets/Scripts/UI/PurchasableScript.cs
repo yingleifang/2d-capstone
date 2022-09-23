@@ -7,6 +7,7 @@ public class PurchasableScript : MonoBehaviour
 {
     public PlayerUnit unitPrefab;
     public Image image;
+    public GameObject descriptiveText;
 
     private void Awake()
     {
@@ -14,5 +15,15 @@ public class PurchasableScript : MonoBehaviour
         {
             image = GetComponent<Image>();
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        descriptiveText.SetActive(true);
+    }
+
+    private void OnMouseExit()
+    {
+        descriptiveText.SetActive(false);
     }
 }

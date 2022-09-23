@@ -9,8 +9,10 @@ public class UIController : MonoBehaviour
 {
     public GameObject blackSquare;
     public UnitSelectionWindow unitSelectionWindow;
+    public GameObject unitSelectionTutorial;
     public UnitInfoWindow unitInfoWindow;
     public Button endTurnButton;
+    public bool isTutorial;
 
 
     public IEnumerator DisableEndTurnButton()
@@ -80,6 +82,12 @@ public class UIController : MonoBehaviour
     {
         Debug.Log("Showing window");
         return unitSelectionWindow.Show();
+    }
+
+    public IEnumerator ShowSelectionTutorial()
+    {
+
+        yield break;
     }
 
     public IEnumerator HideSelectionWindow()
