@@ -1035,6 +1035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
+  hazzardAvatar: {fileID: 2016526582845031338, guid: b189cb4954d2e94498a01c36d71ff657, type: 3}
 --- !u!4 &270826229
 Transform:
   m_ObjectHideFlags: 0
@@ -1425,7 +1426,14 @@ MonoBehaviour:
   enemyNumToSpawn: 0
   typesOfEnemiesToSpawn:
   - {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
-  tileManager: {fileID: 0}
+  typesOfTilesToSpawn:
+  - {fileID: 11400000, guid: d52b466d59c94ac4590ac7e998924021, type: 2}
+  - {fileID: 11400000, guid: 9be78945db5975e48a41560accbc3c44, type: 2}
+  - {fileID: 11400000, guid: c2fb84ff8790f634ba60e9f39a23e146, type: 2}
+  - {fileID: 11400000, guid: 16c4461457034374c8b62f26c25586b4, type: 2}
+  - {fileID: 11400000, guid: 77d3957f96150774aa62b18aa2316abc, type: 2}
+  - {fileID: 11400000, guid: 58d94fb00c6f24f4c904f63aa4b4027b, type: 2}
+  - {fileID: 11400000, guid: 439c66e79ada37d4cbb31e6e03d8b6c4, type: 2}
 --- !u!4 &561730323
 Transform:
   m_ObjectHideFlags: 0
@@ -4015,12 +4023,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 126890231}
-  tileDatas:
-  - {fileID: 11400000, guid: c794c8b7bd2d1f44ebb60bd9386a82c7, type: 2}
-  - {fileID: 11400000, guid: c2fb84ff8790f634ba60e9f39a23e146, type: 2}
-  - {fileID: 11400000, guid: 58d94fb00c6f24f4c904f63aa4b4027b, type: 2}
-  - {fileID: 11400000, guid: 9be78945db5975e48a41560accbc3c44, type: 2}
-  - {fileID: 11400000, guid: 77d3957f96150774aa62b18aa2316abc, type: 2}
 --- !u!4 &1862399855
 Transform:
   m_ObjectHideFlags: 0

@@ -69,8 +69,8 @@ public class TileManager : MonoBehaviour
     [SerializeField]
     public Tilemap map;
     
-    [SerializeField]
-    public List<TileDataScriptableObject> tileDatas;
+    //[SerializeField]
+    //public List<TileDataScriptableObject> tileDatas;
 
     private List<Vector3Int> coloredTiles = new List<Vector3Int>();
 
@@ -96,9 +96,7 @@ public class TileManager : MonoBehaviour
     private void SetMapConfig()
     {
         foreach (var info in levelManager.tileInfo)
-        {
-            Debug.Log(info.Item2);
-            Debug.Log(info.Item1.tiles[0]);
+        {   
             map.SetTile(info.Item2, info.Item1.tiles[0]);
         }
     }
@@ -107,12 +105,12 @@ public class TileManager : MonoBehaviour
     void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
-        //map.ClearAllTiles();
+            //map.ClearAllTiles();
         SetMapConfig();
         baseTileDatas = new Dictionary<TileBase, TileDataScriptableObject>();
         dynamicTileDatas = new Dictionary<Vector3Int, DynamicTileData>();
         unitLocations = new Dictionary<Unit, Vector3Int>();
-        foreach (TileDataScriptableObject tileData in tileDatas)
+        foreach (TileDataScriptableObject tileData in levelManager.typesOfTilesToSpawn)
         {
             foreach (TileBase tile in tileData.tiles)
             {
