@@ -357,11 +357,11 @@ MonoBehaviour:
   damageNumberSpawnPoint: {fileID: 7674478909558676814}
   deathSound:
     clip: {fileID: 8300000, guid: 61ac36e9ab579424583f7f30c4659145, type: 3}
-    volume: 0.5
+    volume: 0
     pitchFluctuation: 0
   hitSound:
     clip: {fileID: 8300000, guid: 5d1d15a79600e37489ceddbd0399e795, type: 3}
-    volume: 0.3
+    volume: 0
     pitchFluctuation: 0
   attackSound:
     clip: {fileID: 0}
