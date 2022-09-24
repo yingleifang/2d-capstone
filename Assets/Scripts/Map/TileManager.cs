@@ -97,7 +97,7 @@ public class TileManager : MonoBehaviour
     {
         foreach (var info in levelManager.tileInfo)
         {   
-            map.SetTile(info.Item2, info.Item1.tiles[0]);
+            map.SetTile(info.Key, info.Value.tiles[0]);
         }
     }
 
@@ -237,6 +237,16 @@ public class TileManager : MonoBehaviour
             {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public bool IsImpassableTile(Vector3Int cellCoords, bool unitsBlock = true)
+    {
+        TileBase tile = map.GetTile(cellCoords);
+        if (tile == null || baseTileDatas[tile].impassable)
+        {
+            return true;
         }
         return false;
     }

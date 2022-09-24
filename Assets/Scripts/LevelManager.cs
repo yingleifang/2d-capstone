@@ -19,8 +19,8 @@ public class LevelManager : MonoBehaviour
 
     public bool random = true;
 
-    public List<(TileDataScriptableObject, Vector3Int)> tileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
-    public List<(TileDataScriptableObject, Vector3Int)> nextSceneTileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
+    public Dictionary<Vector3Int, TileDataScriptableObject> tileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
+    public Dictionary<Vector3Int, TileDataScriptableObject> nextSceneTileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
 
     public List<(int, Vector3Int)> enemyInfo = new List<(int, Vector3Int)>();
     public List<(int, Vector3Int)> nextSceneenemyInfo = new List<(int, Vector3Int)>();
@@ -40,8 +40,8 @@ public class LevelManager : MonoBehaviour
     public void RefreshNewGame()
     {
         currentLevel = 0;
-        tileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
-        nextSceneTileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
+        tileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
+        nextSceneTileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
         nextSceneenemyInfo = new List<(int, Vector3Int)>();
         enemyInfo = new List<(int, Vector3Int)>();
         fillTileInfo(tileInfo);
@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour
         fillEnemyInfo(nextSceneenemyInfo, 1);
     }
 
-    public void fillTileInfo(List<(TileDataScriptableObject, Vector3Int)> curTileInfo)
+    public void fillTileInfo(Dictionary<Vector3Int, TileDataScriptableObject> curTileInfo)
     {
         int total_weight = 0;
         foreach (var tile in typesOfTilesToSpawn)
@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
                     rngNum -= typesOfTilesToSpawn[index].weight;
                     index++;
                 }
-                curTileInfo.Add((typesOfTilesToSpawn[index - 1], new Vector3Int(x, y, 0)));
+                curTileInfo.Add(new Vector3Int(x, y, 0), typesOfTilesToSpawn[index - 1]);
             }
         }
     }
@@ -81,6 +81,10 @@ public class LevelManager : MonoBehaviour
         {
             for (int y = -2; y < 3; y++)
             {
+                if (tileInfo[new Vector3Int(x, y, 0)].impassable == true || tileInfo[new Vector3Int(x, y, 0)].hazardous == true)
+                {
+                    continue;
+                }
                 possiblePositions.Add(new Vector3Int(x, y, 0));
             }
         }
@@ -115,7 +119,7 @@ public class LevelManager : MonoBehaviour
         }
 
         tileInfo = nextSceneTileInfo;
-        nextSceneTileInfo = new List<(TileDataScriptableObject, Vector3Int)>();
+        nextSceneTileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
         fillTileInfo(nextSceneTileInfo);
         enemyInfo = nextSceneenemyInfo;
         nextSceneenemyInfo = new List<(int, Vector3Int)>();

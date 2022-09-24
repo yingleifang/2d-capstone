@@ -97,6 +97,38 @@ public class BattleManager : MonoBehaviour
         //Load(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (acceptingInput && Input.GetMouseButtonDown(0))
+        {
+            Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
+            Debug.Log(tilePos);
+
+            if (map.IsImpassableTile(tilePos)){
+                return;
+            }
+
+            Unit curUnit = map.GetUnit(tilePos);
+
+            if (isPlacingUnit)
+            {
+                StartCoroutine(HandlePlacingClicks(tilePos, curUnit));
+            }
+            else if (!isBattleOver && acceptingInput)
+            {
+                acceptingInput = false;
+                StartCoroutine(HandleBattleClicks(tilePos, curUnit));
+            }
+        }
+        if (isPlacingUnit && unitToPlace)
+        {
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            worldPos.z = 0;
+            unitToPlace.transform.position = worldPos;
+        }
+
+    }
     private void setEnemyData()
     {
         levelManager = FindObjectOfType<LevelManager>();
@@ -376,34 +408,6 @@ public class BattleManager : MonoBehaviour
         ui.DisableEndTurnButton();
         isPlayerTurn = true;
         yield break;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (acceptingInput && Input.GetMouseButtonDown(0))
-        {
-            Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
-            Debug.Log(tilePos);
-
-            Unit curUnit = map.GetUnit(tilePos);
-
-            if (isPlacingUnit)
-            {
-                StartCoroutine(HandlePlacingClicks(tilePos, curUnit));
-            } else if (!isBattleOver && acceptingInput)
-            {
-                acceptingInput = false;
-                StartCoroutine(HandleBattleClicks(tilePos, curUnit));
-            }
-        }
-        if (isPlacingUnit && unitToPlace)
-        {
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldPos.z = 0;
-            unitToPlace.transform.position = worldPos;
-        }
-        
     }
 
     private IEnumerator HandlePlacingClicks(Vector3Int tilePos, Unit curUnit)

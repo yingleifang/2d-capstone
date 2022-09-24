@@ -10,6 +10,8 @@ public class generatePreviews : MonoBehaviour
 
     public GameObject hazzardAvatar;
 
+    public GameObject impassibleAvatar;
+
     BattleManager battleManager;
 
     // Start is called before the first frame update
@@ -32,14 +34,19 @@ public class generatePreviews : MonoBehaviour
 
     }
 
-    private void ShowHazzardPreview(List<(TileDataScriptableObject, Vector3Int)> nextSceneTileInfo, BattleState state)
+    private void ShowHazzardPreview(Dictionary<Vector3Int, TileDataScriptableObject> nextSceneTileInfo, BattleState state)
     {
         foreach (var loc in nextSceneTileInfo)
         {
-            if (loc.Item1.hazardous == true)
+            if (loc.Value.hazardous == true)
             {
-                var targetTransform = state.map.CellToWorldPosition(loc.Item2);
+                var targetTransform = state.map.CellToWorldPosition(loc.Key);
                 GameObject gameObject = Instantiate(hazzardAvatar, targetTransform, Quaternion.identity);
+                gameObject.transform.SetParent(transform, false);
+            }else if (loc.Value.impassable == true)
+            {
+                var targetTransform = state.map.CellToWorldPosition(loc.Key);
+                GameObject gameObject = Instantiate(impassibleAvatar, targetTransform, Quaternion.identity);
                 gameObject.transform.SetParent(transform, false);
             }
         }
