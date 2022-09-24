@@ -732,6 +732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
   hazzardAvatar: {fileID: 2016526582845031338, guid: b189cb4954d2e94498a01c36d71ff657, type: 3}
+  impassibleAvatar: {fileID: 3334986738694511694, guid: 668a83c87dcfaea4cb213d3861fba8c5, type: 3}
 --- !u!4 &270826229
 Transform:
   m_ObjectHideFlags: 0
@@ -780,7 +781,7 @@ MonoBehaviour:
   x_max: 4
   y_min: -2
   y_max: 3
-  currentLevel: 0
+  currentLevel: 1
   enemyNumToSpawn: 0
   random: 1
   typesOfEnemiesToSpawn:
@@ -792,6 +793,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 77d3957f96150774aa62b18aa2316abc, type: 2}
   - {fileID: 11400000, guid: 58d94fb00c6f24f4c904f63aa4b4027b, type: 2}
   - {fileID: 11400000, guid: 439c66e79ada37d4cbb31e6e03d8b6c4, type: 2}
+  - {fileID: 11400000, guid: f150f011342cd2c42aeb4e57bdd892ff, type: 2}
+  - {fileID: 11400000, guid: 616f9755a7acdc64f9f85dc6850939b9, type: 2}
 --- !u!4 &561730323
 Transform:
   m_ObjectHideFlags: 0
