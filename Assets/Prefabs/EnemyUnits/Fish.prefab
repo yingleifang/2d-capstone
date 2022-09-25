@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5acc72183f3efa441b8eb54d2518019b, type: 3}
+  m_Sprite: {fileID: 475102025, guid: 155c11a30f9b39c4bba6d3942ccf5923, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.5, y: 6.5}
+  m_Size: {x: 10.002442, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -593,7 +593,7 @@ Animator:
   m_GameObject: {fileID: 8109192335271719319}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8071149dc804dac44bb0cec5f1995740, type: 2}
+  m_Controller: {fileID: 9100000, guid: 830609c8877b49841ac0c0983e4e70e4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -753,6 +753,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1447998723661349570}
   portrait: {fileID: 21300000, guid: f826c198a66746e439e539aaf0dbfc6d, type: 3}
   characterName: White Fishbelly
+  characterDescription: 
   healthBarFill: {fileID: 5971552602486580692}
   healthBarBackground: {fileID: 2337026979172989889}
   damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
