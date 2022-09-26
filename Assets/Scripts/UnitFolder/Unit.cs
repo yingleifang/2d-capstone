@@ -82,14 +82,16 @@ public abstract class Unit: MonoBehaviour
     {
         anim.SetTrigger("Attack");
         yield return null; // Wait a frame for the animation to start
-        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Attacking"));
+        int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 
     public IEnumerator PlayDeathAnimation()
     {
         anim.SetBool("isDead", true);
-        yield return null;
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        yield return null; // Wait a frame for the animation to start
+        int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 
     public void StartMovingAnimation()
@@ -106,8 +108,9 @@ public abstract class Unit: MonoBehaviour
     {
         anim.SetBool("Hide", false);
         anim.SetTrigger("Appear");
-        yield return null;
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"));
+        yield return null; // Wait a frame for the animation to start
+        int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 
     public IEnumerator PlayFallingAnimation()
@@ -118,7 +121,9 @@ public abstract class Unit: MonoBehaviour
     public IEnumerator PlayDamageAnimation()
     {
         anim.SetTrigger("Damaged");
-        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Damaged"));
+        yield return null; // Wait a frame for the animation to start
+        int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 
     public abstract IEnumerator UseAbility(Vector3Int target);
