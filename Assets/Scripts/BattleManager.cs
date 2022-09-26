@@ -246,10 +246,14 @@ public class BattleManager : MonoBehaviour
                 yield break;
             }
             unit.ChangeHealth(-1);
+            yield return StartCoroutine(unit.BounceTo(GetState(), spawnLocation, 0.1f));
+        } else
+        {
+            yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation));
         }
 
         map.AddUnitToTile(spawnLocation, unit);
-        yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation));
+        
 
         yield return StartCoroutine(map.OnUnitFallOnTile(GetState(), unit, spawnLocation));
     }

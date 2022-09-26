@@ -296,6 +296,13 @@ public abstract class Unit: MonoBehaviour
         transform.position = state.map.CellToWorldPosition(target);
     }
 
+    public IEnumerator BounceTo(BattleState state, Vector3Int target, float duration)
+    {
+        Vector3 destination = state.map.CellToWorldPosition(target);
+        LeanTween.move(gameObject, destination, duration);
+        yield return new WaitForSeconds(duration);
+    }
+
     public void PlayPlacementSound()
     {
         audio.PlayDisposable(placementSound);
