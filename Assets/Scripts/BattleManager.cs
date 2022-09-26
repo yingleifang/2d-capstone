@@ -135,7 +135,9 @@ public class BattleManager : MonoBehaviour
         foreach (var curInfo in levelManager.enemyInfo)
         {
             EnemyUnit curEnemy = Instantiate(levelManager.typesOfEnemiesToSpawn[curInfo.Item1]);
-            curEnemy.location = curInfo.Item2;
+            curEnemy.SetLocation(GetState(), curInfo.Item2);
+            enemyUnits.Add(curEnemy);
+            map.AddUnitToTile(curInfo.Item2, curEnemy);
         }
     }
     private IEnumerator InitializeBattle()
@@ -233,6 +235,8 @@ public class BattleManager : MonoBehaviour
         {
             // Unit fell on another unit!
             Debug.Log("Falling unit collision!");
+            // Unit collision animation
+            yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation));
             mapUnit.ChangeHealth(-1);
             if (!map.FindClosestFreeTile(spawnLocation, out spawnLocation))
             {
@@ -245,7 +249,7 @@ public class BattleManager : MonoBehaviour
         }
 
         map.AddUnitToTile(spawnLocation, unit);
-        yield return StartCoroutine(unit.SetLocation(GetState(), spawnLocation));
+        yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation));
 
         yield return StartCoroutine(map.OnUnitFallOnTile(GetState(), unit, spawnLocation));
     }

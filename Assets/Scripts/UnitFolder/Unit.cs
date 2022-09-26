@@ -70,7 +70,7 @@ public abstract class Unit: MonoBehaviour
         currentAttackRange = attackRange;
         currentMovementSpeed = movementSpeed;
         currentCoolDown = 0;
-        BattleManager.instance.unitsToSpawn.Add(this);
+        //BattleManager.instance.unitsToSpawn.Add(this);
     }
 
     public void PlaySoundAnim(AnimationEvent sound)
@@ -272,18 +272,28 @@ public abstract class Unit: MonoBehaviour
         return BattleManager.instance.map.GetTilesInRange(location, currentMovementSpeed + currentAttackRange, false);
     }
 
-    public IEnumerator SetLocation(BattleState state, Vector3Int target)
+    /// <summary>
+    /// Sets the unit's position to the given location and plays the appearing animation
+    /// </summary>
+    /// <param name="state">current state of the battle</param>
+    /// <param name="target">location to spawn at</param>
+    /// <returns></returns>
+    public IEnumerator AppearAt(BattleState state, Vector3Int target)
     {
         if (state.map.GetTile(target) == null)
         {
             yield break;
         }
 
-        location = target;
-        
-        transform.position = state.map.CellToWorldPosition(target);
+        SetLocation(state, target);
 
         yield return StartCoroutine(PlayAppearAnimation());
+    }
+
+    public void SetLocation(BattleState state, Vector3Int target)
+    {
+        location = target;
+        transform.position = state.map.CellToWorldPosition(target);
     }
 
     public void PlayPlacementSound()
