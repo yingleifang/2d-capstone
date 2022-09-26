@@ -13,6 +13,7 @@ public class UnitSelectionWindow : MonoBehaviour
     public IEnumerator Hide()
     {
         // Play hiding animation
+        LeanTween.scale(gameObject, new Vector3(0, 0, 0), 0.3f);
         gameObject.SetActive(false);
 
         yield break;
@@ -50,6 +51,7 @@ public class UnitSelectionWindow : MonoBehaviour
         Debug.Log("Preparing to show unit selection window");
         LoadUnitSelection();
         // Play appearing animation
+        LeanTween.scale(gameObject, new Vector3(1, 1, 1), 0.3f);
         gameObject.SetActive(true);
         yield break;
     }
