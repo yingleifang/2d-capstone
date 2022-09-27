@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-
-/// <summary>
-/// Stores tile data which does not change throughout the course of
-/// the game
-/// </summary>
 [CreateAssetMenu]
 public class TileDataScriptableObject : ScriptableObject
 {

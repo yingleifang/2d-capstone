@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static BattleManager;
 
-public class GeneratePreviews : MonoBehaviour
+public class generatePreviews : MonoBehaviour
 {
     public GameObject enemyAvatar;
 
@@ -19,7 +19,7 @@ public class GeneratePreviews : MonoBehaviour
     {
         battleManager = FindObjectOfType<BattleManager>();
         transform.position = battleManager.GetState().map.transform.position;
-        ShowEnemyPreview(battleManager.levelManager.nextSceneEnemyInfo, battleManager.GetState());
+        ShowEnemyPreview(battleManager.levelManager.nextSceneenemyInfo, battleManager.GetState());
         ShowHazzardPreview(battleManager.levelManager.nextSceneTileInfo, battleManager.GetState());
     }
 
