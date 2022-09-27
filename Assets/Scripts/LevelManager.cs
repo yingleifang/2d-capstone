@@ -28,6 +28,8 @@ public class LevelManager : MonoBehaviour
     public List<EnemyUnit> typesOfEnemiesToSpawn;
     public List<TileDataScriptableObject> typesOfTilesToSpawn;
 
+    List<Vector3Int> impassibleTile = new List<Vector3Int>();
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -46,8 +48,8 @@ public class LevelManager : MonoBehaviour
         enemyInfo = new List<(int, Vector3Int)>();
         fillTileInfo(tileInfo);
         fillTileInfo(nextSceneTileInfo);
-        fillEnemyInfo(enemyInfo, 0);
-        fillEnemyInfo(nextSceneenemyInfo, 1);
+        fillEnemyInfo(enemyInfo, tileInfo, 0);
+        fillEnemyInfo(nextSceneenemyInfo, nextSceneTileInfo, 1);
     }
 
     public void fillTileInfo(Dictionary<Vector3Int, TileDataScriptableObject> curTileInfo)
@@ -67,13 +69,17 @@ public class LevelManager : MonoBehaviour
                     rngNum -= typesOfTilesToSpawn[index].weight;
                     index++;
                 }
+                if (typesOfTilesToSpawn[index - 1].impassable) {
+                    impassibleTile.Add(new Vector3Int(x, y, 0));
+                }
+
                 curTileInfo.Add(new Vector3Int(x, y, 0), typesOfTilesToSpawn[index - 1]);
             }
         }
     }
 
 
-    public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, int currentLevel)
+    public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, Dictionary<Vector3Int, TileDataScriptableObject> curTileInfo, int currentLevel)
     {
         int totalEnemy = currentLevel + 1;
         var possiblePositions = new List<Vector3Int>();
@@ -81,7 +87,7 @@ public class LevelManager : MonoBehaviour
         {
             for (int y = -2; y < 3; y++)
             {
-                if (tileInfo[new Vector3Int(x, y, 0)].impassable == true || tileInfo[new Vector3Int(x, y, 0)].hazardous == true)
+                if (curTileInfo[new Vector3Int(x, y, 0)].impassable == true || curTileInfo[new Vector3Int(x, y, 0)].hazardous == true)
                 {
                     continue;
                 }
@@ -123,6 +129,6 @@ public class LevelManager : MonoBehaviour
         fillTileInfo(nextSceneTileInfo);
         enemyInfo = nextSceneenemyInfo;
         nextSceneenemyInfo = new List<(int, Vector3Int)>();
-        fillEnemyInfo(nextSceneenemyInfo, currentLevel);
+        fillEnemyInfo(nextSceneenemyInfo, nextSceneTileInfo, currentLevel);
     }
 }
