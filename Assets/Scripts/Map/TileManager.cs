@@ -8,6 +8,11 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Security.Cryptography;
 
+
+/// <summary>
+/// An implementation of Vec3 to differentiate between cube coordinates
+/// and unity coordinates. Implements + and - operators.
+/// </summary>
 public class CubeCoord {
     private Vector3Int coords;
 
@@ -64,49 +69,39 @@ public class CubeCoord {
     }
 }
 
+/// <summary>
+/// Deals with all things related to the tile system of the game
+/// </summary>
 public class TileManager : MonoBehaviour
 {
     [SerializeField]
     public Tilemap map;
-    
-    //[SerializeField]
-    //public List<TileDataScriptableObject> tileDatas;
 
+    /// <summary>
+    /// List of tile coordinates which are currently color shifted
+    /// </summary>
     private List<Vector3Int> coloredTiles = new List<Vector3Int>();
-
-    private CubeCoord[] directions = {new CubeCoord(1, 0, -1), new CubeCoord(1, -1, 0), 
-             new CubeCoord(0, -1, 1), new CubeCoord(-1, 0, 1), new CubeCoord(-1, 1, 0), new CubeCoord(0, 1, -1)};
-
-    public enum CubeDirections : int {
-        RIGHT = 0,
-        TOP_RIGHT = 1,
-        TOP_LEFT = 2,
-        LEFT = 3,
-        BOTTOM_LEFT = 4,
-        BOTTOM_RIGHT = 5
-    }
-
     private Dictionary<TileBase, TileDataScriptableObject> baseTileDatas;  
     public Dictionary<Vector3Int, DynamicTileData> dynamicTileDatas;
     public Dictionary<Unit, Vector3Int> unitLocations;
-    public static TileManager Instance {get; private set;}
 
     LevelManager levelManager;
-
-    private void SetMapConfig()
-    {
-        foreach (var info in levelManager.tileInfo)
-        {   
-            map.SetTile(info.Key, info.Value.tiles[0]);
-        }
-    }
+    /// <summary>
+    /// Randomize map tiles (false) or keep tiles in scene (true) in first level
+    /// </summary>   
+    public bool tutorial = true;
 
     // Start is called before the first frame update
     void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
-            //map.ClearAllTiles();
-        SetMapConfig();
+
+
+        if (!tutorial)
+        {
+            SetMapConfig();
+        }
+        
         baseTileDatas = new Dictionary<TileBase, TileDataScriptableObject>();
         dynamicTileDatas = new Dictionary<Vector3Int, DynamicTileData>();
         unitLocations = new Dictionary<Unit, Vector3Int>();
@@ -126,6 +121,18 @@ public class TileManager : MonoBehaviour
                     dynamicTileDatas.Add(new Vector3Int(x, y, z), new DynamicTileData());
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Changes the tiles in the current map to the tiles stored in
+    /// LevelManager
+    /// </summary>
+    private void SetMapConfig()
+    {
+        foreach (var info in levelManager.tileInfo)
+        {   
+            map.SetTile(info.Key, info.Value.tiles[0]);
         }
     }
 
@@ -278,6 +285,48 @@ public class TileManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public TileBase GetTile(Vector3Int tilePos)
+    {
+        return map.GetTile(tilePos);
+    }
+
+
+    public void SetTileColor(Vector3Int cellCoord, Color color)
+    {
+        map.SetTileFlags(cellCoord, TileFlags.None);
+        map.SetColor(cellCoord, color);
+        coloredTiles.Add(cellCoord);
+    }
+
+    public void HighlightPath(List<Vector3Int> path, Color color)
+    {
+        foreach(Vector3Int tile in path)
+        {
+            SetTileColor(tile, color);
+        }
+    }
+
+    public void ClearHighlights()
+    {
+        foreach(Vector3Int tile in coloredTiles)
+        {
+            map.SetColor(tile, Color.white);
+        }
+        coloredTiles.Clear();
+    }
+
+    private CubeCoord[] directions = {new CubeCoord(1, 0, -1), new CubeCoord(1, -1, 0), 
+             new CubeCoord(0, -1, 1), new CubeCoord(-1, 0, 1), new CubeCoord(-1, 1, 0), new CubeCoord(0, 1, -1)};
+
+    public enum CubeDirections : int {
+        RIGHT = 0,
+        TOP_RIGHT = 1,
+        TOP_LEFT = 2,
+        LEFT = 3,
+        BOTTOM_LEFT = 4,
+        BOTTOM_RIGHT = 5
     }
 
     public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, bool unitBlocks = true)
@@ -439,36 +488,6 @@ public class TileManager : MonoBehaviour
 
         // No free tiles found
         return false;
-    }
-
-    public TileBase GetTile(Vector3Int tilePos)
-    {
-        return map.GetTile(tilePos);
-    }
-
-
-    public void SetTileColor(Vector3Int cellCoord, Color color)
-    {
-        map.SetTileFlags(cellCoord, TileFlags.None);
-        map.SetColor(cellCoord, color);
-        coloredTiles.Add(cellCoord);
-    }
-
-    public void HighlightPath(List<Vector3Int> path, Color color)
-    {
-        foreach(Vector3Int tile in path)
-        {
-            SetTileColor(tile, color);
-        }
-    }
-
-    public void ClearHighlights()
-    {
-        foreach(Vector3Int tile in coloredTiles)
-        {
-            map.SetColor(tile, Color.white);
-        }
-        coloredTiles.Clear();
     }
 
     public CubeCoord CubeNeighbor(Vector3Int cellCoord, CubeDirections direction)

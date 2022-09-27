@@ -9,21 +9,39 @@ using UnityEngine.Tilemaps;
 
 public class LevelManager : MonoBehaviour
 {
+    /// <summary>
+    /// Unity coordinates for map min and max
+    /// </summary>
     public int x_min = -4;
+
+    /// <summary>
+    /// Unity coordinates for map min and max
+    /// </summary>
     public int x_max = 4;
+
+    /// <summary>
+    /// Unity coordinates for map min and max
+    /// </summary>
     public int y_min = -2;
+
+    /// <summary>
+    /// Unity coordinates for map min and max
+    /// </summary>
     public int y_max = 3;
 
     public int currentLevel = 0;
     public int enemyNumToSpawn = 0;
 
-    public bool random = true;
+    /// <summary>
+    /// Randomize map tiles (false) or keep tiles in scene (true) in first level
+    /// </summary>   
+    public bool tutorial = true;
 
     public Dictionary<Vector3Int, TileDataScriptableObject> tileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
     public Dictionary<Vector3Int, TileDataScriptableObject> nextSceneTileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
 
     public List<(int, Vector3Int)> enemyInfo = new List<(int, Vector3Int)>();
-    public List<(int, Vector3Int)> nextSceneenemyInfo = new List<(int, Vector3Int)>();
+    public List<(int, Vector3Int)> nextSceneEnemyInfo = new List<(int, Vector3Int)>();
 
     public List<EnemyUnit> typesOfEnemiesToSpawn;
     public List<TileDataScriptableObject> typesOfTilesToSpawn;
@@ -31,26 +49,29 @@ public class LevelManager : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        if (random)
+        if (!tutorial)
         {
             RefreshNewGame();
         }
     }
 
+    /// <summary>
+    /// Setup the tiles for the first two randomized levels. Should be called once per game.
+    /// </summary>   
     public void RefreshNewGame()
     {
         currentLevel = 0;
         tileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
         nextSceneTileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
-        nextSceneenemyInfo = new List<(int, Vector3Int)>();
+        nextSceneEnemyInfo = new List<(int, Vector3Int)>();
         enemyInfo = new List<(int, Vector3Int)>();
         fillTileInfo(tileInfo);
         fillTileInfo(nextSceneTileInfo);
         fillEnemyInfo(enemyInfo, 0);
-        fillEnemyInfo(nextSceneenemyInfo, 1);
+        fillEnemyInfo(nextSceneEnemyInfo, 1);
     }
 
-    public void fillTileInfo(Dictionary<Vector3Int, TileDataScriptableObject> curTileInfo)
+    private void fillTileInfo(Dictionary<Vector3Int, TileDataScriptableObject> curTileInfo)
     {
         int total_weight = 0;
         foreach (var tile in typesOfTilesToSpawn)
@@ -73,7 +94,7 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, int currentLevel)
+    private void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, int currentLevel)
     {
         int totalEnemy = currentLevel + 1;
         var possiblePositions = new List<Vector3Int>();
@@ -96,7 +117,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void Shuffle<T>(IList<T> list)
+    private void Shuffle<T>(IList<T> list)
     {
         int n = list.Count;
         while (n > 1)
@@ -113,7 +134,7 @@ public class LevelManager : MonoBehaviour
     {
         currentLevel++;
 
-        if (!random)
+        if (tutorial)
         {
             return;
         }
@@ -121,8 +142,8 @@ public class LevelManager : MonoBehaviour
         tileInfo = nextSceneTileInfo;
         nextSceneTileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
         fillTileInfo(nextSceneTileInfo);
-        enemyInfo = nextSceneenemyInfo;
-        nextSceneenemyInfo = new List<(int, Vector3Int)>();
-        fillEnemyInfo(nextSceneenemyInfo, currentLevel);
+        enemyInfo = nextSceneEnemyInfo;
+        nextSceneEnemyInfo = new List<(int, Vector3Int)>();
+        fillEnemyInfo(nextSceneEnemyInfo, currentLevel);
     }
 }

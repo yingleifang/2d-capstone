@@ -9,6 +9,7 @@ public class UnitSelectionWindow : MonoBehaviour
     public List<PlayerUnit> unitPrefabs;
     private List<PlayerUnit> selectedUnitPrefabs = new List<PlayerUnit>();
     public List<PurchasableScript> unitIcons = new List<PurchasableScript>();
+    public UnitInfoWindow unitInfoWindow;
     private int numUnitsInSelection = 3;
 
     public IEnumerator Hide()
@@ -62,5 +63,6 @@ public class UnitSelectionWindow : MonoBehaviour
         Debug.Log("MOUSEDOWN");
         BattleManager.instance.SetUnitToPlace(unit.unitPrefab);
         StartCoroutine(Hide());
+        unitInfoWindow.HideStats();
     }
 }
