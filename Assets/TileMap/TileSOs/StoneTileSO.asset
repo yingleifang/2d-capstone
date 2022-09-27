@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StoneTileSO
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: e56bd30b4806934418a8ed0a0e9d03f4, type: 2}
+  - {fileID: 11400000, guid: e1006987bf8ab7d40876ee29d9fb58cf, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 0

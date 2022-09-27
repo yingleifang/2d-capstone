@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IceTileSO
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: c3cc4d94c3fef1d4fb20757cea5b1312, type: 2}
+  - {fileID: 11400000, guid: da0ee00d403de74489ca252cf9f5c3a9, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 0

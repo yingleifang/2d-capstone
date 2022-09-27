@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DirtTileSO
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: a664fb0a366b8a74d9f0d49007886b23, type: 2}
+  - {fileID: 11400000, guid: eea0705cde93a6240a3a5b9b3ddd2141, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 0

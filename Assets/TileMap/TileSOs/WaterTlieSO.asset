@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WaterTlieSO
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: a5b747edcc911794fb741e8d7fe62cc2, type: 2}
+  - {fileID: 11400000, guid: 863d7a2f347771f45aed133187e508b0, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 0

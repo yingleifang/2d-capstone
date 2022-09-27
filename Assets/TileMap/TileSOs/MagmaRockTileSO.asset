@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MagmaRockTileSO
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: 56d192c6cd1fee749b4e7f4b7273eda5, type: 2}
+  - {fileID: 11400000, guid: 70a7ce211cd0bac4d9c1623e3da2c2a5, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 0

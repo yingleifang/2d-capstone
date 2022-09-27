@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Obst_1_TileSO
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: c5adac1e041a730478539631196409c0, type: 2}
+  - {fileID: 11400000, guid: cfc02bbd8fd6a8b46b2358af18288bbe, type: 2}
   movementSpeedModifier: 0
   impassable: 1
   hazardous: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LavaTileSO
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: 788e57161d043f74694fa7de972166fb, type: 2}
+  - {fileID: 11400000, guid: 6c81fe77dd53bf248a837f0b0d5f22b4, type: 2}
   movementSpeedModifier: 0
   impassable: 1
   hazardous: 0
