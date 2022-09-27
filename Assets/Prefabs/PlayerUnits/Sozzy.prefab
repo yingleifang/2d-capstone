@@ -348,7 +348,7 @@ MonoBehaviour:
   anim: {fileID: 31881298027716544}
   audio: {fileID: 1657812232248823373}
   spriteRenderer: {fileID: 8264826747869016569}
-  portrait: {fileID: 0}
+  portrait: {fileID: 845950898, guid: 359a2062a14b8974589e80bbf80681ad, type: 3}
   characterName: Sozzy
   characterDescription: 'A skittish lizard who wants nothing more than to spend his
     days sunning on basalt. Born in the same village as Locke, he found himself doing
@@ -510,12 +510,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -783721778, guid: 1b8b124249e43c744a9995f4d6538026, type: 3}
+  m_Sprite: {fileID: 845950898, guid: 359a2062a14b8974589e80bbf80681ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5, y: 6}
+  m_Size: {x: 10, y: 10.00061}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
