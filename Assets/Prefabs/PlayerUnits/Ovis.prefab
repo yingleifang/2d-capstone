@@ -273,8 +273,11 @@ MonoBehaviour:
   audio: {fileID: 1657812232248823373}
   spriteRenderer: {fileID: 8264826747869016569}
   portrait: {fileID: 0}
-  characterName: 
-  characterDescription: 
+  characterName: Ovis
+  characterDescription: A fiery brash ram who pursues his goals without much thought
+    for others. Heralding from the once proud sheepmen of the north, fear is no more
+    than a stranger to him. Ravaged by famine, vermin, and war, his homeland demands
+    a miracle which he is determined to give.
   healthBarFill: {fileID: 1753196581294003585}
   healthBarBackground: {fileID: 8688125075642876571}
   damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
@@ -382,8 +385,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8264826747869016567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18, y: 1.72, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.18, y: 1.28, z: 0}
+  m_LocalScale: {x: 1, y: 0.9729, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8264826747215317850}
@@ -435,7 +438,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5, y: 6}
+  m_Size: {x: 5.12, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

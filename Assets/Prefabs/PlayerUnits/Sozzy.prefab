@@ -349,8 +349,12 @@ MonoBehaviour:
   audio: {fileID: 1657812232248823373}
   spriteRenderer: {fileID: 8264826747869016569}
   portrait: {fileID: 0}
-  characterName: 
-  characterDescription: 
+  characterName: Sozzy
+  characterDescription: 'A skittish lizard who wants nothing more than to spend his
+    days sunning on basalt. Born in the same village as Locke, he found himself doing
+    anything but that. An unwilling participant in Locke''s daring escapades which
+    only grew ever grander, he couldn''t bring himself to refuse his one and only
+    friend. '
   healthBarFill: {fileID: 2236256011217497494}
   healthBarBackground: {fileID: 7982651925906382191}
   damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}

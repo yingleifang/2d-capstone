@@ -641,6 +641,10 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8086473267470530364}
   portrait: {fileID: 21300000, guid: 94871490b194bdf4784fc640a1ae141d, type: 3}
   characterName: Locke
+  characterDescription: A mischievious racoon who quickly discovered a peaceful life
+    was a boring life. Filled with whimsical dreams of grandeur, he left his idyllic
+    village for a life of adventure. With his deft paws and propensity for trouble,
+    he quickly gained both infamy and famy.
   healthBarFill: {fileID: 3446229116067933134}
   healthBarBackground: {fileID: 473347124578990022}
   damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}

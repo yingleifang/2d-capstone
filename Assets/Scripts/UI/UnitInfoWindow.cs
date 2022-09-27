@@ -12,13 +12,20 @@ public class UnitInfoWindow : MonoBehaviour
     [SerializeField]
     private Image portraitImage;
 
-    public void ShowStats(Unit unit)
+    public void ShowStats(Unit unit, bool spawned = true)
     {
         gameObject.SetActive(true);
-        healthText.text = "Health: " + unit.currentHealth + "/" + unit.health;
+        if (spawned)
+        {
+            healthText.text = "Health: " + unit.currentHealth + "/" + unit.health;
+        }
+        else
+        {
+            healthText.text = "Health: " + unit.health;
+        }  
         attackRangeText.text = "Attack Range: " + unit.attackRange;
         movementSpeedText.text = "Movement Speed: " + unit.movementSpeed;
-        cooldownText.text = "Ability Charge: " + unit.coolDown;
+        cooldownText.text = "Ability Cooldown: " + unit.coolDown;
         nameText.text = unit.characterName;
         attackDamageText.text = "Attack Damage: " + unit.attackDamage;
         portraitImage.sprite = unit.portrait;

@@ -32,6 +32,7 @@ public abstract class Unit: MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite portrait;
     public string characterName;
+    [TextArea(10,10)]
     public string characterDescription;
     public GameObject healthBarFill;
     public GameObject healthBarBackground;

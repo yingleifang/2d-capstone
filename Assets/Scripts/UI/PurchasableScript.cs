@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class PurchasableScript : MonoBehaviour
+public class PurchasableScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public PlayerUnit unitPrefab;
     public Image image;
-    public GameObject descriptiveText;
+    public UnitInfoWindow unitInfoWindow;
 
     private void Awake()
     {
@@ -17,13 +18,14 @@ public class PurchasableScript : MonoBehaviour
         }
     }
 
-    private void OnMouseEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        descriptiveText.SetActive(true);
+        unitInfoWindow.ShowStats(unitPrefab, false);
     }
 
-    private void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
-        descriptiveText.SetActive(false);
+        Debug.Log("EXIT");
+        unitInfoWindow.HideStats();
     }
 }

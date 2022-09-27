@@ -13,7 +13,9 @@ public class UIController : MonoBehaviour
     public UnitInfoWindow unitInfoWindow;
     public Button endTurnButton;
     public bool isTutorial;
-
+    public new AudioComponent audio;
+    [SerializeField]
+    private SoundEffect clickSound;
 
     public IEnumerator DisableEndTurnButton()
     {
@@ -93,6 +95,11 @@ public class UIController : MonoBehaviour
     public IEnumerator HideSelectionWindow()
     {
         return unitSelectionWindow.Hide();
+    }
+
+    public void PlayClickSound()
+    {
+        audio.PlaySound(clickSound);
     }
 
 }
