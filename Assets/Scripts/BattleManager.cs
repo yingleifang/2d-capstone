@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.UI.CanvasScaler;
 
 
 [System.Serializable]
@@ -247,7 +248,8 @@ public class BattleManager : MonoBehaviour
             }
             unit.ChangeHealth(-1);
             yield return StartCoroutine(unit.BounceTo(GetState(), spawnLocation, 0.1f));
-        } else
+        }
+        else
         {
             yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation));
         }
@@ -256,6 +258,11 @@ public class BattleManager : MonoBehaviour
         
 
         yield return StartCoroutine(map.OnUnitFallOnTile(GetState(), unit, spawnLocation));
+        if (map.IsImpassableTile(unit.location))
+        {
+            unit.isDead = true;
+        }
+        yield return StartCoroutine(UpdateBattleState());
     }
 
     public IEnumerator KillUnit(Unit unit)
@@ -357,6 +364,7 @@ public class BattleManager : MonoBehaviour
             Destroy(gameObject);
         }
         setEnemyData();
+
         StartCoroutine(InitializeBattle());
     }
 
