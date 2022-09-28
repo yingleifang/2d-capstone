@@ -362,6 +362,7 @@ public class BattleManager : MonoBehaviour
             }
 
             Destroy(gameObject);
+            yield break;
         }
         setEnemyData();
 
