@@ -184,6 +184,7 @@ public class BattleManager : MonoBehaviour
             EnemyUnit curEnemy = Instantiate(levelManager.typesOfEnemiesToSpawn[curInfo.Item1]);
             curEnemy.SetLocation(GetState(), curInfo.Item2);
             enemyUnits.Add(curEnemy);
+            curEnemy.Show();
             map.AddUnitToTile(curInfo.Item2, curEnemy);
         }
     }

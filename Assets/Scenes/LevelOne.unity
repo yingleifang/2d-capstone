@@ -786,11 +786,12 @@ MonoBehaviour:
   y_min: -2
   y_max: 3
   totalLevels: 4
-  currentLevel: 1
+  currentLevel: 3
   enemyNumToSpawn: 0
   random: 1
   typesOfEnemiesToSpawn:
   - {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+  - {fileID: 3206773105803365608, guid: 1888029b275ed3846a7ea613d9c02b23, type: 3}
   typesOfTilesToSpawn:
   - {fileID: 11400000, guid: 9be78945db5975e48a41560accbc3c44, type: 2}
   - {fileID: 11400000, guid: c2fb84ff8790f634ba60e9f39a23e146, type: 2}
@@ -801,7 +802,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 616f9755a7acdc64f9f85dc6850939b9, type: 2}
   map: {fileID: 126890231}
   isTutorial: 0
-  overrideTutorial: 0
+  overrideTutorial: 1
 --- !u!4 &561730323
 Transform:
   m_ObjectHideFlags: 0

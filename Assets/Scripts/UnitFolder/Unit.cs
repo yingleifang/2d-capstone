@@ -127,6 +127,11 @@ public abstract class Unit: MonoBehaviour
         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 
+    public void Show()
+    {
+        anim.SetBool("Hide", false);
+    }
+
     public IEnumerator PlayFallingAnimation()
     {
         yield break;
