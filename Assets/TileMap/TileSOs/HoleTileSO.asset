@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
   m_Name: HoleTileSO
   m_EditorClassIdentifier: 
+  tileName: Hole
+  description: Impassable. Units that fall in will reappear in the next battle. (Currently
+    kills units that fall on it instead)
   tiles:
   - {fileID: 11400000, guid: 10a2a6f7aea4a144fbb55a800e5319ed, type: 2}
   movementSpeedModifier: 0

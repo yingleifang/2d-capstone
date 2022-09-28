@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
   m_Name: GrassTlieSO 1
   m_EditorClassIdentifier: 
+  tileName: Grass
+  description: Soft to the touch.
   tiles:
   - {fileID: 11400000, guid: 0439f8eaa71fe1841842ed35dde54ad5, type: 2}
   movementSpeedModifier: 0

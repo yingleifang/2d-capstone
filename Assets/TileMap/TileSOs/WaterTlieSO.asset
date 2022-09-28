@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
   m_Name: WaterTlieSO
   m_EditorClassIdentifier: 
+  tileName: Water
+  description: The origin of all life. (Currently no effect)
   tiles:
   - {fileID: 11400000, guid: 863d7a2f347771f45aed133187e508b0, type: 2}
   movementSpeedModifier: 0

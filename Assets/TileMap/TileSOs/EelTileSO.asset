@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
   m_Name: EelTileSO
   m_EditorClassIdentifier: 
+  tileName: Hole?!
+  description: Impassable. A hole with a sinister aura.
   tiles:
   - {fileID: 11400000, guid: f8e291b45e2037348875fd6d5e937b85, type: 2}
   movementSpeedModifier: 0

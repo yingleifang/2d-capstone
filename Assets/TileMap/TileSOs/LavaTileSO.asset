@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
   m_Name: LavaTileSO
   m_EditorClassIdentifier: 
+  tileName: Lava
+  description: Impassable. Hot. (Currently kills units that fall on it)
   tiles:
   - {fileID: 11400000, guid: 6c81fe77dd53bf248a837f0b0d5f22b4, type: 2}
   movementSpeedModifier: 0

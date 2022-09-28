@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
   m_Name: DirtTileSO
   m_EditorClassIdentifier: 
+  tileName: Dirt
+  description: The soil of the earth.
   tiles:
   - {fileID: 11400000, guid: eea0705cde93a6240a3a5b9b3ddd2141, type: 2}
   movementSpeedModifier: 0

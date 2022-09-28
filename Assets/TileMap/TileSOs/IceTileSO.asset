@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
   m_Name: IceTileSO
   m_EditorClassIdentifier: 
+  tileName: Ice
+  description: Slippery. (Currently no effect)
   tiles:
   - {fileID: 11400000, guid: da0ee00d403de74489ca252cf9f5c3a9, type: 2}
   movementSpeedModifier: 0

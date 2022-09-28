@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
   m_Name: StoneTileSO
   m_EditorClassIdentifier: 
+  tileName: Stone
+  description: Cold, unfeeling, and a little unstable.
   tiles:
   - {fileID: 11400000, guid: e1006987bf8ab7d40876ee29d9fb58cf, type: 2}
   movementSpeedModifier: 0

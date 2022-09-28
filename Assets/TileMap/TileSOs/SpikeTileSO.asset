@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
   m_Name: SpikeTileSO
   m_EditorClassIdentifier: 
+  tileName: Spikes
+  description: Deals 1 damage to units that fall onto or end their turn here.
   tiles:
   - {fileID: 11400000, guid: 16909ad58cf187545b18a5e38707a182, type: 2}
   movementSpeedModifier: 0

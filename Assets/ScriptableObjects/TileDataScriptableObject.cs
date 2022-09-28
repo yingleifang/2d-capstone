@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 public class TileDataScriptableObject : ScriptableObject
 {
     public string tileName = "Tile";
+    [TextArea]
     public string description = "A basic tile with no notable features.";
     public TileBase[] tiles;
     public int movementSpeedModifier;
