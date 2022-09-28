@@ -11,7 +11,10 @@ using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.CanvasScaler;
 using UnityEngine.Tilemaps;
 
-
+/// <summary>
+/// Stores lists of player units, enemy units, the battle manager, and the
+/// tile manager
+/// </summary>
 [System.Serializable]
 public class BattleState : ScriptableObject
 {
@@ -22,6 +25,10 @@ public class BattleState : ScriptableObject
 
 }
 
+/// <summary>
+/// Handles all things related to battle including start of battle unit
+/// placement
+/// </summary>
 public class BattleManager : MonoBehaviour
 {
     [HideInInspector]
@@ -48,6 +55,11 @@ public class BattleManager : MonoBehaviour
     public LevelManager levelManager;
 
     public Vector3 mapPosition;
+
+    /// <summary>
+    /// Instantiates a unit prefab which is updated in the update loop to follow the
+    /// mouse of the player
+    /// </summary>
     public void SetUnitToPlace(PlayerUnit prefab)
     {
         isPlacingUnit = true;
@@ -163,6 +175,7 @@ public class BattleManager : MonoBehaviour
         }
 
     }
+
     private void setEnemyData()
     {
         levelManager = FindObjectOfType<LevelManager>();
@@ -174,6 +187,7 @@ public class BattleManager : MonoBehaviour
             map.AddUnitToTile(curInfo.Item2, curEnemy);
         }
     }
+
     private IEnumerator InitializeBattle()
     {
         TurnOnPreview();
