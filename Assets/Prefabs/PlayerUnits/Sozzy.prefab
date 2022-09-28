@@ -348,7 +348,7 @@ MonoBehaviour:
   anim: {fileID: 31881298027716544}
   audio: {fileID: 1657812232248823373}
   spriteRenderer: {fileID: 8264826747869016569}
-  portrait: {fileID: 845950898, guid: 359a2062a14b8974589e80bbf80681ad, type: 3}
+  portrait: {fileID: 21300000, guid: 41034ccdd1b932e45ad1f04f859fb766, type: 3}
   characterName: Sozzy
   characterDescription: 'A skittish lizard who wants nothing more than to spend his
     days sunning on basalt. Born in the same village as Locke, he found himself doing
