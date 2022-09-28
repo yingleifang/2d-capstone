@@ -497,7 +497,7 @@ MonoBehaviour:
   anim: {fileID: 7421535317744620689}
   audio: {fileID: 4594956451681412236}
   spriteRenderer: {fileID: 1447998723661349570}
-  portrait: {fileID: 21300000, guid: f826c198a66746e439e539aaf0dbfc6d, type: 3}
+  portrait: {fileID: 21300000, guid: cd1528c2ef3520d46b7e8ff186878bde, type: 3}
   characterName: White Fishbelly
   characterDescription: 
   healthBarFill: {fileID: 7432460306710679596}

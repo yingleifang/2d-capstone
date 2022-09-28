@@ -385,7 +385,7 @@ MonoBehaviour:
   anim: {fileID: 31881298027716544}
   audio: {fileID: 8250693603298723489}
   spriteRenderer: {fileID: 8086473267470530364}
-  portrait: {fileID: 21300000, guid: 94871490b194bdf4784fc640a1ae141d, type: 3}
+  portrait: {fileID: 21300000, guid: e642d3120e2cf714b9391de295755493, type: 3}
   characterName: Locke
   characterDescription: A mischievious racoon who quickly discovered a peaceful life
     was a boring life. Filled with whimsical dreams of grandeur, he left his idyllic
