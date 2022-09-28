@@ -139,7 +139,7 @@ MonoBehaviour:
   anim: {fileID: 5759568811348548860}
   audio: {fileID: 3311667661192937299}
   spriteRenderer: {fileID: 4316785244231713794}
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: fd20bdcfe4e2efe4fa68540dcbc808fd, type: 3}
   characterName: Dumbell
   characterDescription: 
   healthBarFill: {fileID: 5316833990255598534}
@@ -452,7 +452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8497372987622735504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18, y: 1.15, z: 3.1}
+  m_LocalPosition: {x: 0.18, y: 3.5, z: 3.1}
   m_LocalScale: {x: 1.5625, y: 1.3622, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
