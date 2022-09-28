@@ -8,6 +8,22 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Security.Cryptography;
 
+/// <summary>
+/// Container class for data pertaining to a single tile
+/// </summary>
+public class HexTileData
+{
+    public TileDataScriptableObject tileData;
+    public TileBase tile;
+    public Sprite sprite;
+
+    public HexTileData(TileDataScriptableObject tileData, TileBase tile, Sprite sprite)
+    {
+        this.tileData = tileData;
+        this.tile = tile;
+        this.sprite = sprite;
+    }
+}
 public class CubeCoord {
     private Vector3Int coords;
 
@@ -133,6 +149,19 @@ public class TileManager : MonoBehaviour
     {
         Vector2 screenPos = Camera.main.ScreenToWorldPoint(pos);
         return map.WorldToCell(screenPos);
+    }
+
+    /// <summary>
+    /// Returns the tile data associated with the given tile position.
+    /// </summary>
+    /// <param name="tilePos">the tile position to fetch data for</param>
+    /// <returns>a HexTileData object containing the tile's data. Returns null if the tile does not exist</returns>
+    public HexTileData GetTileData(Vector3Int tilePos)
+    {
+        TileBase tile = GetTile(tilePos);
+        Sprite sprite = map.GetSprite(tilePos);
+        TileDataScriptableObject tileData = baseTileDatas[GetTile(tilePos)];
+        return new HexTileData(tileData, tile, sprite);
     }
 
     public Vector3 CellToWorldPosition(Vector3Int pos)

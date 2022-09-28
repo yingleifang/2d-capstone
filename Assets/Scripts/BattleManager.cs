@@ -125,10 +125,6 @@ public class BattleManager : MonoBehaviour
             Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
             Debug.Log(tilePos);
 
-            if (map.IsImpassableTile(tilePos)){
-                return;
-            }
-
             Unit curUnit = map.GetUnit(tilePos);
 
             if (isPlacingUnit)
@@ -264,7 +260,7 @@ public class BattleManager : MonoBehaviour
             if (!map.FindClosestFreeTile(spawnLocation, out spawnLocation))
             {
                 // No empty space on map for falling unit
-                KillUnit(unit);
+                yield return StartCoroutine(KillUnit(unit));
                 Destroy(unit.gameObject);
                 yield break;
             }
@@ -282,7 +278,7 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(map.OnUnitFallOnTile(GetState(), unit, spawnLocation));
         if (map.IsImpassableTile(unit.location))
         {
-            unit.isDead = true;
+            yield return StartCoroutine(KillUnit(unit));
         }
         yield return StartCoroutine(UpdateBattleState());
     }
@@ -454,11 +450,12 @@ public class BattleManager : MonoBehaviour
         if (map.InBounds(tilePos) && curUnit == null && unitToPlace)
         {
             Debug.Log("Unit placement location: " + tilePos);
-            isPlacingUnit = false;
-            unitToPlace.location = tilePos;
-            yield return StartCoroutine(SpawnUnit(tilePos, unitToPlace));
-            unitsToSpawn.Remove(unitToPlace);
+            PlayerUnit unit = unitToPlace;
             unitToPlace = null;
+            unit.location = tilePos;
+            yield return StartCoroutine(SpawnUnit(tilePos, unit));
+            unitsToSpawn.Remove(unit);
+            isPlacingUnit = false;
         }
     }
 
@@ -510,7 +507,7 @@ public class BattleManager : MonoBehaviour
         else if (curUnit == null)
         {
             if(isPlayerTurn && selectedUnit is PlayerUnit unit
-                && !unit.hasMoved && unit.IsTileInMoveRange(tilePos))
+                && !unit.hasMoved && !map.IsImpassable(tilePos) && unit.IsTileInMoveRange(tilePos))
             {
                 yield return StartCoroutine(MoveUnit(unit, tilePos));
                 CheckIfBattleOver();
@@ -522,6 +519,7 @@ public class BattleManager : MonoBehaviour
                 else
             {
                 DeselectUnit();
+                SelectTile(tilePos);
             }
             
         }
@@ -530,6 +528,15 @@ public class BattleManager : MonoBehaviour
             DeselectUnit();
         }
         acceptingInput = true;
+    }
+
+    /// <summary>
+    /// Selects the given tile and displays its details
+    /// </summary>
+    /// <param name="tilePos">the position of the tile to display</param>
+    public void SelectTile(Vector3Int tilePos)
+    {
+        ui.ShowTileInWindow(map.GetTileData(tilePos));
     }
 
     public void SelectUnit(Unit unit)

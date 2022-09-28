@@ -19,6 +19,15 @@ public class UIController : MonoBehaviour
     private SoundEffect clickSound;
 
     /// <summary>
+    /// Displays the given tile data in the info window
+    /// </summary>
+    /// <param name="tileData">the tile data to display. Will do nothing if null</param>
+    public void ShowTileInWindow(HexTileData tileData)
+    {
+        unitInfoWindow.ShowTile(tileData);
+    }
+
+    /// <summary>
     /// Initializes the turn count down to the given value
     /// </summary>
     /// <param name="turns">the number of turns to set the turn counter to</param>
