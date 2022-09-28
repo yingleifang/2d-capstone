@@ -29,6 +29,7 @@ public class BattleManager : MonoBehaviour
     public List<EnemyUnit> enemyUnits;
     public List<Unit> unitsToSpawn;
     public TileManager map;
+    public int turnsPerBattle = 5;
     public bool isBattleOver = false;
     public bool isPlayerTurn = true;
     public bool isPlacingUnit = false;
@@ -36,7 +37,6 @@ public class BattleManager : MonoBehaviour
     public Unit selectedUnit;
     public UIController ui;
     public PlayerUnit unitToPlace;
-    public TurnCountDown turnCounter;
 
     public GameObject previewLayer;
     public bool previewVisible = false;
@@ -163,6 +163,7 @@ public class BattleManager : MonoBehaviour
     private IEnumerator InitializeBattle()
     {
         TurnOnPreview();
+        ui.InitializeTurnCount(turnsPerBattle);
 
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
@@ -319,9 +320,8 @@ public class BattleManager : MonoBehaviour
             isBattleOver = true;
             StartCoroutine(NextLevel());
         }
-        else if (turnCounter && turnCounter.currentTurn <= 0)
+        else if (ui.isOutOfTurns())
         { 
-            turnCounter.currentTurn = turnCounter.totalTurn;
             isBattleOver = true;
             StartCoroutine(NextLevel());
         }
@@ -408,7 +408,7 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(StartOfPlayerTurn());
         DeselectUnit();
-        turnCounter.SetCount();
+        ui.DecrementTurnCount();
         yield break;
     }
 

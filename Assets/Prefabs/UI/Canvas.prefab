@@ -196,8 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c19ce8607cf9f46aa9867ea62c364c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTurn: 10
-  currentTurn: 10
+  totalTurn: 5
+  currentTurn: 5
   textElement: {fileID: 1401104888}
   slider: {fileID: 6057924551512980319}
 --- !u!114 &6057924551512980319
@@ -830,6 +830,7 @@ MonoBehaviour:
   unitSelectionTutorial: {fileID: 0}
   unitInfoWindow: {fileID: 2530744794260370474}
   endTurnButton: {fileID: 6057924553433158380}
+  turnCountDown: {fileID: 6057924551512980318}
   isTutorial: 0
   audio: {fileID: 922542334}
   clickSound:

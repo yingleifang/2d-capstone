@@ -1223,6 +1223,7 @@ MonoBehaviour:
   enemyUnits: []
   unitsToSpawn: []
   map: {fileID: 1862399854}
+  turnsPerBattle: 5
   isBattleOver: 0
   isPlayerTurn: 1
   isPlacingUnit: 0
@@ -1230,8 +1231,8 @@ MonoBehaviour:
   selectedUnit: {fileID: 0}
   ui: {fileID: 922542332}
   unitToPlace: {fileID: 0}
-  turnCounter: {fileID: 1608420423}
   previewLayer: {fileID: 270826227}
+  previewVisible: 0
   levelManager: {fileID: 0}
 --- !u!4 &1275022861
 Transform:
@@ -1408,17 +1409,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389392409}
   m_CullTransparentMesh: 1
---- !u!114 &1608420423 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6057924551512980318, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-  m_PrefabInstance: {fileID: 6057924552817833753}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31c19ce8607cf9f46aa9867ea62c364c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1694394293
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,10 +12,37 @@ public class UIController : MonoBehaviour
     public GameObject unitSelectionTutorial;
     public UnitInfoWindow unitInfoWindow;
     public Button endTurnButton;
+    public TurnCountDown turnCountDown;
     public bool isTutorial;
     public new AudioComponent audio;
     [SerializeField]
     private SoundEffect clickSound;
+
+    /// <summary>
+    /// Initializes the turn count down to the given value
+    /// </summary>
+    /// <param name="turns">the number of turns to set the turn counter to</param>
+    public void InitializeTurnCount(int turns)
+    {
+        turnCountDown.Initialize(turns);
+    }
+
+    /// <summary>
+    /// Indicates whether the battle is over due to the turn count down
+    /// </summary>
+    /// <returns>returns true if the turn count down is 0 or less, false otherwise</returns>
+    public bool isOutOfTurns()
+    {
+        return turnCountDown && turnCountDown.currentTurn <= 0;
+    }
+
+    /// <summary>
+    /// Decreases the turn count down by 1
+    /// </summary>
+    public void DecrementTurnCount()
+    {
+        turnCountDown.Decrement();
+    }
 
     public IEnumerator DisableEndTurnButton()
     {
