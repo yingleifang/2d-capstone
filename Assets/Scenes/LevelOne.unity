@@ -1731,6 +1731,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2030713287854283508, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6989220128797025269, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
       propertyPath: m_Name
       value: Pause

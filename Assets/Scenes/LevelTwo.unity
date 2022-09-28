@@ -398,6 +398,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1401104887, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 185
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7df01db6397e0804db42810c633468c2, type: 2}
+    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4461343255720149496, guid: 7df01db6397e0804db42810c633468c2, type: 2}
+    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924552145935503, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6057924552427928790, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1660,6 +1692,7 @@ MonoBehaviour:
   enemyUnits: []
   unitsToSpawn: []
   map: {fileID: 1720604120}
+  turnsPerBattle: 5
   isBattleOver: 0
   isPlayerTurn: 1
   isPlacingUnit: 0
@@ -1667,8 +1700,8 @@ MonoBehaviour:
   selectedUnit: {fileID: 0}
   ui: {fileID: 7056509}
   unitToPlace: {fileID: 0}
-  turnCounter: {fileID: 1359865099}
   previewLayer: {fileID: 313534038}
+  previewVisible: 0
   levelManager: {fileID: 883816492}
 --- !u!4 &1258529770
 Transform:
@@ -1761,17 +1794,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328687358}
   m_CullTransparentMesh: 1
---- !u!114 &1359865099 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6057924551512980318, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-  m_PrefabInstance: {fileID: 183805352}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31c19ce8607cf9f46aa9867ea62c364c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1720604119
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class UnitSelectionWindow : MonoBehaviour
     public IEnumerator Hide()
     {
         // Play hiding animation
-        LeanTween.scale(gameObject, new Vector3(0, 0, 0), 0.3f);
+        LeanTween.scale(gameObject, new Vector3(0, 0, 0), 0.1f);
         gameObject.SetActive(false);
 
         yield break;
