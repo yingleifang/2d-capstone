@@ -65,7 +65,7 @@ public class UIController : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator SwitchScene(int fadeSpeed = 2)
+    public IEnumerator SwitchScene(int index, int fadeSpeed = 2)
     {
         Color goColor = blackSquare.GetComponent<Image>().color;
         float newA = 0;
@@ -77,7 +77,8 @@ public class UIController : MonoBehaviour
             blackSquare.GetComponent<Image>().color = goColor;
             yield return null;
         }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        
+        SceneManager.LoadScene(index);
     }
 
     public IEnumerator SwitchScene(string sceneName, int fadeSpeed = 2)
@@ -108,7 +109,7 @@ public class UIController : MonoBehaviour
 
     public void StartButton()
     {
-        StartCoroutine(SwitchScene());
+        StartCoroutine(SwitchScene(SceneManager.GetActiveScene().buildIndex + 1, 2));
     }
 
     public void PlayAgainButton()

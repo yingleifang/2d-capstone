@@ -46,6 +46,7 @@ public class BattleManager : MonoBehaviour
 
     public LevelManager levelManager;
 
+    public Vector3 mapPosition;
     public void SetUnitToPlace(PlayerUnit prefab)
     {
         isPlacingUnit = true;
@@ -65,6 +66,7 @@ public class BattleManager : MonoBehaviour
         }
 
         state = new BattleState();
+        mapPosition = map.transform.position;
     }
 
     public void EndTurn()
@@ -98,6 +100,7 @@ public class BattleManager : MonoBehaviour
 
     public void TurnOffPreview()
     {
+        Debug.Log("????????????");
         previewVisible = false;
         if(previewLayer)
         {
@@ -115,6 +118,17 @@ public class BattleManager : MonoBehaviour
         ui.HideUnitInfoWindow();
         //Save();
         //Load(SceneManager.GetActiveScene().buildIndex + 1);
+        regeneratePreviews();
+    }
+
+    private void regeneratePreviews()
+    {
+        previewLayer = GameObject.Find("PreviewLayer");
+        var curGeneratePreviews = previewLayer.GetComponent<generatePreviews>();
+        curGeneratePreviews.transform.position = mapPosition;
+        curGeneratePreviews.ShowEnemyPreview(levelManager.nextSceneenemyInfo, GetState());
+        curGeneratePreviews.ShowHazzardPreview(levelManager.nextSceneTileInfo, GetState());
+        TurnOffPreview();
     }
 
     // Update is called once per frame
@@ -356,7 +370,9 @@ public class BattleManager : MonoBehaviour
         enemyUnits.Clear();
         playerUnits.Clear();
 
-        yield return StartCoroutine(ui.SwitchScene());
+        int index = levelManager.currentLevel < levelManager.totalLevels ? SceneManager.GetActiveScene().buildIndex : 2;
+
+        yield return StartCoroutine(ui.SwitchScene(index));
         Debug.Log("Next level finished loading");
 
         yield return null; // Need to wait a frame for the new level to load
@@ -383,7 +399,7 @@ public class BattleManager : MonoBehaviour
         }
 
         setEnemyData();
-
+        regeneratePreviews();
         StartCoroutine(InitializeBattle());
     }
 

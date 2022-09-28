@@ -50,4 +50,9 @@ public abstract class EnemyUnit : Unit
         Debug.Log(furthestUnit);
         return furthestUnit;        
     }
+
+    public static implicit operator List<object>(EnemyUnit v)
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     public int y_min = -2;
     public int y_max = 3;
 
+    public int totalLevels = 4;
     public int currentLevel = 0;
     public int enemyNumToSpawn = 0;
 
@@ -28,6 +29,7 @@ public class LevelManager : MonoBehaviour
     public List<EnemyUnit> typesOfEnemiesToSpawn;
     public List<TileDataScriptableObject> typesOfTilesToSpawn;
 
+
     List<Vector3Int> impassibleTile = new List<Vector3Int>();
 
     void Awake()
@@ -39,6 +41,18 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    //public void ProcessTypesOfEnemiesToSpawn()
+    //{
+    //    if (currentLevel < 2)
+    //    {
+    //        typesOfEnemiesToSpawn = totalTypesOfEnemiesToSpawn[0]
+    //    }
+    //}
+
+    //public void ProcessTypesOfTilesToSpawn()
+    //{
+
+    //}
     public void RefreshNewGame()
     {
         currentLevel = 0;
@@ -81,7 +95,9 @@ public class LevelManager : MonoBehaviour
 
     public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, Dictionary<Vector3Int, TileDataScriptableObject> curTileInfo, int currentLevel)
     {
-        int totalEnemy = currentLevel + 1;
+        Debug.Log("############");
+        Debug.Log(currentLevel);
+        int totalEnemy = currentLevel < 2 ? currentLevel + 1 : 3;
         var possiblePositions = new List<Vector3Int>();
         for (int x = -3; x < 4; x++)
         {
@@ -98,7 +114,16 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < totalEnemy; i++)
         {
-            curEnemyInfo.Add((0, possiblePositions[i]));
+            if (currentLevel < 2)
+            {
+                curEnemyInfo.Add((0, possiblePositions[i]));
+            }
+            else
+            {
+                int k = RandomNumberGenerator.GetInt32(typesOfEnemiesToSpawn.Count);
+                curEnemyInfo.Add((k, possiblePositions[i]));
+            }
+            
         }
     }
 

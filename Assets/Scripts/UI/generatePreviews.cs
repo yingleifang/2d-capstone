@@ -12,18 +12,7 @@ public class generatePreviews : MonoBehaviour
 
     public GameObject impassibleAvatar;
 
-    BattleManager battleManager;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        battleManager = FindObjectOfType<BattleManager>();
-        transform.position = battleManager.GetState().map.transform.position;
-        ShowEnemyPreview(battleManager.levelManager.nextSceneenemyInfo, battleManager.GetState());
-        ShowHazzardPreview(battleManager.levelManager.nextSceneTileInfo, battleManager.GetState());
-    }
-
-    private void ShowEnemyPreview(List<(int, Vector3Int)> nextSceneenemyInfo, BattleState state)
+    public void ShowEnemyPreview(List<(int, Vector3Int)> nextSceneenemyInfo, BattleState state)
     {
         foreach (var loc in nextSceneenemyInfo)
         {
@@ -34,7 +23,7 @@ public class generatePreviews : MonoBehaviour
 
     }
 
-    private void ShowHazzardPreview(Dictionary<Vector3Int, TileDataScriptableObject> nextSceneTileInfo, BattleState state)
+    public void ShowHazzardPreview(Dictionary<Vector3Int, TileDataScriptableObject> nextSceneTileInfo, BattleState state)
     {
         foreach (var loc in nextSceneTileInfo)
         {

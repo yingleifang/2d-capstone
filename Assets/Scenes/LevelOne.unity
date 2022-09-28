@@ -721,7 +721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &270826228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,6 +785,7 @@ MonoBehaviour:
   x_max: 4
   y_min: -2
   y_max: 3
+  totalLevels: 4
   currentLevel: 1
   enemyNumToSpawn: 0
   random: 1
