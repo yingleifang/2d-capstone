@@ -319,7 +319,7 @@ public class BattleManager : MonoBehaviour
             isBattleOver = true;
             StartCoroutine(NextLevel());
         }
-        else if (turnCounter.currentTurn <= 0)
+        else if (turnCounter && turnCounter.currentTurn <= 0)
         { 
             turnCounter.currentTurn = turnCounter.totalTurn;
             isBattleOver = true;

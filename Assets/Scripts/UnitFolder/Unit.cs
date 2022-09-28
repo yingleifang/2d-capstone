@@ -95,6 +95,14 @@ public abstract class Unit: MonoBehaviour
         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 
+    public IEnumerator PlayLastWordAnimation()
+    {
+        anim.SetTrigger("LastWord");
+        yield return null; // Wait a frame for the animation to start
+        int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+    }
+
     public void StartMovingAnimation()
     {
         anim.SetBool("isMoving", true);
@@ -356,6 +364,7 @@ public abstract class Unit: MonoBehaviour
     public IEnumerator Die() 
     {
         audio.PlayDisposable(deathSound);
+        yield return StartCoroutine(PlayLastWordAnimation());
         yield return StartCoroutine(PlayDeathAnimation());
         Destroy(gameObject);
         yield break;
