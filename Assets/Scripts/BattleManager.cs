@@ -364,6 +364,9 @@ public class BattleManager : MonoBehaviour
             Destroy(gameObject);
             yield break;
         }
+
+        StartCoroutine(ui.HideSelectionWindow());
+
         setEnemyData();
 
         StartCoroutine(InitializeBattle());
