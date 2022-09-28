@@ -39,7 +39,7 @@ public class BattleManager : MonoBehaviour
     public TurnCountDown turnCounter;
 
     public GameObject previewLayer;
-    bool hasPreview = false;
+    public bool previewVisible = false;
 
     [HideInInspector]
     public static BattleManager instance;
@@ -72,17 +72,36 @@ public class BattleManager : MonoBehaviour
         instance.OnPlayerEndTurn();
     }
 
-    public void TurnOnPreview()
+    public void TogglePreview()
     {
-        if (instance.hasPreview)
+        if (instance.previewVisible)
         {
-            instance.hasPreview = false;
-            instance.previewLayer.SetActive(false);
+            instance.TurnOffPreview();
         }
         else
         {
-            instance.hasPreview = true;
-            instance.previewLayer.SetActive(true);
+            instance.TurnOnPreview();
+        }
+    }
+
+    public void TurnOnPreview()
+    {
+        if(previewLayer)
+        {
+            previewLayer.SetActive(true);
+            previewVisible = true;
+        } else
+        {
+            previewVisible = false;
+        }
+    }
+
+    public void TurnOffPreview()
+    {
+        previewVisible = false;
+        if(previewLayer)
+        {
+            previewLayer.SetActive(false);
         }
     }
 
@@ -143,6 +162,8 @@ public class BattleManager : MonoBehaviour
     }
     private IEnumerator InitializeBattle()
     {
+        TurnOnPreview();
+
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
 
@@ -364,8 +385,6 @@ public class BattleManager : MonoBehaviour
             Destroy(gameObject);
             yield break;
         }
-
-        StartCoroutine(ui.HideSelectionWindow());
 
         setEnemyData();
 

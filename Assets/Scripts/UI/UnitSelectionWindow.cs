@@ -11,6 +11,11 @@ public class UnitSelectionWindow : MonoBehaviour
     public List<PurchasableScript> unitIcons = new List<PurchasableScript>();
     private int numUnitsInSelection = 3;
 
+    private void Awake()
+    {
+        StartCoroutine(Hide());
+    }
+
     public IEnumerator Hide()
     {
         // Play hiding animation

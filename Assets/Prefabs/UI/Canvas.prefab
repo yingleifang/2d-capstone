@@ -615,7 +615,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 612802831941484922, guid: d58e1342823f34940bd1a637e94fcd09, type: 3}
         m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: TurnOnPreview
+        m_MethodName: TogglePreview
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
