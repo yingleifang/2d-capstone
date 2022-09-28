@@ -81,6 +81,34 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene(index);
     }
 
+    public IEnumerator FadeOut(int fadeSpeed = 2)
+    {
+        Color goColor = blackSquare.GetComponent<Image>().color;
+        float newA = 0;
+        while (blackSquare.GetComponent<Image>().color.a < 1)
+        {
+            newA = goColor.a + (fadeSpeed * Time.deltaTime);
+            //Debug.Log(newA);
+            goColor = new Color (goColor.r, goColor.g, goColor.b, newA);
+            blackSquare.GetComponent<Image>().color = goColor;
+            yield return null;
+        }        
+    }
+
+    public IEnumerator FadeIn(int fadeSpeed = 2)
+    {
+        Color goColor = blackSquare.GetComponent<Image>().color;
+        float newA = 0;
+        while (blackSquare.GetComponent<Image>().color.a > 0)
+        {
+            newA = goColor.a - (fadeSpeed * Time.deltaTime);
+            //Debug.Log(newA);
+            goColor = new Color (goColor.r, goColor.g, goColor.b, newA);
+            blackSquare.GetComponent<Image>().color = goColor;
+            yield return null;
+        }          
+    }
+
     public IEnumerator SwitchScene(string sceneName, int fadeSpeed = 2)
     {
         Color goColor = blackSquare.GetComponent<Image>().color;

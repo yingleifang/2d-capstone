@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.CanvasScaler;
+using UnityEngine.Tilemaps;
 
 
 [System.Serializable]
@@ -111,8 +112,11 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //levelManager.RefreshNewGame();
-        setEnemyData();
+        if (!levelManager.isTutorial)
+        {
+            Debug.Log("SETTING DATA");
+            setEnemyData();
+        }
         StartCoroutine(ui.HideSelectionWindow());
         StartCoroutine(InitializeBattle());
         ui.HideUnitInfoWindow();
@@ -126,7 +130,7 @@ public class BattleManager : MonoBehaviour
         previewLayer = GameObject.Find("PreviewLayer");
         var curGeneratePreviews = previewLayer.GetComponent<generatePreviews>();
         curGeneratePreviews.transform.position = mapPosition;
-        curGeneratePreviews.ShowEnemyPreview(levelManager.nextSceneenemyInfo, GetState());
+        curGeneratePreviews.ShowEnemyPreview(levelManager.nextSceneEnemyInfo, GetState());
         curGeneratePreviews.ShowHazzardPreview(levelManager.nextSceneTileInfo, GetState());
         TurnOffPreview();
     }
@@ -372,6 +376,11 @@ public class BattleManager : MonoBehaviour
 
         int index = levelManager.currentLevel < levelManager.totalLevels ? SceneManager.GetActiveScene().buildIndex : 2;
 
+        if (index != SceneManager.GetActiveScene().buildIndex)
+        {
+            StartCoroutine(ui.SwitchScene(index));
+        }
+
         yield return StartCoroutine(ui.SwitchScene(index));
         Debug.Log("Next level finished loading");
 
@@ -381,6 +390,7 @@ public class BattleManager : MonoBehaviour
         map = FindObjectOfType<TileManager>();
         // This is probably also unnecessary if we structure things better
         ui = FindObjectOfType<UIController>();
+        levelManager.map = FindObjectOfType<Tilemap>();
         Debug.Log("Found new TileManager: " + map != null);
 
         // If statement below destroys everything if we reach the win screen
@@ -397,8 +407,11 @@ public class BattleManager : MonoBehaviour
             Destroy(gameObject);
             yield break;
         }
-
-        setEnemyData();
+        if (!levelManager.isTutorial)
+        {
+            Debug.Log("SETTING DATA");
+            setEnemyData();
+        } 
         regeneratePreviews();
         StartCoroutine(InitializeBattle());
     }

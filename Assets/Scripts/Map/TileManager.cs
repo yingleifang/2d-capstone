@@ -24,6 +24,11 @@ public class HexTileData
         this.sprite = sprite;
     }
 }
+
+/// <summary>
+/// An implementation of Vec3 to differentiate between cube coordinates
+/// and cell coordinates. Implements + and - operators.
+/// </summary>
 public class CubeCoord {
     private Vector3Int coords;
 
@@ -109,6 +114,10 @@ public class TileManager : MonoBehaviour
 
     LevelManager levelManager;
 
+    /// <summary>
+    /// Changes the tiles in the current map to the tiles stored in
+    /// LevelManager
+    /// </summary>
     private void SetMapConfig()
     {
         foreach (var info in levelManager.tileInfo)
@@ -121,8 +130,12 @@ public class TileManager : MonoBehaviour
     void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
-            //map.ClearAllTiles();
-        SetMapConfig();
+
+        if (!levelManager.isTutorial)
+        {
+            SetMapConfig();
+        }
+
         baseTileDatas = new Dictionary<TileBase, TileDataScriptableObject>();
         dynamicTileDatas = new Dictionary<Vector3Int, DynamicTileData>();
         unitLocations = new Dictionary<Unit, Vector3Int>();
@@ -139,12 +152,18 @@ public class TileManager : MonoBehaviour
             {
                 for (int z = (int)map.localBounds.min.z; z < map.localBounds.max.z; z++)
                 {
-                    dynamicTileDatas.Add(new Vector3Int(x, y, z), new DynamicTileData());
+                    if (map.GetTile(new Vector3Int(x, y, z)))
+                    {
+                        dynamicTileDatas.Add(new Vector3Int(x, y, z), new DynamicTileData());
+                    }
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Takes a screen coord and translates it to cell coordinates
+    /// </summary>   
     public Vector3Int GetTileAtScreenPosition(Vector3 pos)
     {
         Vector2 screenPos = Camera.main.ScreenToWorldPoint(pos);
@@ -164,6 +183,9 @@ public class TileManager : MonoBehaviour
         return new HexTileData(tileData, tile, sprite);
     }
 
+    /// </summary>
+    /// Takes a cell coord and translates it to world coordinates
+    /// </summary> 
     public Vector3 CellToWorldPosition(Vector3Int pos)
     {
         return map.CellToWorld(pos);

@@ -799,6 +799,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 439c66e79ada37d4cbb31e6e03d8b6c4, type: 2}
   - {fileID: 11400000, guid: f150f011342cd2c42aeb4e57bdd892ff, type: 2}
   - {fileID: 11400000, guid: 616f9755a7acdc64f9f85dc6850939b9, type: 2}
+  map: {fileID: 126890231}
+  isTutorial: 0
+  overrideTutorial: 0
 --- !u!4 &561730323
 Transform:
   m_ObjectHideFlags: 0
@@ -1234,7 +1237,8 @@ MonoBehaviour:
   unitToPlace: {fileID: 0}
   previewLayer: {fileID: 270826227}
   previewVisible: 0
-  levelManager: {fileID: 0}
+  levelManager: {fileID: 561730322}
+  mapPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1275022861
 Transform:
   m_ObjectHideFlags: 0
@@ -1722,6 +1726,10 @@ PrefabInstance:
     - target: {fileID: 6057924552974800868, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914259393409976376, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -15.853058
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}

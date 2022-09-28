@@ -50,6 +50,7 @@ public abstract class Unit: MonoBehaviour
     protected int currentWaypointIndex = 0;
     protected List<Vector3Int> path = null;
     public bool inMovement = false;
+    public LevelManager levelManager;
 
     private void Awake()
     {
@@ -71,7 +72,11 @@ public abstract class Unit: MonoBehaviour
         currentAttackRange = attackRange;
         currentMovementSpeed = movementSpeed;
         currentCoolDown = 0;
-        //BattleManager.instance.unitsToSpawn.Add(this);
+        levelManager = FindObjectOfType<LevelManager>();
+        if (levelManager.isTutorial)
+        {
+            BattleManager.instance.unitsToSpawn.Add(this);
+        }
     }
 
     public void PlaySoundAnim(AnimationEvent sound)
@@ -137,6 +142,9 @@ public abstract class Unit: MonoBehaviour
 
     public abstract IEnumerator UseAbility(Vector3Int target);
 
+    /// <summary>
+    /// Flips the sprite across the y axis to face the target coordinate
+    /// </summary> 
     public void FlipSprite(Vector3 target)
     {
         float sign = Mathf.Sign(target.x - transform.position.x);
