@@ -25,7 +25,6 @@ public class PurchasableScript : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("EXIT");
         unitInfoWindow.HideStats();
     }
 }

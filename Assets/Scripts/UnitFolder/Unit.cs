@@ -185,17 +185,17 @@ public abstract class Unit: MonoBehaviour
 
     public virtual IEnumerator DoMovement(BattleState state, Vector3Int target, bool unitBlocks = true)
     {
-        if (state.map.GetTile(target) == null)
+        if (state.tileManager.GetTile(target) == null)
         {
             yield break;
         }
         if (path == null)
         {
-            path = state.map.FindShortestPath(location, target, unitBlocks);
+            path = state.tileManager.FindShortestPath(location, target, unitBlocks);
             inMovement = true;
         }
-        state.map.RemoveUnitFromTile(location);
-        state.map.AddUnitToTile(target, this);
+        state.tileManager.RemoveUnitFromTile(location);
+        state.tileManager.AddUnitToTile(target, this);
 
         yield return StartCoroutine(smoothMovement(state, target));
         yield break;
@@ -203,7 +203,7 @@ public abstract class Unit: MonoBehaviour
 
     public IEnumerator MoveTowards(BattleState state, Vector3Int targetLocation, int numMove)
     {
-        List<Vector3Int> path = state.map.FindShortestPath(location, targetLocation);
+        List<Vector3Int> path = state.tileManager.FindShortestPath(location, targetLocation);
         Vector3Int goal;
         int goalIndex;
         if(numMove > path.Count)
@@ -238,12 +238,12 @@ public abstract class Unit: MonoBehaviour
 
     IEnumerator smoothMovement(BattleState state, Vector3Int target)
     {
-        FlipSprite(state.map.CellToWorldPosition(target));
+        FlipSprite(state.tileManager.CellToWorldPosition(target));
         StartMovingAnimation();
         while (currentWaypointIndex < path.Count)
         {
             var step = movementSpeed * Time.deltaTime * 10;
-            Vector3 worldPostion = state.map.CellToWorldPosition(path[currentWaypointIndex]);
+            Vector3 worldPostion = state.tileManager.CellToWorldPosition(path[currentWaypointIndex]);
             transform.position = Vector3.MoveTowards(transform.position, worldPostion, step);
             if (Vector3.Distance(transform.position, worldPostion) < 0.00001f)
             {
@@ -257,9 +257,9 @@ public abstract class Unit: MonoBehaviour
         path = null;
         inMovement = false;
         currentWaypointIndex = 0;
-        transform.position = state.map.CellToWorldPosition(location);
+        transform.position = state.tileManager.CellToWorldPosition(location);
 
-        if (state.map.IsHazardous(target))
+        if (state.tileManager.IsHazardous(target))
         {
             ChangeHealth(-1);
             audio.PlayDisposable(hitSound);
@@ -269,29 +269,29 @@ public abstract class Unit: MonoBehaviour
     public virtual List<Vector3Int> GetTilesInMoveRange()
     {
         // Can override this method for unique move ranges
-        return BattleManager.instance.map.GetTilesInRange(location, currentMovementSpeed);
+        return BattleManager.instance.tileManager.GetTilesInRange(location, currentMovementSpeed);
     }
 
     public virtual bool IsTileInMoveRange(Vector3Int tile)
     {
-        return BattleManager.instance.map.RealDistance(location, tile) <= currentMovementSpeed;
+        return BattleManager.instance.tileManager.RealDistance(location, tile) <= currentMovementSpeed;
     }
 
     public virtual List<Vector3Int> GetTilesInAttackRange()
     {
         // Can override this method for unique attack ranges
-        return BattleManager.instance.map.GetTilesInRange(location, currentAttackRange, false);
+        return BattleManager.instance.tileManager.GetTilesInRange(location, currentAttackRange, false);
     }
 
     public virtual bool IsTileInAttackRange(Vector3Int tile)
     {
-        return BattleManager.instance.map.RealDistance(location, tile, false) <= currentAttackRange;
+        return BattleManager.instance.tileManager.RealDistance(location, tile, false) <= currentAttackRange;
     }
 
     public virtual List<Vector3Int> GetTilesInThreatRange()
     {
         // Can override this method for unique threat ranges
-        return BattleManager.instance.map.GetTilesInRange(location, currentMovementSpeed + currentAttackRange, false);
+        return BattleManager.instance.tileManager.GetTilesInRange(location, currentMovementSpeed + currentAttackRange, false);
     }
 
     /// <summary>
@@ -302,7 +302,7 @@ public abstract class Unit: MonoBehaviour
     /// <returns></returns>
     public IEnumerator AppearAt(BattleState state, Vector3Int target)
     {
-        if (state.map.GetTile(target) == null)
+        if (state.tileManager.GetTile(target) == null)
         {
             yield break;
         }
@@ -315,12 +315,12 @@ public abstract class Unit: MonoBehaviour
     public void SetLocation(BattleState state, Vector3Int target)
     {
         location = target;
-        transform.position = state.map.CellToWorldPosition(target);
+        transform.position = state.tileManager.CellToWorldPosition(target);
     }
 
     public IEnumerator BounceTo(BattleState state, Vector3Int target, float duration)
     {
-        Vector3 destination = state.map.CellToWorldPosition(target);
+        Vector3 destination = state.tileManager.CellToWorldPosition(target);
         LeanTween.move(gameObject, destination, duration);
         yield return new WaitForSeconds(duration);
     }

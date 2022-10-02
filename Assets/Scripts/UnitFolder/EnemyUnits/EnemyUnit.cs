@@ -21,7 +21,7 @@ public abstract class EnemyUnit : Unit
         int closest = 100000;
         foreach (PlayerUnit unit in state.playerUnits)
         {
-            int distance = state.map.RealDistance(location, unit.location);
+            int distance = state.tileManager.RealDistance(location, unit.location);
             if (distance < closest)
             {
                 closestUnit = unit;
@@ -38,7 +38,7 @@ public abstract class EnemyUnit : Unit
         int furthest = -1;
         foreach (PlayerUnit unit in state.playerUnits)
         {
-            int distance = state.map.RealDistance(location, unit.location);
+            int distance = state.tileManager.RealDistance(location, unit.location);
             
             if (distance > furthest)
             {
@@ -47,7 +47,6 @@ public abstract class EnemyUnit : Unit
                 furthest = distance;
             }
         }
-        Debug.Log(furthestUnit);
         return furthestUnit;        
     }
 

@@ -16,7 +16,7 @@ public class generatePreviews : MonoBehaviour
     {
         foreach (var loc in nextSceneenemyInfo)
         {
-            var targetTransform = state.map.CellToWorldPosition(loc.Item2);
+            var targetTransform = state.tileManager.CellToWorldPosition(loc.Item2);
             GameObject gameObject = Instantiate(enemyAvatar, targetTransform, Quaternion.identity);
             gameObject.transform.SetParent(transform, false);
         }
@@ -29,12 +29,12 @@ public class generatePreviews : MonoBehaviour
         {
             if (loc.Value.hazardous == true)
             {
-                var targetTransform = state.map.CellToWorldPosition(loc.Key);
+                var targetTransform = state.tileManager.CellToWorldPosition(loc.Key);
                 GameObject gameObject = Instantiate(hazzardAvatar, targetTransform, Quaternion.identity);
                 gameObject.transform.SetParent(transform, false);
             }else if (loc.Value.impassable == true)
             {
-                var targetTransform = state.map.CellToWorldPosition(loc.Key);
+                var targetTransform = state.tileManager.CellToWorldPosition(loc.Key);
                 GameObject gameObject = Instantiate(impassibleAvatar, targetTransform, Quaternion.identity);
                 gameObject.transform.SetParent(transform, false);
             }

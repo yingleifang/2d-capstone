@@ -20,7 +20,7 @@ public class AudioComponent : MonoBehaviour
         AudioSource[] sources = GetComponents<AudioSource>();
         if(sources.Length != 2)
         {
-            Debug.Log("Not 2 audio sources!");
+            Debug.LogError("Not 2 audio sources!");
         }
         audioSource = sources[0];
         pitchySource = sources[1];

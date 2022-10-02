@@ -32,7 +32,7 @@ public class AnglerEnemy : EnemyUnit
         if(!target)
         {
             // No player units? Something's wrong
-            Debug.Log("No player units detected (AnglerEnemy performAction method) :(");
+            Debug.LogError("No player units detected :( (AnglerEnemy performAction method)");
             yield break;
         }
 
@@ -42,7 +42,7 @@ public class AnglerEnemy : EnemyUnit
         PlayerUnit abilityAlternateTarget = FindFurthestPlayerUnit(state);
         
         //Don't want to use ability if it is on cooldown, or if there are no units who can move any closer to us
-        if (currentCoolDown > 0 || state.map.RealDistance(location, abilityAlternateTarget.location) <= numSpacesLured)
+        if (currentCoolDown > 0 || state.tileManager.RealDistance(location, abilityAlternateTarget.location) <= numSpacesLured)
         {
             if (IsTileInAttackRange(target.location))
             {
@@ -56,7 +56,7 @@ public class AnglerEnemy : EnemyUnit
 
                 foreach (Vector3Int coord in tilesInRange)
                 {
-                    Unit currentUnit = state.map.dynamicTileDatas[coord].unit;
+                    Unit currentUnit = state.tileManager.dynamicTileDatas[coord].unit;
                     if(!isDead && currentUnit != null && currentUnit is PlayerUnit)
                     {
                         targetUnit = (PlayerUnit)currentUnit;

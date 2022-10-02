@@ -201,35 +201,28 @@ public class TileManager : MonoBehaviour
         unitLocations[unit] = location;
     }
 
-    public Unit GetUnit(Vector3Int tilePos)
+    /// <summary>
+    /// Sets unit data and tilemanager data to represent that the unit is
+    /// at the given location coordinate. Cannot be called on a unit which
+    /// already exists on the map.
+    /// </summary>
+   public void AddUnitToTile(Vector3Int location, Unit unit)
     {
-        if (!dynamicTileDatas.ContainsKey(tilePos))
-        {
-            return null;
-        }
-        return dynamicTileDatas[tilePos].unit;
-    }
-
-    public void AddUnitToTile(Vector3Int location, Unit unit)
-    {
+        // A unit cannot exist on two tiles at once. 
         if (unitLocations.ContainsKey(unit))
         {
-            RemoveUnitFromTile(unitLocations[unit]);
+            Debug.LogError("Adding same unit to two tiles. TileManager.cs AddUnitToTile");
+            return;
         }
         dynamicTileDatas[location].unit = unit;
         unitLocations[unit] = location;
         unit.location = location;
     }
 
-    public void KillUnit(Vector3Int location)
-    {
-        if(dynamicTileDatas.ContainsKey(location))
-        {
-            unitLocations.Remove(dynamicTileDatas[location].unit);
-            dynamicTileDatas[location].unit = null;
-        }
-    }
-
+    /// <summary>
+    /// Sets tilemanager data to show no unit present on the tile at 
+    /// the coordinates given. Does not set any unit data
+    /// </summary>
     public void RemoveUnitFromTile(Vector3Int location)
     {
         if (dynamicTileDatas.ContainsKey(location))
@@ -237,22 +230,20 @@ public class TileManager : MonoBehaviour
             unitLocations.Remove(dynamicTileDatas[location].unit);
             dynamicTileDatas[location].unit = null;
         }
+        else
+        {
+            Debug.LogError("Trying to remove a unit from a tile which does not exist");
+        }
     }
 
-    public int Distance(CubeCoord start, CubeCoord end)
+    public Unit GetUnit(Vector3Int tilePos)
     {
-        CubeCoord temp = start - end;
-        return Mathf.Max(Mathf.Abs(temp.x), Mathf.Abs(temp.y), Mathf.Abs(temp.z));
-    }
-
-    public int Distance(Vector3Int start, Vector3Int end) 
-    {
-        return Distance(UnityCellToCube(start), UnityCellToCube(end));
-    }
-
-    public int RealDistance(Vector3Int start, Vector3Int end, bool unitBlocks = true)
-    {
-        return FindShortestPath(start, end, unitBlocks).Count;
+        if (!dynamicTileDatas.ContainsKey(tilePos))
+        {
+            Debug.LogError("Trying to access a tile which does not exist");
+            return null;
+        }
+        return dynamicTileDatas[tilePos].unit;
     }
 
     public IEnumerator OnUnitFallOnTile(BattleState state, Unit unit, Vector3Int TilePos)
@@ -274,7 +265,12 @@ public class TileManager : MonoBehaviour
         yield break;
     }
 
-    public bool IsImpassable(Vector3Int cellCoords, bool unitsBlock = true)
+    /// <summary>
+    /// A tile is impassable if it does not exist in the tilemap or if it has
+    /// the impassable trait. If unitsBlock = true, then a unit present on a tile
+    /// will also render it impassable
+    /// </summary>
+    public bool IsImpassableTile(Vector3Int cellCoords, bool unitsBlock = true)
     {
         TileBase tile = map.GetTile(cellCoords);
         if(tile == null || baseTileDatas[tile].impassable)
@@ -292,25 +288,19 @@ public class TileManager : MonoBehaviour
         return false;
     }
 
-    public bool IsImpassableTile(Vector3Int cellCoords, bool unitsBlock = true)
+    public bool IsImpassableTile(CubeCoord cubeCoords) 
     {
-        TileBase tile = map.GetTile(cellCoords);
-        if (tile == null || baseTileDatas[tile].impassable)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public bool IsImpassable(CubeCoord cubeCoords) 
-    {
-        return IsImpassable(CubeToUnityCell(cubeCoords));
+        return IsImpassableTile(CubeToUnityCell(cubeCoords));
     }
 
     public bool IsHazardous(Vector3Int cellCoords)
     {
         TileBase tile = map.GetTile(cellCoords);
-        if(tile == null || baseTileDatas[tile].hazardous)
+        if (tile == null)
+        {
+            Debug.LogError("Tile does not exist in tilemap");
+        }
+        else if(baseTileDatas[tile].hazardous)
         {
             return true;
         }
@@ -322,6 +312,10 @@ public class TileManager : MonoBehaviour
         return IsHazardous(CubeToUnityCell(cubeCoords));
     }
 
+    /// <summary>
+    /// returns true if there exists a tile in the tilemap
+    /// at the coordinate. False otherwise
+    /// </summary>
     public bool InBounds(Vector3Int cellCoords)
     {
         if (GetTile(cellCoords))
@@ -329,6 +323,22 @@ public class TileManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public int Distance(CubeCoord start, CubeCoord end)
+    {
+        CubeCoord temp = start - end;
+        return Mathf.Max(Mathf.Abs(temp.x), Mathf.Abs(temp.y), Mathf.Abs(temp.z));
+    }
+
+    public int Distance(Vector3Int start, Vector3Int end) 
+    {
+        return Distance(UnityCellToCube(start), UnityCellToCube(end));
+    }
+
+    public int RealDistance(Vector3Int start, Vector3Int end, bool unitBlocks = true)
+    {
+        return FindShortestPath(start, end, unitBlocks).Count;
     }
 
     public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, bool unitBlocks = true)
@@ -362,7 +372,7 @@ public class TileManager : MonoBehaviour
             foreach(CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
             {
                 Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
-                if(!IsImpassable(next, unitBlocks) || next == goal)
+                if(!IsImpassableTile(next, unitBlocks) || next == goal)
                 {
                     float new_cost = cost_so_far[current] + tileCostFunction(next);
                     if(!cost_so_far.ContainsKey(next) || new_cost < cost_so_far[next])
@@ -410,7 +420,7 @@ public class TileManager : MonoBehaviour
                 foreach (CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
                 {
                     Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
-                    if (IsImpassable(next, unitsBlock)) continue;
+                    if (IsImpassableTile(next, unitsBlock)) continue;
                     if (!path.Contains(next))
                     {
                         nextFrontier.Enqueue(next);
@@ -439,7 +449,7 @@ public class TileManager : MonoBehaviour
             foreach (CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
             {
                 Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
-                if (IsImpassable(next)) continue;
+                if (IsImpassableTile(next)) continue;
                 if (!came_from.ContainsKey(next))
                 {
                     frontier.Enqueue((Vector3Int)next);
@@ -462,7 +472,7 @@ public class TileManager : MonoBehaviour
     public bool FindClosestFreeTile(Vector3Int start, out Vector3Int end)
     {
         end = start;
-        if(!IsImpassable(start))
+        if(!IsImpassableTile(start))
         {
             return true;
         }
@@ -477,7 +487,7 @@ public class TileManager : MonoBehaviour
             {
                 Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
                 if (!InBounds(next)) continue;
-                if (IsImpassable(next))
+                if (IsImpassableTile(next))
                 {
                     frontier.Enqueue(next);
                 } else if (InBounds(next))

@@ -64,7 +64,6 @@ public class UnitSelectionWindow : MonoBehaviour
 
     public void SelectUnit(PurchasableScript unit)
     {
-        Debug.Log("MOUSEDOWN");
         BattleManager.instance.SetUnitToPlace(unit.unitPrefab);
         StartCoroutine(Hide());
     }

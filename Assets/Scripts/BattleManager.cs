@@ -20,7 +20,7 @@ public class BattleState : ScriptableObject
 {
     public List<PlayerUnit> playerUnits;
     public List<EnemyUnit> enemyUnits;
-    public TileManager map;
+    public TileManager tileManager;
     [HideInInspector] public BattleManager battleManager;
 
 }
@@ -36,7 +36,7 @@ public class BattleManager : MonoBehaviour
     public List<PlayerUnit> playerUnits;
     public List<EnemyUnit> enemyUnits;
     public List<Unit> unitsToSpawn;
-    public TileManager map;
+    public TileManager tileManager;
     public int turnsPerBattle = 5;
     public bool isBattleOver = false;
     public bool isPlayerTurn = true;
@@ -79,7 +79,7 @@ public class BattleManager : MonoBehaviour
         }
 
         state = new BattleState();
-        mapPosition = map.transform.position;
+        mapPosition = tileManager.transform.position;
     }
 
     public void EndTurn()
@@ -105,7 +105,8 @@ public class BattleManager : MonoBehaviour
         {
             previewLayer.SetActive(true);
             previewVisible = true;
-        } else
+        } 
+        else
         {
             previewVisible = false;
         }
@@ -137,6 +138,9 @@ public class BattleManager : MonoBehaviour
         regeneratePreviews();
     }
 
+    /// <summary>
+    /// Update preview render to show next stage hazards and enemies
+    /// </summary>
     private void regeneratePreviews()
     {
         previewLayer = GameObject.Find("PreviewLayer");
@@ -152,10 +156,10 @@ public class BattleManager : MonoBehaviour
     {
         if (acceptingInput && Input.GetMouseButtonDown(0))
         {
-            Vector3Int tilePos = map.GetTileAtScreenPosition(Input.mousePosition);
+            Vector3Int tilePos = tileManager.GetTileAtScreenPosition(Input.mousePosition);
             Debug.Log(tilePos);
 
-            Unit curUnit = map.GetUnit(tilePos);
+            Unit curUnit = tileManager.GetUnit(tilePos);
 
             if (isPlacingUnit)
             {
@@ -185,7 +189,7 @@ public class BattleManager : MonoBehaviour
             curEnemy.SetLocation(GetState(), curInfo.Item2);
             enemyUnits.Add(curEnemy);
             curEnemy.Show();
-            map.AddUnitToTile(curInfo.Item2, curEnemy);
+            tileManager.AddUnitToTile(curInfo.Item2, curEnemy);
         }
     }
 
@@ -275,14 +279,14 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Adding a null unit");
+                Debug.LogError("Adding a null unit");
                 yield break;
             }
         }
 
         Vector3Int spawnLocation = location;
         Debug.Log(spawnLocation);
-        Unit mapUnit = map.GetUnit(spawnLocation);
+        Unit mapUnit = tileManager.GetUnit(spawnLocation);
         if (mapUnit)
         {
             // Unit fell on another unit!
@@ -290,7 +294,7 @@ public class BattleManager : MonoBehaviour
             // Unit collision animation
             yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation));
             mapUnit.ChangeHealth(-1);
-            if (!map.FindClosestFreeTile(spawnLocation, out spawnLocation))
+            if (!tileManager.FindClosestFreeTile(spawnLocation, out spawnLocation))
             {
                 // No empty space on map for falling unit
                 yield return StartCoroutine(KillUnit(unit));
@@ -305,11 +309,11 @@ public class BattleManager : MonoBehaviour
             yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation));
         }
 
-        map.AddUnitToTile(spawnLocation, unit);
+        tileManager.AddUnitToTile(spawnLocation, unit);
         
 
-        yield return StartCoroutine(map.OnUnitFallOnTile(GetState(), unit, spawnLocation));
-        if (map.IsImpassableTile(unit.location))
+        yield return StartCoroutine(tileManager.OnUnitFallOnTile(GetState(), unit, spawnLocation));
+        if (tileManager.IsImpassableTile(unit.location, false))
         {
             yield return StartCoroutine(KillUnit(unit));
         }
@@ -328,10 +332,10 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Removing a null unit");
+            Debug.LogError("Removing a null unit");
         }
         Debug.Log("ENEMY UNITS: " + enemyUnits.Count);
-        map.KillUnit(unit.location);
+        tileManager.RemoveUnitFromTile(unit.location);
         yield return StartCoroutine(unit.Die());
 
         
@@ -361,7 +365,7 @@ public class BattleManager : MonoBehaviour
     {
         state.playerUnits = playerUnits;
         state.enemyUnits = enemyUnits;
-        state.map = map;
+        state.tileManager = tileManager;
         state.battleManager = this;
         return state;
     }
@@ -402,15 +406,15 @@ public class BattleManager : MonoBehaviour
         yield return null; // Need to wait a frame for the new level to load
 
         // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
-        map = FindObjectOfType<TileManager>();
+        tileManager = FindObjectOfType<TileManager>();
         // This is probably also unnecessary if we structure things better
         ui = FindObjectOfType<UIController>();
         levelManager.map = FindObjectOfType<Tilemap>();
-        Debug.Log("Found new TileManager: " + map != null);
+        Debug.Log("Found new TileManager: " + tileManager != null);
 
         // If statement below destroys everything if we reach the win screen
         // Should probably be handled more elegantly
-        if (map == null || ui == null)
+        if (tileManager == null || ui == null)
         {
             levelManager.RefreshNewGame();
             Debug.Log("No TileManager or UIController found. Destroying GameManager");
@@ -491,7 +495,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator HandlePlacingClicks(Vector3Int tilePos, Unit curUnit)
     {
-        if (map.InBounds(tilePos) && curUnit == null && unitToPlace)
+        if (tileManager.InBounds(tilePos) && curUnit == null && unitToPlace)
         {
             Debug.Log("Unit placement location: " + tilePos);
             PlayerUnit unit = unitToPlace;
@@ -505,17 +509,18 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator MoveUnit(Unit unit, Vector3Int tilePos)
     {
-        map.ClearHighlights();
+        tileManager.ClearHighlights();
         yield return StartCoroutine(unit.DoMovement(state, tilePos));
         yield return StartCoroutine(UpdateBattleState());
     }
 
     private IEnumerator HandleBattleClicks(Vector3Int tilePos, Unit curUnit)
     {
-        if(!map.GetTile(tilePos))
+        if(!tileManager.InBounds(tilePos))
         {
             DeselectUnit();
-        } else if (curUnit is PlayerUnit)
+        } 
+        else if (curUnit is PlayerUnit)
         {
             if (isPlayerTurn && selectedUnit is PlayerUnit unit
                 && !unit.hasMoved && unit == curUnit)
@@ -534,7 +539,7 @@ public class BattleManager : MonoBehaviour
             if (isPlayerTurn && selectedUnit is PlayerUnit unit 
                 && unit.hasMoved && !unit.hasAttacked && unit.IsTileInAttackRange(tilePos))
             {
-                map.ClearHighlights();
+                tileManager.ClearHighlights();
                 yield return StartCoroutine(unit.DoAttack(curUnit));
                 if(curUnit.isDead)
                 {
@@ -551,7 +556,7 @@ public class BattleManager : MonoBehaviour
         else if (curUnit == null)
         {
             if(isPlayerTurn && selectedUnit is PlayerUnit unit
-                && !unit.hasMoved && !map.IsImpassable(tilePos) && unit.IsTileInMoveRange(tilePos))
+                && !unit.hasMoved && !tileManager.IsImpassableTile(tilePos) && unit.IsTileInMoveRange(tilePos))
             {
                 yield return StartCoroutine(MoveUnit(unit, tilePos));
                 CheckIfBattleOver();
@@ -560,7 +565,7 @@ public class BattleManager : MonoBehaviour
                     ShowUnitAttackRange(unit);
                 }
             }
-                else
+            else
             {
                 DeselectUnit();
                 SelectTile(tilePos);
@@ -580,12 +585,12 @@ public class BattleManager : MonoBehaviour
     /// <param name="tilePos">the position of the tile to display</param>
     public void SelectTile(Vector3Int tilePos)
     {
-        ui.ShowTileInWindow(map.GetTileData(tilePos));
+        ui.ShowTileInWindow(tileManager.GetTileData(tilePos));
     }
 
     public void SelectUnit(Unit unit)
     {
-        map.ClearHighlights();
+        tileManager.ClearHighlights();
         selectedUnit = unit;
         if(unit is PlayerUnit player && isPlayerTurn)
         {
@@ -610,36 +615,36 @@ public class BattleManager : MonoBehaviour
     public void DeselectUnit()
     {
         ui.HideUnitInfoWindow();
-        map.ClearHighlights();
+        tileManager.ClearHighlights();
         selectedUnit = null;
     }
 
     private void ShowUnitMoveRange(Unit unit)
     {
         Debug.Log("Show move range");
-        map.ClearHighlights();
+        tileManager.ClearHighlights();
         if(isPlayerTurn)
         {
-            map.HighlightPath(unit.GetTilesInMoveRange(), Color.blue);
+            tileManager.HighlightPath(unit.GetTilesInMoveRange(), Color.blue);
         }
     }
 
     private void ShowUnitAttackRange(Unit unit)
     {
         Debug.Log("Show attack range");
-        map.ClearHighlights();
+        tileManager.ClearHighlights();
         if(isPlayerTurn)
         {
-            map.HighlightPath(unit.GetTilesInAttackRange(), Color.red);
+            tileManager.HighlightPath(unit.GetTilesInAttackRange(), Color.red);
         }
     }
 
     private void ShowUnitThreatRange(Unit unit)
     {
-        map.ClearHighlights();
+        tileManager.ClearHighlights();
         if (isPlayerTurn)
         {
-            map.HighlightPath(unit.GetTilesInThreatRange(), Color.red);
+            tileManager.HighlightPath(unit.GetTilesInThreatRange(), Color.red);
         }
     }
 
@@ -670,7 +675,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Can't find file");
+            Debug.LogError("Can't find file");
         }
     }
 }
