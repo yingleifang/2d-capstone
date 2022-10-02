@@ -155,7 +155,6 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (tileManager == null) { tileManager = FindObjectOfType<TileManager>(); }
         if (acceptingInput && Input.GetMouseButtonDown(0))
         {
             Vector3Int tilePos = tileManager.GetTileAtScreenPosition(Input.mousePosition);
