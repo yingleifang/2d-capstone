@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 2576643079642063}
   m_Layer: 0
   m_Name: Sozzy
-  m_TagString: Untagged
+  m_TagString: crossBattle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
     pitchFluctuation: 0
   isDead: 0
   inMovement: 0
+  levelManager: {fileID: 0}
   type: 2
   hasMoved: 0
   hasAttacked: 0
@@ -134,6 +135,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ccfed421d92208649a4682745fcb88e1, type: 3}
     volume: 1
     pitchFluctuation: 0
+  abilityDamage: 0
+  abilityRange: 0
 --- !u!95 &31881298027716544
 Animator:
   serializedVersion: 4

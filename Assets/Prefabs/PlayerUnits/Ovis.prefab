@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7804148005791988661}
   m_Layer: 0
   m_Name: Ovis
-  m_TagString: Untagged
+  m_TagString: crossBattle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,6 +126,7 @@ MonoBehaviour:
     pitchFluctuation: 0
   isDead: 0
   inMovement: 0
+  levelManager: {fileID: 0}
   type: 1
   hasMoved: 0
   hasAttacked: 0

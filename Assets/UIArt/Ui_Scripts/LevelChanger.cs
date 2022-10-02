@@ -15,6 +15,7 @@ public class LevelChanger : MonoBehaviour
 
     public void MainMenu()
     {
+        DestroyObjectWithTag("crossBattle");
         SceneManager.LoadScene("StartMenu");
     }
 
@@ -27,13 +28,22 @@ public class LevelChanger : MonoBehaviour
     {
         Application.Quit();
     }
-   // public void FadeToLevel (int levelIndex)
+
+    public void DestroyObjectWithTag(string tag)
+    {
+        var gameObjects = GameObject.FindGameObjectsWithTag(tag);
+
+        for (var i = 0; i < gameObjects.Length; i++)
+            Destroy(gameObjects[i]);
+    }
+
+    // public void FadeToLevel (int levelIndex)
     //{
-     //   anim.SetTrigger("fadeOut");
-   // }
+    //   anim.SetTrigger("fadeOut");
+    // }
 
     //public void OnFadeComplete()
-   // {
+    // {
     //    SceneManager.LoadScene(levelToLoad);
     //}
 }

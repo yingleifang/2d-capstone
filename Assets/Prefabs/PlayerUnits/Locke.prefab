@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 853754077221820295}
   m_Layer: 0
   m_Name: Locke
-  m_TagString: Untagged
+  m_TagString: crossBattle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,6 +417,7 @@ MonoBehaviour:
     pitchFluctuation: 0
   isDead: 0
   inMovement: 0
+  levelManager: {fileID: 0}
   type: 0
   hasMoved: 0
   hasAttacked: 0
