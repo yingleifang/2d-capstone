@@ -15,11 +15,12 @@ public class AbilityButtonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerUnit curUnit = (PlayerUnit) BattleManager.instance.selectedUnit;
-        if (curUnit == null)
+        if (!BattleManager.instance.selectedUnit || BattleManager.instance.selectedUnit is EnemyUnit)
         {
             return;
         }
+
+        PlayerUnit curUnit = (PlayerUnit) BattleManager.instance.selectedUnit;
         if (curUnit.currentCoolDown > 0 || curUnit.hasActed)
         {
             button.enabled = false;
