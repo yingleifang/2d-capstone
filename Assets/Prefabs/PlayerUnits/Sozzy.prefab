@@ -90,6 +90,7 @@ MonoBehaviour:
   currentMovementSpeed: 0
   coolDown: 2
   currentCoolDown: 0
+  abilityRange: 2
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: 31881298027716544}
   audio: {fileID: 1657812232248823373}
@@ -130,13 +131,12 @@ MonoBehaviour:
   levelManager: {fileID: 0}
   type: 2
   hasMoved: 0
-  hasAttacked: 0
+  hasActed: 0
   StartOfBattleAbilitySound:
     clip: {fileID: 8300000, guid: ccfed421d92208649a4682745fcb88e1, type: 3}
     volume: 1
     pitchFluctuation: 0
-  abilityDamage: 0
-  abilityRange: 0
+  abilityDamage: 2
 --- !u!95 &31881298027716544
 Animator:
   serializedVersion: 4
