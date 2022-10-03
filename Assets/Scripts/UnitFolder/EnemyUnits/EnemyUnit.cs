@@ -8,7 +8,7 @@ public abstract class EnemyUnit : Unit
 
     public Type type;
 
-    public override IEnumerator UseAbility(Vector3Int target)
+    public override IEnumerator UseAbility(Vector3Int target, BattleState state)
     {
         yield break;
     }

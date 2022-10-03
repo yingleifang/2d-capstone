@@ -80,6 +80,10 @@ public class CubeCoord {
         return new CubeCoord(a.coords + b.coords);
     }
 
+    public static CubeCoord operator *(CubeCoord a, int b) {
+        return new CubeCoord(a.coords.x * b, a.coords.y * b, a.coords.z * b);
+    }
+
     public override string ToString() {
         return coords.ToString();
     }
@@ -240,7 +244,6 @@ public class TileManager : MonoBehaviour
     {
         if (!dynamicTileDatas.ContainsKey(tilePos))
         {
-            Debug.LogError("Trying to access a tile which does not exist");
             return null;
         }
         return dynamicTileDatas[tilePos].unit;
@@ -270,10 +273,10 @@ public class TileManager : MonoBehaviour
     /// the impassable trait. If unitsBlock = true, then a unit present on a tile
     /// will also render it impassable
     /// </summary>
-    public bool IsImpassableTile(Vector3Int cellCoords, bool unitsBlock = true)
+    public bool IsImpassableTile(Vector3Int cellCoords, bool unitsBlock = true, bool terrainBlocks = true)
     {
         TileBase tile = map.GetTile(cellCoords);
-        if(tile == null || baseTileDatas[tile].impassable)
+        if(tile == null || (baseTileDatas[tile].impassable && terrainBlocks))
         {
             return true;
         }
@@ -325,31 +328,59 @@ public class TileManager : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Returns the distance between two coordinates on the map, ignoring impassable
+    /// tiles and other blockers. https://www.redblobgames.com/grids/hexagons/#distances
+    /// </summary>
     public int Distance(CubeCoord start, CubeCoord end)
     {
         CubeCoord temp = start - end;
         return Mathf.Max(Mathf.Abs(temp.x), Mathf.Abs(temp.y), Mathf.Abs(temp.z));
     }
 
+    /// <summary>
+    /// Returns the distance between two coordinates on the map, ignoring impassable
+    /// tiles and other blockers. https://www.redblobgames.com/grids/hexagons/#distances
+    /// </summary>
     public int Distance(Vector3Int start, Vector3Int end) 
     {
         return Distance(UnityCellToCube(start), UnityCellToCube(end));
     }
 
+    /// <summary>
+    /// Returns the distance between two coordinates on the map while accounting for impassable
+    /// tiles
+    /// </summary>
     public int RealDistance(Vector3Int start, Vector3Int end, bool unitBlocks = true)
     {
         return FindShortestPath(start, end, unitBlocks).Count;
     }
 
-    public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, bool unitBlocks = true)
-    {
-        return FindShortestPath(start, goal, (pos) => 10, unitBlocks);
+    /// <summary>
+    /// Returns a list of coordinates which comprise the shortest path between the start and goal.
+    /// Contains the destination tile but not the starting tile.
+    /// Assumes all tiles have equal weighting/value
+    /// </summary>
+    public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, bool unitBlocks = true, bool terrainBlocks = true)
+    {   
+        return FindShortestPath(start, goal, (pos) => 10, unitBlocks, terrainBlocks);
     }
 
-    public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, System.Func<Vector3Int, float> tileCostFunction, bool unitBlocks = true)
+    /// <summary>
+    /// Returns a list of coordinates which comprise the shortest path between the start and goal.
+    /// Contains the destination tile but not the starting tile
+    /// </summary>
+    public List<Vector3Int> FindShortestPath(Vector3Int start, Vector3Int goal, System.Func<Vector3Int, float> tileCostFunction, bool unitBlocks = true,
+                bool terrainBlocks = true)
     {
         if(!map.GetTile(start))
         {
+            Debug.LogError("Starting tile does not exist on map");
+            return new List<Vector3Int>();
+        }
+        if(!map.GetTile(goal))
+        {
+            Debug.LogError("Goal tile does not exist on map");
             return new List<Vector3Int>();
         }
 
@@ -372,7 +403,7 @@ public class TileManager : MonoBehaviour
             foreach(CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
             {
                 Vector3Int next = CubeToUnityCell(CubeNeighbor(current, direction));
-                if(!IsImpassableTile(next, unitBlocks) || next == goal)
+                if(!IsImpassableTile(next, unitBlocks, terrainBlocks) || next == goal)
                 {
                     float new_cost = cost_so_far[current] + tileCostFunction(next);
                     if(!cost_so_far.ContainsKey(next) || new_cost < cost_so_far[next])
@@ -434,6 +465,22 @@ public class TileManager : MonoBehaviour
         }
 
         return path;
+    }
+
+    public List<Vector3Int> GetTilesInRangeStraight(Vector3Int start, int range, bool unitsBlock = false)
+    {
+        CubeCoord cubeStart = UnityCellToCube(start);
+        List<Vector3Int> tiles = new List<Vector3Int>();
+
+        foreach (CubeDirections direction in System.Enum.GetValues(typeof(CubeDirections)))
+        {
+            for (int i = 1; i <= range; i++)
+            {
+                CubeCoord coord = cubeStart + (GetCubeDirection(direction) * i);
+                tiles.Add(CubeToUnityCell(coord));
+            }
+        }
+        return tiles;
     }
 
     public List<Vector3Int> FindShortestPathBFS(Vector3Int start, Vector3Int goal)
@@ -500,6 +547,59 @@ public class TileManager : MonoBehaviour
 
         // No free tiles found
         return false;
+    }
+
+    /// <summary>
+    /// Returns true if path contained can be traversed with a straight line
+    /// through the midpoints of the hexagons.
+    /// </summary>
+    public bool IsStraightPath(List<Vector3Int> path)
+    {
+        bool xSame = true;
+        bool ySame = true;
+        bool zSame = true;
+        bool straight = true;
+        int x = -1;
+        int y = -1;
+        int z = -1;
+
+        foreach (Vector3Int coord in path)
+        {
+            CubeCoord curCubeCoord = UnityCellToCube(coord);
+            if (x != -1 && x != curCubeCoord.x)
+            {
+                xSame = false;
+            }
+            else if (xSame)
+            {
+                x = curCubeCoord.x;
+            }
+
+            if (y != -1 && y != curCubeCoord.y)
+            {
+                ySame = false;
+            }
+            else if (ySame)
+            {
+                y = curCubeCoord.y;
+            }
+
+            if (z != -1 && z != curCubeCoord.z)
+            {
+                zSame = false;
+            }
+            else if (zSame)
+            {
+                z = curCubeCoord.z;
+            }
+
+            if (!xSame && !ySame && !zSame)
+            {
+                straight = false;
+                break;
+            }
+        }
+        return straight;
     }
 
     public TileBase GetTile(Vector3Int tilePos)

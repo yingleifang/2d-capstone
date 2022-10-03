@@ -135,7 +135,7 @@ public class LevelManager : MonoBehaviour
     public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, Dictionary<Vector3Int, TileDataScriptableObject> curTileInfo, int currentLevel)
     {
         Debug.Log("############");
-        Debug.Log(currentLevel);
+        Debug.Log("Current level: " + currentLevel);
         int totalEnemy = currentLevel < 2 ? currentLevel + 1 : 3;
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)

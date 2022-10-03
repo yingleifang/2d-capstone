@@ -6,7 +6,7 @@ public class Sozzy : PlayerUnit
 {
     public SoundEffect StartOfBattleAbilitySound;
     public int abilityDamage;
-    public int abilityRange;
+
     public override IEnumerator StartOfBattleAbility(BattleState state)
     {
         Debug.Log("Speeding up adjacent units");
@@ -28,8 +28,37 @@ public class Sozzy : PlayerUnit
     /// Does damage in a straight line from Sozzy. Assume that the
     /// coordinate passed in is a valid target
     /// </summary>
-    public override IEnumerator UseAbility(Vector3Int target)
+    public override IEnumerator UseAbility(Vector3Int target, BattleState state)
     {
+        Debug.Log("USING ABILITY");
+        List<Vector3Int> path = state.tileManager.FindShortestPath(location, target, false, false);
+        if (!state.tileManager.IsStraightPath(path) || path.Count > abilityRange || target == location)
+        {
+            foreach (Vector3Int coord in path)
+            {
+                Debug.Log(coord);
+            }
+            yield break;
+        }
+        else
+        {
+            foreach (Vector3Int coord in path)
+            {
+                Unit curUnit = state.tileManager.GetUnit(coord);
+                Debug.Log(curUnit);
+                if (!curUnit)
+                {
+                    Debug.Log(curUnit);
+                    continue;
+                }
+                else
+                {
+                    Debug.Log(curUnit);
+                    curUnit.ChangeHealth(abilityDamage * -1);
+                }
+            }
+            currentCoolDown = coolDown;
+        }
         yield return null;
     }
 }

@@ -18,14 +18,23 @@ public class UnitInfoWindow : MonoBehaviour
         if (spawned)
         {
             healthText.text = "Health: " + unit.currentHealth + "/" + unit.health;
+
+            if (unit.currentCoolDown == 0)
+            {
+                cooldownText.text = "Ability Cooldown: READY";
+            }
+            else
+            {
+                cooldownText.text = "Ability Cooldown: " + unit.currentCoolDown;
+            }    
         }
         else
         {
             healthText.text = "Health: " + unit.health;
+            cooldownText.text = "Ability Cooldown: " + unit.coolDown;
         }  
         attackRangeText.text = "Attack Range: " + unit.attackRange;
         movementSpeedText.text = "Movement Speed: " + unit.movementSpeed;
-        cooldownText.text = "Ability Cooldown: " + unit.coolDown;
         nameText.text = unit.characterName;
         attackDamageText.text = "Attack Damage: " + unit.attackDamage;
         portraitImage.sprite = unit.portrait;
