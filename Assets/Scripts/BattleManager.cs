@@ -279,6 +279,10 @@ public class BattleManager : MonoBehaviour
             {
                 tileManager.HighlightPath(tileManager.GetTilesInRange(ovis.location, ovis.abilityRange, false), Color.red);
             }
+            else if (selectedUnit is Locke locke)
+            {
+                tileManager.HighlightPath(tileManager.GetTilesInRange(locke.location, locke.abilityRange, false), Color.red);
+            }
 
         }
     }

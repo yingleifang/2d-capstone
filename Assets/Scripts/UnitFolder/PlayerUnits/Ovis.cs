@@ -27,7 +27,7 @@ public class Ovis : PlayerUnit
     public override IEnumerator UseAbility(Vector3Int target, BattleState state)
     {
         Unit targetUnit = state.tileManager.GetUnit(target);
-        if (!targetUnit)
+        if (!targetUnit || state.tileManager.FindShortestPath(location, target).Count > abilityRange)
         {
             yield break;
         }
