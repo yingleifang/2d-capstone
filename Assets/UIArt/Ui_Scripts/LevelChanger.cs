@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
+    public string targetScene;
    // public Animator anim;
    // private int levelToLoad;
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
         
-    }
+   // }
 
     public void MainMenu()
     {
@@ -21,7 +22,7 @@ public class LevelChanger : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("LevelOne");
+        SceneManager.LoadScene(targetScene);
     }
 
     public void QuitGame()

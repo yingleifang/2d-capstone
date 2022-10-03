@@ -52,6 +52,7 @@ public class LevelManager : MonoBehaviour
 
     List<Vector3Int> impassibleTile = new List<Vector3Int>();
 
+    public levelTransition levelTransitionObj;
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -193,7 +194,7 @@ public class LevelManager : MonoBehaviour
     public void PrepareNextBattle()
     {
         currentLevel++;
-
+        //levelTransitionObj.LoadNextLevel();
         //Still in tutorial
         if (currentLevel <= numTutorialLevels && !overrideTutorial)
         {

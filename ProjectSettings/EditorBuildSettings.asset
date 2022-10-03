@@ -15,11 +15,17 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: d02629e935859d14993b9e0d3ea8400b
   - enabled: 1
+    path: Assets/Scenes/INTRO.unity
+    guid: f2244f2ce2d6f494e920448b6f1b3d0a
+  - enabled: 1
     path: Assets/Scenes/LevelOne.unity
     guid: dbbb39f3a40eeec4fb95ee5134b8ac12
   - enabled: 0
     path: Assets/Scenes/LevelTwo.unity
     guid: 24b706e02d1914f4cbde505787b86443
+  - enabled: 1
+    path: Assets/Scenes/OUTRO.unity
+    guid: e973d13296654b14993e2d468f7b76a2
   - enabled: 1
     path: Assets/Scenes/WinScreen.unity
     guid: a89e9a2569b1efc4bbe2f68eee30a638
