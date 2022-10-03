@@ -47,6 +47,12 @@ public class BattleManager : MonoBehaviour
     public Unit selectedUnit;
     public UIController ui;
     public PlayerUnit unitToPlace;
+    [ReadOnly]
+    public bool tileSelected = false;
+    [ReadOnly]
+    public Vector3Int selectedTile;
+    [ReadOnly]
+    public Color selectedTilePrevColor = Color.white;
 
     public GameObject previewLayer;
     public bool previewVisible = false;
@@ -189,13 +195,22 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator HandleBattleClicks(Vector3Int tilePos, Unit curUnit)
     {
+        // Handle clicking off the map
         if(!tileManager.InBounds(tilePos))
         {
             DeselectUnit();
             
         }
+        // Handle clicking while aiming ability
         else if (usingAbility && selectedUnit is PlayerUnit playerUnit)
         {
+            if (!tileSelected || !tilePos.Equals(selectedTile))
+            {
+                SelectTile(tilePos);
+                acceptingInput = true;
+                yield break;
+            }
+            DeselectTile();
             StartCoroutine(playerUnit.UseAbility(tilePos, state));
             if (playerUnit.currentCoolDown == playerUnit.coolDown)
             {
@@ -206,11 +221,20 @@ public class BattleManager : MonoBehaviour
                 CheckIfBattleOver();
             }   
         }
+        // Handle clicking on a player unit
         else if (curUnit is PlayerUnit)
         {
+            // Handle moving the player unit if trying to the same unit
             if (isPlayerTurn && selectedUnit is PlayerUnit unit
                 && !unit.hasMoved && unit == curUnit)
             {
+                if (!tileSelected || !tilePos.Equals(selectedTile))
+                {
+                    SelectTile(tilePos);
+                    acceptingInput = true;
+                    yield break;
+                }
+                DeselectTile();
                 yield return StartCoroutine(MoveUnit(unit, tilePos));
                 CheckIfBattleOver();
                 if(!isBattleOver && unit && !unit.isDead)
@@ -218,13 +242,24 @@ public class BattleManager : MonoBehaviour
                     ShowUnitAttackRange(unit);
                 }
             }
+            DeselectTile();
             SelectUnit(curUnit);
         }
+        // Handle clicking on enemy unit
         else if (curUnit is EnemyUnit)
         {
+            // Handle selecting attack target
             if (isPlayerTurn && selectedUnit is PlayerUnit unit 
                 && unit.hasMoved && !unit.hasActed && unit.IsTileInAttackRange(tilePos))
             {
+                if (!tileSelected || !tilePos.Equals(selectedTile))
+                {
+                    SelectTile(tilePos);
+                    ui.ShowUnitInfoWindow(curUnit);
+                    acceptingInput = true;
+                    yield break;
+                }
+                DeselectTile();
                 tileManager.ClearHighlights();
                 yield return StartCoroutine(unit.DoAttack(curUnit));
                 yield return StartCoroutine(UpdateBattleState());
@@ -235,11 +270,19 @@ public class BattleManager : MonoBehaviour
                 SelectUnit(curUnit);
             }
         }
+        // Handle clicking on an empty tile
         else if (curUnit == null)
         {
             if(isPlayerTurn && selectedUnit is PlayerUnit unit
                 && !unit.hasMoved && !tileManager.IsImpassableTile(tilePos) && unit.IsTileInMoveRange(tilePos))
             {
+                if (!tileSelected || !tilePos.Equals(selectedTile))
+                {
+                    SelectTile(tilePos);
+                    acceptingInput = true;
+                    yield break;
+                }
+                DeselectTile();
                 yield return StartCoroutine(MoveUnit(unit, tilePos));
                 CheckIfBattleOver();
                 if(!isBattleOver && unit && !unit.isDead)
@@ -250,7 +293,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 DeselectUnit();
-                SelectTile(tilePos);
+                DisplayTile(tilePos);
             }
             
         }
@@ -607,6 +650,12 @@ public class BattleManager : MonoBehaviour
     {
         if (tileManager.InBounds(tilePos) && curUnit == null && unitToPlace)
         {
+            if (!tileSelected || !tilePos.Equals(selectedTile))
+            {
+                SelectTile(tilePos);
+                yield break;
+            }
+            DeselectTile();
             Debug.Log("Unit placement location: " + tilePos);
             PlayerUnit unit = unitToPlace;
             unitToPlace = null;
@@ -625,12 +674,40 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Selects the given tile and displays its details
+    /// Displays the given tiles details in the info window
     /// </summary>
     /// <param name="tilePos">the position of the tile to display</param>
-    public void SelectTile(Vector3Int tilePos)
+    public void DisplayTile(Vector3Int tilePos)
     {
         ui.ShowTileInWindow(tileManager.GetTileData(tilePos));
+    }
+
+    /// <summary>
+    /// Stores the given tile position in the selectedTile variable.
+    /// Sets tileSelected to true.
+    /// </summary>
+    /// <param name="tilePos">the tile to select.</param>
+    public void SelectTile(Vector3Int tilePos)
+    {
+        DeselectTile();
+        selectedTilePrevColor = tileManager.GetTileColor(tilePos);
+        tileManager.SetTileColor(tilePos, Color.yellow);
+        selectedTile = tilePos;
+        tileSelected = true;
+    }
+
+    /// <summary>
+    /// Deselects any tiles.
+    /// Sets tileSelected to false.
+    /// </summary>
+    public void DeselectTile()
+    {
+        if (tileSelected)
+        {
+            tileSelected = false;
+            tileManager.SetTileColor(selectedTile, selectedTilePrevColor);
+            selectedTilePrevColor = Color.white;
+        }
     }
 
     public void SelectUnit(Unit unit)
@@ -659,6 +736,7 @@ public class BattleManager : MonoBehaviour
 
     public void DeselectUnit()
     {
+        DeselectTile();
         ui.HideUnitInfoWindow();
         tileManager.ClearHighlights();
         selectedUnit = null;

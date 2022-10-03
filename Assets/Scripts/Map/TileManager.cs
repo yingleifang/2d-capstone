@@ -636,12 +636,28 @@ public class TileManager : MonoBehaviour
         return map.GetTile(tilePos);
     }
 
-
+    /// <summary>
+    /// Sets the color of the tile at the given position.
+    /// Adds the tile to a list of tiles with their colors changed so
+    /// they can all be reset in ClearHighlights()
+    /// </summary>
+    /// <param name="cellCoord">the position of the tile to change</param>
+    /// <param name="color">the new color for the tile</param>
     public void SetTileColor(Vector3Int cellCoord, Color color)
     {
         map.SetTileFlags(cellCoord, TileFlags.None);
         map.SetColor(cellCoord, color);
         coloredTiles.Add(cellCoord);
+    }
+
+    /// <summary>
+    /// Returns the color of the tile at the given tile position
+    /// </summary>
+    /// <param name="tilePos">the position of the tile to retrieve</param>
+    /// <returns>the color of the tile at the given position</returns>
+    public Color GetTileColor(Vector3Int tilePos)
+    {
+        return map.GetColor(tilePos);
     }
 
     public void HighlightPath(List<Vector3Int> path, Color color)
