@@ -34,10 +34,6 @@ public class Sozzy : PlayerUnit
         List<Vector3Int> path = state.tileManager.FindShortestPath(location, target, false, false);
         if (!state.tileManager.IsStraightPath(path) || path.Count > abilityRange || target == location)
         {
-            foreach (Vector3Int coord in path)
-            {
-                Debug.Log(coord);
-            }
             yield break;
         }
         else

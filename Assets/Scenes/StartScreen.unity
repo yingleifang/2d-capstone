@@ -547,7 +547,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackSquare: {fileID: 227931026}
   unitSelectionWindow: {fileID: 0}
+  unitSelectionTutorial: {fileID: 0}
   unitInfoWindow: {fileID: 0}
+  endTurnButton: {fileID: 0}
+  turnCountDown: {fileID: 0}
+  isTutorial: 0
+  audio: {fileID: 0}
+  clickSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
 --- !u!1 &1105108695
 GameObject:
   m_ObjectHideFlags: 0

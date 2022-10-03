@@ -267,11 +267,23 @@ public class BattleManager : MonoBehaviour
         usingAbility = !usingAbility;
         tileManager.ClearHighlights();
 
-        if (usingAbility && selectedUnit is Sozzy sozzy)
+        if (usingAbility)
         {
-            Debug.Log("HERE: " + sozzy.abilityRange);
-            tileManager.HighlightPath(tileManager.GetTilesInRangeStraight(sozzy.location, 
+            if (selectedUnit is Sozzy sozzy)
+            {
+                Debug.Log("HERE: " + sozzy.abilityRange);
+                tileManager.HighlightPath(tileManager.GetTilesInRangeStraight(sozzy.location, 
                     sozzy.abilityRange), Color.red);
+            }
+            else if (selectedUnit is Ovis ovis)
+            {
+                tileManager.HighlightPath(tileManager.GetTilesInRange(ovis.location, ovis.abilityRange, false), Color.red);
+            }
+            else if (selectedUnit is Locke locke)
+            {
+                tileManager.HighlightPath(tileManager.GetTilesInRange(locke.location, locke.abilityRange, false), Color.red);
+            }
+
         }
     }
 

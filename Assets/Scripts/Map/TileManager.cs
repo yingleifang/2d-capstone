@@ -77,7 +77,7 @@ public class CubeCoord {
     }
 
     public static CubeCoord operator -(CubeCoord a, CubeCoord b) {
-        return new CubeCoord(a.coords + b.coords);
+        return new CubeCoord(a.coords - b.coords);
     }
 
     public static CubeCoord operator *(CubeCoord a, int b) {
@@ -467,6 +467,10 @@ public class TileManager : MonoBehaviour
         return path;
     }
 
+    /// <summary>
+    /// Returns a list of tiles which are within a given range of the starting tile using only straight lines which intersect
+    /// hexagon midpoints
+    /// </summary>
     public List<Vector3Int> GetTilesInRangeStraight(Vector3Int start, int range, bool unitsBlock = false)
     {
         CubeCoord cubeStart = UnityCellToCube(start);
@@ -481,6 +485,31 @@ public class TileManager : MonoBehaviour
             }
         }
         return tiles;
+    }
+
+    /// <summary>
+    /// Returns a unit vector in the direction between start and end. Requires range:
+    /// an int which indicates the distance between start and end.
+    /// </summary>
+    public CubeCoord GetDirection(Vector3Int start, Vector3Int end, int range)
+    {
+        CubeCoord cubeStart = UnityCellToCube(start);
+        CubeCoord cubeEnd = UnityCellToCube(end);
+        Debug.Log("start: " + cubeStart);
+        Debug.Log("end: " + cubeEnd);
+
+        CubeCoord distance = cubeEnd - cubeStart;
+        Debug.Log("distance: " + distance);
+        if (distance.x % range == 0 && distance.y % range == 0 && distance.z % range == 0)
+        {
+            CubeCoord direction = new CubeCoord(distance.x / range, distance.y / range, distance.z / range);
+            return direction;
+        }
+        else
+        {
+            Debug.LogError("Not a straight line");
+            return new CubeCoord(-1, -1, -1);
+        }
     }
 
     public List<Vector3Int> FindShortestPathBFS(Vector3Int start, Vector3Int goal)
@@ -647,7 +676,7 @@ public class TileManager : MonoBehaviour
         return directions[(int) direction];
     }
 
-    private CubeCoord UnityCellToCube(Vector3Int cell)
+    public CubeCoord UnityCellToCube(Vector3Int cell)
     {
         var col = cell.x; 
         var row = cell.y * -1;
@@ -657,7 +686,7 @@ public class TileManager : MonoBehaviour
         return new CubeCoord(q, r, s);
     }
 
-    private Vector3Int CubeToUnityCell(CubeCoord cube)
+    public Vector3Int CubeToUnityCell(CubeCoord cube)
     {
         var q = cube.x;
         var r = cube.y;
