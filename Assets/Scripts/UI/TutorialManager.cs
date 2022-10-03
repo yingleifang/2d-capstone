@@ -12,13 +12,25 @@ public class TutorialManager : MonoBehaviour
 
     public GameObject unitSelection;
     public GameObject continueButton;
+    public GameObject endTurnButton;
+    public GameObject battlePreviewButton;
+    public GameObject sozyExample;
+   // public GameObject hazards;
+    public GameObject help;
+    public GameObject turnCounter;
 
     private int index;
 
     // Start is called before the first frame update
     void Start()
     {
+        help.SetActive(false);
+        turnCounter.SetActive(false);
+       // hazards.SetActive(false);
         unitSelection.SetActive(false);
+        endTurnButton.SetActive(false);
+        battlePreviewButton.SetActive(false);
+        sozyExample.SetActive(false);
         textComp.text = string.Empty;
         StartDialogue();
     }
@@ -34,6 +46,29 @@ public class TutorialManager : MonoBehaviour
         {
             unitSelection.SetActive(true);
         }
+        if (textComp.text == lines[4])
+        {
+            unitSelection.SetActive(false);
+            sozyExample.SetActive(true);
+        }
+        if (textComp.text == lines[8])
+        {
+            endTurnButton.SetActive(true);
+        }
+        if (textComp.text == lines[9])
+        {
+            battlePreviewButton.SetActive(true);
+        }
+        if (textComp.text == lines[11])
+        {
+            turnCounter.SetActive(true);
+        }
+        if (textComp.text == lines[12])
+        {
+            help.SetActive(true);
+        }
+        
+
 
 
 
