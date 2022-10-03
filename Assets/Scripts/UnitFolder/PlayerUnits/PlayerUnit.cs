@@ -9,7 +9,7 @@ public class PlayerUnit : Unit
 
     public UnitType type;
     public bool hasMoved = false;
-    public bool hasAttacked = false;
+    public bool hasActed = false;
 
     public override IEnumerator DoMovement(BattleState state, Vector3Int target, bool unitBlocks = true)
     {
@@ -19,38 +19,22 @@ public class PlayerUnit : Unit
 
     public override IEnumerator DoAttack(Unit target)
     {
-        hasAttacked = true;
+        hasActed = true;
         return base.DoAttack(target);
     }
 
     public override void StartOfTurn()
     {
         hasMoved = false;
-        hasAttacked = false;
+        hasActed = false;
     }
 
-    public override IEnumerator UseAbility(Vector3Int target)
+    public override IEnumerator UseAbility(Vector3Int target, BattleState state)
     {
         if (currentCoolDown > 0)
         {
             yield break;
         }
-        switch(type)
-        {
-            case UnitType.RACOON:
-                //TODO racoon ability
-                break;
-            case UnitType.RAM:
-                //TODO access unit on coordinates
-                break;
-            case UnitType.LIZARD:
-                //TODO damage to all units in line from lizard and 
-                break;
-
-        }
-        hasAttacked = true;
-        currentCoolDown = coolDown;
-        yield break;
     }
     
 }

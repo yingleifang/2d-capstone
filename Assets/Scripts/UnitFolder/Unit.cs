@@ -22,6 +22,7 @@ public abstract class Unit: MonoBehaviour
     public int coolDown;
     [ReadOnly] public int currentCoolDown;
 
+    public int abilityRange;
 
     public Vector3Int location;
 
@@ -145,7 +146,7 @@ public abstract class Unit: MonoBehaviour
         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 
-    public abstract IEnumerator UseAbility(Vector3Int target);
+    public abstract IEnumerator UseAbility(Vector3Int target, BattleState state);
 
     /// <summary>
     /// Flips the sprite across the y axis to face the target coordinate
@@ -383,4 +384,15 @@ public abstract class Unit: MonoBehaviour
         yield break;
     }
     
+    public void decreaseCoolDown(int numDecrease = 1)
+    {
+        if (currentCoolDown == 0)
+        {
+            return;
+        }
+        else
+        {
+            currentCoolDown -= numDecrease;
+        }
+    }
 }

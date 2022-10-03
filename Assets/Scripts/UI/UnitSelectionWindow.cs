@@ -9,10 +9,12 @@ public class UnitSelectionWindow : MonoBehaviour
     public List<PlayerUnit> unitPrefabs;
     private List<PlayerUnit> selectedUnitPrefabs = new List<PlayerUnit>();
     public List<PurchasableScript> unitIcons = new List<PurchasableScript>();
+    private UnitInfoWindow unitInfoWindow;
     private int numUnitsInSelection = 3;
 
     private void Awake()
     {
+        unitInfoWindow = FindObjectOfType<UnitInfoWindow>();
         StartCoroutine(Hide());
     }
 
@@ -65,6 +67,7 @@ public class UnitSelectionWindow : MonoBehaviour
     public void SelectUnit(PurchasableScript unit)
     {
         BattleManager.instance.SetUnitToPlace(unit.unitPrefab);
+        unitInfoWindow.HideStats();
         StartCoroutine(Hide());
     }
 }
