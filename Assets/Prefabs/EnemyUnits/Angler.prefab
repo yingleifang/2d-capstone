@@ -135,6 +135,7 @@ MonoBehaviour:
   currentMovementSpeed: 0
   coolDown: 2
   currentCoolDown: 0
+  abilityRange: 0
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: 5759568811348548860}
   audio: {fileID: 3311667661192937299}
@@ -148,15 +149,15 @@ MonoBehaviour:
   damageNumberSpawnPoint: {fileID: 8434523523383027351}
   deathSound:
     clip: {fileID: 8300000, guid: 435097acf7aaef645ae64dea0125074d, type: 3}
-    volume: 1
+    volume: 0
     pitchFluctuation: 0
   hitSound:
     clip: {fileID: 8300000, guid: 5d1d15a79600e37489ceddbd0399e795, type: 3}
-    volume: 1
+    volume: 0
     pitchFluctuation: 0
   attackSound:
     clip: {fileID: 0}
-    volume: 1
+    volume: 0
     pitchFluctuation: 0
   placementSound:
     clip: {fileID: 8300000, guid: 8fdb829d46c9442468a58eda05057130, type: 3}

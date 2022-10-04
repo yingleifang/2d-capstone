@@ -107,19 +107,19 @@ MonoBehaviour:
   damageNumberSpawnPoint: {fileID: 7093494570695884646}
   deathSound:
     clip: {fileID: 8300000, guid: f1a9fa645abe054498e66f3ed508c0cf, type: 3}
-    volume: 0.5
+    volume: 0
     pitchFluctuation: 0
   hitSound:
     clip: {fileID: 8300000, guid: 5d1d15a79600e37489ceddbd0399e795, type: 3}
-    volume: 0.3
+    volume: 0
     pitchFluctuation: 0
   attackSound:
     clip: {fileID: 0}
-    volume: 1
+    volume: 0
     pitchFluctuation: 0
   placementSound:
     clip: {fileID: 8300000, guid: 8fdb829d46c9442468a58eda05057130, type: 3}
-    volume: 0.2
+    volume: 0
     pitchFluctuation: 0
   fallSound:
     clip: {fileID: 8300000, guid: 272311c425d6732498b142baed0b66a9, type: 3}
