@@ -169,10 +169,7 @@ public class BattleManager : MonoBehaviour
     {
         // Indicate tile player is hovering over
         Vector3Int tilePos = tileManager.GetTileAtScreenPosition(Input.mousePosition);
-        if (tileManager.InBounds(tilePos))
-        {
-            OutlineTile(tilePos);
-        }
+        OutlineTile(tilePos);
 
         // Always want to update position of the unit prefab being placed.
         if (isPlacingUnit && unitToPlace)
@@ -773,12 +770,22 @@ public class BattleManager : MonoBehaviour
     /// <param name="tilePos">the position for the tile outline</param>
     public void OutlineTile(Vector3Int tilePos)
     {
-        if(!tileOutline)
+        if (tileManager.InBounds(tilePos))
         {
-            tileOutline = Instantiate(tileOutlinePrefab);
+            if (!tileOutline)
+            {
+                tileOutline = Instantiate(tileOutlinePrefab);
+            }
+            tileOutline.SetActive(true);
+            tileOutline.transform.position = tileManager.CellToWorldPosition(tilePos);
+        } else
+        {
+            if (tileOutline)
+            {
+                tileOutline.SetActive(false);
+            }
         }
-
-        tileOutline.transform.position = tileManager.CellToWorldPosition(tilePos);
+        
     }
 
     public void SelectUnit(Unit unit)
