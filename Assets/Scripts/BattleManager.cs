@@ -60,6 +60,9 @@ public class BattleManager : MonoBehaviour
     [HideInInspector]
     public static BattleManager instance;
 
+    public GameObject tileOutlinePrefab;
+    private GameObject tileOutline;
+
     public LevelManager levelManager;
 
     public Vector3 mapPosition;
@@ -162,6 +165,13 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Indicate tile player is hovering over
+        Vector3Int tilePos = tileManager.GetTileAtScreenPosition(Input.mousePosition);
+        if (tileManager.InBounds(tilePos))
+        {
+            OutlineTile(tilePos);
+        }
+
         // Always want to update position of the unit prefab being placed.
         if (isPlacingUnit && unitToPlace)
         {
@@ -176,7 +186,6 @@ public class BattleManager : MonoBehaviour
         }
         if (acceptingInput && Input.GetMouseButtonDown(0))
         {
-            Vector3Int tilePos = tileManager.GetTileAtScreenPosition(Input.mousePosition);
             Debug.Log(tilePos);
 
             Unit curUnit = tileManager.GetUnit(tilePos);
@@ -721,6 +730,21 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Moves the tile outline object over the given tile.
+    /// Creates an instance of the outline if necessary
+    /// </summary>
+    /// <param name="tilePos">the position for the tile outline</param>
+    public void OutlineTile(Vector3Int tilePos)
+    {
+        if(!tileOutline)
+        {
+            tileOutline = Instantiate(tileOutlinePrefab);
+        }
+
+        tileOutline.transform.position = tileManager.CellToWorldPosition(tilePos);
+    }
+
     public void SelectUnit(Unit unit)
     {
         tileManager.ClearHighlights();
@@ -809,6 +833,14 @@ public class BattleManager : MonoBehaviour
         else
         {
             Debug.LogError("Can't find file");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (tileOutline)
+        {
+            Destroy(tileOutline);
         }
     }
 }
