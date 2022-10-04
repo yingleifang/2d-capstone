@@ -590,6 +590,10 @@ public class BattleManager : MonoBehaviour
     IEnumerator performEnemyMoves()
     {
         EnemyUnit[] enemies = enemyUnits.ToArray();
+        foreach(PlayerUnit player in playerUnits)
+        {
+            StartCoroutine(player.Undim());
+        }
         foreach(EnemyUnit enemy in enemies)
         {   
             yield return enemy.performAction(GetState());
@@ -714,22 +718,20 @@ public class BattleManager : MonoBehaviour
     {
         tileManager.ClearHighlights();
         selectedUnit = unit;
+        ui.ShowUnitInfoWindow(unit);
         if(unit is PlayerUnit player && isPlayerTurn)
         {
             if (!player.hasMoved)
             {
-                ui.ShowUnitInfoWindow(unit);
                 ShowUnitMoveRange(unit);
             }
             else if (!player.hasActed)
             {
-                ui.ShowUnitInfoWindow(unit);
                 ShowUnitAttackRange(unit);
             }
         } 
         else if(unit is EnemyUnit)
         {
-            ui.ShowUnitInfoWindow(unit);
             ShowUnitThreatRange(unit);
         }
     }

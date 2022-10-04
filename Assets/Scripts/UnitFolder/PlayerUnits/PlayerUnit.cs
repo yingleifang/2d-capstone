@@ -20,13 +20,15 @@ public class PlayerUnit : Unit
     public override IEnumerator DoAttack(Unit target)
     {
         hasActed = true;
-        return base.DoAttack(target);
+        yield return StartCoroutine(base.DoAttack(target));
+        yield return StartCoroutine(Dim());
     }
 
     public override void StartOfTurn()
     {
         hasMoved = false;
         hasActed = false;
+        StartCoroutine(Undim());
     }
 
     public override IEnumerator UseAbility(Vector3Int target, BattleState state)

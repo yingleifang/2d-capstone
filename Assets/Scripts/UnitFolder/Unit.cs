@@ -146,6 +146,29 @@ public abstract class Unit: MonoBehaviour
         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 
+    /// <summary>
+    /// Dims the unit.
+    /// </summary>
+    /// <returns>a coroutine representing the dimming animation</returns>
+    public IEnumerator Dim()
+    {
+        // TODO: may want to change the implementation for the dimmin/undimming. Maybe to a tween?
+        anim.SetBool("Dim", true);
+        yield return null; // Wait a frame for the animation to start
+        yield return new WaitUntil(() => !anim.IsInTransition(1));
+    }
+
+    /// <summary>
+    /// Un-dims the unit.
+    /// </summary>
+    /// <returns>a coroutine representing the un-dimming animation</returns>
+    public IEnumerator Undim()
+    {
+        anim.SetBool("Dim", false);
+        yield return null; // Wait a frame for the animation to start
+        yield return new WaitUntil(() => !anim.IsInTransition(1));
+    }
+
     public abstract IEnumerator UseAbility(Vector3Int target, BattleState state);
 
     /// <summary>
