@@ -535,6 +535,11 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator NextLevel()
     {
+        foreach (PlayerUnit player in playerUnits)
+        {
+            StartCoroutine(player.Undim());
+        }
+
         levelManager.PrepareNextBattle();
 
         acceptingInput = false;
