@@ -412,6 +412,7 @@ public class BattleManager : MonoBehaviour
             foreach (PlayerUnit unit in playerUnits)
             {
                 unit.decreaseCoolDown();
+                StartCoroutine(unit.Undim());
             }
             StartCoroutine(performEnemyMoves());
         }
@@ -590,10 +591,9 @@ public class BattleManager : MonoBehaviour
     IEnumerator performEnemyMoves()
     {
         EnemyUnit[] enemies = enemyUnits.ToArray();
-        foreach(PlayerUnit player in playerUnits)
-        {
-            StartCoroutine(player.Undim());
-        }
+
+        yield return StartCoroutine(ui.ShowEnemyTurnAnim());
+
         foreach(EnemyUnit enemy in enemies)
         {   
             yield return enemy.performAction(GetState());
@@ -644,6 +644,8 @@ public class BattleManager : MonoBehaviour
         {
             unit.StartOfTurn();
         }
+
+        yield return StartCoroutine(ui.ShowPlayerTurnAnim());
 
         ui.DisableEndTurnButton();
         isPlayerTurn = true;

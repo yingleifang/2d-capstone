@@ -13,6 +13,8 @@ public class UIController : MonoBehaviour
     public UnitInfoWindow unitInfoWindow;
     public Button endTurnButton;
     public TurnCountDown turnCountDown;
+    public Playable playerTurnPopup;
+    public Playable enemyTurnPopup;
     public bool isTutorial;
     public new AudioComponent audio;
     [SerializeField]
@@ -51,6 +53,24 @@ public class UIController : MonoBehaviour
     public void DecrementTurnCount()
     {
         turnCountDown.Decrement();
+    }
+
+    public IEnumerator ShowPlayerTurnAnim()
+    {
+        if (playerTurnPopup == null)
+        {
+            yield break;
+        }
+        yield return StartCoroutine(playerTurnPopup.Play());
+    }
+
+    public IEnumerator ShowEnemyTurnAnim()
+    {
+        if (enemyTurnPopup == null)
+        {
+            yield break;
+        }
+        yield return StartCoroutine(enemyTurnPopup.Play());
     }
 
     public IEnumerator DisableEndTurnButton()
