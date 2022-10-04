@@ -309,13 +309,53 @@ public abstract class Unit: MonoBehaviour
 
     public virtual bool IsTileInAttackRange(Vector3Int tile)
     {
-        return BattleManager.instance.tileManager.RealDistance(location, tile, false) <= currentAttackRange;
+        return CanAttackTileFromTile(tile, location);
+    }
+
+    /// <summary>
+    /// Returns true if this unit could attack the target tile from
+    /// position
+    /// </summary>
+    /// <param name="target">the tile to attack</param>
+    /// <param name="position">the tile the unit is attacking from</param>
+    /// <returns></returns>
+    public virtual bool CanAttackTileFromTile(Vector3Int target, Vector3Int position)
+    {
+        return BattleManager.instance.tileManager.RealDistance(position, target, false) <= currentAttackRange;
     }
 
     public virtual List<Vector3Int> GetTilesInThreatRange()
     {
         // Can override this method for unique threat ranges
         return BattleManager.instance.tileManager.GetTilesInRange(location, currentMovementSpeed + currentAttackRange, false);
+    }
+
+    /// <summary>
+    /// Returns true if the given tile is within the unit's threat range.
+    /// A unit's threat range is any tile a unit can attack after moving.
+    /// </summary>
+    /// <param name="tile"></param>
+    /// <returns></returns>
+    public virtual bool IsTileInThreatRange(Vector3Int tile, out Vector3Int position)
+    {
+        List<Vector3Int> path = BattleManager.instance.tileManager.FindShortestPath(location, tile);
+        if (IsTileInAttackRange(tile))
+        {
+            position = location;
+            return true;
+        }
+
+        for (int i = 0; i < path.Count && i < currentMovementSpeed; i++)
+        {
+            if (CanAttackTileFromTile(tile, path[i]))
+            {
+                position = path[i];
+                return true;
+            }
+        }
+
+        position = location;
+        return false;
     }
 
     /// <summary>

@@ -50,6 +50,7 @@ public class BattleManager : MonoBehaviour
     [ReadOnly]
     public bool tileSelected = false;
     [ReadOnly]
+    public List<(Vector3Int, Color)> highlightedTiles;
     public Vector3Int selectedTile;
     [ReadOnly]
     public Color selectedTilePrevColor = Color.white;
@@ -92,6 +93,7 @@ public class BattleManager : MonoBehaviour
 
         state = new BattleState();
         mapPosition = tileManager.transform.position;
+        highlightedTiles = new List<(Vector3Int, Color)>();
     }
 
     public void EndTurn()
@@ -257,22 +259,52 @@ public class BattleManager : MonoBehaviour
         // Handle clicking on enemy unit
         else if (curUnit is EnemyUnit)
         {
+            // Handle attacking before moving
+
             // Handle selecting attack target
-            if (isPlayerTurn && selectedUnit is PlayerUnit unit 
-                && unit.hasMoved && !unit.hasActed && unit.IsTileInAttackRange(tilePos))
+            if (isPlayerTurn && selectedUnit is PlayerUnit unit)
             {
-                if (!tileSelected || !tilePos.Equals(selectedTile))
+                // Handle attacking before moving
+                Vector3Int attackPosition;
+                if (!unit.hasMoved && !unit.hasActed && unit.IsTileInThreatRange(tilePos, out attackPosition))
                 {
-                    SelectTile(tilePos);
-                    ui.ShowUnitInfoWindow(curUnit);
-                    acceptingInput = true;
-                    yield break;
+                    if (!tileSelected || !tilePos.Equals(selectedTile))
+                    {
+                        SelectTile(tilePos);
+                        highlightedTiles.Add((attackPosition, tileManager.GetTileColor(attackPosition)));
+                        tileManager.SetTileColor(attackPosition, Color.cyan);
+                        ui.ShowUnitInfoWindow(curUnit);
+                        acceptingInput = true;
+                        yield break;
+                    }
+                    DeselectTile();
+                    tileManager.ClearHighlights();
+                    yield return StartCoroutine(MoveUnit(unit, attackPosition));
+                    CheckIfBattleOver();
+                    if (!isBattleOver && unit && !unit.isDead)
+                    {
+                        yield return StartCoroutine(unit.DoAttack(curUnit));
+                        yield return StartCoroutine(UpdateBattleState());
+                        CheckIfBattleOver();
+                    }
                 }
-                DeselectTile();
-                tileManager.ClearHighlights();
-                yield return StartCoroutine(unit.DoAttack(curUnit));
-                yield return StartCoroutine(UpdateBattleState());
-                CheckIfBattleOver();
+
+                // Hanlde selecting attack target
+                if(unit.hasMoved && !unit.hasActed && unit.IsTileInAttackRange(tilePos))
+                {
+                    if (!tileSelected || !tilePos.Equals(selectedTile))
+                    {
+                        SelectTile(tilePos);
+                        ui.ShowUnitInfoWindow(curUnit);
+                        acceptingInput = true;
+                        yield break;
+                    }
+                    DeselectTile();
+                    tileManager.ClearHighlights();
+                    yield return StartCoroutine(unit.DoAttack(curUnit));
+                    yield return StartCoroutine(UpdateBattleState());
+                    CheckIfBattleOver();
+                }
             }
             else
             {
@@ -703,7 +735,7 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Stores the given tile position in the selectedTile variable.
+    /// Stores the given tile position in the selectedTiles variable.
     /// Sets tileSelected to true.
     /// </summary>
     /// <param name="tilePos">the tile to select.</param>
@@ -712,6 +744,7 @@ public class BattleManager : MonoBehaviour
         DeselectTile();
         selectedTilePrevColor = tileManager.GetTileColor(tilePos);
         tileManager.SetTileColor(tilePos, Color.yellow);
+        highlightedTiles.Add((tilePos, selectedTilePrevColor));
         selectedTile = tilePos;
         tileSelected = true;
     }
@@ -725,8 +758,11 @@ public class BattleManager : MonoBehaviour
         if (tileSelected)
         {
             tileSelected = false;
-            tileManager.SetTileColor(selectedTile, selectedTilePrevColor);
-            selectedTilePrevColor = Color.white;
+            foreach (var item in highlightedTiles)
+            {
+                tileManager.SetTileColor(item.Item1, item.Item2);
+            }
+            highlightedTiles.Clear();
         }
     }
 
@@ -783,6 +819,14 @@ public class BattleManager : MonoBehaviour
         if(isPlayerTurn)
         {
             tileManager.HighlightPath(unit.GetTilesInMoveRange(), Color.blue);
+            foreach (EnemyUnit enemy in enemyUnits)
+            {
+                Vector3Int dummy;
+                if (unit.IsTileInThreatRange(enemy.location, out dummy))
+                {
+                    tileManager.SetTileColor(enemy.location, Color.red);
+                }
+            }
         }
     }
 
