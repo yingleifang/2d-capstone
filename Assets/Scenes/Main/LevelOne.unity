@@ -964,9 +964,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 564718175}
-  zoomStep: 0
-  minCamSize: 0
-  maxCamSize: 0
+  zoomStep: 0.5
+  minCamSize: 10
+  maxCamSize: 30
+  dragSpeed: 0.1
+  mapMinX: -10
+  mapMinY: -10
+  mapMaxX: 10
+  mapMaxY: 10
 --- !u!114 &922542332 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6057924552974800869, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}

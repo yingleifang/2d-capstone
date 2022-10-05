@@ -10,13 +10,19 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private float zoomStep, minCamSize, maxCamSize;
 
+    [SerializeField]
+    private float dragSpeed;
+
     private Vector3 dragOrigin;
+
+    [SerializeField]
+    private float mapMinX, mapMinY, mapMaxX, mapMaxY;
+
+    private float camSize;
 
     private void Start()
     {
-        minCamSize = 0f;
-        maxCamSize = 30f;
-        zoomStep = 0.5f;
+        camSize = cam.orthographicSize;
     }
 
     private void Update()
@@ -40,22 +46,39 @@ public class CameraMovement : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
-
-            cam.transform.position += difference;
+            difference *= dragSpeed;
+            cam.transform.position = ClampCamera(cam.transform.position + difference);
         }
     }
 
     public void ZoomIn()
     {
-        Debug.Log("!!!!!!!!");
         float newSize = cam.orthographicSize - zoomStep;
-        cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
+        
+        newSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
+        cam.orthographicSize = newSize;
+
+        cam.transform.position = ClampCamera(cam.transform.position);
     }
 
     public void Zoomout()
     {
-        Debug.Log("??????????????");
         float newSize = cam.orthographicSize + zoomStep;
         cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
+        cam.transform.position = ClampCamera(cam.transform.position);
+    }
+
+    private Vector3 ClampCamera(Vector3 targetPosition)
+    {
+        //float camHeight = cam.orthographicSize;
+        //float camWidth = cam.orthographicSize * cam.aspect;
+        float minX = mapMinX * (camSize / cam.orthographicSize);
+        float maxX = mapMaxX * (camSize / cam.orthographicSize);
+        float minY = mapMinY * (camSize / cam.orthographicSize);
+        float maxY = mapMaxY * (camSize / cam.orthographicSize);
+        float newX = Mathf.Clamp(targetPosition.x, minX, maxX);
+        float newY = Mathf.Clamp(targetPosition.y, minY, maxY);
+
+        return new Vector3(newX, newY, targetPosition.z);
     }
 }
