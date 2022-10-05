@@ -47,7 +47,7 @@ public class pauseMenu : MonoBehaviour
     {
         LeanTween.scale(button, new Vector3(1, 1, 1), 0.1f);
     }
-    void Resume()
+    public void Resume()
     {
         pausePanel.SetActive(false);
         LeanTween.scale(pausePanel, new Vector3(0, 0, 0), 0.3f);
@@ -56,7 +56,7 @@ public class pauseMenu : MonoBehaviour
         //gameIsPaused = false;
     }
 
-    void Pause()
+     public void Pause()
     {
         pausePanel.SetActive(true);
         LeanTween.scale(pausePanel, new Vector3(1, 1, 1), 0.3f);
