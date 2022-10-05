@@ -25,6 +25,7 @@ public class Locke : PlayerUnit
         }
         else
         {
+            currentCoolDown = coolDown;
             targetUnit.ChangeHealth(abilityDamage * -1);
         }
         yield return null;
