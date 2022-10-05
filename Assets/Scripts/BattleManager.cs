@@ -245,9 +245,13 @@ public class BattleManager : MonoBehaviour
                 DeselectTile();
                 yield return StartCoroutine(MoveUnit(unit, tilePos));
                 CheckIfBattleOver();
-                if(!isBattleOver && unit && !unit.isDead)
+                if(!isBattleOver && unit && !unit.isDead && !unit.hasActed)
                 {
                     ShowUnitAttackRange(unit);
+                } else
+                {
+                    StartCoroutine(unit.Dim());
+                    DeselectUnit();
                 }
             }
             DeselectTile();
@@ -323,9 +327,14 @@ public class BattleManager : MonoBehaviour
                 DeselectTile();
                 yield return StartCoroutine(MoveUnit(unit, tilePos));
                 CheckIfBattleOver();
-                if(!isBattleOver && unit && !unit.isDead)
+                if (!isBattleOver && unit && !unit.isDead && !unit.hasActed)
                 {
                     ShowUnitAttackRange(unit);
+                }
+                else
+                {
+                    StartCoroutine(unit.Dim());
+                    DeselectUnit();
                 }
             }
             else
@@ -800,7 +809,7 @@ public class BattleManager : MonoBehaviour
         {
             if (!player.hasMoved)
             {
-                ShowUnitMoveRange(unit);
+                ShowUnitMoveRange(player);
             }
             else if (!player.hasActed)
             {
@@ -822,19 +831,22 @@ public class BattleManager : MonoBehaviour
         usingAbility = false;
     }
 
-    private void ShowUnitMoveRange(Unit unit)
+    private void ShowUnitMoveRange(PlayerUnit unit)
     {
         Debug.Log("Show move range");
         tileManager.ClearHighlights();
         if(isPlayerTurn)
         {
             tileManager.HighlightPath(unit.GetTilesInMoveRange(), Color.blue);
-            foreach (EnemyUnit enemy in enemyUnits)
+            if(!unit.hasActed)
             {
-                Vector3Int dummy;
-                if (unit.IsTileInThreatRange(enemy.location, out dummy))
+                foreach (EnemyUnit enemy in enemyUnits)
                 {
-                    tileManager.SetTileColor(enemy.location, Color.red);
+                    Vector3Int dummy;
+                    if (unit.IsTileInThreatRange(enemy.location, out dummy))
+                    {
+                        tileManager.SetTileColor(enemy.location, Color.red);
+                    }
                 }
             }
         }
