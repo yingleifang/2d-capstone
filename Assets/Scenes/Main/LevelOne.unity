@@ -1261,7 +1261,7 @@ MonoBehaviour:
   selectedTilePrevColor: {r: 1, g: 1, b: 1, a: 1}
   previewLayer: {fileID: 270826227}
   previewVisible: 0
-  tileOutlinePrefab: {fileID: 0}
+  tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
   levelManager: {fileID: 561730322}
   mapPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1275022861
