@@ -49,13 +49,23 @@ public class LevelManager : MonoBehaviour
     public bool overrideTutorial;
     private int numTutorialLevels = 2;
 
+    [HideInInspector]
+    public static LevelManager instance;
 
     List<Vector3Int> impassibleTile = new List<Vector3Int>();
 
     public levelTransition levelTransitionObj;
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         if (currentLevel < numTutorialLevels)
         {
             isTutorial = true;
