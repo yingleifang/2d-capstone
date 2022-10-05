@@ -453,6 +453,7 @@ public class BattleManager : MonoBehaviour
     {
         if(isPlayerTurn && acceptingInput)
         {
+            DeselectUnit();
             ui.DisableEndTurnButton();
             isPlayerTurn = false;
 
