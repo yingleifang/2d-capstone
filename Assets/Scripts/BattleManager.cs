@@ -770,22 +770,25 @@ public class BattleManager : MonoBehaviour
     /// <param name="tilePos">the position for the tile outline</param>
     public void OutlineTile(Vector3Int tilePos)
     {
-        if (tileManager.InBounds(tilePos))
+        if (tileOutlinePrefab)
         {
-            if (!tileOutline)
+            if (tileManager.InBounds(tilePos))
             {
-                tileOutline = Instantiate(tileOutlinePrefab);
+                if (!tileOutline)
+                {
+                    tileOutline = Instantiate(tileOutlinePrefab);
+                }
+                tileOutline.SetActive(true);
+                tileOutline.transform.position = tileManager.CellToWorldPosition(tilePos);
             }
-            tileOutline.SetActive(true);
-            tileOutline.transform.position = tileManager.CellToWorldPosition(tilePos);
-        } else
-        {
-            if (tileOutline)
+            else
             {
-                tileOutline.SetActive(false);
+                if (tileOutline)
+                {
+                    tileOutline.SetActive(false);
+                }
             }
-        }
-        
+        }        
     }
 
     public void SelectUnit(Unit unit)
