@@ -398,42 +398,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1401104887, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 185
-      objectReference: {fileID: 0}
-    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 7df01db6397e0804db42810c633468c2, type: 2}
-    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 4461343255720149496, guid: 7df01db6397e0804db42810c633468c2, type: 2}
-    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 6057924552145935503, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6057924552427928790, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6057924552974800409, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1488,6 +1452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64cc01a65ace43f499f8b515c1a4a468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetScene: 
 --- !u!95 &839640059
 Animator:
   serializedVersion: 4
@@ -1557,6 +1522,7 @@ MonoBehaviour:
   x_max: 4
   y_min: -2
   y_max: 3
+  totalLevels: 4
   currentLevel: 1
   enemyNumToSpawn: 0
   random: 1
@@ -1571,6 +1537,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 439c66e79ada37d4cbb31e6e03d8b6c4, type: 2}
   - {fileID: 11400000, guid: f150f011342cd2c42aeb4e57bdd892ff, type: 2}
   - {fileID: 11400000, guid: 616f9755a7acdc64f9f85dc6850939b9, type: 2}
+  map: {fileID: 0}
+  isTutorial: 0
+  overrideTutorial: 0
+  levelTransitionObj: {fileID: 0}
 --- !u!4 &883816493
 Transform:
   m_ObjectHideFlags: 0
@@ -1691,18 +1661,24 @@ MonoBehaviour:
   playerUnits: []
   enemyUnits: []
   unitsToSpawn: []
-  map: {fileID: 1720604120}
+  tileManager: {fileID: 0}
   turnsPerBattle: 5
   isBattleOver: 0
   isPlayerTurn: 1
   isPlacingUnit: 0
   acceptingInput: 1
+  usingAbility: 0
   selectedUnit: {fileID: 0}
   ui: {fileID: 7056509}
   unitToPlace: {fileID: 0}
+  tileSelected: 0
+  selectedTile: {x: 0, y: 0, z: 0}
+  selectedTilePrevColor: {r: 1, g: 1, b: 1, a: 1}
   previewLayer: {fileID: 313534038}
   previewVisible: 0
+  tileOutlinePrefab: {fileID: 0}
   levelManager: {fileID: 883816492}
+  mapPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1258529770
 Transform:
   m_ObjectHideFlags: 0
