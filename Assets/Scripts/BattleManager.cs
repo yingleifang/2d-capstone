@@ -219,7 +219,7 @@ public class BattleManager : MonoBehaviour
                 yield break;
             }
             DeselectTile();
-            StartCoroutine(playerUnit.UseAbility(tilePos, state));
+            yield return StartCoroutine(playerUnit.UseAbility(tilePos, state));
             if (playerUnit.currentCoolDown == playerUnit.coolDown)
             {
                 DeselectUnit();

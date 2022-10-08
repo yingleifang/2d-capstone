@@ -51,7 +51,7 @@ public class Ovis : PlayerUnit
             }
             else
             {
-                StartCoroutine(targetUnit.DoMovement(state, destination));
+                yield return StartCoroutine(targetUnit.DoMovement(state, destination));
             }
             currentCoolDown = coolDown;
         }
