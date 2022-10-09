@@ -106,6 +106,10 @@ public class BattleManager : MonoBehaviour
 
     public void TogglePreview()
     {
+        if (!acceptingInput)
+        {
+            return;
+        }
         if (instance.previewVisible)
         {
             instance.TurnOffPreview();
@@ -149,8 +153,6 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(ui.HideSelectionWindow());
         StartCoroutine(InitializeBattle());
         ui.HideUnitInfoWindow();
-        //Save();
-        //Load(SceneManager.GetActiveScene().buildIndex + 1);
         regeneratePreviews();
     }
 
@@ -164,7 +166,6 @@ public class BattleManager : MonoBehaviour
         curGeneratePreviews.transform.position = mapPosition;
         curGeneratePreviews.ShowEnemyPreview(levelManager.nextSceneEnemyInfo, GetState());
         curGeneratePreviews.ShowHazzardPreview(levelManager.nextSceneTileInfo, GetState());
-        TurnOffPreview();
     }
 
     // Update is called once per frame
@@ -390,6 +391,23 @@ public class BattleManager : MonoBehaviour
             enemyUnits.Add(curEnemy);
             curEnemy.Show();
             tileManager.AddUnitToTile(curInfo.Item2, curEnemy);
+        }
+    }
+
+    private IEnumerator InitializeBattleTutorial()
+    {
+        // Done to delay coroutine to allow units to add themselves to unitsToSpawn
+        yield return new WaitForFixedUpdate();
+
+
+        
+
+        // Place units waiting to be spawned on new map
+        Debug.Log("Units to spawn: " + unitsToSpawn.Count);
+        List<Coroutine> animations = new List<Coroutine>();
+        foreach (Unit unit in unitsToSpawn.ToArray())
+        {
+            yield return StartCoroutine(SpawnUnit(unit.location, unit));
         }
     }
 

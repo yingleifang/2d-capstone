@@ -3193,26 +3193,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textComp: {fileID: 351468460}
   lines:
-  - Hello welcome to the game we are now going to go over how to play.
-  - You will begin with selecting a unit player to battle with
-  - This is the unit selection screen
-  - You will be able to mouse over and look at the stats of the units and make your
-    decision who to play
-  - We will choose Sozy for an example
-  - You can click on Sozzy to see what tiles he can move to
-  - After clicking to where he can move you can see the areas that he can attack
-  - 'You can also see areas where the enemy can attack '
-  - After you make your attack click the end turn button to continue into the next
-    turn
-  - This is the battle preview button where you can view potential hazards in the
-    next level
-  - Click to see where the harsd are on the tiles
-  - 'This is the turn counter to show you how many turn are left '
-  - Lastly, if you ever get lost you can always reference back to this through this
-    help button
-  - Now its time for you continue your journey alone
-  - I believe in you!!
-  textSpeed: 0.03
+  - 'Hey! Hey! Over here! Are you alright? You just dropped down here right? Were
+    you looking for the treasure too? '
+  - 'No need to be so surprised. I''m not the only fool who ended up down here searching
+    for that fable. '
+  - 'The treasure? That''s the last thing you should be worrying about. You''ll realize
+    soon enough that it''s better to get out of here as soon as you can. '
+  - Wait! Wait! I'm telling the truth here. If you want the treasure, you can have
+    it if it even exists. But you have to be careful down here. There's... things.
+    Monsters. It'll be better for the both of us if we stick together. What do you
+    say?
+  - That's great! Two's better than one. What's your specialization? I'm a ranger.
+  - 'A unit selection window will appear at the start of every level. Selecting a
+    unit will add it to your team. Units on your team will persist across levels.
+    Unit health, cooldowns, and map positioning will also persist across levels. '
+  - 'Select a unit from the window by clicking the left mouse button on the unit.
+    Unit information can be seen by hovering your mouse over the unit. '
+  - Before selecting a tile to place your unit on. Be mindful of the various types
+    of tiles on the map.
+  - Spike tiles will deal one damage to units who end their turn on them.
+  - Impassable tiles will prevent units from moving on them or being placed on them.
+  - Choose a valid tile to place your unit by left clicking on a tile twice, once
+    to select, and once to confirm your selection.
+  - A warrior huh? And a sheepman too? Well, we all have our circumstances. As long
+    as you can fight, I won't ask. There's an enemy ahead. I said two's better than
+    one, but I'm not looking for deadweight. Show me what you can do.
+  - 'Left clicking units will show its unit information as well as other information. '
+  - Clicking an enemy will show its "threat area" highlighted in red. This is the
+    range in which it can attack units. Try it out yourself by clicking the enemy
+    on the screen.
+  - 'Clicking an ally which has not moved yet will highlight possible squares it
+    can move to in blue. Double click squares to move to them. Try it yourself on
+    the unit you selected. '
+  - After moving an allied unit, it will be able to attack within its attack range
+    highlighted in red. Try attacking the enemy by double clicking on them. Make
+    sure your unit is selected.
+  - Units may move and attack or attack. A unit may not attack and move. After a
+    unit has attacked, they will fade to indicate they have no more actions. After
+    you are finished with moving your units, you can end your end by clicking the
+    end turn button.
+  - What strength! Finish him!
+  - 'What? What''s going on? '
+  textSpeed: 0.015
   unitSelection: {fileID: 1504958366}
   continueButton: {fileID: 172694801}
   endTurnButton: {fileID: 2117465775}

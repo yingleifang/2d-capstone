@@ -7,6 +7,7 @@ public class TutorialManager : MonoBehaviour
 {
 
     public TextMeshProUGUI textComp;
+    [TextArea(5,10)]
     public string[] lines;
     public float textSpeed;
 
@@ -96,7 +97,7 @@ public class TutorialManager : MonoBehaviour
 
     }
 
-    IEnumerator TypeLine()
+    public IEnumerator TypeLine()
     {
         foreach (char c in lines[index].ToCharArray())
         {
@@ -112,7 +113,7 @@ public class TutorialManager : MonoBehaviour
         if(index < lines.Length - 1)
         {
             
-            index ++;
+            index++;
             Debug.Log("line " + index);
             textComp.text = string.Empty;
             StartCoroutine(TypeLine());
