@@ -15,15 +15,20 @@ public class PostProcessingSettings : MonoBehaviour
     private float CanMoveAndAttackGlowBrightness;
 
     [SerializeField]
+    private int CanMoveAndAttackOutlineWidth;
+
+    [SerializeField]
     private float CanAttackGlowBrightness;
 
+    [SerializeField]
+    private int CanAttackOutlineWidth;
     public void ShowTheGlow(List<PlayerUnit> playerUnits)
     {
         foreach (var playerUnit in playerUnits)
         {
             var spriteGlow = playerUnit.gameObject.transform.GetComponentInChildren<SpriteGlowEffect>();
             spriteGlow.GlowBrightness = CanMoveAndAttackGlowBrightness;
-            spriteGlow.OutlineWidth = 2;
+            spriteGlow.OutlineWidth = CanMoveAndAttackOutlineWidth;
         };
     }
 
@@ -37,12 +42,14 @@ public class PostProcessingSettings : MonoBehaviour
     {
         var spriteGlow = playerUnit.gameObject.transform.GetComponentInChildren<SpriteGlowEffect>();
         spriteGlow.GlowBrightness = CanAttackGlowBrightness;
+        spriteGlow.OutlineWidth = CanAttackOutlineWidth;
     }
 
     public void CanMoveAndAttackGlow(PlayerUnit playerUnit)
     {
         var spriteGlow = playerUnit.gameObject.transform.GetComponentInChildren<SpriteGlowEffect>();
         spriteGlow.GlowBrightness = CanMoveAndAttackGlowBrightness;
+        spriteGlow.OutlineWidth = CanMoveAndAttackOutlineWidth;
     }
 
     public void ChangeColorToSelected(PlayerUnit playerUnit)
