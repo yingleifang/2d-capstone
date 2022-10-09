@@ -108,14 +108,14 @@ AnimationClip:
   - time: 0.25
     functionName: PlaySoundAnim
     data: 
-    objectReferenceParameter: {fileID: 8300000, guid: 063a6718326e9c24fa83d82e68ef0d66, type: 3}
+    objectReferenceParameter: {fileID: 8300000, guid: 0082e563a850c6b4388e9d50a70413e0, type: 3}
     floatParameter: 1
     intParameter: 0
     messageOptions: 0
   - time: 0.6
     functionName: PlaySoundAnim
     data: 
-    objectReferenceParameter: {fileID: 8300000, guid: 96a0f2a6538c41d4caf6c4cfd904a37f, type: 3}
+    objectReferenceParameter: {fileID: 8300000, guid: 5d89908e453dd064a839a18420596c36, type: 3}
     floatParameter: 1
     intParameter: 0
     messageOptions: 0
