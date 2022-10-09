@@ -34,12 +34,6 @@ namespace SpriteGlow
                     sharedMaterials[i].InstancingEnabled == spriteGlow.EnableInstancing)
                     return sharedMaterials[i];
             }
-
-            Debug.Log("*****");
-            Debug.Log(spriteGlow.Renderer.sprite.texture);
-            Debug.Log(spriteGlow.DrawOutside);
-            Debug.Log(spriteGlow.EnableInstancing);
-            Debug.Log("*****");
             var material = new SpriteGlowMaterial(spriteGlow.Renderer.sprite.texture, spriteGlow.DrawOutside, spriteGlow.EnableInstancing);
             material.hideFlags = HideFlags.DontSaveInBuild | HideFlags.DontSaveInEditor | HideFlags.NotEditable;
             sharedMaterials.Add(material);

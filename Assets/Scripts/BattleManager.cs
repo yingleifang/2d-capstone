@@ -11,6 +11,7 @@ using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.CanvasScaler;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
+using SpriteGlow;
 
 /// <summary>
 /// Stores lists of player units, enemy units, the battle manager, and the
@@ -72,6 +73,8 @@ public class BattleManager : MonoBehaviour
 
     public Vector3 mapPosition;
 
+    private PostProcessingSettings postProcessingSettings;
+
     /// <summary>
     /// Instantiates a unit prefab which is updated in the update loop to follow the
     /// mouse of the player
@@ -98,6 +101,7 @@ public class BattleManager : MonoBehaviour
         state = new BattleState();
         mapPosition = tileManager.transform.position;
         highlightedTiles = new List<(Vector3Int, Color)>();
+        postProcessingSettings = FindObjectOfType<PostProcessingSettings>();
     }
 
     public void EndTurn()
@@ -475,6 +479,10 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(StartOfPlayerTurn());
         isBattleOver = false;
+        if(selectedUnit is PlayerUnit)
+        {
+            postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
+        }
         selectedUnit = null;
         acceptingInput = true;
         isPlayerTurn = true;
@@ -796,6 +804,8 @@ public class BattleManager : MonoBehaviour
 
         StartCoroutine(ui.EnableEndTurnButton());
         isPlayerTurn = true;
+
+        postProcessingSettings.ShowTheGlow(playerUnits);
         yield break;
     }
 
@@ -824,6 +834,8 @@ public class BattleManager : MonoBehaviour
         tileManager.ClearHighlights();
         yield return StartCoroutine(unit.DoMovement(state, tilePos));
         yield return StartCoroutine(UpdateBattleState());
+        if (unit is PlayerUnit)
+            postProcessingSettings.CanAttackGlow((PlayerUnit)unit);
     }
 
     /// <summary>
@@ -898,10 +910,15 @@ public class BattleManager : MonoBehaviour
     public void SelectUnit(Unit unit)
     {
         tileManager.ClearHighlights();
+        if (selectedUnit is PlayerUnit)
+        {
+            postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)unit);
+        }
         selectedUnit = unit;
         ui.ShowUnitInfoWindow(unit);
         if(unit is PlayerUnit player && isPlayerTurn)
         {
+            postProcessingSettings.ChangeColorToSelected((PlayerUnit)unit);
             if (!player.hasMoved)
             {
                 ShowUnitMoveRange(player);
@@ -922,6 +939,8 @@ public class BattleManager : MonoBehaviour
         DeselectTile();
         ui.HideUnitInfoWindow();
         tileManager.ClearHighlights();
+        if (selectedUnit is PlayerUnit)
+            postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
         selectedUnit = null;
         usingAbility = false;
     }

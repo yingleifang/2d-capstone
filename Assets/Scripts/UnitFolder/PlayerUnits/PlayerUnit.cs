@@ -1,5 +1,7 @@
+using SpriteGlow;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerUnit : Unit
@@ -11,14 +13,31 @@ public class PlayerUnit : Unit
     public bool hasMoved = false;
     public bool hasActed = false;
 
+    private PostProcessingSettings postProcessingSettings;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+        if (!anim)
+        {
+            audio = GetComponent<AudioComponent>();
+        }
+        if (!anim)
+        {
+            anim = GetComponent<Animator>();
+        }
+        postProcessingSettings = FindObjectOfType<PostProcessingSettings>();
+    }
     public override IEnumerator DoMovement(BattleState state, Vector3Int target, bool unitBlocks = true)
     {
+        postProcessingSettings.CanAttackGlow(this);
         hasMoved = true;
         return base.DoMovement(state, target);
     }
 
     public override IEnumerator DoAttack(Unit target)
     {
+        postProcessingSettings.DisableGlow(this);
         hasActed = true;
         yield return StartCoroutine(base.DoAttack(target));
         yield return StartCoroutine(Dim());
