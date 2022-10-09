@@ -55,6 +55,9 @@ public class BattleManager : MonoBehaviour
     [ReadOnly]
     public Color selectedTilePrevColor = Color.white;
 
+    private bool playerGaveInput = false;   // Indicates if playerInput has been set
+    private bool playerInput = false;       // Indicates a player's choice
+
     public GameObject previewLayer;
     public bool previewVisible = false;
 
@@ -98,7 +101,7 @@ public class BattleManager : MonoBehaviour
 
     public void EndTurn()
     {
-        instance.OnPlayerEndTurn();
+        StartCoroutine(instance.OnPlayerEndTurn());
     }
 
     public void TogglePreview()
@@ -394,6 +397,7 @@ public class BattleManager : MonoBehaviour
     {
         TurnOnPreview();
         ui.InitializeTurnCount(turnsPerBattle);
+        isPlayerTurn = false;
 
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
@@ -433,7 +437,6 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // Place unit at start of round
-        isPlayerTurn = false;
         isPlacingUnit = true;
         unitToPlace = null;
         yield return StartCoroutine(ui.ShowSelectionWindow());
@@ -449,21 +452,75 @@ public class BattleManager : MonoBehaviour
         isPlayerTurn = true;
     }
 
-    public void OnPlayerEndTurn()
+    public IEnumerator OnPlayerEndTurn()
     {
         if(isPlayerTurn && acceptingInput)
         {
             DeselectUnit();
-            ui.DisableEndTurnButton();
             isPlayerTurn = false;
 
-            foreach (PlayerUnit unit in playerUnits)
+            if (AreUnmovedPlayerUnits())
             {
-                unit.decreaseCoolDown();
-                StartCoroutine(unit.Undim());
+                Debug.Log("Unmoved units left! Displaying warning");
+                StartCoroutine(ui.ShowEarlyEndTurnWarning());
+                yield return new WaitUntil(() => playerGaveInput);
+                playerGaveInput = false;
+                if (playerInput == false)
+                {
+                    // Abort end turn
+                    isPlayerTurn = true;
+                    yield break;
+                }
             }
+
+            StartCoroutine(ui.DisableEndTurnButton());
             StartCoroutine(performEnemyMoves());
         }
+    }
+
+    /// <summary>
+    /// Determines if there are any units that haven't moved or attacked
+    /// </summary>
+    /// <returns>true if there are player units that haven't moved or attacked. False otherwise</returns>
+    public bool AreUnmovedPlayerUnits()
+    {
+        foreach (PlayerUnit unit in playerUnits)
+        {
+            if (!unit.hasMoved && !unit.hasActed)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Determines if all player units have moved and acted
+    /// </summary>
+    /// <returns>Returns true if all player units have moved and acted. False otherwise.</returns>
+    public bool AllPlayerUnitsMoved()
+    {
+        foreach (PlayerUnit unit in playerUnits)
+        {
+            if (!unit.hasMoved || !unit.hasActed)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// Sets the player input variable on the current battle manager.
+    /// Intended to be called by ui elements
+    /// </summary>
+    /// <param name="input">the input given by the player</param>
+    public void SetPlayerInput(bool input)
+    {
+        instance.playerInput = input;
+        instance.playerGaveInput = true;
     }
 
     public IEnumerator SpawnUnit(Vector3Int location, Unit unit, bool addToUnitList = true)
@@ -643,6 +700,12 @@ public class BattleManager : MonoBehaviour
     
     IEnumerator performEnemyMoves()
     {
+        foreach (PlayerUnit unit in playerUnits)
+        {
+            unit.decreaseCoolDown();
+            StartCoroutine(unit.Undim());
+        }
+
         EnemyUnit[] enemies = enemyUnits.ToArray();
 
         yield return StartCoroutine(ui.ShowEnemyTurnAnim());
@@ -688,7 +751,10 @@ public class BattleManager : MonoBehaviour
             yield return anim;
         }
 
-
+        if (isPlayerTurn && !isBattleOver && AllPlayerUnitsMoved())
+        {
+            StartCoroutine(ui.SetEndTurnButtonHighlight(true));
+        }
     }
 
     public IEnumerator StartOfPlayerTurn()
@@ -700,7 +766,7 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(ui.ShowPlayerTurnAnim());
 
-        ui.DisableEndTurnButton();
+        StartCoroutine(ui.EnableEndTurnButton());
         isPlayerTurn = true;
         yield break;
     }

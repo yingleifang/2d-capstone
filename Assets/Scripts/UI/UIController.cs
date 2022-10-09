@@ -11,7 +11,8 @@ public class UIController : MonoBehaviour
     public UnitSelectionWindow unitSelectionWindow;
     public GameObject unitSelectionTutorial;
     public UnitInfoWindow unitInfoWindow;
-    public Button endTurnButton;
+    public EndTurnButton endTurnButton;
+    public GameObject endTurnWarning;
     public TurnCountDown turnCountDown;
     public Playable playerTurnPopup;
     public Playable enemyTurnPopup;
@@ -73,15 +74,44 @@ public class UIController : MonoBehaviour
         yield return StartCoroutine(enemyTurnPopup.Play());
     }
 
+    /// <summary>
+    /// Disables the end turn button so it cannot be interacted with
+    /// </summary>
+    /// <returns>a coroutine representing the disabling animation</returns>
     public IEnumerator DisableEndTurnButton()
     {
-        endTurnButton.interactable = false;
+        StartCoroutine(SetEndTurnButtonHighlight(false));
+        endTurnButton.SetInteractable(false);
         yield break;
     }
 
+    /// <summary>
+    /// Enables the end turn button so it can be interacted with
+    /// </summary>
+    /// <returns>a coroutine representing the enabling animation</returns>
     public IEnumerator EnableEndTurnButton()
     {
-        endTurnButton.interactable = true;
+        endTurnButton.SetInteractable(true);
+        yield break;
+    }
+
+    /// <summary>
+    /// Sets whether or not the end turn button is highlighted
+    /// </summary>
+    /// <param name="highlighted">determines whether or not the button is highlighted</param>
+    /// <returns>a coroutine representing the highlight/de-highlight animation</returns>
+    public IEnumerator SetEndTurnButtonHighlight(bool highlighted)
+    {
+        return endTurnButton.SetHighlighted(highlighted);
+    }
+
+    /// <summary>
+    /// Displays the warning for ending your turn early
+    /// </summary>
+    /// <returns>a coroutine representing the animation for the warning to appear</returns>
+    public IEnumerator ShowEarlyEndTurnWarning()
+    {
+        endTurnWarning.SetActive(true);
         yield break;
     }
 
