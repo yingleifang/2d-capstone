@@ -15,64 +15,28 @@ public class TutorialManager : MonoBehaviour
     public GameObject continueButton;
     public GameObject endTurnButton;
     public GameObject battlePreviewButton;
-    public GameObject sozyExample;
    // public GameObject hazards;
     public GameObject help;
     public GameObject turnCounter;
+    public LevelManager levelManager;
+    public DialogueManager dialogueManager;
 
-    private int index;
+    public int index = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        help.SetActive(false);
+        if (!levelManager.isTutorial)
+        {
+            Debug.LogError("Tutorial manager in a non-tutorial level");
+            return;
+        }
+
         turnCounter.SetActive(false);
        // hazards.SetActive(false);
         unitSelection.SetActive(false);
         endTurnButton.SetActive(false);
         battlePreviewButton.SetActive(false);
-        sozyExample.SetActive(false);
-        textComp.text = string.Empty;
-        StartDialogue();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (textComp.text == lines[index])
-        {
-            continueButton.SetActive(true);
-        }
-        if (textComp.text == lines[2])
-        {
-            unitSelection.SetActive(true);
-        }
-        if (textComp.text == lines[4])
-        {
-            unitSelection.SetActive(false);
-            sozyExample.SetActive(true);
-        }
-        if (textComp.text == lines[8])
-        {
-            endTurnButton.SetActive(true);
-        }
-        if (textComp.text == lines[9])
-        {
-            battlePreviewButton.SetActive(true);
-        }
-        if (textComp.text == lines[11])
-        {
-            turnCounter.SetActive(true);
-        }
-        if (textComp.text == lines[12])
-        {
-            help.SetActive(true);
-        }
-        
-
-
-
-
     }
 
    // public void Continue()
@@ -90,39 +54,12 @@ public class TutorialManager : MonoBehaviour
 
     //}
 
-    void StartDialogue()
+    public IEnumerator NextDialogue()
     {
-        index = 0;
-        StartCoroutine(TypeLine());
-
-    }
-
-    public IEnumerator TypeLine()
-    {
-        foreach (char c in lines[index].ToCharArray())
+        if (index >= lines.Length - 1)
         {
-            textComp.text += c;
-            yield return new WaitForSeconds(textSpeed);
+            yield break;
         }
-    }
-
-    public void NextLine()
-    {
-        continueButton.SetActive(false);
-
-        if(index < lines.Length - 1)
-        {
-            
-            index++;
-            Debug.Log("line " + index);
-            textComp.text = string.Empty;
-            StartCoroutine(TypeLine());
-        }
-        else
-        {
-            gameObject.SetActive(false);
-            continueButton.SetActive(false);
-
-        }
+        yield return StartCoroutine(dialogueManager.Say(lines[index++]));
     }
 }

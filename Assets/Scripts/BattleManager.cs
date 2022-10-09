@@ -68,6 +68,7 @@ public class BattleManager : MonoBehaviour
     private GameObject tileOutline;
 
     public LevelManager levelManager;
+    public TutorialManager tutorialManager;
 
     public Vector3 mapPosition;
 
@@ -124,6 +125,7 @@ public class BattleManager : MonoBehaviour
     {
         if(previewLayer)
         {
+            previewLayer.transform.position = mapPosition;
             previewLayer.SetActive(true);
             previewVisible = true;
         } 
@@ -145,14 +147,18 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(ui.HideSelectionWindow());
+        ui.HideUnitInfoWindow();
         if (!levelManager.isTutorial)
         {
             Debug.Log("SETTING DATA");
             setEnemyData();
+            StartCoroutine(InitializeBattle());
         }
-        StartCoroutine(ui.HideSelectionWindow());
-        StartCoroutine(InitializeBattle());
-        ui.HideUnitInfoWindow();
+        else
+        {
+            StartCoroutine(InitializeBattleTutorial());
+        }
         regeneratePreviews();
     }
 
@@ -161,11 +167,11 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     private void regeneratePreviews()
     {
-        previewLayer = GameObject.Find("PreviewLayer");
-        var curGeneratePreviews = previewLayer.GetComponent<generatePreviews>();
-        curGeneratePreviews.transform.position = mapPosition;
-        curGeneratePreviews.ShowEnemyPreview(levelManager.nextSceneEnemyInfo, GetState());
-        curGeneratePreviews.ShowHazzardPreview(levelManager.nextSceneTileInfo, GetState());
+        var curGeneratePreviews = Resources.FindObjectsOfTypeAll<generatePreviews>();
+        Debug.Log(curGeneratePreviews);
+        previewLayer = curGeneratePreviews[0].gameObject;
+        curGeneratePreviews[0].ShowEnemyPreview(levelManager.nextSceneEnemyInfo, GetState());
+        curGeneratePreviews[0].ShowHazzardPreview(levelManager.nextSceneTileInfo, GetState());
     }
 
     // Update is called once per frame
@@ -399,8 +405,12 @@ public class BattleManager : MonoBehaviour
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
 
+        while (tutorialManager.index < 5)
+        {
+            yield return StartCoroutine(tutorialManager.NextDialogue());
+        }
 
-        
+        tutorialManager.unitSelection.SetActive(true);
 
         // Place units waiting to be spawned on new map
         Debug.Log("Units to spawn: " + unitsToSpawn.Count);
