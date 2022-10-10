@@ -618,13 +618,13 @@ public class BattleManager : MonoBehaviour
         // Activate any start of battle abilities
         foreach (Unit unit in unitsToSpawn.ToArray())
         {
-            animations.Add(StartCoroutine(unit.StartOfBattleAbility(GetState())));
+            yield return StartCoroutine(unit.StartOfBattleAbility(GetState()));
         }
 
-        foreach (Coroutine anim in animations)
+        /*foreach (Coroutine anim in animations)
         {
             yield return anim;
-        }
+        }*/
 
         yield return StartCoroutine(UpdateBattleState());
 

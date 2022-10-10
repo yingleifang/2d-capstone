@@ -11,14 +11,13 @@ public class Ovis : PlayerUnit
     {
         Debug.Log("Attacking adjacent units");
         List<Vector3Int> tiles = state.tileManager.GetTilesInRange(location, 1, false);
-        audio.PlaySound(StartOfBattleAbilitySound);
+        yield return StartCoroutine(PlayEOBAnim());
         foreach (Vector3Int tile in tiles)
         {
             Unit unit = state.tileManager.GetUnit(tile);
             if (unit && unit != this)
             {
                 unit.ChangeHealth(-1);
-                yield return new WaitForSeconds(0.1f);
             }
         }
         yield break;
