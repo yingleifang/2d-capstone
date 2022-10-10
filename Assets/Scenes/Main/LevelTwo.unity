@@ -192,7 +192,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: 21300000, guid: 0b7e98e307d75be4eade8a2033c6cb2b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4b5b8d01f1222749955e78663e577fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -400,6 +400,30 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1162753544, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924551868220691, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924551868220691, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924551868220691, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924551868220691, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924551868220691, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924551868220691, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6057924552974800409, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
@@ -1683,6 +1707,13 @@ MonoBehaviour:
   tileOutlinePrefab: {fileID: 0}
   levelManager: {fileID: 883816492}
   mapPosition: {x: 0, y: 0, z: 0}
+  ovisButton: {fileID: 0}
+  tutorialManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  forcedUnitPlacementTile: {x: 0, y: 0, z: -1}
+  forcedUnitMovementTile: {x: 0, y: 0, z: -1}
+  pushDialogueAfterEnemyTurn: 0
+  pushDialogueAfterAttack: 0
 --- !u!4 &1258529770
 Transform:
   m_ObjectHideFlags: 0
