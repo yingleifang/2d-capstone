@@ -977,7 +977,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6057924552974800869, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
   m_PrefabInstance: {fileID: 6057924552817833753}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6057924552817833754}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a76dffee3ee29264ca204825d0ce1ecf, type: 3}
@@ -1268,8 +1268,14 @@ MonoBehaviour:
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
   levelManager: {fileID: 561730322}
-  tutorialManager: {fileID: 0}
   mapPosition: {x: 0, y: 0, z: 0}
+  ovisButton: {fileID: 0}
+  tutorialManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  forcedUnitPlacementTile: {x: 0, y: 0, z: -1}
+  forcedUnitMovementTile: {x: 0, y: 0, z: -1}
+  pushDialogueAfterEnemyTurn: 0
+  pushDialogueAfterAttack: 0
 --- !u!4 &1275022861
 Transform:
   m_ObjectHideFlags: 0
@@ -1738,6 +1744,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 468326609685540276, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 6057924552817833754}
     - target: {fileID: 6057924551960540364, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1836,3 +1846,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+--- !u!1 &6057924552817833754 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6057924552974800866, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+  m_PrefabInstance: {fileID: 6057924552817833753}
+  m_PrefabAsset: {fileID: 0}
