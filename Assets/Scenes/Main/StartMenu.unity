@@ -858,6 +858,7 @@ MonoBehaviour:
   unitSelectionTutorial: {fileID: 0}
   unitInfoWindow: {fileID: 0}
   endTurnButton: {fileID: 0}
+  endTurnWarning: {fileID: 0}
   turnCountDown: {fileID: 0}
   playerTurnPopup: {fileID: 0}
   enemyTurnPopup: {fileID: 0}
