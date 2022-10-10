@@ -11,7 +11,7 @@ public class Locke : PlayerUnit
     public override IEnumerator StartOfBattleAbility(BattleState state)
     {
         Debug.Log("Gathering rocks");
-        audio.PlaySound(StartOfBattleAbilitySound);
+        yield return StartCoroutine(PlayEOBAnim());
         canUseAbility = true;
         yield break;
     }

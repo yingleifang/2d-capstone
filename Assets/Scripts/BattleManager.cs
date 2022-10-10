@@ -637,13 +637,13 @@ public class BattleManager : MonoBehaviour
         // Activate any start of battle abilities
         foreach (Unit unit in unitsToSpawn.ToArray())
         {
-            animations.Add(StartCoroutine(unit.StartOfBattleAbility(GetState())));
+            yield return StartCoroutine(unit.StartOfBattleAbility(GetState()));
         }
 
-        foreach (Coroutine anim in animations)
+        /*foreach (Coroutine anim in animations)
         {
             yield return anim;
-        }
+        }*/
 
         yield return StartCoroutine(UpdateBattleState());
 
@@ -898,7 +898,12 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(ui.SwitchScene(index));
         Debug.Log("Next level finished loading");
 
-        yield return 0; // Need to wait a frame for the new level to load
+        foreach (Unit unit in unitsToSpawn)
+        {
+            unit.Hide();
+        }
+
+        yield return null; // Need to wait a frame for the new level to load
 
         // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
         tileManager = FindObjectOfType<TileManager>();

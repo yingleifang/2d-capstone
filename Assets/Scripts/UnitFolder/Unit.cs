@@ -133,6 +133,11 @@ public abstract class Unit: MonoBehaviour
         anim.SetBool("Hide", false);
     }
 
+    public void Hide()
+    {
+        anim.SetBool("Hide", true);
+    }
+
     public IEnumerator PlayFallingAnimation()
     {
         yield break;

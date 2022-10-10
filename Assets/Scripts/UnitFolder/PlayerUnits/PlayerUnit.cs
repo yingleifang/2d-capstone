@@ -28,6 +28,15 @@ public class PlayerUnit : Unit
         }
         postProcessingSettings = FindObjectOfType<PostProcessingSettings>();
     }
+
+    public IEnumerator PlayEOBAnim()
+    {
+        anim.Play("EOB Ability", 0);
+        yield return null; // Wait a frame for the animation to start
+        int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+    }
+
     public override IEnumerator DoMovement(BattleState state, Vector3Int target, bool unitBlocks = true)
     {
         postProcessingSettings.CanAttackGlow(this);

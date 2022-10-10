@@ -684,9 +684,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f54f62d150cda04ebab86c2a31d7f1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAvatar: {fileID: 3334986738694511694, guid: 668a83c87dcfaea4cb213d3861fba8c5, type: 3}
+  enemyAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
   hazzardAvatar: {fileID: 2016526582845031338, guid: b189cb4954d2e94498a01c36d71ff657, type: 3}
-  impassibleAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
+  impassibleAvatar: {fileID: 2016526582845031338, guid: 12727b8798f18c8428d57ad0b6774de8, type: 3}
 --- !u!4 &270826229
 Transform:
   m_ObjectHideFlags: 0
