@@ -330,6 +330,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &111065313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 111065316}
+  - component: {fileID: 111065315}
+  - component: {fileID: 111065314}
+  m_Layer: 0
+  m_Name: PostProcessing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &111065314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111065313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b1154c051659047a8d645804ee58c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectColor: {r: 0.9622642, g: 0.8304316, b: 0, a: 1}
+  DeSelectColor: {r: 0, g: 0.83679795, b: 1, a: 1}
+  CanMoveAndAttackGlowBrightness: 5
+  CanMoveAndAttackOutlineWidth: 3
+  CanAttackGlowBrightness: 3.6
+  CanAttackOutlineWidth: 3
+--- !u!114 &111065315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111065313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: ef448a0e354f1804c9f00e1931b5eab7, type: 2}
+--- !u!4 &111065316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111065313}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 563.08344, y: 284.81274, z: -4.8778687}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &157835802
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,11 +433,11 @@ RectTransform:
   - {fileID: 1624254274}
   - {fileID: 1555026605}
   m_Father: {fileID: 6057924552909089692}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.004166667, y: 0}
   m_AnchorMax: {x: 0.78856254, y: 0.266}
-  m_AnchoredPosition: {x: -0.2935791, y: -0.032409668}
+  m_AnchoredPosition: {x: -0.2935791, y: -0.032470703}
   m_SizeDelta: {x: -631.2942, y: -99.358795}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &157835806
@@ -545,10 +613,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textComp: {fileID: 1624254272}
   lines:
-  - 'Hey! Hey! Over here! Are you alright? You just dropped down here right? Were
+  - 'NPC: Hey! Hey! Over here! Are you alright? You just fell down here right? Were
     you looking for the treasure too? '
-  - 'No need to be so surprised. I''m not the only fool who ended up down here searching
-    for that fable. '
+  - 'No need to be so surprised. We''re not the only fools who ended up down here
+    searching for that fable. '
   - 'The treasure? That''s the last thing you should be worrying about. You''ll realize
     soon enough that it''s better to get out of here as soon as you can. '
   - Wait! Wait! I'm telling the truth here. If you want the treasure, you can have
@@ -556,36 +624,38 @@ MonoBehaviour:
     Monsters. It'll be better for the both of us if we stick together. What do you
     say?
   - That's great! Two's better than one. What's your specialization? I'm a ranger.
-  - 'A unit selection window will appear at the start of every level. Selecting a
-    unit will add it to your team. Units on your team will persist across levels.
-    Unit health, cooldowns, and map positioning will also persist across levels. '
-  - 'Select a unit from the window by clicking the left mouse button on the unit.
-    Unit information can be seen by hovering your mouse over the unit. '
-  - Before selecting a tile to place your unit on. Be mindful of the various types
+  - 'System: A unit selection window will appear at the start of every level. Unit
+    information can be seen by hovering your mouse over the units in this window.'
+  - You can select a unit from the window to add to your team by left clicking it.
+    Select Ovis for now.
+  - Before selecting a tile to place your unit on, be mindful of the various types
     of tiles on the map.
-  - Spike tiles will deal one damage to units who end their turn on them.
-  - Impassable tiles will prevent units from moving on them or being placed on them.
-  - Choose a valid tile to place your unit by left clicking on a tile twice, once
-    to select, and once to confirm your selection.
-  - A warrior huh? And a sheepman too? Well, we all have our circumstances. As long
-    as you can fight, I won't ask. There's an enemy ahead. I said two's better than
-    one, but I'm not looking for deadweight. Show me what you can do.
-  - 'Left clicking units will show its unit information as well as other information. '
+  - Spike tiles (highlighted in red) will deal one damage to units who end their
+    turn on them.
+  - 'Impassable tiles (highlighted in red) will prevent units from moving on them
+    or being placed on them. '
+  - To place a unit you must left click on a valid tile twice, once to select, and
+    again to confirm your selection. For now, place the unit on the blue highlighted
+    square.
+  - 'NPC: A warrior huh? And a sheepman too? Well, we all have our circumstances.
+    As long as you can fight, I won''t ask. There''s an enemy ahead. I said two''s
+    better than one, but I''m not looking for deadweight. Show me what you can do.'
+  - 'System: Left clicking units will show its unit information as well as other
+    information. '
   - Clicking an enemy will show its "threat area" highlighted in red. This is the
     range in which it can attack units. Try it out yourself by clicking the enemy
     on the screen.
-  - 'Clicking an ally which has not moved yet will highlight possible squares it
-    can move to in blue. Double click squares to move to them. Try it yourself on
-    the unit you selected. '
-  - After moving an allied unit, it will be able to attack within its attack range
-    highlighted in red. Try attacking the enemy by double clicking on them. Make
-    sure your unit is selected.
-  - Units may move and attack or attack. A unit may not attack and move. After a
-    unit has attacked, they will fade to indicate they have no more actions. After
-    you are finished with moving your units, you can end your end by clicking the
-    end turn button.
-  - What strength! Finish him!
-  - 'What? What''s going on? '
+  - Clicking an ally which has not moved yet will highlight possible squares it can
+    move to in blue.  Double click squares to move to them. Try it yourself on the
+    unit you placed. For now, move the unit to the red square.
+  - 'After moving an allied unit, it will be able to attack within its attack range
+    highlighted in red. Since there are no units to attack in range, end your turn
+    by clicking the "End Turn" button on the bottom right. '
+  - Select your unit and attack the enemy.
+  - Units may move and attack or attack in place. A unit may not attack and move.
+    After a unit has attacked, they will fade to indicate they have no more actions.
+  - Kill the enemy.
+  - 'NPC: What? What''s going on? '
   textSpeed: 0.015
   unitSelection: {fileID: 468326608814870994}
   continueButton: {fileID: 1555026604}
@@ -595,6 +665,7 @@ MonoBehaviour:
   turnCounter: {fileID: 6057924552256718626}
   levelManager: {fileID: 1135120751}
   dialogueManager: {fileID: 2049737519}
+  disableBattleInteraction: 0
   index: 0
 --- !u!224 &162341416
 RectTransform:
@@ -828,8 +899,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+      propertyPath: health
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: location.x
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: location.y
@@ -1242,7 +1317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1891898, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10.205, y: -0.0000019073486}
+  m_AnchoredPosition: {x: -10.205002, y: -0.0000038146973}
   m_SizeDelta: {x: 20.409, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &412379184
@@ -1722,20 +1797,21 @@ MonoBehaviour:
   y_min: -2
   y_max: 3
   totalLevels: 4
-  currentLevel: 0
+  currentLevel: 1
   enemyNumToSpawn: 0
-  random: 0
+  random: 1
   typesOfEnemiesToSpawn:
   - {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+  - {fileID: 3206773105803365608, guid: 1888029b275ed3846a7ea613d9c02b23, type: 3}
   typesOfTilesToSpawn:
-  - {fileID: 11400000, guid: d52b466d59c94ac4590ac7e998924021, type: 2}
   - {fileID: 11400000, guid: 9be78945db5975e48a41560accbc3c44, type: 2}
   - {fileID: 11400000, guid: c2fb84ff8790f634ba60e9f39a23e146, type: 2}
-  - {fileID: 11400000, guid: 16c4461457034374c8b62f26c25586b4, type: 2}
   - {fileID: 11400000, guid: 77d3957f96150774aa62b18aa2316abc, type: 2}
   - {fileID: 11400000, guid: 58d94fb00c6f24f4c904f63aa4b4027b, type: 2}
   - {fileID: 11400000, guid: 439c66e79ada37d4cbb31e6e03d8b6c4, type: 2}
-  map: {fileID: 0}
+  - {fileID: 11400000, guid: f150f011342cd2c42aeb4e57bdd892ff, type: 2}
+  - {fileID: 11400000, guid: 616f9755a7acdc64f9f85dc6850939b9, type: 2}
+  map: {fileID: 1154100658}
   isTutorial: 0
   overrideTutorial: 0
   levelTransitionObj: {fileID: 0}
@@ -1781,16 +1857,6 @@ Tilemap:
   m_GameObject: {fileID: 1154100657}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: -4, y: -2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: -3, y: -2, z: 0}
     second:
       serializedVersion: 2
@@ -1861,26 +1927,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 4, y: -2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: -4, y: -1, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: -3, y: -1, z: 0}
     second:
       serializedVersion: 2
@@ -1904,8 +1950,8 @@ Tilemap:
   - first: {x: -1, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
+      m_TileIndex: 5
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1914,8 +1960,8 @@ Tilemap:
   - first: {x: 0, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
+      m_TileIndex: 5
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1932,26 +1978,6 @@ Tilemap:
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
   - first: {x: 2, y: -1, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 3, y: -1, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: -4, y: 0, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 7
@@ -2031,16 +2057,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 4, y: 0, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 0
@@ -2053,11 +2069,11 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 2
+    m_Data: {fileID: 11400000, guid: 16909ad58cf187545b18a5e38707a182, type: 2}
   - m_RefCount: 10
     m_Data: {fileID: 11400000, guid: cfc02bbd8fd6a8b46b2358af18288bbe, type: 2}
-  - m_RefCount: 16
+  - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 0439f8eaa71fe1841842ed35dde54ad5, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -2070,14 +2086,14 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 2
+    m_Data: {fileID: 21300000, guid: 2709ba8affd667b47bf4b4d286efe4e1, type: 3}
   - m_RefCount: 10
     m_Data: {fileID: 21300000, guid: ac024ecbeae2efb4991a62bd79f47053, type: 3}
-  - m_RefCount: 16
+  - m_RefCount: 8
     m_Data: {fileID: 21300000, guid: bbd22a0124dd1474aabad7bed3b9794a, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 26
+  - m_RefCount: 20
     m_Data:
       e00: 8
       e01: 0
@@ -2114,7 +2130,7 @@ Tilemap:
       e32: 8e-44
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 26
+  - m_RefCount: 20
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
@@ -2401,8 +2417,14 @@ MonoBehaviour:
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
   levelManager: {fileID: 1135120751}
-  tutorialManager: {fileID: 162341415}
   mapPosition: {x: 0, y: 0, z: 0}
+  ovisButton: {fileID: 468326607868271930}
+  tutorialManager: {fileID: 162341415}
+  dialogueManager: {fileID: 2049737519}
+  forcedUnitPlacementTile: {x: 0, y: 0, z: -1}
+  forcedUnitMovementTile: {x: 0, y: 0, z: -1}
+  pushDialogueAfterEnemyTurn: 0
+  pushDialogueAfterAttack: 0
 --- !u!4 &1393142940
 Transform:
   m_ObjectHideFlags: 0
@@ -2455,7 +2477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8737136, y: 0.11937065}
   m_AnchorMax: {x: 0.9662865, y: 0.32431468}
-  m_AnchoredPosition: {x: 0.07418823, y: -0.21640015}
+  m_AnchoredPosition: {x: 0.07421875, y: -0.21640015}
   m_SizeDelta: {x: 3.0505, y: 1.7216}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1555026606
@@ -2751,7 +2773,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1840711726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3159,7 +3181,7 @@ MonoBehaviour:
   speakerString: 
   speechText: {fileID: 1624254272}
   speechString: 
-  textSpeed: 0.015
+  textSpeed: 0.001
   portrait: {fileID: 1840711726}
   isWaitingForUserInput: 0
 --- !u!224 &2049737520
@@ -3356,8 +3378,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 468326608814870988}
         m_TargetAssemblyTypeName: UnitSelectionWindow, Assembly-CSharp
-        m_MethodName: SelectUnit
-        m_Mode: 2
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 468326607728549614}
           m_ObjectArgumentAssemblyTypeName: PurchasableScript, Assembly-CSharp
@@ -3368,7 +3390,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6057924552909089693}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: PlayClickSound
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3390,7 +3412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45f620ff8a4ba048808ea77f42490b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 8264826747215317851, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
+  unitPrefab: {fileID: 1613120392422211516, guid: e8d5fec484d603b42bcc5b58fe71f066, type: 3}
   image: {fileID: 468326607728549615}
   unitInfoWindow: {fileID: 2530744794333022290}
 --- !u!114 &468326607728549615
@@ -3413,7 +3435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56ff6670485515f46be47a80f8e9d578, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7740df382f35227408f76aefa617280c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3463,7 +3485,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56ff6670485515f46be47a80f8e9d578, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e135240461a45ac4cb01f5a763b5276e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3567,7 +3589,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 468326608814870988}
         m_TargetAssemblyTypeName: UnitSelectionWindow, Assembly-CSharp
-        m_MethodName: SelectUnit
+        m_MethodName: SelectUnitTutorial
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 468326607868271931}
@@ -3601,7 +3623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45f620ff8a4ba048808ea77f42490b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 8264826747215317851, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
+  unitPrefab: {fileID: 5203591249091125894, guid: 84d59a4ce5b7d374189f95244eca2ac4, type: 3}
   image: {fileID: 468326607868271924}
   unitInfoWindow: {fileID: 2530744794333022290}
 --- !u!114 &468326608691037260
@@ -3616,7 +3638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45f620ff8a4ba048808ea77f42490b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 8264826747215317851, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
+  unitPrefab: {fileID: 8938333177467687896, guid: 4c22b23d6dbc8e84386798405bb32b59, type: 3}
   image: {fileID: 468326608691037261}
   unitInfoWindow: {fileID: 2530744794333022290}
 --- !u!114 &468326608691037261
@@ -3639,7 +3661,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56ff6670485515f46be47a80f8e9d578, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7a887074fc48c324aa9edb07220e46ca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3743,8 +3765,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 468326608814870988}
         m_TargetAssemblyTypeName: UnitSelectionWindow, Assembly-CSharp
-        m_MethodName: SelectUnit
-        m_Mode: 2
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 468326608691037260}
           m_ObjectArgumentAssemblyTypeName: PurchasableScript, Assembly-CSharp
@@ -3755,7 +3777,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6057924552909089693}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: PlayClickSound
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3785,6 +3807,9 @@ MonoBehaviour:
   - {fileID: 468326608691037260}
   - {fileID: 468326607868271931}
   - {fileID: 468326607728549614}
+  canvas: {fileID: 6057924552909089690}
+  dialogue: {fileID: 157835802}
+  dialogueManager: {fileID: 2049737519}
 --- !u!1 &468326608814870994
 GameObject:
   m_ObjectHideFlags: 0
@@ -3801,7 +3826,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &468326608814870995
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3816,7 +3841,7 @@ RectTransform:
   m_Children:
   - {fileID: 9133140951847061768}
   m_Father: {fileID: 6057924552909089692}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3999,7 +4024,7 @@ RectTransform:
   m_Children:
   - {fileID: 5384595618330098363}
   m_Father: {fileID: 6057924552909089692}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6555,7 +6580,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6057924552909089692}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -6959,7 +6984,7 @@ RectTransform:
   - {fileID: 6057924553435630055}
   - {fileID: 2170582965717842076}
   m_Father: {fileID: 6057924552909089692}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7148,13 +7173,13 @@ RectTransform:
   - {fileID: 6057924551527355797}
   - {fileID: 6057924552567910037}
   - {fileID: 6057924552256718629}
-  - {fileID: 7914259393484256320}
   - {fileID: 468326608814870995}
   - {fileID: 6057924551937128811}
   - {fileID: 892107025743864000}
   - {fileID: 6938978228221505916}
   - {fileID: 6057924552499885977}
   - {fileID: 157835803}
+  - {fileID: 7914259393484256320}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7179,7 +7204,8 @@ MonoBehaviour:
   unitSelectionWindow: {fileID: 468326608814870988}
   unitSelectionTutorial: {fileID: 0}
   unitInfoWindow: {fileID: 2530744794333022290}
-  endTurnButton: {fileID: 6057924552567910036}
+  endTurnButton: {fileID: 0}
+  endTurnWarning: {fileID: 0}
   turnCountDown: {fileID: 6057924552256718630}
   playerTurnPopup: {fileID: 8699642399453778624}
   enemyTurnPopup: {fileID: 1483377358915666812}
@@ -7680,7 +7706,7 @@ RectTransform:
   m_Children:
   - {fileID: 2780049581980297991}
   m_Father: {fileID: 6057924552909089692}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8054,7 +8080,7 @@ RectTransform:
   - {fileID: 1672337074140014390}
   - {fileID: 3240597115355669834}
   m_Father: {fileID: 6057924552909089692}
-  m_RootOrder: 3
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.0275, y: 0.017251667}
   m_AnchorMax: {x: 0.6762499, y: 0.24800001}

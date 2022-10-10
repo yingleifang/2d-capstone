@@ -192,10 +192,10 @@ public class UIController : MonoBehaviour
         StartCoroutine(SwitchScene("StartMenu"));
     }
 
-    public IEnumerator ShowSelectionWindow()
+    public IEnumerator ShowSelectionWindow(bool random = true)
     {
         Debug.Log("Showing window");
-        return unitSelectionWindow.Show();
+        return unitSelectionWindow.Show(random);
     }
 
     public IEnumerator ShowSelectionTutorial()

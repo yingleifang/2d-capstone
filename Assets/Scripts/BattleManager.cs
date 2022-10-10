@@ -69,11 +69,21 @@ public class BattleManager : MonoBehaviour
     private GameObject tileOutline;
 
     public LevelManager levelManager;
-    public TutorialManager tutorialManager;
+
 
     public Vector3 mapPosition;
 
     private PostProcessingSettings postProcessingSettings;
+
+
+    //Tutorial stuff
+    public Button ovisButton;
+    public TutorialManager tutorialManager;
+    public DialogueManager dialogueManager;
+    public Vector3Int forcedUnitPlacementTile = new Vector3Int(0, 0, -1);
+    public Vector3Int forcedUnitMovementTile = new Vector3Int(0, 0, -1);
+    public bool pushDialogueAfterEnemyTurn = false;
+    public bool pushDialogueAfterAttack = false;
 
     /// <summary>
     /// Instantiates a unit prefab which is updated in the update loop to follow the
@@ -181,9 +191,20 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // For other clicks, we do not want to do anything if we are over an UI object.
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         // Indicate tile player is hovering over
         Vector3Int tilePos = tileManager.GetTileAtScreenPosition(Input.mousePosition);
         OutlineTile(tilePos);
+
+        if (tutorialManager && tutorialManager.disableBattleInteraction)
+        {
+            return;
+        }
 
         // Always want to update position of the unit prefab being placed.
         if (isPlacingUnit && unitToPlace)
@@ -192,16 +213,13 @@ public class BattleManager : MonoBehaviour
             worldPos.z = 0;
             unitToPlace.transform.position = worldPos;
         }
-        // For other clicks, we do not want to do anything if we are over an UI object.
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+
         if (acceptingInput && Input.GetMouseButtonDown(0))
         {
             Debug.Log(tilePos);
 
             Unit curUnit = tileManager.GetUnit(tilePos);
+            Debug.Log(curUnit);
 
             if (isPlacingUnit)
             {
@@ -299,6 +317,12 @@ public class BattleManager : MonoBehaviour
                     if (!isBattleOver && unit && !unit.isDead)
                     {
                         yield return StartCoroutine(unit.DoAttack(curUnit));
+
+                        if (pushDialogueAfterAttack)
+                        {
+                            dialogueManager.isWaitingForUserInput = false;
+                        }
+
                         yield return StartCoroutine(UpdateBattleState());
                         CheckIfBattleOver();
                     }
@@ -332,6 +356,12 @@ public class BattleManager : MonoBehaviour
             if(isPlayerTurn && selectedUnit is PlayerUnit unit
                 && !unit.hasMoved && !tileManager.IsImpassableTile(tilePos) && unit.IsTileInMoveRange(tilePos))
             {
+                if (forcedUnitMovementTile.z == 0 && tilePos != forcedUnitMovementTile)
+                {
+                    DeselectUnit();
+                    acceptingInput = true;
+                    yield break;
+                }
                 if (!tileSelected || !tilePos.Equals(selectedTile))
                 {
                     SelectTile(tilePos);
@@ -414,7 +444,66 @@ public class BattleManager : MonoBehaviour
             yield return StartCoroutine(tutorialManager.NextDialogue());
         }
 
-        tutorialManager.unitSelection.SetActive(true);
+        // Handles unit selection tutorial
+        ovisButton.enabled = false;
+        StartCoroutine(ui.ShowSelectionWindow(false));
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        ovisButton.enabled = true;
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        // Wait until user does what is asked. This is not the only thing stopping
+        // progression. Dialogue system's isWaitingForUserInput also stops progression.
+        // However, both are needed otherwise the system will break.
+        while (ui.unitSelectionWindow.gameObject.activeSelf)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        //Advise user to watch for tiles
+        unitToPlace.spriteRenderer.enabled = false;
+        tutorialManager.disableBattleInteraction = true;
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+
+        //Highlight hazardous and talk about them
+        foreach (Vector3Int tileLocation in tileManager.dynamicTileDatas.Keys)
+        {
+            if (tileManager.IsHazardous(tileLocation))
+            {
+                tileManager.SetTileColor(tileLocation, Color.red);
+            }
+        }
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        tileManager.ClearHighlights();        
+
+        //Highlight impassable and talk about them
+        foreach (Vector3Int tileLocation in tileManager.dynamicTileDatas.Keys)
+        {
+            if (tileManager.IsImpassableTile(tileLocation, false))
+            {
+                tileManager.SetTileColor(tileLocation, Color.red);
+            }
+        }
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        tileManager.ClearHighlights();
+
+        //Tell user how to place unit
+        forcedUnitPlacementTile = new Vector3Int(-3, -1, 0);
+        tileManager.SetTileColor(forcedUnitPlacementTile, Color.blue);
+        unitToPlace.spriteRenderer.enabled = true;
+        tutorialManager.disableBattleInteraction = false;        
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        forcedUnitPlacementTile.z = -1;
+
+        // Wait until user does what is asked.
+        while (isPlacingUnit)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        tileManager.ClearHighlights();
+
+        //NPC dialogue
+        yield return StartCoroutine(tutorialManager.NextDialogue());
 
         // Place units waiting to be spawned on new map
         Debug.Log("Units to spawn: " + unitsToSpawn.Count);
@@ -423,6 +512,81 @@ public class BattleManager : MonoBehaviour
         {
             yield return StartCoroutine(SpawnUnit(unit.location, unit));
         }
+
+        yield return StartCoroutine(UpdateBattleState());
+
+        animations.Clear();
+
+        //Discussing clicking units
+        tutorialManager.disableBattleInteraction = true;  
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        tutorialManager.disableBattleInteraction = false;
+
+        //prompt to click enemy unit
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        //prompt to click ally unit and move
+        forcedUnitMovementTile = new Vector3Int(-2, -1, 0);
+        tileManager.SetTileColor(forcedUnitMovementTile, Color.red);
+        yield return StartCoroutine(tutorialManager.NextDialogue());  
+
+        bool notMoved = true;
+        while (notMoved)
+        {
+            foreach (PlayerUnit playerUnit in playerUnits)
+            {
+                if (playerUnit.hasMoved)
+                {
+                    notMoved = false;
+                }
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        tileManager.ClearHighlights();
+
+        // Unrestrict future unit movements
+        forcedUnitMovementTile.z = -1;
+
+        //prompt to end turn
+        ui.HideUnitInfoWindow();
+        tutorialManager.endTurnButton.SetActive(true);
+        ui.EnableEndTurnButton();
+        pushDialogueAfterEnemyTurn = true;
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        while (isPlayerTurn)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        pushDialogueAfterEnemyTurn = false;
+        
+        // Prompt to attack
+        pushDialogueAfterAttack = true;
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        bool notAttacked = true;
+        while (notAttacked)
+        {
+            foreach (PlayerUnit playerUnit in playerUnits)
+            {
+                if (playerUnit.hasActed)
+                {
+                    notAttacked = false;
+                }
+            }
+            yield return new WaitForEndOfFrame();
+        }      
+
+        ui.HideUnitInfoWindow();
+        pushDialogueAfterAttack = false;
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        tutorialManager.disableBattleInteraction = true;
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        tutorialManager.disableBattleInteraction = false;
+
+        yield return StartCoroutine(tutorialManager.NextDialogue());
     }
 
     private IEnumerator InitializeBattle()
@@ -760,6 +924,12 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(StartOfPlayerTurn());
         DeselectUnit();
         ui.DecrementTurnCount();
+
+        if (pushDialogueAfterEnemyTurn)
+        {
+            dialogueManager.isWaitingForUserInput = false;
+        }
+
         yield break;
     }
 
@@ -813,6 +983,10 @@ public class BattleManager : MonoBehaviour
     {
         if (tileManager.InBounds(tilePos) && curUnit == null && unitToPlace)
         {
+            if (forcedUnitPlacementTile.z == 0 && tilePos != forcedUnitPlacementTile)
+            {
+                yield break;
+            }
             if (!tileSelected || !tilePos.Equals(selectedTile))
             {
                 SelectTile(tilePos);
@@ -826,6 +1000,11 @@ public class BattleManager : MonoBehaviour
             yield return StartCoroutine(SpawnUnit(tilePos, unit));
             unitsToSpawn.Remove(unit);
             isPlacingUnit = false;
+
+            if (dialogueManager)
+            {
+                dialogueManager.isWaitingForUserInput = false;
+            }
         }
     }
 
@@ -836,6 +1015,11 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(UpdateBattleState());
         if (unit is PlayerUnit)
             postProcessingSettings.CanAttackGlow((PlayerUnit)unit);
+
+        if (forcedUnitMovementTile.z == 0)
+        {
+            dialogueManager.isWaitingForUserInput = false;
+        }
     }
 
     /// <summary>
@@ -922,6 +1106,10 @@ public class BattleManager : MonoBehaviour
             if (!player.hasMoved)
             {
                 ShowUnitMoveRange(player);
+                if (forcedUnitMovementTile.z == 0)
+                {
+                    tileManager.SetTileColor(forcedUnitMovementTile, Color.red);
+                }
             }
             else if (!player.hasActed)
             {

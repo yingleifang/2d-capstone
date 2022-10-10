@@ -20,6 +20,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject turnCounter;
     public LevelManager levelManager;
     public DialogueManager dialogueManager;
+    public bool disableBattleInteraction = false;
 
     public int index = 0;
 

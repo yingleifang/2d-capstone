@@ -9,12 +9,15 @@ public class UnitSelectionWindow : MonoBehaviour
     public List<PlayerUnit> unitPrefabs;
     private List<PlayerUnit> selectedUnitPrefabs = new List<PlayerUnit>();
     public List<PurchasableScript> unitIcons = new List<PurchasableScript>();
+    public GameObject canvas;
+    public GameObject dialogue;
+    public DialogueManager dialogueManager;
     private UnitInfoWindow unitInfoWindow;
     private int numUnitsInSelection = 3;
 
     private void Awake()
     {
-        unitInfoWindow = FindObjectOfType<UnitInfoWindow>();
+        unitInfoWindow = canvas.transform.Find("UnitInfoWindow").GetComponent<UnitInfoWindow>();
         StartCoroutine(Hide());
     }
 
@@ -54,10 +57,19 @@ public class UnitSelectionWindow : MonoBehaviour
         }
     }
 
-    public IEnumerator Show()
+    public IEnumerator Show(bool random = true)
     {
         Debug.Log("Preparing to show unit selection window");
-        LoadUnitSelection();
+
+        if (random)
+        {
+            LoadUnitSelection();
+        }
+        else
+        {
+            Debug.Log("Unit selection window not randomized");
+        }
+        
         // Play appearing animation
         LeanTween.scale(gameObject, new Vector3(1, 1, 1), 0.3f);
         gameObject.SetActive(true);
@@ -67,6 +79,14 @@ public class UnitSelectionWindow : MonoBehaviour
     public void SelectUnit(PurchasableScript unit)
     {
         BattleManager.instance.SetUnitToPlace(unit.unitPrefab);
+        unitInfoWindow.HideStats();
+        StartCoroutine(Hide());
+    }
+
+    public void SelectUnitTutorial(PurchasableScript unit)
+    {
+        BattleManager.instance.SetUnitToPlace(unit.unitPrefab);
+        dialogueManager.isWaitingForUserInput = false;
         unitInfoWindow.HideStats();
         StartCoroutine(Hide());
     }

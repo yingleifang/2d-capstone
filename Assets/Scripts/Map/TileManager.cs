@@ -147,9 +147,11 @@ public class TileManager : MonoBehaviour
         {
             foreach (TileBase tile in tileData.tiles)
             {
+                Debug.Log(tile);
                 baseTileDatas.Add(tile, tileData);
             }
         }
+        
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
         {
             for (int y = (int)map.localBounds.min.y; y < map.localBounds.max.y; y++)
