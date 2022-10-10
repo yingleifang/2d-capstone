@@ -872,13 +872,12 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(player.Undim());
         }
 
-        levelManager.PrepareNextBattle();
+        levelManager.IncrementLevel();
 
         int index;
         if (!levelManager.isTutorial && tutorialManager)
         {
             ResetAll();
-            Debug.Log("HERESSS");
             index = SceneManager.GetActiveScene().buildIndex + 1;
             Debug.Log(index);
         }
@@ -897,6 +896,8 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(ui.SwitchScene(index));
         Debug.Log("Next level finished loading");
+
+        levelManager.PrepareNextBattle();
 
         foreach (Unit unit in unitsToSpawn)
         {
@@ -933,6 +934,26 @@ public class BattleManager : MonoBehaviour
         } 
         regeneratePreviews();
         StartCoroutine(InitializeBattle());
+    }
+
+    public void SkipTutorial()
+    {
+        forcedUnitPlacementTile = new Vector3Int(0, 0, -1);
+        forcedUnitMovementTile = new Vector3Int(0, 0, -1);
+        pushDialogueAfterEnemyTurn = false;
+        pushDialogueAfterAttack = false;
+        pushDialogueAfterBattleEnd = false;
+        isPlacingUnit = false;
+        if (unitToPlace)
+        {
+            Destroy(unitToPlace.gameObject);
+        }
+        if (dialogueManager)
+        {
+            Destroy(dialogueManager.speechPanel);
+        }
+        unitToPlace = null;
+        StartCoroutine(NextLevel());
     }
 
     
