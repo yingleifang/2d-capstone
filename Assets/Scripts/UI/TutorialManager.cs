@@ -57,7 +57,7 @@ public class TutorialManager : MonoBehaviour
 
     public IEnumerator NextDialogue()
     {
-        if (index >= lines.Length - 1)
+        if (index > lines.Length - 1)
         {
             yield break;
         }

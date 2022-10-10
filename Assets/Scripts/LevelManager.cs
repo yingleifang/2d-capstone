@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
     /// Set to true if you want to test non-tutorial levels
     /// </summary>
     public bool overrideTutorial;
-    private int numTutorialLevels = 2;
+    private int numTutorialLevels = 1;
 
     [HideInInspector]
     public static LevelManager instance;
@@ -66,7 +66,7 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (currentLevel < numTutorialLevels)
+        if (currentLevel - 1 < numTutorialLevels)
         {
             isTutorial = true;
         }
@@ -136,6 +136,7 @@ public class LevelManager : MonoBehaviour
                 }
 
                 curTileInfo.Add(new Vector3Int(x, y, 0), typesOfTilesToSpawn[index - 1]);
+                Debug.Log(typesOfTilesToSpawn[index - 1]);
             }
         }
     }
@@ -206,7 +207,7 @@ public class LevelManager : MonoBehaviour
         currentLevel++;
         //levelTransitionObj.LoadNextLevel();
         //Still in tutorial
-        if (currentLevel <= numTutorialLevels && !overrideTutorial)
+        if (currentLevel - 1 < numTutorialLevels && !overrideTutorial)
         {
             return;
         }

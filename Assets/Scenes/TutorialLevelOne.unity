@@ -654,7 +654,7 @@ MonoBehaviour:
   - Select your unit and attack the enemy.
   - Units may move and attack or attack in place. A unit may not attack and move.
     After a unit has attacked, they will fade to indicate they have no more actions.
-  - Kill the enemy.
+  - There are no other possible moves left. End your turn.
   - 'NPC: What? What''s going on? '
   textSpeed: 0.015
   unitSelection: {fileID: 468326608814870994}
@@ -2425,6 +2425,7 @@ MonoBehaviour:
   forcedUnitMovementTile: {x: 0, y: 0, z: -1}
   pushDialogueAfterEnemyTurn: 0
   pushDialogueAfterAttack: 0
+  pushDialogueAfterBattleEnd: 0
 --- !u!4 &1393142940
 Transform:
   m_ObjectHideFlags: 0
@@ -2740,7 +2741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
   hazzardAvatar: {fileID: 2016526582845031338, guid: b189cb4954d2e94498a01c36d71ff657, type: 3}
-  impassibleAvatar: {fileID: 0}
+  impassibleAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
 --- !u!4 &1769484200
 Transform:
   m_ObjectHideFlags: 0

@@ -137,6 +137,7 @@ public class TileManager : MonoBehaviour
 
         if (!levelManager.isTutorial)
         {
+            Debug.Log("RANDOMIZED");
             SetMapConfig();
         }
 
