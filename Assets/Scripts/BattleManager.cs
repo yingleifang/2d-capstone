@@ -865,6 +865,11 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(ui.SwitchScene(index));
         Debug.Log("Next level finished loading");
 
+        foreach (Unit unit in unitsToSpawn)
+        {
+            unit.Hide();
+        }
+
         yield return null; // Need to wait a frame for the new level to load
 
         // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
