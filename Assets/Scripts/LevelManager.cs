@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
     public int y_min = -2;
     public int y_max = 3;
 
-    public int totalLevels = 4;
+    public int totalLevels = 5;
     public int currentLevel;
     public int enemyNumToSpawn = 0;
 
@@ -103,8 +103,8 @@ public class LevelManager : MonoBehaviour
         enemyInfo = new List<(int, Vector3Int)>();
         fillTileInfo(tileInfo);
         fillTileInfo(nextSceneTileInfo);
-        fillEnemyInfo(enemyInfo, tileInfo, 0);
-        fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, 1);
+        fillEnemyInfo(enemyInfo, tileInfo, currentLevel);
+        fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, currentLevel + 1);
     }
 
     /// <summary>
@@ -148,8 +148,7 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("############");
         Debug.Log("Current level: " + currentLevel);
-        int totalEnemy = currentLevel < 2 ? currentLevel + 1 : 3;
-        totalEnemy -= numTutorialLevels;
+        int totalEnemy = currentLevel < 3 ? currentLevel : 3;
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
         {
