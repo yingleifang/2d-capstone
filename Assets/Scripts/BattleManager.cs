@@ -233,12 +233,30 @@ public class BattleManager : MonoBehaviour
                 {
                     acceptingInput = false;
                     StartCoroutine(HandleBattleClicks(tilePos, curUnit));
-
                 }
             }
         }
     }
 
+    private bool HasMoves()
+    {
+        foreach (var unit in playerUnits)
+        {
+            if (unit.UnitsToAttackInRange(enemyUnits) && !unit.hasAttacked)
+            {
+                return true;
+            }
+            //if (unit.coolDown <= 0)
+            //{
+            //    return true;
+            //}
+            if (!unit.hasMoved)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private IEnumerator HandleBattleClicks(Vector3Int tilePos, Unit curUnit)
     {
         // Handle clicking off the map
@@ -400,6 +418,10 @@ public class BattleManager : MonoBehaviour
             DeselectUnit();
         }
         acceptingInput = true;
+        if (isPlayerTurn && !isBattleOver && !HasMoves())
+        {
+            StartCoroutine(ui.SetEndTurnButtonHighlight(true));
+        }
     }
 
     public void AbilityButton()
@@ -1033,10 +1055,6 @@ public class BattleManager : MonoBehaviour
             yield return anim;
         }
 
-        if (isPlayerTurn && !isBattleOver && AllPlayerUnitsMoved())
-        {
-            StartCoroutine(ui.SetEndTurnButtonHighlight(true));
-        }
     }
 
     public IEnumerator StartOfPlayerTurn()
