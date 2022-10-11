@@ -27,6 +27,10 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
+        if (pauseMenu.gameIsPaused)
+        {
+            return;
+        }
         PanCamera();
         if (Input.mouseScrollDelta.y > 0)
         {
