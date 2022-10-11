@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64cc01a65ace43f499f8b515c1a4a468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScene: LevelOne
+  targetScene: TutorialLevelOne
 --- !u!95 &921443269
 Animator:
   serializedVersion: 4
