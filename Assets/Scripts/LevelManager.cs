@@ -148,7 +148,7 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("############");
         Debug.Log("Current level: " + currentLevel);
-        int totalEnemy = currentLevel < 3 ? currentLevel : 3;
+        int totalEnemy = currentLevel < 3 ? currentLevel - 1 : 3;
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
         {

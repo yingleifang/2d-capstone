@@ -499,14 +499,16 @@ public class BattleManager : MonoBehaviour
         tutorialManager.disableBattleInteraction = false;        
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
-        //Unrestrict placement
-        forcedUnitPlacementTile.z = -1;
-
         // Wait until user does what is asked.
         while (isPlacingUnit)
         {
             yield return new WaitForEndOfFrame();
         }
+
+        //Unrestrict placement
+        forcedUnitPlacementTile.z = -1;
+
+
         tileManager.ClearHighlights();
 
         tutorialManager.disableBattleInteraction = true;

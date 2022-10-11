@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VideoPlayer: {fileID: 58332082}
-  targetScene: LevelOne
+  targetScene: TutorialLevelOne
 --- !u!1 &185054191
 GameObject:
   m_ObjectHideFlags: 0
