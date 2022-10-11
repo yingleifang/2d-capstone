@@ -324,6 +324,7 @@ public class BattleManager : MonoBehaviour
 
                         if (pushDialogueAfterAttack)
                         {
+                            Debug.Log("SMH");
                             dialogueManager.isWaitingForUserInput = false;
                         }
 
@@ -507,11 +508,10 @@ public class BattleManager : MonoBehaviour
 
         //Unrestrict placement
         forcedUnitPlacementTile.z = -1;
-
-
         tileManager.ClearHighlights();
 
         tutorialManager.disableBattleInteraction = true;
+
         //NPC dialogue
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
@@ -562,11 +562,17 @@ public class BattleManager : MonoBehaviour
         //prompt to end turn
         ui.HideUnitInfoWindow();
         tutorialManager.endTurnButton.SetActive(true);
-        ui.EnableEndTurnButton();
+        StartCoroutine(ui.EnableEndTurnButton());
         pushDialogueAfterEnemyTurn = true;
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
+        // Wait until player turn comes around again.
         while (isPlayerTurn)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        while (!isPlayerTurn)
         {
             yield return new WaitForEndOfFrame();
         }
@@ -575,6 +581,7 @@ public class BattleManager : MonoBehaviour
         
         // Prompt to attack
         pushDialogueAfterAttack = true;
+        yield return StartCoroutine(ui.DisableEndTurnButton());
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
         bool notAttacked = true;
@@ -591,6 +598,7 @@ public class BattleManager : MonoBehaviour
         }      
 
         ui.HideUnitInfoWindow();
+        yield return StartCoroutine(ui.EnableEndTurnButton());
         pushDialogueAfterAttack = false;
 
         //Discussing attack mechanics
@@ -985,14 +993,14 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        yield return StartCoroutine(StartOfPlayerTurn());
-        DeselectUnit();
-        ui.DecrementTurnCount();
-
         if (pushDialogueAfterEnemyTurn)
         {
             dialogueManager.isWaitingForUserInput = false;
         }
+
+        yield return StartCoroutine(StartOfPlayerTurn());
+        DeselectUnit();
+        ui.DecrementTurnCount();
 
         yield break;
     }
@@ -1049,7 +1057,6 @@ public class BattleManager : MonoBehaviour
         {
             if (forcedUnitPlacementTile.z == 0 && tilePos != forcedUnitPlacementTile)
             {
-                Debug.Log("HERE");
                 yield break;
             }
             if (!tileSelected || !tilePos.Equals(selectedTile))
