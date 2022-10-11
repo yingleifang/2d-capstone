@@ -820,7 +820,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 616f9755a7acdc64f9f85dc6850939b9, type: 2}
   map: {fileID: 126890231}
   isTutorial: 0
-  overrideTutorial: 1
+  overrideTutorial: 0
   levelTransitionObj: {fileID: 0}
 --- !u!4 &561730323
 Transform:
