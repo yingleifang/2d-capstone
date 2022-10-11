@@ -198,37 +198,40 @@ public class BattleManager : MonoBehaviour
         }
 
         // Indicate tile player is hovering over
-        Vector3Int tilePos = tileManager.GetTileAtScreenPosition(Input.mousePosition);
-        OutlineTile(tilePos);
-
-        if (tutorialManager && tutorialManager.disableBattleInteraction)
+        if (tileManager)
         {
-            return;
-        }
+            Vector3Int tilePos = tileManager.GetTileAtScreenPosition(Input.mousePosition);
+            OutlineTile(tilePos);
 
-        // Always want to update position of the unit prefab being placed.
-        if (isPlacingUnit && unitToPlace)
-        {
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldPos.z = 0;
-            unitToPlace.transform.position = worldPos;
-        }
-
-        if (acceptingInput && Input.GetMouseButtonDown(0))
-        {
-            Debug.Log(tilePos);
-
-            Unit curUnit = tileManager.GetUnit(tilePos);
-            Debug.Log(curUnit);
-
-            if (isPlacingUnit)
+            if (tutorialManager && tutorialManager.disableBattleInteraction)
             {
-                StartCoroutine(HandlePlacingClicks(tilePos, curUnit));
+                return;
             }
-            else if (acceptingInput)
+
+            // Always want to update position of the unit prefab being placed.
+            if (isPlacingUnit && unitToPlace)
             {
-                acceptingInput = false;
-                StartCoroutine(HandleBattleClicks(tilePos, curUnit));
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                worldPos.z = 0;
+                unitToPlace.transform.position = worldPos;
+            }
+
+            if (acceptingInput && Input.GetMouseButtonDown(0))
+            {
+                Debug.Log(tilePos);
+
+                Unit curUnit = tileManager.GetUnit(tilePos);
+                Debug.Log(curUnit);
+
+                if (isPlacingUnit)
+                {
+                    StartCoroutine(HandlePlacingClicks(tilePos, curUnit));
+                }
+                else if (acceptingInput)
+                {
+                    acceptingInput = false;
+                    StartCoroutine(HandleBattleClicks(tilePos, curUnit));
+                }
             }
         }
     }
