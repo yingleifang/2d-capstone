@@ -21,7 +21,7 @@ public class AbilityButtonScript : MonoBehaviour
         }
 
         PlayerUnit curUnit = (PlayerUnit) BattleManager.instance.selectedUnit;
-        if (curUnit.currentCoolDown > 0 || curUnit.hasActed)
+        if (curUnit.currentCoolDown > 0 || curUnit.hasAttacked)
         {
             button.enabled = false;
         }

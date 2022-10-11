@@ -226,12 +226,14 @@ public class BattleManager : MonoBehaviour
 
                 if (isPlacingUnit)
                 {
-                    StartCoroutine(HandlePlacingClicks(tilePos, curUnit));
+                    if (!tileManager.IsImpassableTile(tilePos))
+                        StartCoroutine(HandlePlacingClicks(tilePos, curUnit));
                 }
                 else if (acceptingInput)
                 {
                     acceptingInput = false;
                     StartCoroutine(HandleBattleClicks(tilePos, curUnit));
+
                 }
             }
         }
@@ -260,7 +262,7 @@ public class BattleManager : MonoBehaviour
             {
                 DeselectUnit();
                 usingAbility = false;
-                playerUnit.hasActed = true;
+                playerUnit.hasAttacked = true;
                 yield return StartCoroutine(UpdateBattleState());
                 CheckIfBattleOver();
             }   
@@ -281,7 +283,7 @@ public class BattleManager : MonoBehaviour
                 DeselectTile();
                 yield return StartCoroutine(MoveUnit(unit, tilePos));
                 CheckIfBattleOver();
-                if(!isBattleOver && unit && !unit.isDead && !unit.hasActed)
+                if(!isBattleOver && unit && !unit.isDead && !unit.hasAttacked)
                 {
                     ShowUnitAttackRange(unit);
                 } else
@@ -303,7 +305,7 @@ public class BattleManager : MonoBehaviour
             {
                 // Handle attacking before moving
                 Vector3Int attackPosition;
-                if (!unit.hasMoved && !unit.hasActed && unit.IsTileInThreatRange(tilePos, out attackPosition))
+                if (!unit.hasMoved && !unit.hasAttacked && unit.IsTileInThreatRange(tilePos, out attackPosition))
                 {
                     if (!tileSelected || !tilePos.Equals(selectedTile))
                     {
@@ -334,7 +336,7 @@ public class BattleManager : MonoBehaviour
                 }
 
                 // Hanlde selecting attack target
-                if(unit.hasMoved && !unit.hasActed && unit.IsTileInAttackRange(tilePos))
+                if(unit.hasMoved && !unit.hasAttacked && unit.IsTileInAttackRange(tilePos))
                 {
                     if (!tileSelected || !tilePos.Equals(selectedTile))
                     {
@@ -376,7 +378,7 @@ public class BattleManager : MonoBehaviour
                 DeselectTile();
                 yield return StartCoroutine(MoveUnit(unit, tilePos));
                 CheckIfBattleOver();
-                if (!isBattleOver && unit && !unit.isDead && !unit.hasActed)
+                if (!isBattleOver && unit && !unit.isDead && !unit.hasAttacked)
                 {
                     ShowUnitAttackRange(unit);
                 }
@@ -589,7 +591,7 @@ public class BattleManager : MonoBehaviour
         {
             foreach (PlayerUnit playerUnit in playerUnits)
             {
-                if (playerUnit.hasActed)
+                if (playerUnit.hasAttacked)
                 {
                     notAttacked = false;
                 }
@@ -718,7 +720,7 @@ public class BattleManager : MonoBehaviour
     {
         foreach (PlayerUnit unit in playerUnits)
         {
-            if (!unit.hasMoved && !unit.hasActed)
+            if (!unit.hasMoved && !unit.hasAttacked)
             {
                 return true;
             }
@@ -735,7 +737,7 @@ public class BattleManager : MonoBehaviour
     {
         foreach (PlayerUnit unit in playerUnits)
         {
-            if (!unit.hasMoved || !unit.hasActed)
+            if (!unit.hasMoved || !unit.hasAttacked)
             {
                 return false;
             }
@@ -1185,7 +1187,7 @@ public class BattleManager : MonoBehaviour
                     tileManager.SetTileColor(forcedUnitMovementTile, Color.red);
                 }
             }
-            else if (!player.hasActed)
+            else if (!player.hasAttacked)
             {
                 ShowUnitAttackRange(unit);
             }
@@ -1230,7 +1232,7 @@ public class BattleManager : MonoBehaviour
         if(isPlayerTurn)
         {
             tileManager.HighlightPath(unit.GetTilesInMoveRange(), Color.blue);
-            if(!unit.hasActed)
+            if(!unit.hasAttacked)
             {
                 foreach (EnemyUnit enemy in enemyUnits)
                 {
@@ -1301,4 +1303,7 @@ public class BattleManager : MonoBehaviour
             Destroy(tileOutline);
         }
     }
+
+
+
 }

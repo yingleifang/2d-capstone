@@ -11,7 +11,7 @@ public class PlayerUnit : Unit
 
     public UnitType type;
     public bool hasMoved = false;
-    public bool hasActed = false;
+    public bool hasAttacked = false;
 
     private PostProcessingSettings postProcessingSettings;
 
@@ -41,13 +41,13 @@ public class PlayerUnit : Unit
     {
         postProcessingSettings.CanAttackGlow(this);
         hasMoved = true;
-        return base.DoMovement(state, target);
+        yield return base.DoMovement(state, target);
     }
 
     public override IEnumerator DoAttack(Unit target)
     {
         postProcessingSettings.DisableGlow(this);
-        hasActed = true;
+        hasAttacked = true;
         yield return StartCoroutine(base.DoAttack(target));
         yield return StartCoroutine(Dim());
     }
@@ -55,7 +55,7 @@ public class PlayerUnit : Unit
     public override void StartOfTurn()
     {
         hasMoved = false;
-        hasActed = false;
+        hasAttacked = false;
         StartCoroutine(Undim());
     }
 
@@ -65,6 +65,22 @@ public class PlayerUnit : Unit
         {
             yield break;
         }
+    }
+
+    public bool UnitsToAttackInRange(List<EnemyUnit> enemyUnits)
+    {
+        List<Vector3Int> tiles = GetTilesInAttackRange();
+        foreach (var tile in tiles)
+        {
+            foreach (var enemy in enemyUnits)
+            {
+                if (enemy.location.Equals(tile))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
 }
