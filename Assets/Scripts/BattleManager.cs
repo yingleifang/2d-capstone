@@ -84,6 +84,7 @@ public class BattleManager : MonoBehaviour
     public Vector3Int forcedUnitMovementTile = new Vector3Int(0, 0, -1);
     public bool pushDialogueAfterEnemyTurn = false;
     public bool pushDialogueAfterAttack = false;
+    public bool pushDialogueAfterBattleEnd = false;
 
     /// <summary>
     /// Instantiates a unit prefab which is updated in the update loop to follow the
@@ -439,6 +440,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator InitializeBattleTutorial()
     {
+        pushDialogueAfterBattleEnd = true;
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
 
@@ -496,6 +498,8 @@ public class BattleManager : MonoBehaviour
         unitToPlace.spriteRenderer.enabled = true;
         tutorialManager.disableBattleInteraction = false;        
         yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        //Unrestrict placement
         forcedUnitPlacementTile.z = -1;
 
         // Wait until user does what is asked.
@@ -505,6 +509,7 @@ public class BattleManager : MonoBehaviour
         }
         tileManager.ClearHighlights();
 
+        tutorialManager.disableBattleInteraction = true;
         //NPC dialogue
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
@@ -521,9 +526,11 @@ public class BattleManager : MonoBehaviour
         animations.Clear();
 
         //Discussing clicking units
-        tutorialManager.disableBattleInteraction = true;  
-        yield return StartCoroutine(tutorialManager.NextDialogue());
         tutorialManager.disableBattleInteraction = false;
+        //Force impossible to click tile to prevent movement
+        forcedUnitMovementTile = new Vector3Int(-1000, -1, 0);
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        
 
         //prompt to click enemy unit
         yield return StartCoroutine(tutorialManager.NextDialogue());
@@ -583,13 +590,25 @@ public class BattleManager : MonoBehaviour
 
         ui.HideUnitInfoWindow();
         pushDialogueAfterAttack = false;
+
+        //Discussing attack mechanics
+        Debug.Log("talk attack mechanics");
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
-        tutorialManager.disableBattleInteraction = true;
+        //prompt end turn
         yield return StartCoroutine(tutorialManager.NextDialogue());
-        tutorialManager.disableBattleInteraction = false;
 
-        yield return StartCoroutine(tutorialManager.NextDialogue());
+        while (!isBattleOver)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        //
+
+
+
+
+        
     }
 
     private IEnumerator InitializeBattle()
@@ -638,6 +657,7 @@ public class BattleManager : MonoBehaviour
         // Place unit at start of round
         isPlacingUnit = true;
         unitToPlace = null;
+        acceptingInput = true;
         yield return StartCoroutine(ui.ShowSelectionWindow());
 
         yield return new WaitUntil(() => !isPlacingUnit);
@@ -651,7 +671,6 @@ public class BattleManager : MonoBehaviour
             postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
         }
         selectedUnit = null;
-        acceptingInput = true;
         isPlayerTurn = true;
     }
 
@@ -843,12 +862,32 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator NextLevel()
     {
+        if (pushDialogueAfterBattleEnd)
+        {
+            Debug.Log("Here");
+            dialogueManager.isWaitingForUserInput = false;
+            yield return StartCoroutine(tutorialManager.NextDialogue());
+            pushDialogueAfterBattleEnd = false;
+        }
+
         foreach (PlayerUnit player in playerUnits)
         {
             StartCoroutine(player.Undim());
         }
 
-        levelManager.PrepareNextBattle();
+        levelManager.IncrementLevel();
+
+        int index;
+        if (!levelManager.isTutorial && tutorialManager)
+        {
+            ResetAll();
+            index = SceneManager.GetActiveScene().buildIndex + 1;
+            Debug.Log(index);
+        }
+        else
+        {
+            index = levelManager.currentLevel < levelManager.totalLevels ? SceneManager.GetActiveScene().buildIndex : 7;
+        }
 
         acceptingInput = false;
 
@@ -858,15 +897,10 @@ public class BattleManager : MonoBehaviour
         enemyUnits.Clear();
         playerUnits.Clear();
 
-        int index = levelManager.currentLevel < levelManager.totalLevels ? SceneManager.GetActiveScene().buildIndex : 2;
-
-        if (index != SceneManager.GetActiveScene().buildIndex)
-        {
-            StartCoroutine(ui.SwitchScene(index));
-        }
-
         yield return StartCoroutine(ui.SwitchScene(index));
         Debug.Log("Next level finished loading");
+
+        levelManager.PrepareNextBattle();
 
         foreach (Unit unit in unitsToSpawn)
         {
@@ -903,6 +937,26 @@ public class BattleManager : MonoBehaviour
         } 
         regeneratePreviews();
         StartCoroutine(InitializeBattle());
+    }
+
+    public void SkipTutorial()
+    {
+        forcedUnitPlacementTile = new Vector3Int(0, 0, -1);
+        forcedUnitMovementTile = new Vector3Int(0, 0, -1);
+        pushDialogueAfterEnemyTurn = false;
+        pushDialogueAfterAttack = false;
+        pushDialogueAfterBattleEnd = false;
+        isPlacingUnit = false;
+        if (unitToPlace)
+        {
+            Destroy(unitToPlace.gameObject);
+        }
+        if (dialogueManager)
+        {
+            Destroy(dialogueManager.speechPanel);
+        }
+        unitToPlace = null;
+        StartCoroutine(NextLevel());
     }
 
     
@@ -993,6 +1047,7 @@ public class BattleManager : MonoBehaviour
         {
             if (forcedUnitPlacementTile.z == 0 && tilePos != forcedUnitPlacementTile)
             {
+                Debug.Log("HERE");
                 yield break;
             }
             if (!tileSelected || !tilePos.Equals(selectedTile))
@@ -1139,6 +1194,22 @@ public class BattleManager : MonoBehaviour
             postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
         selectedUnit = null;
         usingAbility = false;
+    }
+
+    public void ResetAll()
+    {
+        foreach (PlayerUnit unit in playerUnits)
+        {
+            Debug.Log("Destroying: " + unit);
+            Destroy(unit.gameObject);
+        }
+        foreach (EnemyUnit unit in enemyUnits)
+        {
+            Destroy(unit.gameObject);
+        }
+        playerUnits.Clear();
+        enemyUnits.Clear();
+        unitsToSpawn.Clear();
     }
 
     private void ShowUnitMoveRange(PlayerUnit unit)

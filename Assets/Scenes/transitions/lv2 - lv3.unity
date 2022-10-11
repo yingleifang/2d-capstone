@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VideoPlayer: {fileID: 202562033}
-  targetScene: OUTRO
+  targetScene: LevelThree
 --- !u!328 &202562033
 VideoPlayer:
   m_ObjectHideFlags: 0

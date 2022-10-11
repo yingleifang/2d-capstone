@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
     /// Set to true if you want to test non-tutorial levels
     /// </summary>
     public bool overrideTutorial;
-    private int numTutorialLevels = 2;
+    private int numTutorialLevels = 1;
 
     [HideInInspector]
     public static LevelManager instance;
@@ -66,7 +66,7 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (currentLevel < numTutorialLevels)
+        if (currentLevel - 1 < numTutorialLevels)
         {
             isTutorial = true;
         }
@@ -136,6 +136,7 @@ public class LevelManager : MonoBehaviour
                 }
 
                 curTileInfo.Add(new Vector3Int(x, y, 0), typesOfTilesToSpawn[index - 1]);
+                Debug.Log(typesOfTilesToSpawn[index - 1]);
             }
         }
     }
@@ -148,6 +149,7 @@ public class LevelManager : MonoBehaviour
         Debug.Log("############");
         Debug.Log("Current level: " + currentLevel);
         int totalEnemy = currentLevel < 2 ? currentLevel + 1 : 3;
+        totalEnemy -= numTutorialLevels;
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
         {
@@ -198,15 +200,15 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Moves the next scene data to current scene data. Generates new data for next scene.
-    /// If leaving tutorial level, generates two scenes worth of data.
+    /// Increments the current level and sets the isTutorial bool accordingly.
+    /// Generates current and next level data if we exit tutorial
     /// </summary>
-    public void PrepareNextBattle()
+    public void IncrementLevel()
     {
         currentLevel++;
         //levelTransitionObj.LoadNextLevel();
         //Still in tutorial
-        if (currentLevel <= numTutorialLevels && !overrideTutorial)
+        if (currentLevel - 1 < numTutorialLevels && !overrideTutorial)
         {
             return;
         }
@@ -220,6 +222,15 @@ public class LevelManager : MonoBehaviour
                 RefreshNewGame();
             }
         }
+    }
+
+    /// <summary>
+    /// Moves the next scene data to current scene data. Generates new data for next scene.
+    /// Call this after loading the next scene.
+    /// </summary>
+    public void PrepareNextBattle()
+    {
+        map = FindObjectOfType<Tilemap>();
 
         tileInfo = nextSceneTileInfo;
         nextSceneTileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
