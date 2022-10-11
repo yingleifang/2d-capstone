@@ -104,4 +104,32 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0
+    functionName: PlaySoundAnim
+    data: 
+    objectReferenceParameter: {fileID: 8300000, guid: 997cfdb589b89b44089e9b237abb3932, type: 3}
+    floatParameter: 1
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.25
+    functionName: PlaySoundAnim
+    data: 
+    objectReferenceParameter: {fileID: 8300000, guid: 21489cccfc60d1d46916050e8c4a60a3, type: 3}
+    floatParameter: 1
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.53333336
+    functionName: PlaySoundAnim
+    data: 
+    objectReferenceParameter: {fileID: 8300000, guid: 861ce698f34431d408cbe8145bd87b9f, type: 3}
+    floatParameter: 1
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.95
+    functionName: PlaySoundAnim
+    data: 
+    objectReferenceParameter: {fileID: 8300000, guid: 508764ddfb0a37d448d1d6116d987248, type: 3}
+    floatParameter: 1
+    intParameter: 0
+    messageOptions: 0
