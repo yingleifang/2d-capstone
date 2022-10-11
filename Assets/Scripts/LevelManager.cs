@@ -72,6 +72,7 @@ public class LevelManager : MonoBehaviour
         }
         if (overrideTutorial)
         {
+            Debug.Log("aWake");
             isTutorial = false;
             RefreshNewGame();
         }
@@ -216,9 +217,12 @@ public class LevelManager : MonoBehaviour
         {
             isTutorial = false;
             //In the case that we start with tutorial levels, we will not have called RefreshNewGame()
+            Debug.Log("nextsceneenemyinfo count :" + nextSceneEnemyInfo.Count);
             if (nextSceneEnemyInfo.Count == 0)
             {
+                Debug.Log("nextsceneenemyinfoinside: " + nextSceneEnemyInfo.Count);
                 RefreshNewGame();
+                Debug.Log("nextsceneenemyinfoinside: " + nextSceneEnemyInfo.Count);
             }
         }
     }
@@ -236,6 +240,6 @@ public class LevelManager : MonoBehaviour
         fillTileInfo(nextSceneTileInfo);
         enemyInfo = nextSceneEnemyInfo;
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
-        fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, currentLevel);
+        fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, currentLevel + 1);
     }
 }
