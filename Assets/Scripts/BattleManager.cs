@@ -896,7 +896,9 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("current level: " + levelManager.currentLevel);
             index = levelManager.currentLevel < levelManager.totalLevels ? SceneManager.GetActiveScene().buildIndex : 7;
+            Debug.Log("index: " + index);
         }
 
         acceptingInput = false;

@@ -9,12 +9,12 @@ using UnityEngine.Tilemaps;
 
 public class LevelManager : MonoBehaviour
 {
-    public int x_min = -4;
-    public int x_max = 4;
-    public int y_min = -2;
-    public int y_max = 3;
+    // public int x_min = -4;
+    // public int x_max = 4;
+    // public int y_min = -2;
+    // public int y_max = 3;
 
-    public int totalLevels = 5;
+    public int totalLevels;
     public int currentLevel;
     public int enemyNumToSpawn = 0;
 
@@ -97,7 +97,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>  
     public void RefreshNewGame()
     {
-        currentLevel = 1;
+        currentLevel = 0;
         tileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
         nextSceneTileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
@@ -149,7 +149,7 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("############");
         Debug.Log("Current level: " + currentLevel);
-        int totalEnemy = currentLevel < 3 ? currentLevel - 1 : 3;
+        int totalEnemy = currentLevel < 3 ? currentLevel: 3;
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
         {
@@ -205,11 +205,13 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void IncrementLevel()
     {
-        currentLevel++;
+        Debug.Log("############");
+        Debug.Log("Current real level: " + currentLevel);
         //levelTransitionObj.LoadNextLevel();
         //Still in tutorial
-        if (currentLevel - 1 < numTutorialLevels && !overrideTutorial)
+        if (currentLevel < numTutorialLevels && !overrideTutorial)
         {
+            currentLevel++;
             return;
         }
         //Otherwise, we know we're finished with the tutorial
@@ -224,7 +226,9 @@ public class LevelManager : MonoBehaviour
                 RefreshNewGame();
                 Debug.Log("nextsceneenemyinfoinside: " + nextSceneEnemyInfo.Count);
             }
+            currentLevel++;
         }
+        
     }
 
     /// <summary>

@@ -799,11 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b7c6e5fdfe0d14f8033be1079e868c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x_min: -4
-  x_max: 4
-  y_min: -2
-  y_max: 3
-  totalLevels: 4
+  totalLevels: 5
   currentLevel: 1
   enemyNumToSpawn: 0
   random: 1
