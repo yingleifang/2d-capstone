@@ -81,6 +81,7 @@ public class UIController : MonoBehaviour
     public IEnumerator DisableEndTurnButton()
     {
         StartCoroutine(SetEndTurnButtonHighlight(false));
+        Debug.Log("DISABLING");
         endTurnButton.SetInteractable(false);
         yield break;
     }
