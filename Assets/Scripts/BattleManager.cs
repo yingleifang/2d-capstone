@@ -896,6 +896,7 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator NextLevel()
     {
+        postProcessingSettings.DisableTheGlow(playerUnits);
         if (pushDialogueAfterBattleEnd)
         {
             Debug.Log("Here");
@@ -998,6 +999,7 @@ public class BattleManager : MonoBehaviour
     
     IEnumerator performEnemyMoves()
     {
+        postProcessingSettings.DisableTheGlow(playerUnits);
         foreach (PlayerUnit unit in playerUnits)
         {
             unit.decreaseCoolDown();
