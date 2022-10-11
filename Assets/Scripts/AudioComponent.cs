@@ -89,4 +89,13 @@ public class AudioComponent : MonoBehaviour
     {
         return audioSource.isPlaying || pitchySource.isPlaying;
     }
+
+    /// <summary>
+    /// Destroys the gameobject this script is attached to.
+    /// Useful as an animation event
+    /// </summary>
+    public void DestroyGameObject()
+    {
+        Destroy(gameObject);
+    }
 }

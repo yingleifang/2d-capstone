@@ -5,6 +5,7 @@ using UnityEngine;
 public class AnglerEnemy : EnemyUnit
 {
     private PlayerUnit target = null;
+    public GameObject lureEffect;
     
     //Number of spaces the ability lures the target unit
     private int numSpacesLured = 1;
@@ -75,12 +76,12 @@ public class AnglerEnemy : EnemyUnit
             currentCoolDown = coolDown;
             if (IsTileInAttackRange(target.location))
             {
-                yield return StartCoroutine(abilityAlternateTarget.MoveTowards(state, location, numSpacesLured));
+                target = abilityAlternateTarget;
             }
-            else
-            {
-                yield return StartCoroutine(target.MoveTowards(state, location, numSpacesLured));
-            }
+
+            GameObject effect = Instantiate(lureEffect, target.transform);
+            yield return new WaitUntil(() => effect == null);
+            yield return StartCoroutine(target.MoveTowards(state, location, numSpacesLured));
         }
     }
 }
