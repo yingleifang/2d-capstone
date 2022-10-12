@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8264826747215317848}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.08, y: 3.9, z: 5.682473}
+  m_LocalPosition: {x: 1.08, y: 3.5, z: 5.682473}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -130,7 +130,7 @@ MonoBehaviour:
   levelManager: {fileID: 0}
   type: 1
   hasMoved: 0
-  hasActed: 0
+  hasAttacked: 0
   StartOfBattleAbilitySound:
     clip: {fileID: 8300000, guid: 22024711b6acbaa4e88432676e84d7d3, type: 3}
     volume: 0.5
