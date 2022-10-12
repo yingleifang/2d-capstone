@@ -674,7 +674,11 @@ public class BattleManager : MonoBehaviour
         // Activate any start of battle abilities
         foreach (Unit unit in unitsToSpawn.ToArray())
         {
-            yield return StartCoroutine(unit.StartOfBattleAbility(GetState()));
+            // Check that unit didn't die already
+            if (unit)
+            {
+                yield return StartCoroutine(unit.StartOfBattleAbility(GetState()));
+            }
         }
 
         /*foreach (Coroutine anim in animations)
@@ -700,7 +704,7 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(StartOfPlayerTurn());
         isBattleOver = false;
-        if(selectedUnit is PlayerUnit)
+        if(selectedUnit && selectedUnit is PlayerUnit)
         {
             postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
         }
