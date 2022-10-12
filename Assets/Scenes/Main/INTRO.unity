@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 58332083}
   - component: {fileID: 58332082}
   - component: {fileID: 58332084}
+  - component: {fileID: 58332085}
   m_Layer: 0
   m_Name: VideoPlayer
   m_TagString: Untagged
@@ -166,7 +167,7 @@ VideoPlayer:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 0.4
-  m_Url: 
+  m_Url: file://C:/Users/ia817/OneDrive/Desktop/Abyss/2d-capstone-MVP/Assets/Backgrounds/videos/intro_cutscene.mp4
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
@@ -205,6 +206,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VideoPlayer: {fileID: 58332082}
   targetScene: TutorialLevelOne
+--- !u!114 &58332085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58332081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed550de2f3d376f479777bee08fec8f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &185054191
 GameObject:
   m_ObjectHideFlags: 0
