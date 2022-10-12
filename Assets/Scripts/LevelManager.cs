@@ -80,8 +80,6 @@ public class LevelManager : MonoBehaviour
             RefreshNewGame();
         }
         map = FindObjectOfType<Tilemap>();
-        Debug.Log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        Debug.Log(currentLevel);
     }
 
     //public void ProcessTypesOfEnemiesToSpawn()
