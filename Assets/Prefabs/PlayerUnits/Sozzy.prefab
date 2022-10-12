@@ -81,9 +81,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a4d1c4ee95fa34789cf870cab55c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 30
   currentHealth: 0
-  attackDamage: 1
+  attackDamage: 10
   currentAttackDamage: 0
   attackRange: 2
   currentAttackRange: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   levelManager: {fileID: 0}
   type: 2
   hasMoved: 0
-  hasActed: 0
+  hasAttacked: 0
   StartOfBattleAbilitySound:
     clip: {fileID: 8300000, guid: ccfed421d92208649a4682745fcb88e1, type: 3}
     volume: 1

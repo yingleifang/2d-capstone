@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
     // public int y_max = 3;
 
     public int totalLevels;
-    public static int currentLevel;
+    public static int currentLevel = 1;
     public int enemyNumToSpawn = 0;
 
     public bool random = true;
@@ -65,6 +65,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
         if (currentLevel - 1 < numTutorialLevels)
         {
@@ -77,6 +78,8 @@ public class LevelManager : MonoBehaviour
             RefreshNewGame();
         }
         map = FindObjectOfType<Tilemap>();
+        Debug.Log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+        Debug.Log(currentLevel);
     }
 
     //public void ProcessTypesOfEnemiesToSpawn()
@@ -137,7 +140,6 @@ public class LevelManager : MonoBehaviour
                 }
 
                 curTileInfo.Add(new Vector3Int(x, y, 0), typesOfTilesToSpawn[index - 1]);
-                Debug.Log(typesOfTilesToSpawn[index - 1]);
             }
         }
     }
@@ -147,8 +149,6 @@ public class LevelManager : MonoBehaviour
     /// </summary> 
     public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, Dictionary<Vector3Int, TileDataScriptableObject> curTileInfo, int currentLevel)
     {
-        Debug.Log("############");
-        Debug.Log("Current level: " + currentLevel);
         int totalEnemy = currentLevel < 3 ? currentLevel: 3;
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
@@ -223,6 +223,7 @@ public class LevelManager : MonoBehaviour
             if (nextSceneEnemyInfo.Count == 0)
             {
                 Debug.Log("nextsceneenemyinfoinside: " + nextSceneEnemyInfo.Count);
+                Debug.Log("*********************************************");
                 RefreshNewGame();
                 Debug.Log("nextsceneenemyinfoinside: " + nextSceneEnemyInfo.Count);
             }
@@ -244,6 +245,8 @@ public class LevelManager : MonoBehaviour
         fillTileInfo(nextSceneTileInfo);
         enemyInfo = nextSceneEnemyInfo;
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
+        Debug.Log("!!!!!!!!!!!!!");
+        Debug.Log(currentLevel);
         fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, currentLevel + 1);
     }
 }

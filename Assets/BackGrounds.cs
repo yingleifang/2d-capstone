@@ -8,8 +8,11 @@ public class BackGrounds : MonoBehaviour
     void Start()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        string path = string.Format("/Backgrounds/LevelBackgrounds/lvl{0}_background.png", System.Math.Floor((double)LevelManager.currentLevel/LevelNums));
-        spriteRenderer.sprite = Resources.Load(path) as Sprite;
+        int index = (LevelManager.currentLevel + 1) / LevelNums <= 0 ? 1 : (LevelManager.currentLevel + 1) / LevelNums;
+        string path = string.Format("LevelBackgrounds/lvl{0}_background", index);
+        Debug.Log(LevelManager.currentLevel);
+        Debug.Log("?///////////////////");
+        spriteRenderer.sprite = Resources.Load<Sprite>(path);
     }
 
 }

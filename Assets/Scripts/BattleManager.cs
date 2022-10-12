@@ -222,7 +222,6 @@ public class BattleManager : MonoBehaviour
                 Debug.Log(tilePos);
 
                 Unit curUnit = tileManager.GetUnit(tilePos);
-                Debug.Log(curUnit);
 
                 if (isPlacingUnit)
                 {

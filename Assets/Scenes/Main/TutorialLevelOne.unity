@@ -1926,8 +1926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b7c6e5fdfe0d14f8033be1079e868c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalLevels: 4
-  currentLevel: 1
+  totalLevels: 6
   enemyNumToSpawn: 0
   random: 1
   typesOfEnemiesToSpawn:
@@ -5257,7 +5256,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 242.85
+  m_fontSize: 205.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5781,7 +5780,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 242.85
+  m_fontSize: 205.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

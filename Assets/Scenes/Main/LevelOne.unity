@@ -979,12 +979,12 @@ MonoBehaviour:
   cam: {fileID: 564718175}
   zoomStep: 0.5
   minCamSize: 10
-  maxCamSize: 30
+  maxCamSize: 25
   dragSpeed: 0.1
-  mapMinX: -10
-  mapMinY: -10
-  mapMaxX: 10
-  mapMaxY: 10
+  mapMinX: -1
+  mapMinY: -7
+  mapMaxX: 1
+  mapMaxY: 7
 --- !u!114 &922542332 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6057924552974800869, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
@@ -1392,7 +1392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381194081}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.149, y: -1.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.4074707, y: 2.5523536, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
