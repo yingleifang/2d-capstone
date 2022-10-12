@@ -3656,8 +3656,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228, y: -38}
-  m_SizeDelta: {x: 751.1184, y: 633.9836}
+  m_AnchoredPosition: {x: -138, y: 0.000030518}
+  m_SizeDelta: {x: 1013.1934, y: 509.433}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1928660252
 MonoBehaviour:
@@ -3688,7 +3688,7 @@ MonoBehaviour:
 
     Yinglei Fang: Programmer
 
-    Tasmi Islam: UI/UX Designer
+    Tasmi Islam: UI/UX Artist
 
     Alan
     Lujano: Character Artist
@@ -3700,8 +3700,8 @@ MonoBehaviour:
 
     Patrick Zhang: Programmer'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7df01db6397e0804db42810c633468c2, type: 2}
-  m_sharedMaterial: {fileID: 4461343255720149496, guid: 7df01db6397e0804db42810c633468c2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ee93edb2bc2f44e46ab1ea7fc96968f5, type: 2}
+  m_sharedMaterial: {fileID: -1030272790799835228, guid: ee93edb2bc2f44e46ab1ea7fc96968f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

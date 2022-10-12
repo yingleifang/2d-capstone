@@ -615,6 +615,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6989220129472371227, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 839640058}
+    - target: {fileID: 6989220129472371227, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989220129535909075, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 839640058}
+    - target: {fileID: 6989220129535909075, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainMenu
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
 --- !u!1 &304180471
@@ -1546,10 +1562,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b7c6e5fdfe0d14f8033be1079e868c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x_min: -4
-  x_max: 4
-  y_min: -2
-  y_max: 3
   totalLevels: 4
   currentLevel: 1
   enemyNumToSpawn: 0
