@@ -13,9 +13,11 @@ public class LevelManager : MonoBehaviour
     // public int x_max = 4;
     // public int y_min = -2;
     // public int y_max = 3;
+    public static int currentLevel = 1;
+    public static int levelNums = 2;
 
     public int totalLevels;
-    public static int currentLevel = 1;
+    
     public int enemyNumToSpawn = 0;
 
     public bool random = true;
