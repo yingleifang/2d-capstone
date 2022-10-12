@@ -799,8 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b7c6e5fdfe0d14f8033be1079e868c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalLevels: 5
-  currentLevel: 1
+  totalLevels: 6
   enemyNumToSpawn: 0
   random: 1
   typesOfEnemiesToSpawn:
@@ -1325,6 +1324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1381194083}
   - component: {fileID: 1381194082}
+  - component: {fileID: 1381194084}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -1399,6 +1399,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1381194084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381194081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6222716d4b9dc45a92b21c6c3f4ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelNums: 2
 --- !u!1 &1613305213
 GameObject:
   m_ObjectHideFlags: 0

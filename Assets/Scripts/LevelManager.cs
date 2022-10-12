@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
     // public int y_max = 3;
 
     public int totalLevels;
-    public int currentLevel;
+    public static int currentLevel;
     public int enemyNumToSpawn = 0;
 
     public bool random = true;
