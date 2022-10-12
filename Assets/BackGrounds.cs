@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackGrounds : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         int index = (LevelManager.currentLevel + 1) / LevelManager.levelNums <= 0 ? 1 : (LevelManager.currentLevel + 1) / LevelManager.levelNums;
