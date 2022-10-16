@@ -1477,6 +1477,7 @@ MonoBehaviour:
   DeSelectColor: {r: 0, g: 0.83679795, b: 1, a: 1}
   CanMoveAndAttackGlowBrightness: 5
   CanMoveAndAttackOutlineWidth: 3
+  EnemyOutlineWidth: 7
   CanAttackGlowBrightness: 3.6
   CanAttackOutlineWidth: 3
 --- !u!1 &1617878356

@@ -18,6 +18,9 @@ public class PostProcessingSettings : MonoBehaviour
     private int CanMoveAndAttackOutlineWidth;
 
     [SerializeField]
+    private int EnemyOutlineWidth;
+
+    [SerializeField]
     private float CanAttackGlowBrightness;
 
     [SerializeField]
@@ -78,4 +81,16 @@ public class PostProcessingSettings : MonoBehaviour
         spriteGlow.GlowColor = DeSelectColor;
     }
 
+    public void EnableEnemyGlow(EnemyUnit enemyUnit)
+    {
+        var spriteGlow = enemyUnit.gameObject.transform.GetComponentInChildren<SpriteGlowEffect>();
+        spriteGlow.GlowBrightness = CanMoveAndAttackGlowBrightness;
+        spriteGlow.OutlineWidth = EnemyOutlineWidth;
+    }
+
+    public void DisableEnemyGlow(EnemyUnit enemyUnit)
+    {
+        var spriteGlow = enemyUnit.gameObject.transform.GetComponentInChildren<SpriteGlowEffect>();
+        spriteGlow.OutlineWidth = 0;
+    }
 }
