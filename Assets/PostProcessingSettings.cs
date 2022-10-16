@@ -39,7 +39,13 @@ public class PostProcessingSettings : MonoBehaviour
             DisableGlow(playerUnit);
         };
     }
-
+    public void ChangeAllColorToDeSelected(List<PlayerUnit> playerUnits)
+    {
+        foreach (var playerUnit in playerUnits)
+        {
+            ChangeColorToDeSelected(playerUnit);
+        };
+    }
     public void DisableGlow(PlayerUnit playerUnit)
     {
             var spriteGlow = playerUnit.gameObject.transform.GetComponentInChildren<SpriteGlowEffect>();

@@ -1193,6 +1193,7 @@ public class BattleManager : MonoBehaviour
     public void SelectUnit(Unit unit)
     {
         tileManager.ClearHighlights();
+        postProcessingSettings.ChangeAllColorToDeSelected(playerUnits);
         if (selectedUnit is PlayerUnit)
         {
             postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)unit);
