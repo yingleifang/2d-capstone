@@ -493,6 +493,7 @@ MonoBehaviour:
   currentMovementSpeed: 0
   coolDown: 2
   currentCoolDown: 0
+  abilityRange: 0
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: 7421535317744620689}
   audio: {fileID: 4594956451681412236}
@@ -569,6 +570,18 @@ PrefabInstance:
     - target: {fileID: 2661612942734152096, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913279673100289612, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+      propertyPath: m_Color.b
+      value: 0.12941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913279673100289612, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913279673100289612, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+      propertyPath: m_Color.r
+      value: 0.98039216
       objectReference: {fileID: 0}
     - target: {fileID: 4532155604154493234, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_Pivot.x
