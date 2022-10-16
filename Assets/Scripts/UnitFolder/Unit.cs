@@ -73,8 +73,7 @@ public abstract class Unit: MonoBehaviour
         currentAttackRange = attackRange;
         currentMovementSpeed = movementSpeed;
         currentCoolDown = 0;
-        levelManager = FindObjectOfType<LevelManager>();
-        if (levelManager.isTutorial)
+        if (LevelManager.instance.isTutorial)
         {
             BattleManager.instance.unitsToSpawn.Add(this);
         }
@@ -135,6 +134,10 @@ public abstract class Unit: MonoBehaviour
 
     public void Hide()
     {
+        if (anim == null)
+        {
+            return;
+        }
         anim.SetBool("Hide", true);
     }
 
@@ -160,7 +163,7 @@ public abstract class Unit: MonoBehaviour
         // TODO: may want to change the implementation for the dimmin/undimming. Maybe to a tween?
         anim.SetBool("Dim", true);
         yield return null; // Wait a frame for the animation to start
-        yield return new WaitUntil(() => !anim.IsInTransition(1));
+        yield return new WaitUntil(() => anim == null || !anim.IsInTransition(1));
     }
 
     /// <summary>

@@ -69,6 +69,15 @@ public class DialogueManager : MonoBehaviour
             speechString = parts[1];
         }
 
+        if (speakerString.Equals("System"))
+        {
+            portrait.gameObject.SetActive(false);            
+        }
+        else
+        {
+            portrait.gameObject.SetActive(true);
+        }
+
         speakingFxn = StartCoroutine(StartSpeaking(speakerString, speechString, additive));
         yield return speakingFxn;
     }

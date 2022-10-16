@@ -124,7 +124,7 @@ public class TileManager : MonoBehaviour
     /// </summary>
     private void SetMapConfig()
     {
-        foreach (var info in levelManager.tileInfo)
+        foreach (var info in LevelManager.instance.tileInfo)
         {   
             map.SetTile(info.Key, info.Value.tiles[0]);
         }
@@ -135,7 +135,7 @@ public class TileManager : MonoBehaviour
     {
         levelManager = FindObjectOfType<LevelManager>();
 
-        if (!levelManager.isTutorial)
+        if (!LevelManager.instance.isTutorial)
         {
             Debug.Log("RANDOMIZED");
             SetMapConfig();
@@ -144,11 +144,10 @@ public class TileManager : MonoBehaviour
         baseTileDatas = new Dictionary<TileBase, TileDataScriptableObject>();
         dynamicTileDatas = new Dictionary<Vector3Int, DynamicTileData>();
         unitLocations = new Dictionary<Unit, Vector3Int>();
-        foreach (TileDataScriptableObject tileData in levelManager.typesOfTilesToSpawn)
+        foreach (TileDataScriptableObject tileData in LevelManager.instance.typesOfTilesToSpawn)
         {
             foreach (TileBase tile in tileData.tiles)
             {
-                Debug.Log(tile);
                 baseTileDatas.Add(tile, tileData);
             }
         }

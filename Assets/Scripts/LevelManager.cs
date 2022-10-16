@@ -77,7 +77,8 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("aWake");
             isTutorial = false;
-            RefreshNewGame();
+            SetLevelCounter(1);
+            LevelSetup();
         }
         map = FindObjectOfType<Tilemap>();
     }
@@ -97,10 +98,10 @@ public class LevelManager : MonoBehaviour
 
     /// <summary>
     /// Setup randomized tiles for the current level and the next level
+    /// generates enemies based on int currentLevel. Does not set currentLevel
     /// </summary>  
-    public void RefreshNewGame()
+    public void LevelSetup()
     {
-        currentLevel = 0;
         tileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
         nextSceneTileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
@@ -112,10 +113,29 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Resets data values to prepare for new game. Does not generate enemy or tile values
+    /// </summary>  
+    public void RefreshNewGame()
+    {
+        currentLevel = 1;
+        isTutorial = true;
+        tileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
+        nextSceneTileInfo = new Dictionary<Vector3Int, TileDataScriptableObject>();
+        nextSceneEnemyInfo = new List<(int, Vector3Int)>();
+        enemyInfo = new List<(int, Vector3Int)>();
+    }
+
+    public void SetLevelCounter(int level)
+    {
+        currentLevel = level;
+    }
+
+    /// <summary>
     /// Fills the dict with random tile SO's at random vector3's (weight matters)
     /// </summary> 
     public void fillTileInfo(Dictionary<Vector3Int, TileDataScriptableObject> curTileInfo)
     {
+        map = FindObjectOfType<Tilemap>();
         int total_weight = 0;
         foreach (var tile in typesOfTilesToSpawn)
             total_weight += tile.weight;
@@ -149,6 +169,7 @@ public class LevelManager : MonoBehaviour
     /// </summary> 
     public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, Dictionary<Vector3Int, TileDataScriptableObject> curTileInfo, int currentLevel)
     {
+        map = FindObjectOfType<Tilemap>();
         int totalEnemy = currentLevel < 3 ? currentLevel: 3;
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
@@ -209,7 +230,7 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Current real level: " + currentLevel);
         //levelTransitionObj.LoadNextLevel();
         //Still in tutorial
-        if (currentLevel < numTutorialLevels && !overrideTutorial)
+        if (currentLevel + 1 <= numTutorialLevels && !overrideTutorial)
         {
             currentLevel++;
             return;
@@ -218,13 +239,15 @@ public class LevelManager : MonoBehaviour
         else
         {
             isTutorial = false;
-            //In the case that we start with tutorial levels, we will not have called RefreshNewGame()
+            //In the case that we start with tutorial levels, we will not have called LevelSetup()
             Debug.Log("nextsceneenemyinfo count :" + nextSceneEnemyInfo.Count);
             if (nextSceneEnemyInfo.Count == 0)
             {
                 Debug.Log("nextsceneenemyinfoinside: " + nextSceneEnemyInfo.Count);
                 Debug.Log("*********************************************");
-                RefreshNewGame();
+                // Set to zero because of increment after
+                SetLevelCounter(0);
+                LevelSetup();
                 Debug.Log("nextsceneenemyinfoinside: " + nextSceneEnemyInfo.Count);
             }
             currentLevel++;

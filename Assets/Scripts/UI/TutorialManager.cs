@@ -21,13 +21,12 @@ public class TutorialManager : MonoBehaviour
     public LevelManager levelManager;
     public DialogueManager dialogueManager;
     public bool disableBattleInteraction = false;
-
     public int index = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (!levelManager.isTutorial)
+        if (!LevelManager.instance.isTutorial)
         {
             Debug.LogError("Tutorial manager in a non-tutorial level");
             return;
@@ -38,6 +37,8 @@ public class TutorialManager : MonoBehaviour
         unitSelection.SetActive(false);
         endTurnButton.SetActive(false);
         battlePreviewButton.SetActive(false);
+        index = 0;
+        disableBattleInteraction = false;
     }
 
    // public void Continue()
@@ -57,6 +58,7 @@ public class TutorialManager : MonoBehaviour
 
     public IEnumerator NextDialogue()
     {
+        Debug.Log(index);
         if (index > lines.Length - 1)
         {
             yield break;

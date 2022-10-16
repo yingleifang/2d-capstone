@@ -164,7 +164,7 @@ public class BattleManager : MonoBehaviour
     {
         StartCoroutine(ui.HideSelectionWindow());
         ui.HideUnitInfoWindow();
-        if (!levelManager.isTutorial)
+        if (!LevelManager.instance.isTutorial)
         {
             Debug.Log("SETTING DATA");
             setEnemyData();
@@ -185,8 +185,8 @@ public class BattleManager : MonoBehaviour
         var curGeneratePreviews = Resources.FindObjectsOfTypeAll<generatePreviews>();
         Debug.Log(curGeneratePreviews);
         previewLayer = curGeneratePreviews[0].gameObject;
-        curGeneratePreviews[0].ShowEnemyPreview(levelManager.nextSceneEnemyInfo, GetState());
-        curGeneratePreviews[0].ShowHazzardPreview(levelManager.nextSceneTileInfo, GetState());
+        curGeneratePreviews[0].ShowEnemyPreview(LevelManager.instance.nextSceneEnemyInfo, GetState());
+        curGeneratePreviews[0].ShowHazzardPreview(LevelManager.instance.nextSceneTileInfo, GetState());
     }
 
     // Update is called once per frame
@@ -451,10 +451,9 @@ public class BattleManager : MonoBehaviour
 
     private void setEnemyData()
     {
-        levelManager = FindObjectOfType<LevelManager>();
-        foreach (var curInfo in levelManager.enemyInfo)
+        foreach (var curInfo in LevelManager.instance.enemyInfo)
         {
-            EnemyUnit curEnemy = Instantiate(levelManager.typesOfEnemiesToSpawn[curInfo.Item1]);
+            EnemyUnit curEnemy = Instantiate(LevelManager.instance.typesOfEnemiesToSpawn[curInfo.Item1]);
             curEnemy.SetLocation(GetState(), curInfo.Item2);
             enemyUnits.Add(curEnemy);
             curEnemy.Show();
@@ -862,6 +861,7 @@ public class BattleManager : MonoBehaviour
         if (playerUnits.Count <= 0)
         {
             isBattleOver = true;
+            Debug.Log("In GameOver");
             StartCoroutine(ShowGameOver());
         }
         else if (enemyUnits.Count <= 0)
@@ -888,7 +888,7 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator ShowGameOver()
     {
-        levelManager.RefreshNewGame();
+        LevelManager.instance.RefreshNewGame();
         yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));
         foreach (EnemyUnit unit in enemyUnits.ToArray())
         {
@@ -899,6 +899,7 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator NextLevel()
     {
+        Debug.Log("NEXTING"); 
         postProcessingSettings.DisableTheGlow(playerUnits);
         if (pushDialogueAfterBattleEnd)
         {
@@ -913,10 +914,10 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(player.Undim());
         }
 
-        levelManager.IncrementLevel();
+        LevelManager.instance.IncrementLevel();
 
         int index;
-        if (!levelManager.isTutorial && tutorialManager)
+        if (!LevelManager.instance.isTutorial && tutorialManager)
         {
             ResetAll();
             index = SceneManager.GetActiveScene().buildIndex + 1;
@@ -925,7 +926,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             Debug.Log("current level: " + LevelManager.currentLevel);
-            index = LevelManager.currentLevel < levelManager.totalLevels ? SceneManager.GetActiveScene().buildIndex : 7;
+            index = LevelManager.currentLevel < LevelManager.instance.totalLevels ? SceneManager.GetActiveScene().buildIndex : 7;
             Debug.Log("index: " + index);
         }
 
@@ -940,7 +941,7 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(ui.SwitchScene(index));
         Debug.Log("Next level finished loading");
 
-        levelManager.PrepareNextBattle();
+        LevelManager.instance.PrepareNextBattle();
 
         foreach (Unit unit in unitsToSpawn)
         {
@@ -953,14 +954,14 @@ public class BattleManager : MonoBehaviour
         tileManager = FindObjectOfType<TileManager>();
         // This is probably also unnecessary if we structure things better
         ui = FindObjectOfType<UIController>();
-        levelManager.map = FindObjectOfType<Tilemap>();
+        LevelManager.instance.map = FindObjectOfType<Tilemap>();
         Debug.Log("Found new TileManager: " + tileManager != null);
 
         // If statement below destroys everything if we reach the win screen
         // Should probably be handled more elegantly
         if (tileManager == null || ui == null)
         {
-            levelManager.RefreshNewGame();
+            LevelManager.instance.RefreshNewGame();
             Debug.Log("No TileManager or UIController found. Destroying GameManager");
             foreach (Unit unit in unitsToSpawn)
             {
@@ -970,7 +971,7 @@ public class BattleManager : MonoBehaviour
             Destroy(gameObject);
             yield break;
         }
-        if (!levelManager.isTutorial)
+        if (!LevelManager.instance.isTutorial)
         {
             Debug.Log("SETTING DATA");
             setEnemyData();
