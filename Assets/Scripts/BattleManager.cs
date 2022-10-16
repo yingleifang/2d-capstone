@@ -1015,9 +1015,11 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(ui.ShowEnemyTurnAnim());
 
         foreach(EnemyUnit enemy in enemies)
-        {   
+        {
+            postProcessingSettings.EnableEnemyGlow(enemy);
             yield return enemy.performAction(GetState());
             yield return StartCoroutine(UpdateBattleState());
+            postProcessingSettings.DisableEnemyGlow(enemy);
             CheckIfBattleOver();
             if(isBattleOver)
             {
@@ -1194,6 +1196,7 @@ public class BattleManager : MonoBehaviour
     public void SelectUnit(Unit unit)
     {
         tileManager.ClearHighlights();
+        postProcessingSettings.ChangeAllColorToDeSelected(playerUnits);
         if (selectedUnit is PlayerUnit)
         {
             postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)unit);
