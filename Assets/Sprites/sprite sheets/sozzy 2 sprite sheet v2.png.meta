@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 48c68b135dd3a814fbaad08f4de84b65
+guid: b60f77808cc602a4e91666f995a01bf9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,306 +117,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 9000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f6843356a707aed41910b65fae9f513c
-      internalID: 1336131950
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_1
-      rect:
-        serializedVersion: 2
-        x: 3000
-        y: 9000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15f86c09aaff1d544ba0d0b2ee76a498
-      internalID: 1114456733
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 8000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c58bd1b148afe694a88d10b07c5faec6
-      internalID: -1528732067
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_3
-      rect:
-        serializedVersion: 2
-        x: 3000
-        y: 8000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 18650599352f3d34383ca9c78ed2c64d
-      internalID: -1592449815
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 7000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9e605e0720e44b843a0cc48b644ccf42
-      internalID: -917005586
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_5
-      rect:
-        serializedVersion: 2
-        x: 3000
-        y: 7000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eba81cc317c4caa408247568857e3e34
-      internalID: 1703760951
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 6000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 03da04f2bdc3f8947b62dcd70894d511
-      internalID: -910629832
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_7
-      rect:
-        serializedVersion: 2
-        x: 3000
-        y: 6000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3c78c2fcb4b45bb43976bfceaa276caf
-      internalID: -958282039
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 5000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3c0aa341cae357041be70725937ec906
-      internalID: -1522098081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_9
-      rect:
-        serializedVersion: 2
-        x: 3000
-        y: 5000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e51fc75d940c974f8c1c568ba46cc93
-      internalID: 1667509357
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_10
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 4000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c625b0f165eef0b488dd85a131c68732
-      internalID: 864481457
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_11
-      rect:
-        serializedVersion: 2
-        x: 3000
-        y: 4000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 585f46b1b8d6bfc4d9cb7c3ab3337df0
-      internalID: 453615592
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 3000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: adbfe9ee65efcdd4d8f0c3f1426bd6e3
-      internalID: 455155457
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_13
-      rect:
-        serializedVersion: 2
-        x: 3000
-        y: 3000
-        width: 3000
-        height: 1000
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 78e7a672865d8b3428158095f1d8ee9f
-      internalID: -2054811122
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_14
+      name: sozzy 2 sprite sheet v2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 2000
-        width: 3000
+        width: 1000
         height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -425,19 +131,61 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab82009155a5cfb4dafe713cc190e2e5
-      internalID: -662459966
+      spriteID: f6a767e420bb68c428bfceb0a260facc
+      internalID: -1486752695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_15
+      name: sozzy 2 sprite sheet v2_1
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 2000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71c59918c78d84741b09a48c780d553c
+      internalID: 1174555285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_2
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 2000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8100b34acef745944a1b76c66baeda0b
+      internalID: -1191220906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_3
       rect:
         serializedVersion: 2
         x: 3000
         y: 2000
-        width: 3000
+        width: 1000
         height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -446,19 +194,145 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 672c69f415d302545a1f41a6bf6a56a8
-      internalID: 1613426421
+      spriteID: b5c1921347c23974f8bceb4196907b49
+      internalID: 1831150729
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_16
+      name: sozzy 2 sprite sheet v2_4
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 2000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29e7ef75c90e2e64493a26e0a505b5cb
+      internalID: 235243704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_5
+      rect:
+        serializedVersion: 2
+        x: 5000
+        y: 2000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caacdab385a5f3c4a98aa2b4d9655e1b
+      internalID: -429140437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_6
+      rect:
+        serializedVersion: 2
+        x: 6000
+        y: 2000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03542b8fba064d44a8b4d0e80fd43bbd
+      internalID: -779216799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_7
+      rect:
+        serializedVersion: 2
+        x: 7000
+        y: 2000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a296c856d5ffda4b851f39e289f2d0b
+      internalID: -1667007450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_8
+      rect:
+        serializedVersion: 2
+        x: 8000
+        y: 2000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c60ce2682dc85f54480f423634da22d4
+      internalID: 2007578217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_9
+      rect:
+        serializedVersion: 2
+        x: 9000
+        y: 2000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd234b1e63b68694a82169c05f46e374
+      internalID: -717721587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_10
       rect:
         serializedVersion: 2
         x: 0
         y: 1000
-        width: 3000
+        width: 1000
         height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -467,19 +341,61 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9133d235236a2fe4d800eeff10cb77b1
-      internalID: -1551521329
+      spriteID: dc083d5c0a9ac2046ba55dcfe3e24c19
+      internalID: -646873063
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_17
+      name: sozzy 2 sprite sheet v2_11
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 1000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17fa8c68250b739478fe7e256be5b4f9
+      internalID: 567848418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_12
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 1000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b3ae192b91be7444aac2695cbb48d60
+      internalID: -2099219725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_13
       rect:
         serializedVersion: 2
         x: 3000
         y: 1000
-        width: 3000
+        width: 1000
         height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -488,19 +404,145 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75b2628bf2a28b4488274650a66dfd8a
-      internalID: -1208293850
+      spriteID: 60e4702f397e8c64bb489172b22330dd
+      internalID: -319244495
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sozzy 2 sprite sheet v1_18
+      name: sozzy 2 sprite sheet v2_14
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 1000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3636f2b1ebc66d4483fd2283e6a5cb5
+      internalID: 1023861625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_15
+      rect:
+        serializedVersion: 2
+        x: 5000
+        y: 1000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ef3306a298cabe438f3e581ee611453
+      internalID: -48513631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_16
+      rect:
+        serializedVersion: 2
+        x: 6000
+        y: 1000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 653e924db3933394ab46a26c3b5097f0
+      internalID: 1007795052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_17
+      rect:
+        serializedVersion: 2
+        x: 7000
+        y: 1000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba1d459603ab70d47be361ab8bd9b1b7
+      internalID: 1598039532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_18
+      rect:
+        serializedVersion: 2
+        x: 8000
+        y: 1000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91d7027cebdcec24291f68a543169324
+      internalID: 2085833725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_19
+      rect:
+        serializedVersion: 2
+        x: 9000
+        y: 1000
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eba9fd27bf364374885c07e5d026e2db
+      internalID: -253340048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_20
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 3000
+        width: 1000
         height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -509,8 +551,176 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2667b09c853ab5846b9e4fd80f5223f0
-      internalID: -1546400532
+      spriteID: 7a0d81eeda2013844ae11065222fd9f1
+      internalID: -1715363696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_21
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 0
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c20caaceaabdcd744a7b954718fa3f55
+      internalID: 1989827187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_22
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 0
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e65a33396124dd41b7c83d5e145108a
+      internalID: -504440101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_23
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 0
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed95a2c6d2fa2c747a86dfe05a2d5e67
+      internalID: 1265178637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_24
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 0
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef26247386dc09c40be4e84b32469a39
+      internalID: 1803673581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_25
+      rect:
+        serializedVersion: 2
+        x: 5000
+        y: 0
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 972928e47f077fe4ebbdb8c0552d1f81
+      internalID: 233875153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_26
+      rect:
+        serializedVersion: 2
+        x: 6000
+        y: 0
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f19b11a04b7fe948afa54fb035c37b8
+      internalID: 322745888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_27
+      rect:
+        serializedVersion: 2
+        x: 7000
+        y: 0
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dec8b9dea196e34284eee9fd34d0b2c
+      internalID: -714199308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sozzy 2 sprite sheet v2_28
+      rect:
+        serializedVersion: 2
+        x: 8000
+        y: 0
+        width: 1000
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41929ab8b24f77340b1d0d767072ebaf
+      internalID: -301817168
       vertices: []
       indices: 
       edges: []
@@ -526,25 +736,35 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sozzy 2 sprite sheet v1_15: 1613426421
-      sozzy 2 sprite sheet v1_10: 864481457
-      sozzy 2 sprite sheet v1_11: 453615592
-      sozzy 2 sprite sheet v1_16: -1551521329
-      sozzy 2 sprite sheet v1_0: 1336131950
-      sozzy 2 sprite sheet v1_1: 1114456733
-      sozzy 2 sprite sheet v1_6: -910629832
-      sozzy 2 sprite sheet v1_17: -1208293850
-      sozzy 2 sprite sheet v1_8: -1522098081
-      sozzy 2 sprite sheet v1_5: 1703760951
-      sozzy 2 sprite sheet v1_18: -1546400532
-      sozzy 2 sprite sheet v1_9: 1667509357
-      sozzy 2 sprite sheet v1_7: -958282039
-      sozzy 2 sprite sheet v1_4: -917005586
-      sozzy 2 sprite sheet v1_2: -1528732067
-      sozzy 2 sprite sheet v1_3: -1592449815
-      sozzy 2 sprite sheet v1_13: -2054811122
-      sozzy 2 sprite sheet v1_12: 455155457
-      sozzy 2 sprite sheet v1_14: -662459966
+      sozzy 2 sprite sheet v2_2: -1191220906
+      sozzy 2 sprite sheet v2_8: 2007578217
+      sozzy 2 sprite sheet v2_13: -319244495
+      sozzy 2 sprite sheet v2_21: 1989827187
+      sozzy 2 sprite sheet v2_16: 1007795052
+      sozzy 2 sprite sheet v2_1: 1174555285
+      sozzy 2 sprite sheet v2_15: -48513631
+      sozzy 2 sprite sheet v2_14: 1023861625
+      sozzy 2 sprite sheet v2_23: 1265178637
+      sozzy 2 sprite sheet v2_24: 1803673581
+      sozzy 2 sprite sheet v2_4: 235243704
+      sozzy 2 sprite sheet v2_18: 2085833725
+      sozzy 2 sprite sheet v2_11: 567848418
+      sozzy 2 sprite sheet v2_25: 233875153
+      sozzy 2 sprite sheet v2_20: -1715363696
+      sozzy 2 sprite sheet v2_26: 322745888
+      sozzy 2 sprite sheet v2_27: -714199308
+      sozzy 2 sprite sheet v2_3: 1831150729
+      sozzy 2 sprite sheet v2_28: -301817168
+      sozzy 2 sprite sheet v2_6: -779216799
+      sozzy 2 sprite sheet v2_10: -646873063
+      sozzy 2 sprite sheet v2_17: 1598039532
+      sozzy 2 sprite sheet v2_5: -429140437
+      sozzy 2 sprite sheet v2_12: -2099219725
+      sozzy 2 sprite sheet v2_9: -717721587
+      sozzy 2 sprite sheet v2_19: -253340048
+      sozzy 2 sprite sheet v2_22: -504440101
+      sozzy 2 sprite sheet v2_0: -1486752695
+      sozzy 2 sprite sheet v2_7: -1667007450
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
