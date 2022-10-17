@@ -469,6 +469,7 @@ public class BattleManager : MonoBehaviour
 
         while (tutorialManager.index < 5)
         {
+            Debug.Log("here");
             yield return StartCoroutine(tutorialManager.NextDialogue());
         }
 
@@ -535,6 +536,7 @@ public class BattleManager : MonoBehaviour
         tutorialManager.disableBattleInteraction = true;
 
         //NPC dialogue
+        yield return StartCoroutine(tutorialManager.NextDialogue());
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
         // Place units waiting to be spawned on new map
@@ -627,6 +629,12 @@ public class BattleManager : MonoBehaviour
         Debug.Log("talk attack mechanics");
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
+        if (isBattleOver)
+        {
+            tutorialManager.index = tutorialManager.NumLines() - 1;
+            yield break;
+        }
+
         //prompt end turn
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
@@ -635,10 +643,7 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        //
-
-
-
+        tutorialManager.index = tutorialManager.NumLines() - 1;
 
         
     }
@@ -905,6 +910,7 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("Here");
             dialogueManager.isWaitingForUserInput = false;
+            yield return new WaitForSeconds(0.25f);
             yield return StartCoroutine(tutorialManager.NextDialogue());
             pushDialogueAfterBattleEnd = false;
         }

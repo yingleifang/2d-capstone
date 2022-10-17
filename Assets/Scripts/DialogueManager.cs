@@ -12,7 +12,6 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI speechText;
     public string speechString;
     public bool isSpeaking {get {return speakingFxn != null;}}
-    public float textSpeed;
     public Image portrait;
     private Coroutine speakingFxn;
     private int index = 0;
@@ -32,8 +31,9 @@ public class DialogueManager : MonoBehaviour
     /// in form: speakerString: speechString
     /// If no speakerString is given, then function infers the speaker from past speaker.
     /// </summary>
-    public IEnumerator Say(string textString, bool additive = false)
+    public IEnumerator Say(string textString, bool additive = false, float textSpeed = .015f)
     {
+        Debug.Log("SAY");
         // If we are adding and there is text currently being spoken prematurely end the coroutine.
         if (additive && isSpeaking)
         {
@@ -78,7 +78,7 @@ public class DialogueManager : MonoBehaviour
             portrait.gameObject.SetActive(true);
         }
 
-        speakingFxn = StartCoroutine(StartSpeaking(speakerString, speechString, additive));
+        speakingFxn = StartCoroutine(StartSpeaking(speakerString, speechString, additive, textSpeed));
         yield return speakingFxn;
     }
 
@@ -87,6 +87,7 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     public void SkipDialogue()
     {
+        Debug.Log("SKIPPED");
         StopSpeaking();
         speechText.text = speechString;  
     }
@@ -94,7 +95,7 @@ public class DialogueManager : MonoBehaviour
     /// <summary>
     /// Activates the speechPanel and prints out the text to it. Waits for user input after it finishes
     /// </summary>
-    public IEnumerator StartSpeaking(string speakerString, string textString, bool additive)
+    public IEnumerator StartSpeaking(string speakerString, string textString, bool additive, float textSpeed = .015f)
     {
         speechPanel.SetActive(true);
         speaker.text = speakerString;
@@ -104,12 +105,20 @@ public class DialogueManager : MonoBehaviour
             speechText.text = "";
         }
 
-        isWaitingForUserInput = false;
+        isWaitingForUserInput = true;
 
-        foreach (char c in textString.ToCharArray())
+        int i = 0;
+        Debug.Log("LENGTH: " + textString.Length);
+        while (i < textString.Length)
         {
-            speechText.text += c;
+            speechText.text += textString[i];
+            i++;
             yield return new WaitForSeconds(textSpeed);
+            if (!isWaitingForUserInput)
+            {
+                speechText.text = speechString; 
+                break;
+            }
         }
 
         isWaitingForUserInput = true;

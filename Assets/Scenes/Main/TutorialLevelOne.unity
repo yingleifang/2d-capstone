@@ -364,6 +364,7 @@ MonoBehaviour:
   DeSelectColor: {r: 0, g: 0.83679795, b: 1, a: 1}
   CanMoveAndAttackGlowBrightness: 5
   CanMoveAndAttackOutlineWidth: 3
+  EnemyOutlineWidth: 0
   CanAttackGlowBrightness: 3.6
   CanAttackOutlineWidth: 3
 --- !u!114 &111065315
@@ -612,50 +613,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComp: {fileID: 1624254272}
-  lines:
-  - 'NPC: Hey! Hey! Over here! Are you alright? You just fell down here right? Were
-    you looking for the treasure too? '
-  - 'No need to be so surprised. We''re not the only fools who ended up down here
-    searching for that fable. '
-  - 'The treasure? That''s the last thing you should be worrying about. You''ll realize
-    soon enough that it''s better to get out of here as soon as you can. '
-  - Wait! Wait! I'm telling the truth here. If you want the treasure, you can have
-    it if it even exists. But you have to be careful down here. There's... things.
-    Monsters. It'll be better for the both of us if we stick together. What do you
-    say?
-  - That's great! Two's better than one. What's your specialization? I'm a ranger.
-  - 'System: A unit selection window will appear at the start of every level. Unit
-    information can be seen by hovering your mouse over the units in this window.'
-  - You can select a unit from the window to add to your team by left clicking it.
-    Select Ovis for now.
-  - Before selecting a tile to place your unit on, be mindful of the various types
-    of tiles on the map.
-  - Spike tiles (highlighted in red) will deal one damage to units who end their
-    turn on them.
-  - 'Impassable tiles (highlighted in red) will prevent units from moving on them
-    or being placed on them. '
-  - To place a unit you must left click on a valid tile twice, once to select, and
-    again to confirm your selection. For now, place the unit on the blue highlighted
-    square.
-  - 'NPC: A warrior huh? And a sheepman too? Well, we all have our circumstances.
-    As long as you can fight, I won''t ask. There''s an enemy ahead. I said two''s
-    better than one, but I''m not looking for deadweight. Show me what you can do.'
-  - 'System: Left clicking units will show its unit information as well as other
-    information. '
-  - Clicking an enemy will show its "threat area" highlighted in red. This is the
-    range in which it can attack units. Try it out yourself by clicking the enemy
-    on the screen.
-  - Clicking an ally which has not moved yet will highlight possible squares it can
-    move to in blue.  Double click squares to move to them. Try it yourself on the
-    unit you placed. For now, move the unit to the red square.
-  - 'After moving an allied unit, it will be able to attack within its attack range
-    highlighted in red. Since there are no units to attack in range, end your turn
-    by clicking the "End Turn" button on the bottom right. '
-  - Select your unit and attack the enemy.
-  - Units may move and attack or attack in place. A unit may not attack and move.
-    After a unit has attacked, they will fade to indicate they have no more actions.
-  - There are no other possible moves left. End your turn.
-  - 'NPC: What? What''s going on? '
   textSpeed: 0.015
   unitSelection: {fileID: 468326608814870994}
   continueButton: {fileID: 1555026604}
@@ -909,6 +866,10 @@ PrefabInstance:
     - target: {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: location.y
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447998723661349570, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7439754414042797085, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: m_RootOrder
@@ -3446,7 +3407,6 @@ MonoBehaviour:
   speakerString: 
   speechText: {fileID: 1624254272}
   speechString: 
-  textSpeed: 0.001
   portrait: {fileID: 1840711726}
   isWaitingForUserInput: 0
 --- !u!224 &2049737520
