@@ -41,7 +41,7 @@ public abstract class Unit: MonoBehaviour
     public Transform damageNumberSpawnPoint;
 
     [SerializeField]
-    private SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
+    protected SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
     [SerializeField]
     
 

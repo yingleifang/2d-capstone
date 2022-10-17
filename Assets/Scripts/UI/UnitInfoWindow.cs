@@ -15,6 +15,27 @@ public class UnitInfoWindow : MonoBehaviour
     public void ShowStats(Unit unit, bool spawned = true)
     {
         gameObject.SetActive(true);
+
+        if (unit is NPCUnit)
+        {
+            healthText.text = "Health: " + unit.currentHealth + "/" + unit.health;
+            if (unit.currentCoolDown == 0)
+            {
+                cooldownText.text = "Ability Cooldown: READY";
+            }
+            else
+            {
+                cooldownText.text = "Ability Cooldown: " + unit.currentCoolDown;
+            }
+            attackRangeText.text = "Attack Range: " + unit.attackRange;
+            movementSpeedText.text = "Movement Speed: " + unit.movementSpeed;
+            nameText.text = unit.characterName;
+            attackDamageText.text = "Attack Damage: " + unit.attackDamage;
+            portraitImage.sprite = unit.portrait;    
+        }
+
+
+
         if (spawned)
         {
             healthText.text = "Health: " + unit.currentHealth + "/" + unit.health;

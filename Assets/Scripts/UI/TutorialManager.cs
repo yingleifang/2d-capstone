@@ -8,7 +8,7 @@ public class TutorialManager : MonoBehaviour
 
     public TextMeshProUGUI textComp;
     private string[] lines = {
-        "NPC: Hey! Hey! Over here! Are you alright? You just fell down here right? Were you looking for the treasure too?",
+        "Itzel: Hey! Hey! Over here! Are you alright? You just fell down here right? Were you looking for the treasure too?",
         "No need to be so surprised. We're not the only fools who ended up down here searching for that fable.",
         "The treasure? That's the last thing you should be worrying about. You'll realize soon enough that it's better to get out of here as soon as you can.",
         "Wait! Wait! I'm telling the truth here. You have to be careful down here. There's... things. Monsters. It'll be better for the both of us if we stick together. What do you say?",
@@ -19,7 +19,7 @@ public class TutorialManager : MonoBehaviour
         "Spike tiles (highlighted in red) will deal one damage to units who end their turn on them.",
         "Impassable tiles (highlighted in red) will prevent units from moving on them or being placed on them.",
         "To place a unit you must left click on a valid tile twice, once to select, and again to confirm your selection. For now, place the unit on the blue highlighted square.",
-        "NPC: A warrior huh? And a sheepman too? Well, we all have our circumstances. As long as you can fight, I won't ask.",
+        "Itzel: A warrior huh? And a sheepman too? Well, we all have our circumstances. As long as you can fight, I won't ask.",
         "There's an enemy ahead. I said two's better than one, but I'm not looking for deadweight. Show me what you can do.",
         "System: Left clicking units will show its unit information as well as other information.",
         "Clicking an enemy will show its \"threat area\" highlighted in red. This is the range in which it can attack units (its movement speed + attack range).",
@@ -28,7 +28,7 @@ public class TutorialManager : MonoBehaviour
         "Attack the enemy by selecting your unit and double clicking the enemy unit.",
         "Units may move and attack or attack in place. A unit may not attack and move. After a unit has attacked, they will fade to indicate they have no more actions.",
         "There are no other possible moves left. End your turn.",
-        "NPC: What? What's going on?"
+        "Itzel: What? What's going on?"
     };
     public float textSpeed;
 
