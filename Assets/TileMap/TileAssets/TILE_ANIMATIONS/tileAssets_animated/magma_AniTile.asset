@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: magma_AniTile
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 595511449, guid: 601227356ce144a48aac3990479dcd22, type: 3}
+  - {fileID: 1576962153, guid: 601227356ce144a48aac3990479dcd22, type: 3}
+  - {fileID: 2014381476, guid: 601227356ce144a48aac3990479dcd22, type: 3}
+  - {fileID: -1993772306, guid: 601227356ce144a48aac3990479dcd22, type: 3}
+  - {fileID: 1142676031, guid: 601227356ce144a48aac3990479dcd22, type: 3}
+  - {fileID: -1319162826, guid: 601227356ce144a48aac3990479dcd22, type: 3}
+  - {fileID: 2055644319, guid: 601227356ce144a48aac3990479dcd22, type: 3}
+  - {fileID: -1551073160, guid: 601227356ce144a48aac3990479dcd22, type: 3}
+  - {fileID: -1059313938, guid: 601227356ce144a48aac3990479dcd22, type: 3}
+  - {fileID: -185937172, guid: 601227356ce144a48aac3990479dcd22, type: 3}
+  m_MinSpeed: 12
+  m_MaxSpeed: 12
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0

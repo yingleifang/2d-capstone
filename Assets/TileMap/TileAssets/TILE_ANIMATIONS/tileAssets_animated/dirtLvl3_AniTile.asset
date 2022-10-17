@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: dirtLvl3_AniTile
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: -1088965995, guid: 2afe6a9f92c86584eb5d96f0a4e38985, type: 3}
+  - {fileID: -2128843446, guid: 2afe6a9f92c86584eb5d96f0a4e38985, type: 3}
+  - {fileID: 189870792, guid: 2afe6a9f92c86584eb5d96f0a4e38985, type: 3}
+  - {fileID: 6989563, guid: 2afe6a9f92c86584eb5d96f0a4e38985, type: 3}
+  - {fileID: -1382397348, guid: 2afe6a9f92c86584eb5d96f0a4e38985, type: 3}
+  - {fileID: -811322493, guid: 2afe6a9f92c86584eb5d96f0a4e38985, type: 3}
+  - {fileID: 1754348803, guid: 2afe6a9f92c86584eb5d96f0a4e38985, type: 3}
+  - {fileID: 154070494, guid: 2afe6a9f92c86584eb5d96f0a4e38985, type: 3}
+  - {fileID: 1139618342, guid: 2afe6a9f92c86584eb5d96f0a4e38985, type: 3}
+  - {fileID: -532010379, guid: 2afe6a9f92c86584eb5d96f0a4e38985, type: 3}
+  m_MinSpeed: 12
+  m_MaxSpeed: 12
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
