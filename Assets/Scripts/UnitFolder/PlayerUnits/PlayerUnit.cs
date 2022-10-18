@@ -3,11 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class PlayerUnit : Unit
 {
 
     public enum UnitType {RACOON, RAM, LIZARD};
+
+    [TextArea]
+    public string startOfBattleAbilityDescription;
+    [TextArea]
+    public string inBattleAbilityDescription;
+    public VideoClip previewClip;
 
     public UnitType type;
     public bool hasMoved = false;

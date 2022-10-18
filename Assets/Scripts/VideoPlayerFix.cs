@@ -20,9 +20,25 @@ public class VideoPlayerFix : MonoBehaviour
         }
         if (clip && player)
         {
+            PlayClip(clip);
+        }
+    }
+
+    /// <summary>
+    /// Sets up the video playback for VideoPlayer so that it works on a web build.
+    /// Video must also be present in StreamingAssets folder with same name
+    /// </summary>
+    /// <param name="clip">the clip to play</param>
+    public void PlayClip(VideoClip clip)
+    {
+        if (clip)
+        {
+            // Need a path to the file so it plays on web builds
             string file = System.IO.Path.GetFileName(clip.originalPath);
             Debug.Log("Clip name: " + file);
             player.url = System.IO.Path.Combine(Application.streamingAssetsPath, file);
+            player.Play();
+            player.playOnAwake = true;
         }
     }
 }

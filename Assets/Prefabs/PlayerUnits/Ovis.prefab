@@ -128,6 +128,11 @@ MonoBehaviour:
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}
+  startOfBattleAbilityDescription: Smashes the ground damaging all adjacent units
+    at the start of battle.
+  inBattleAbilityDescription: Shoves an adjacent unit one square away. Deals 1 damage
+    when pushing units into objects or other units.
+  previewClip: {fileID: 32900000, guid: 6828f57dbe820724a930726d30436273, type: 3}
   type: 1
   hasMoved: 0
   hasAttacked: 0

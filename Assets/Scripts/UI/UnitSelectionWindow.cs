@@ -52,8 +52,7 @@ public class UnitSelectionWindow : MonoBehaviour
 
         for (int i = 0; i < unitIcons.Count; i++)
         {
-            unitIcons[i].image.sprite = selectedUnitPrefabs[i].spriteRenderer.sprite;
-            unitIcons[i].unitPrefab = selectedUnitPrefabs[i];
+            unitIcons[i].Initialize(selectedUnitPrefabs[i]);
         }
     }
 

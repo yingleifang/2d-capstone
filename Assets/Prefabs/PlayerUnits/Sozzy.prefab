@@ -130,6 +130,11 @@ MonoBehaviour:
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}
+  startOfBattleAbilityDescription: Increases the movement speed of all adjacent allies
+    by 1 for a single battle.
+  inBattleAbilityDescription: Spits fire up to two tiles away in a straight line.
+    All units along the line take 2 damage.
+  previewClip: {fileID: 32900000, guid: 6828f57dbe820724a930726d30436273, type: 3}
   type: 2
   hasMoved: 0
   hasAttacked: 0
