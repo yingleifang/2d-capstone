@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3301423051414504731}
   - component: {fileID: -4000016707929243497}
   - component: {fileID: 8100646997778920534}
+  - component: {fileID: 2346994246723371822}
   m_Layer: 0
   m_Name: Mori
   m_TagString: Untagged
@@ -82,6 +83,71 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 6.5}
   m_EdgeRadius: 0
+--- !u!114 &2346994246723371822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3349001872459977464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a5299a97f1e77e42aaaf6777a897843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  currentHealth: 0
+  attackDamage: 0
+  currentAttackDamage: 0
+  attackRange: 0
+  currentAttackRange: 0
+  movementSpeed: 0
+  currentMovementSpeed: 0
+  coolDown: 0
+  currentCoolDown: 0
+  abilityRange: 0
+  location: {x: 0, y: 0, z: 0}
+  anim: {fileID: -4000016707929243497}
+  audio: {fileID: 994806040568335125}
+  spriteRenderer: {fileID: 0}
+  portrait: {fileID: 0}
+  characterName: 
+  characterDescription: 
+  healthBarFill: {fileID: 0}
+  healthBarBackground: {fileID: 0}
+  damageNumberPrefab: {fileID: 0}
+  damageNumberSpawnPoint: {fileID: 0}
+  deathSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  hitSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  attackSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  placementSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  fallSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  isDead: 0
+  inMovement: 0
+  levelManager: {fileID: 0}
+  type: 0
+  hasMoved: 0
+  hasAttacked: 0
+  StartOfBattleAbilitySound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  abilityDamage: 0
 --- !u!1 &3725819154991441377
 GameObject:
   m_ObjectHideFlags: 0
