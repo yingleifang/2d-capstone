@@ -2618,7 +2618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 8369342891247495371}
 --- !u!222 &8087998023069328263
 CanvasRenderer:
   m_ObjectHideFlags: 0
