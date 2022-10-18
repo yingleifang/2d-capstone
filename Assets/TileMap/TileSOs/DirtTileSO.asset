@@ -16,6 +16,7 @@ MonoBehaviour:
   description: The soil of the earth.
   tiles:
   - {fileID: 11400000, guid: eea0705cde93a6240a3a5b9b3ddd2141, type: 2}
+  animatedTile: {fileID: 11400000, guid: 81e99e7b2dc6855488f5168c7d195bf1, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 0

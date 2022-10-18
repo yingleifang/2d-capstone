@@ -126,7 +126,18 @@ public class TileManager : MonoBehaviour
     {
         foreach (var info in LevelManager.instance.tileInfo)
         {   
-            map.SetTile(info.Key, info.Value.tiles[0]);
+            map.SetTile(info.Key, info.Value.Item1.tiles[0]);
+        }
+    }
+
+    public void ShatterTiles() {
+        foreach (var info in LevelManager.instance.tileInfo)
+        {
+            if (info.Value.Item2 == true)
+            {
+                Debug.Log("????????????????????????????????");
+                map.SetTile(info.Key, info.Value.Item1.animatedTile);
+            }
         }
     }
 

@@ -23,16 +23,16 @@ public class generatePreviews : MonoBehaviour
 
     }
 
-    public void ShowHazzardPreview(Dictionary<Vector3Int, TileDataScriptableObject> nextSceneTileInfo, BattleState state)
+    public void ShowHazzardPreview(Dictionary<Vector3Int, (TileDataScriptableObject, bool)> nextSceneTileInfo, BattleState state)
     {
         foreach (var loc in nextSceneTileInfo)
         {
-            if (loc.Value.hazardous == true)
+            if (loc.Value.Item1.hazardous == true)
             {
                 var targetTransform = state.tileManager.CellToWorldPosition(loc.Key);
                 GameObject gameObject = Instantiate(hazzardAvatar, targetTransform, Quaternion.identity);
                 gameObject.transform.SetParent(transform, false);
-            }else if (loc.Value.impassable == true)
+            }else if (loc.Value.Item1.impassable == true)
             {
                 var targetTransform = state.tileManager.CellToWorldPosition(loc.Key);
                 GameObject gameObject = Instantiate(impassibleAvatar, targetTransform, Quaternion.identity);
