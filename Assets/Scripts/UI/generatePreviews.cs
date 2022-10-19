@@ -4,13 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using static BattleManager;
 
+[Serializable]
+public class Overlay
+{
+    public Sprite sprite;
+    [TextArea]
+    public string description;
+}
+
 public class generatePreviews : MonoBehaviour
 {
     public GameObject enemyAvatar;
+    public Overlay enemyOverlay;
 
-    public GameObject hazzardAvatar;
+    public GameObject hazardAvatar;
+    public Overlay hazardOverlay;
 
     public GameObject impassibleAvatar;
+    public Overlay impassibleOverlay;
 
     public void ShowEnemyPreview(List<(int, Vector3Int)> nextSceneenemyInfo, BattleState state)
     {
@@ -19,6 +30,7 @@ public class generatePreviews : MonoBehaviour
             var targetTransform = state.tileManager.CellToWorldPosition(loc.Item2);
             GameObject gameObject = Instantiate(enemyAvatar, targetTransform, Quaternion.identity);
             gameObject.transform.SetParent(transform, false);
+            state.tileManager.SetTileOverlay(loc.Item2, enemyOverlay);
         }
 
     }
@@ -30,13 +42,15 @@ public class generatePreviews : MonoBehaviour
             if (loc.Value.Item1.hazardous == true)
             {
                 var targetTransform = state.tileManager.CellToWorldPosition(loc.Key);
-                GameObject gameObject = Instantiate(hazzardAvatar, targetTransform, Quaternion.identity);
+                GameObject gameObject = Instantiate(hazardAvatar, targetTransform, Quaternion.identity);
                 gameObject.transform.SetParent(transform, false);
-            }else if (loc.Value.Item1.impassable == true)
+                state.tileManager.SetTileOverlay(loc.Key, hazardOverlay);
+            } else if (loc.Value.Item1.impassable == true)
             {
                 var targetTransform = state.tileManager.CellToWorldPosition(loc.Key);
                 GameObject gameObject = Instantiate(impassibleAvatar, targetTransform, Quaternion.identity);
                 gameObject.transform.SetParent(transform, false);
+                state.tileManager.SetTileOverlay(loc.Key, impassibleOverlay);
             }
         }
 

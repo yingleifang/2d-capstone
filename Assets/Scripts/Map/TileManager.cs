@@ -16,12 +16,14 @@ public class HexTileData
     public TileDataScriptableObject tileData;
     public TileBase tile;
     public Sprite sprite;
+    public DynamicTileData dynamicTileData;
 
-    public HexTileData(TileDataScriptableObject tileData, TileBase tile, Sprite sprite)
+    public HexTileData(TileDataScriptableObject tileData, TileBase tile, Sprite sprite, DynamicTileData dynamicTileData)
     {
         this.tileData = tileData;
         this.tile = tile;
         this.sprite = sprite;
+        this.dynamicTileData = dynamicTileData;
     }
 }
 
@@ -223,7 +225,20 @@ public class TileManager : MonoBehaviour
         TileBase tile = GetTile(tilePos);
         Sprite sprite = map.GetSprite(tilePos);
         TileDataScriptableObject tileData = baseTileDatas[GetTile(tilePos)];
-        return new HexTileData(tileData, tile, sprite);
+        DynamicTileData dynamicTileData = dynamicTileDatas[tilePos];
+        return new HexTileData(tileData, tile, sprite, dynamicTileData);
+    }
+
+    /// <summary>
+    /// Sets the overlay for the tile.
+    /// Used purely for informational purposes (ie so we know there's an overlay).
+    /// Doesn't display anything.
+    /// </summary>
+    /// <param name="tilePos">the tile to set the data for</param>
+    /// <param name="overlay">the overlay on the tile</param>
+    public void SetTileOverlay(Vector3Int tilePos, Overlay overlay)
+    {
+        dynamicTileDatas[tilePos].overlay = overlay;
     }
 
     /// </summary>

@@ -8,7 +8,8 @@ public class UnitInfoWindow : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI healthText, attackRangeText, movementSpeedText, cooldownText,
-                    nameText, attackDamageText;
+                    nameText, attackDamageText, descriptionText;
+    public Button abilityButton;
     [SerializeField]
     private Image portraitImage;
 
@@ -18,19 +19,21 @@ public class UnitInfoWindow : MonoBehaviour
 
         if (unit is NPCUnit)
         {
-            healthText.text = "Health: " + unit.currentHealth + "/" + unit.health;
+            healthText.text = unit.currentHealth + "/" + unit.health;
             if (unit.currentCoolDown == 0)
             {
+                abilityButton.interactable = true;
                 cooldownText.text = "Ability Cooldown: READY";
             }
             else
             {
+                abilityButton.interactable = false;
                 cooldownText.text = "Ability Cooldown: " + unit.currentCoolDown;
             }
-            attackRangeText.text = "Attack Range: " + unit.attackRange;
-            movementSpeedText.text = "Movement Speed: " + unit.movementSpeed;
+            attackRangeText.text = unit.attackRange.ToString();
+            movementSpeedText.text = unit.movementSpeed.ToString();
             nameText.text = unit.characterName;
-            attackDamageText.text = "Attack Damage: " + unit.attackDamage;
+            attackDamageText.text = unit.attackDamage.ToString();
             portraitImage.sprite = unit.portrait;    
         }
 
@@ -38,14 +41,16 @@ public class UnitInfoWindow : MonoBehaviour
 
         if (spawned)
         {
-            healthText.text = "Health: " + unit.currentHealth + "/" + unit.health;
+            healthText.text = unit.currentHealth + "/" + unit.health;
 
             if (unit.currentCoolDown == 0)
             {
+                abilityButton.interactable = true;
                 cooldownText.text = "Ability Cooldown: READY";
             }
             else
             {
+                abilityButton.interactable = false;
                 cooldownText.text = "Ability Cooldown: " + unit.currentCoolDown;
             }    
         }
@@ -54,30 +59,19 @@ public class UnitInfoWindow : MonoBehaviour
             healthText.text = "Health: " + unit.health;
             cooldownText.text = "Ability Cooldown: " + unit.coolDown;
         }  
-        attackRangeText.text = "Attack Range: " + unit.attackRange;
-        movementSpeedText.text = "Movement Speed: " + unit.movementSpeed;
+        attackRangeText.text = unit.attackRange.ToString();
+        movementSpeedText.text = unit.movementSpeed.ToString();
         nameText.text = unit.characterName;
-        attackDamageText.text = "Attack Damage: " + unit.attackDamage;
+        attackDamageText.text = unit.attackDamage.ToString();
         portraitImage.sprite = unit.portrait;
-    }
 
-    /// <summary>
-    /// Displays the given tile data
-    /// </summary>
-    /// <param name="tileData">the tile data to display. Does nothing if null</param>
-    public void ShowTile(HexTileData tileData)
-    {
-        if(tileData == null)
+        if (unit is PlayerUnit player)
         {
-            return;
+            descriptionText.text = player.startOfBattleAbilityDescription;
+        } else if (unit is EnemyUnit enemy)
+        {
+            descriptionText.text = enemy.characterDescription;
         }
-
-        gameObject.SetActive(true);
-        ClearText();
-        nameText.text = tileData.tileData.tileName;
-        cooldownText.text = tileData.tileData.description; // TODO: might want a dedicated description text field
-        portraitImage.sprite = tileData.sprite;
-        
     }
 
     /// <summary>
