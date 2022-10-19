@@ -297,8 +297,6 @@ public class LevelManager : MonoBehaviour
         fillTileInfo(nextSceneTileInfo);
         enemyInfo = nextSceneEnemyInfo;
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
-        Debug.Log("!!!!!!!!!!!!!");
-        Debug.Log(currentLevel);
         fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, currentLevel + 1);
     }
 }

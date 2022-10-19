@@ -737,8 +737,26 @@ public class BattleManager : MonoBehaviour
             }
 
             StartCoroutine(ui.DisableEndTurnButton());
-            tileManager.ShatterTiles();
             StartCoroutine(performEnemyMoves());
+
+            if (ui.turnCountDown.currentTurn <= 3)
+            {
+                tileManager.ShatterTiles();
+                foreach (var unit in enemyUnits)
+                {
+                    if (tileManager.IsImpassableTile(unit.location, false))
+                    {
+                        yield return StartCoroutine(KillUnit(unit));
+                    }
+                }
+                foreach (var unit in playerUnits)
+                {
+                    if (tileManager.IsImpassableTile(unit.location, false))
+                    {
+                        yield return StartCoroutine(KillUnit(unit));
+                    }
+                }
+            }
         }
     }
 
@@ -836,7 +854,10 @@ public class BattleManager : MonoBehaviour
         
 
         yield return StartCoroutine(tileManager.OnUnitFallOnTile(GetState(), unit, spawnLocation));
-        if (tileManager.IsImpassableTile(unit.location, false))
+        if (!tileManager.IsImpassableTile(unit.location, false))
+        {
+        }
+        else
         {
             yield return StartCoroutine(KillUnit(unit));
         }
