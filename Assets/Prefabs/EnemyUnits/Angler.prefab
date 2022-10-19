@@ -142,7 +142,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4316785244231713794}
   portrait: {fileID: 21300000, guid: 50abe672c12113d42be23c004ad34d17, type: 3}
   characterName: Dumbell
-  characterDescription: 
+  characterDescription: A fat angler fish that likes to target far away units. Will
+    occasionally lure its prey closer to it.
   healthBarFill: {fileID: 5316833990255598534}
   healthBarBackground: {fileID: 1463624315805780811}
   damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
