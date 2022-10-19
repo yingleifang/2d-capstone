@@ -174,7 +174,7 @@ public abstract class Unit: MonoBehaviour
     {
         anim.SetBool("Dim", false);
         yield return null; // Wait a frame for the animation to start
-        yield return new WaitUntil(() => !anim.IsInTransition(1));
+        yield return new WaitUntil(() => !gameObject || !anim.IsInTransition(1));
     }
 
     public abstract IEnumerator UseAbility(Vector3Int target, BattleState state);
