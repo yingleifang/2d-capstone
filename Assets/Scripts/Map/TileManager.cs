@@ -130,7 +130,8 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public IEnumerator ShatterTiles() {
+    public void ShatterTiles()
+    {
         foreach (var info in LevelManager.instance.tileInfo)
         {
             if (info.Value.Item2 == true)
@@ -138,15 +139,30 @@ public class TileManager : MonoBehaviour
                 map.SetTile(info.Key, info.Value.Item1.animatedTile);
             }
         }
-        yield return new WaitForSeconds(0.1f);
-        foreach (var info in LevelManager.instance.tileInfo)
+        StartCoroutine(WaitForAnimation());
+    }
+    public IEnumerator WaitForAnimation() {
+
+        float waitTime = -1f;
+
+        var tileInfoList = LevelManager.instance.tileInfo.Keys;
+
+        foreach (var key in tileInfoList.ToList())
         {
-            if (info.Value.Item1.animatedTile)
+            var info = LevelManager.instance.tileInfo[key];
+            if (info.Item2 == true)
             {
-                if (map.GetAnimationFrame(info.Key) == info.Value.Item1.animatedTile.m_AnimatedSprites.Length - 1)
+                Debug.Log("***************");
+                if (waitTime == -1f)
                 {
-                    map.SetTile(info.Key, levelManager.typesOfTilesToSpawn[0].tiles[0]);
+                    waitTime = info.Item1.animatedTile.m_AnimatedSprites.Length / info.Item1.animatedTile.m_MinSpeed - 0.2f;
+                    Debug.Log("////////////");
+                    Debug.Log(waitTime);
+                    yield return new WaitForSeconds(waitTime);
                 }
+                Debug.Log("~~~~~~~~~~~~~~~~");
+                map.SetTile(key, levelManager.typesOfTilesToSpawn[0].tiles[0]);
+                LevelManager.instance.tileInfo[key] = (levelManager.typesOfTilesToSpawn[0], false);
             }
         }
     }
@@ -298,20 +314,28 @@ public class TileManager : MonoBehaviour
     /// </summary>
     public bool IsImpassableTile(Vector3Int cellCoords, bool unitsBlock = true, bool terrainBlocks = true)
     {
-        TileBase tile = map.GetTile(cellCoords);
-        if(tile == null || (baseTileDatas[tile].impassable && terrainBlocks))
+        try
         {
-            return true;
-        }
-
-        if(unitsBlock)
-        {
-            if(GetUnit(cellCoords))
+            TileBase tile = map.GetTile(cellCoords);
+            if (tile == null || (baseTileDatas[tile].impassable && terrainBlocks))
             {
                 return true;
             }
+
+            if (unitsBlock)
+            {
+                if (GetUnit(cellCoords))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
-        return false;
+        catch
+        {
+            Debug.LogError("tiletype not found");
+            return true;
+        }
     }
 
     public bool IsImpassableTile(CubeCoord cubeCoords) 
