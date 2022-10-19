@@ -753,8 +753,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
-  hazzardAvatar: {fileID: 2016526582845031338, guid: b189cb4954d2e94498a01c36d71ff657, type: 3}
+  enemyOverlay:
+    sprite: {fileID: 21300000, guid: e830f26d2c2f2034aa5c2dc2b5d1b96d, type: 3}
+    description: Indicates that an enemy will spawn on this tile in the next battle.
+  hazardAvatar: {fileID: 2016526582845031338, guid: b189cb4954d2e94498a01c36d71ff657, type: 3}
+  hazardOverlay:
+    sprite: {fileID: 21300000, guid: cd5348e55486c784686a4b06b609ea82, type: 3}
+    description: Indicates that a hazard will appear on this tile in the next battle.
   impassibleAvatar: {fileID: 2016526582845031338, guid: 12727b8798f18c8428d57ad0b6774de8, type: 3}
+  impassibleOverlay:
+    sprite: {fileID: 21300000, guid: 7f2e55186193d7342a72df946c80affe, type: 3}
+    description: 'CAUTION: Indicates that a deadly hazard will appear on this tile
+      in the next battle.'
 --- !u!4 &270826229
 Transform:
   m_ObjectHideFlags: 0
@@ -1889,8 +1899,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6752617090778783381, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.05999756
+      objectReference: {fileID: 0}
     - target: {fileID: 7914259393409976375, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914259393409976376, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

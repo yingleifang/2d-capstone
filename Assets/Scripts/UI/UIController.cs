@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
     public UnitSelectionWindow unitSelectionWindow;
     public GameObject unitSelectionTutorial;
     public UnitInfoWindow unitInfoWindow;
+    public TileInfoWindow tileInfoWindow;
     public EndTurnButton endTurnButton;
     public GameObject endTurnWarning;
     public TurnCountDown turnCountDown;
@@ -27,7 +28,16 @@ public class UIController : MonoBehaviour
     /// <param name="tileData">the tile data to display. Will do nothing if null</param>
     public void ShowTileInWindow(HexTileData tileData)
     {
-        unitInfoWindow.ShowTile(tileData);
+        HideUnitInfoWindow();
+        tileInfoWindow.ShowTile(tileData);
+    }
+
+    /// <summary>
+    /// Hides the tile info window if visible
+    /// </summary>
+    public void HideTileWindow()
+    {
+        tileInfoWindow.Hide();
     }
 
     /// <summary>
@@ -175,12 +185,18 @@ public class UIController : MonoBehaviour
 
     public void ShowUnitInfoWindow(Unit unit)
     {
+        HideTileWindow();
         unitInfoWindow.ShowStats(unit);
     }
 
+    /// <summary>
+    /// Hides the unit info window.
+    /// Also hides the tile info window.
+    /// </summary>
     public void HideUnitInfoWindow()
     {
         unitInfoWindow.HideStats();
+        tileInfoWindow.Hide();
     }
 
     public void StartButton()

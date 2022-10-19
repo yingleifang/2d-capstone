@@ -75,25 +75,6 @@ public class UnitInfoWindow : MonoBehaviour
     }
 
     /// <summary>
-    /// Displays the given tile data
-    /// </summary>
-    /// <param name="tileData">the tile data to display. Does nothing if null</param>
-    public void ShowTile(HexTileData tileData)
-    {
-        if(tileData == null)
-        {
-            return;
-        }
-
-        gameObject.SetActive(true);
-        ClearText();
-        nameText.text = tileData.tileData.tileName;
-        cooldownText.text = tileData.tileData.description; // TODO: might want a dedicated description text field
-        portraitImage.sprite = tileData.sprite;
-        
-    }
-
-    /// <summary>
     /// Clears all text on the info window
     /// </summary>
     public void ClearText()
