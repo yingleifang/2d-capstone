@@ -46,6 +46,7 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// List of tileSO's (populated in editor)
     /// </summary>       
+    [Tooltip("hole tile need to always be the first tile in the list, shattered tiles turn into the first tile in the list")]
     public List<TileDataScriptableObject> typesOfTilesToSpawn;
     public Tilemap map;
 
@@ -273,7 +274,6 @@ public class LevelManager : MonoBehaviour
             if (nextSceneEnemyInfo.Count == 0)
             {
                 Debug.Log("nextsceneenemyinfoinside: " + nextSceneEnemyInfo.Count);
-                Debug.Log("*********************************************");
                 // Set to zero because of increment after
                 SetLevelCounter(0);
                 LevelSetup();

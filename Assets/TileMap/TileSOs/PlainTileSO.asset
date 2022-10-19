@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a1589a0a685c45aac432d958b5bfb, type: 3}
   m_Name: PlainTileSO
   m_EditorClassIdentifier: 
+  tileName: Tile
+  description: A basic tile with no notable features.
   tiles:
   - {fileID: 11400000, guid: 0439f8eaa71fe1841842ed35dde54ad5, type: 2}
+  animatedTile: {fileID: 11400000, guid: 114484924a2af5347a24679a848b253f, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 0

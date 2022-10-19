@@ -737,8 +737,7 @@ public class BattleManager : MonoBehaviour
             }
 
             StartCoroutine(ui.DisableEndTurnButton());
-            Debug.Log("PPPPPPPPPPPPPPPPPPPPPPP");
-            tileManager.ShatterTiles();
+            StartCoroutine(tileManager.ShatterTiles());
             StartCoroutine(performEnemyMoves());
         }
     }
