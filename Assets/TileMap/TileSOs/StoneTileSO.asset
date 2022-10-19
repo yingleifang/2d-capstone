@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Cold, unfeeling, and a little unstable.
   tiles:
   - {fileID: 11400000, guid: e1006987bf8ab7d40876ee29d9fb58cf, type: 2}
+  animatedTile: {fileID: 11400000, guid: 08dbeb91178b46f4f9c093949d32cf0e, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 0

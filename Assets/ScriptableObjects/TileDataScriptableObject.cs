@@ -10,6 +10,7 @@ public class TileDataScriptableObject : ScriptableObject
     [TextArea]
     public string description = "A basic tile with no notable features.";
     public TileBase[] tiles;
+    public AnimatedTile animatedTile;
     public int movementSpeedModifier;
     public bool impassable;
     public bool hazardous;

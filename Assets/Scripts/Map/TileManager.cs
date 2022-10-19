@@ -128,7 +128,28 @@ public class TileManager : MonoBehaviour
     {
         foreach (var info in LevelManager.instance.tileInfo)
         {   
-            map.SetTile(info.Key, info.Value.tiles[0]);
+            map.SetTile(info.Key, info.Value.Item1.tiles[0]);
+        }
+    }
+
+    public IEnumerator ShatterTiles() {
+        foreach (var info in LevelManager.instance.tileInfo)
+        {
+            if (info.Value.Item2 == true)
+            {
+                map.SetTile(info.Key, info.Value.Item1.animatedTile);
+            }
+        }
+        yield return new WaitForSeconds(0.1f);
+        foreach (var info in LevelManager.instance.tileInfo)
+        {
+            if (info.Value.Item1.animatedTile)
+            {
+                if (map.GetAnimationFrame(info.Key) == info.Value.Item1.animatedTile.m_AnimatedSprites.Length - 1)
+                {
+                    map.SetTile(info.Key, levelManager.typesOfTilesToSpawn[0].tiles[0]);
+                }
+            }
         }
     }
 
