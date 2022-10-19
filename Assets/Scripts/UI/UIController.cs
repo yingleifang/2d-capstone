@@ -37,7 +37,10 @@ public class UIController : MonoBehaviour
     /// </summary>
     public void HideTileWindow()
     {
-        tileInfoWindow.Hide();
+        if (tileInfoWindow)
+        {
+            tileInfoWindow.Hide();
+        }
     }
 
     /// <summary>
@@ -196,7 +199,10 @@ public class UIController : MonoBehaviour
     public void HideUnitInfoWindow()
     {
         unitInfoWindow.HideStats();
-        tileInfoWindow.Hide();
+        if (tileInfoWindow)
+        {
+            tileInfoWindow.Hide();
+        }
     }
 
     public void StartButton()
