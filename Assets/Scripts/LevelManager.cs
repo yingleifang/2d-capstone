@@ -88,6 +88,7 @@ public class LevelManager : MonoBehaviour
             SetLevelCounter(1);
             LevelSetup();
         }
+        typesOfTilesToSpawn.Add(shatterTile);
         map = FindObjectOfType<Tilemap>();
     }
 

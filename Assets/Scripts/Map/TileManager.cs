@@ -148,6 +148,7 @@ public class TileManager : MonoBehaviour
             {
                 tilePos.Add(info.Key);
                 map.SetTile(info.Key, animatedTile);
+                map.SetAnimationFrame(info.Key, 0);
             }
         }
         StartCoroutine(WaitForAnimation());
@@ -384,9 +385,11 @@ public class TileManager : MonoBehaviour
     /// </summary>
     public bool IsImpassableTile(Vector3Int cellCoords, bool unitsBlock = true, bool terrainBlocks = true)
     {
-        try
-        {
             TileBase tile = map.GetTile(cellCoords);
+            if (tile is AnimatedTile)
+            {
+            return false;
+            }
             if (tile == null || (baseTileDatas[tile].impassable && terrainBlocks))
             {
                 return true;
@@ -400,12 +403,6 @@ public class TileManager : MonoBehaviour
                 }
             }
             return false;
-        }
-        catch
-        {
-            Debug.LogError("tiletype not found");
-            return true;
-        }
     }
 
     public bool IsImpassableTile(CubeCoord cubeCoords) 
