@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour
 
     public bool random = true;
 
-    public int[] crackChance = new int[] {60, 30};
+    public int[] crackChance = new int[] {60, 40};
 
     public Dictionary<Vector3Int, (TileDataScriptableObject, int)> tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
     public Dictionary<Vector3Int, (TileDataScriptableObject, int)> nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
@@ -62,6 +62,7 @@ public class LevelManager : MonoBehaviour
 
     List<Vector3Int> impassibleTile = new List<Vector3Int>();
 
+    public TileDataScriptableObject shatterTile;
 
     public levelTransition levelTransitionObj;
     void Awake()
@@ -168,7 +169,7 @@ public class LevelManager : MonoBehaviour
                         var crackNum = RandomNumberGenerator.GetInt32(0, 100);
                         if (crackNum < crackChance[0])
                         {
-                            curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[1], 1));
+                            curTileInfo.Add(new Vector3Int(x, y, 0), (shatterTile, 1));
                         }
                         else
                         {
@@ -180,7 +181,7 @@ public class LevelManager : MonoBehaviour
                         var crackNum = RandomNumberGenerator.GetInt32(0, 100);
                         if (crackNum < crackChance[1])
                         {
-                            curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[1], 2));
+                            curTileInfo.Add(new Vector3Int(x, y, 0), (shatterTile, 2));
                         }
                         else
                         {
