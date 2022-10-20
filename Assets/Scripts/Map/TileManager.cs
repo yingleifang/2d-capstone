@@ -117,6 +117,7 @@ public class TileManager : MonoBehaviour
     public Dictionary<Vector3Int, DynamicTileData> dynamicTileDatas;
     public Dictionary<Unit, Vector3Int> unitLocations;
     public static TileManager Instance {get; private set;}
+    public AnimatedTile animatedTile;
 
     LevelManager levelManager;
 
@@ -132,41 +133,95 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public void ShatterTiles()
+    List<Vector3Int> tilePos;
+
+    private void Start()
+    {
+        tilePos = new List<Vector3Int>();
+    }
+
+    public void ShatterTiles(int turn)
     {
         foreach (var info in LevelManager.instance.tileInfo)
         {
-            if (info.Value.Item2 == true)
+            if (info.Value.Item2 == turn)
             {
-                map.SetTile(info.Key, info.Value.Item1.animatedTile);
+                tilePos.Add(info.Key);
+                map.SetTile(info.Key, animatedTile);
             }
         }
         StartCoroutine(WaitForAnimation());
     }
-    public IEnumerator WaitForAnimation() {
 
-        float waitTime = -1f;
-
-        var tileInfoList = LevelManager.instance.tileInfo.Keys;
-
-        foreach (var key in tileInfoList.ToList())
+    public bool ShatterTileState(int turnPast)
+    {
+        if (turnPast == 2)
         {
-            var info = LevelManager.instance.tileInfo[key];
-            if (info.Item2 == true)
-            {
-                Debug.Log("***************");
-                if (waitTime == -1f)
-                {
-                    waitTime = info.Item1.animatedTile.m_AnimatedSprites.Length / info.Item1.animatedTile.m_MinSpeed - 0.2f;
-                    Debug.Log("////////////");
-                    Debug.Log(waitTime);
-                    yield return new WaitForSeconds(waitTime);
-                }
-                Debug.Log("~~~~~~~~~~~~~~~~");
-                map.SetTile(key, levelManager.typesOfTilesToSpawn[0].tiles[0]);
-                LevelManager.instance.tileInfo[key] = (levelManager.typesOfTilesToSpawn[0], false);
-            }
+            ShatterTiles(1);
+            return true;
+        }else if (turnPast == 3)
+        {
+            ShatterTiles(2);
+            return true;
         }
+        return false;
+    }
+
+    //private void Update()
+    //{
+    //    if (tilePos != null)
+    //    {
+    //        Debug.Log("***************");
+    //        Debug.Log(map.GetAnimationFrame(tilePos));
+    //        Debug.Log("~~~~~~~~~~~~~~~~");
+    //    }
+
+    //}
+
+    public IEnumerator WaitForAnimation() {
+        while (tilePos.Count > 0)
+        {
+            List<Vector3Int> toRemove = new List<Vector3Int>();
+            foreach (var pos in tilePos)
+            {
+                var info = LevelManager.instance.tileInfo[pos];
+                if (map.GetAnimationFrame(pos) >= animatedTile.m_AnimatedSprites.Length - 3)
+                {
+                    map.SetTile(pos, levelManager.typesOfTilesToSpawn[0].tiles[0]);
+                    toRemove.Add(pos);
+                }
+            }
+            tilePos.RemoveAll(x => toRemove.Contains(x));
+            yield return new WaitForSeconds(0.1f);
+        }
+        tilePos = new List<Vector3Int>();
+        //float waitTime = -1f;
+
+        //var tileInfoList = LevelManager.instance.tileInfo.Keys;
+
+        //for (int i = 0; i < 20; i++)
+        //{
+        //    foreach (var key in tileInfoList.ToList())
+        //    {
+        //        var info = LevelManager.instance.tileInfo[key];
+        //        if (info.Item2 == true)
+        //        {
+        //            Debug.Log("***************");
+        //            //if (waitTime == -1f)
+        //            //{
+        //            Debug.Log(key);
+        //            waitTime = info.Item1.animatedTile.m_AnimatedSprites.Length / info.Item1.animatedTile.m_MinSpeed - 0.2f;
+        //            Debug.Log(map.GetAnimationFrame(key));
+        //            Debug.Log(waitTime);
+        //            yield return new WaitForSeconds(0.1f);
+        //            //}
+        //            Debug.Log("~~~~~~~~~~~~~~~~");
+        //            map.SetTile(key, levelManager.typesOfTilesToSpawn[0].tiles[0]);
+        //            LevelManager.instance.tileInfo[key] = (levelManager.typesOfTilesToSpawn[0], false);
+        //        }
+        //        yield break;
+        //    }
+        //}
     }
 
     // Start is called before the first frame update

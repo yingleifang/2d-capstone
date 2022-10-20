@@ -35,7 +35,7 @@ public class generatePreviews : MonoBehaviour
 
     }
 
-    public void ShowHazzardPreview(Dictionary<Vector3Int, (TileDataScriptableObject, bool)> nextSceneTileInfo, BattleState state)
+    public void ShowHazzardPreview(Dictionary<Vector3Int, (TileDataScriptableObject, int)> nextSceneTileInfo, BattleState state)
     {
         foreach (var loc in nextSceneTileInfo)
         {

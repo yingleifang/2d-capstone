@@ -739,9 +739,8 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(ui.DisableEndTurnButton());
             yield return StartCoroutine(performEnemyMoves());
 
-            if (ui.turnCountDown.currentTurn <= 3)
+            if (tileManager.ShatterTileState(ui.turnCountDown.totalTurn - ui.turnCountDown.currentTurn))
             {
-                tileManager.ShatterTiles();
                 foreach (var unit in enemyUnits.ToArray())
                 {
                     if (tileManager.IsImpassableTile(unit.location, false))

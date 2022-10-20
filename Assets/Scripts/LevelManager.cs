@@ -24,8 +24,8 @@ public class LevelManager : MonoBehaviour
 
     public int[] crackChance = new int[] {60, 30};
 
-    public Dictionary<Vector3Int, (TileDataScriptableObject, bool)> tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, bool)>();
-    public Dictionary<Vector3Int, (TileDataScriptableObject, bool)> nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, bool)>();
+    public Dictionary<Vector3Int, (TileDataScriptableObject, int)> tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
+    public Dictionary<Vector3Int, (TileDataScriptableObject, int)> nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
 
     List<(int, int)> boundList = new List<(int, int)>{(3, -4),(4, -4),(4, -5),(5, -5), (4, -5), (4, -4), (3, -4)};
     int y_range = 3;
@@ -46,7 +46,7 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// List of tileSO's (populated in editor)
     /// </summary>       
-    [Tooltip("hole tile need to always be the first tile in the list, shattered tiles turn into the first tile in the list")]
+    [Tooltip("hole tile must be the first item in the list, shattered tiles must be second item in the list")]
     public List<TileDataScriptableObject> typesOfTilesToSpawn;
     public Tilemap map;
 
@@ -61,6 +61,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
 
     List<Vector3Int> impassibleTile = new List<Vector3Int>();
+
 
     public levelTransition levelTransitionObj;
     void Awake()
@@ -108,8 +109,8 @@ public class LevelManager : MonoBehaviour
     /// </summary>  
     public void LevelSetup()
     {
-        tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, bool)>();
-        nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, bool)>();
+        tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
+        nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
         enemyInfo = new List<(int, Vector3Int)>();
         fillTileInfo(tileInfo);
@@ -125,8 +126,8 @@ public class LevelManager : MonoBehaviour
     {
         currentLevel = 1;
         isTutorial = true;
-        tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, bool)>();
-        nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, bool)>();
+        tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
+        nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
         enemyInfo = new List<(int, Vector3Int)>();
     }
@@ -139,7 +140,7 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Fills the dict with random tile SO's at random vector3's (weight matters)
     /// </summary> 
-    public void fillTileInfo(Dictionary<Vector3Int, (TileDataScriptableObject, bool)> curTileInfo)
+    public void fillTileInfo(Dictionary<Vector3Int, (TileDataScriptableObject, int)> curTileInfo)
     {
         map = FindObjectOfType<Tilemap>();
         int total_weight = 0;
@@ -167,11 +168,11 @@ public class LevelManager : MonoBehaviour
                         var crackNum = RandomNumberGenerator.GetInt32(0, 100);
                         if (crackNum < crackChance[0])
                         {
-                            curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], true));
+                            curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[1], 1));
                         }
                         else
                         {
-                            curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], false));
+                            curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], 0));
                         }
                     }
                     else if (x == bound.Item2 + 1 || y == -y_range + 1 || x == bound.Item1 - 1|| y == y_range - 1)
@@ -179,16 +180,16 @@ public class LevelManager : MonoBehaviour
                         var crackNum = RandomNumberGenerator.GetInt32(0, 100);
                         if (crackNum < crackChance[1])
                         {
-                            curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], true));
+                            curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[1], 2));
                         }
                         else
                         {
-                            curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], false));
+                            curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], 0));
                         }
                     }
                     else
                     {
-                        curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], false));
+                        curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], 0));
                     }
                 }
         }
@@ -197,7 +198,7 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Fills the list with indexes of enemy prefabs and locations of enemy prefabs (random).
     /// </summary> 
-    public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, Dictionary<Vector3Int, (TileDataScriptableObject, bool)> curTileInfo, int currentLevel)
+    public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, Dictionary<Vector3Int, (TileDataScriptableObject, int)> curTileInfo, int currentLevel)
     {
         map = FindObjectOfType<Tilemap>();
         int totalEnemy = currentLevel < 3 ? currentLevel: 3;
@@ -293,7 +294,7 @@ public class LevelManager : MonoBehaviour
         map = FindObjectOfType<Tilemap>();
 
         tileInfo = nextSceneTileInfo;
-        nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, bool)>();
+        nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
         fillTileInfo(nextSceneTileInfo);
         enemyInfo = nextSceneEnemyInfo;
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
