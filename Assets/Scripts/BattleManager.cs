@@ -271,6 +271,10 @@ public class BattleManager : MonoBehaviour
             DeselectUnit();
             
         }
+        else if (selectedUnit == curUnit)
+        {
+            DeselectUnit();
+        }
         // Handle clicking while aiming ability
         else if (usingAbility && selectedUnit is PlayerUnit playerUnit)
         {
@@ -294,30 +298,8 @@ public class BattleManager : MonoBehaviour
         // Handle clicking on a player unit
         else if (curUnit is PlayerUnit)
         {
-            // Handle moving the player unit if trying to the same unit
-            if (isPlayerTurn && selectedUnit is PlayerUnit unit
-                && !unit.hasMoved && unit == curUnit)
-            {
-                if (!tileSelected || !tilePos.Equals(selectedTile))
-                {
-                    SelectTile(tilePos);
-                    acceptingInput = true;
-                    yield break;
-                }
-                DeselectTile();
-                yield return StartCoroutine(MoveUnit(unit, tilePos));
-                CheckIfBattleOver();
-                if(!isBattleOver && unit && !unit.isDead && !unit.hasAttacked)
-                {
-                    ShowUnitAttackRange(unit);
-                } else
-                {
-                    StartCoroutine(unit.Dim());
-                    DeselectUnit();
-                }
-            }
             DeselectTile();
-            SelectUnit(curUnit);
+            SelectUnit(curUnit);         
         }
         // Handle clicking on enemy unit
         else if (curUnit is EnemyUnit)
