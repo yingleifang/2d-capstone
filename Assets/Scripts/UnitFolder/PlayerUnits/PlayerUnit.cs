@@ -74,6 +74,26 @@ public class PlayerUnit : Unit
         }
     }
 
+    /// <summary>
+    /// Returns the tiles within range for the unit's ability.
+    /// Defaults to returning all tiles within abilityRange tiles of the unit's location.
+    /// </summary>
+    /// <returns>a list of tiles within ability range for the unit</returns>
+    public virtual List<Vector3Int> GetTilesInAbilityRange()
+    {
+        return BattleManager.instance.tileManager.GetTilesInRange(location, abilityRange, false);
+    }
+
+    /// <summary>
+    /// Determines if the given tile is in range of the unit's ability
+    /// </summary>
+    /// <param name="tilePos">the tile to check</param>
+    /// <returns>true if the tile is in the unit's ability range, false otherwise</returns>
+    public virtual bool IsTileInAbilityRange(Vector3Int tilePos)
+    {
+        return GetTilesInAbilityRange().Contains(tilePos);
+    }
+
     public bool UnitsToAttackInRange(List<EnemyUnit> enemyUnits)
     {
         List<Vector3Int> tiles = GetTilesInAttackRange();

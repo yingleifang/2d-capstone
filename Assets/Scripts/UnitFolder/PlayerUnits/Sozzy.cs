@@ -57,4 +57,14 @@ public class Sozzy : PlayerUnit
         }
         yield return null;
     }
+
+    /// <summary>
+    /// Returns the tiles within range for the unit's ability.
+    /// For Sozzy, returns tiles in straight lines in all directions up to abilityRange tiles away.
+    /// </summary>
+    /// <returns>a list of tiles within ability range for the unit</returns>
+    public override List<Vector3Int> GetTilesInAbilityRange()
+    {
+        return BattleManager.instance.tileManager.GetTilesInRangeStraight(location, abilityRange);
+    }
 }

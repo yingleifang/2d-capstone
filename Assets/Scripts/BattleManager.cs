@@ -211,6 +211,27 @@ public class BattleManager : MonoBehaviour
             Vector3Int tilePos = tileManager.GetTileAtScreenPosition(Input.mousePosition);
             OutlineTile(tilePos);
 
+            if (!selectedUnit)
+            {
+                if (!tileManager.InBounds(tilePos))
+                {
+                    ui.HideTileWindow();
+                    ui.HideUnitInfoWindow();
+                }
+                else
+                {
+                    Unit unit = tileManager.GetUnit(tilePos);
+                    if (unit)
+                    {
+                        ui.ShowUnitInfoWindow(unit);
+                    }
+                    else
+                    {
+                        DisplayTile(tilePos);
+                    }
+                }
+            }
+
             if (tutorialManager && tutorialManager.disableBattleInteraction)
             {
                 return;
@@ -278,6 +299,12 @@ public class BattleManager : MonoBehaviour
         // Handle clicking while aiming ability
         else if (usingAbility && selectedUnit is PlayerUnit playerUnit)
         {
+            if (!playerUnit.IsTileInAbilityRange(tilePos))
+            {
+                DeselectUnit();
+                acceptingInput = true;
+                yield break;
+            }
             if (!tileSelected || !tilePos.Equals(selectedTile))
             {
                 SelectTile(tilePos);
@@ -378,6 +405,7 @@ public class BattleManager : MonoBehaviour
                 if (!tileSelected || !tilePos.Equals(selectedTile))
                 {
                     SelectTile(tilePos);
+                    ui.ShowUnitInfoWindow(selectedUnit);
                     acceptingInput = true;
                     yield break;
                 }
@@ -420,21 +448,10 @@ public class BattleManager : MonoBehaviour
 
         if (usingAbility)
         {
-            if (selectedUnit is Sozzy sozzy)
+            if (selectedUnit is PlayerUnit unit)
             {
-                Debug.Log("HERE: " + sozzy.abilityRange);
-                tileManager.HighlightPath(tileManager.GetTilesInRangeStraight(sozzy.location, 
-                    sozzy.abilityRange), Color.red);
+                tileManager.HighlightPath(unit.GetTilesInAbilityRange(), Color.red);
             }
-            else if (selectedUnit is Ovis ovis)
-            {
-                tileManager.HighlightPath(tileManager.GetTilesInRange(ovis.location, ovis.abilityRange, false), Color.red);
-            }
-            else if (selectedUnit is Locke locke)
-            {
-                tileManager.HighlightPath(tileManager.GetTilesInRange(locke.location, locke.abilityRange, false), Color.red);
-            }
-
         }
     }
 
