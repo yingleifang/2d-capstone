@@ -196,33 +196,6 @@ public class TileManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         tilePos = new List<Vector3Int>();
-        //float waitTime = -1f;
-
-        //var tileInfoList = LevelManager.instance.tileInfo.Keys;
-
-        //for (int i = 0; i < 20; i++)
-        //{
-        //    foreach (var key in tileInfoList.ToList())
-        //    {
-        //        var info = LevelManager.instance.tileInfo[key];
-        //        if (info.Item2 == true)
-        //        {
-        //            Debug.Log("***************");
-        //            //if (waitTime == -1f)
-        //            //{
-        //            Debug.Log(key);
-        //            waitTime = info.Item1.animatedTile.m_AnimatedSprites.Length / info.Item1.animatedTile.m_MinSpeed - 0.2f;
-        //            Debug.Log(map.GetAnimationFrame(key));
-        //            Debug.Log(waitTime);
-        //            yield return new WaitForSeconds(0.1f);
-        //            //}
-        //            Debug.Log("~~~~~~~~~~~~~~~~");
-        //            map.SetTile(key, levelManager.typesOfTilesToSpawn[0].tiles[0]);
-        //            LevelManager.instance.tileInfo[key] = (levelManager.typesOfTilesToSpawn[0], false);
-        //        }
-        //        yield break;
-        //    }
-        //}
     }
 
     // Start is called before the first frame update
@@ -388,7 +361,7 @@ public class TileManager : MonoBehaviour
             TileBase tile = map.GetTile(cellCoords);
             if (tile is AnimatedTile)
             {
-            return false;
+            return true;
             }
             if (tile == null || (baseTileDatas[tile].impassable && terrainBlocks))
             {
