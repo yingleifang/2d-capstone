@@ -82,6 +82,7 @@ public class TutorialManager : MonoBehaviour
         Debug.Log(index);
         if (index > lines.Length - 1)
         {
+            Debug.Log("BREAKING <.<");
             yield break;
         }
         yield return StartCoroutine(dialogueManager.Say(lines[index++], false, textSpeed));

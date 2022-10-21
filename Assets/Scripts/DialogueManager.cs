@@ -33,7 +33,6 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     public IEnumerator Say(string textString, bool additive = false, float textSpeed = .015f)
     {
-        Debug.Log("SAY");
         // If we are adding and there is text currently being spoken prematurely end the coroutine.
         if (additive && isSpeaking)
         {
@@ -108,7 +107,6 @@ public class DialogueManager : MonoBehaviour
         isWaitingForUserInput = true;
 
         int i = 0;
-        Debug.Log("LENGTH: " + textString.Length);
         while (i < textString.Length)
         {
             speechText.text += textString[i];
@@ -126,7 +124,8 @@ public class DialogueManager : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
         }
-
+        Debug.Log(speechText.text);
+        Debug.Log("FINISHED speaking1");
         StopSpeaking();
     }
 

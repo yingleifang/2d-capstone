@@ -2118,6 +2118,7 @@ MonoBehaviour:
   map: {fileID: 1154100658}
   isTutorial: 0
   overrideTutorial: 0
+  shatterTile: {fileID: 11400000, guid: 6a7ae7482a0d2744e87303aee49d5b9f, type: 2}
   levelTransitionObj: {fileID: 0}
 --- !u!4 &1135120752
 Transform:
@@ -3581,6 +3582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 1154100658}
+  animatedTile: {fileID: 0}
 --- !u!4 &1954391647
 Transform:
   m_ObjectHideFlags: 0
@@ -5053,7 +5055,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 215.45
+  m_fontSize: 200.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5444,7 +5446,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 215.45
+  m_fontSize: 200.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

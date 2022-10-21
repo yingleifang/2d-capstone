@@ -636,6 +636,7 @@ public class BattleManager : MonoBehaviour
         }
 
         //prompt end turn
+        Debug.Log("prompt end turn");
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
         while (!isBattleOver)
@@ -887,6 +888,10 @@ public class BattleManager : MonoBehaviour
 
     public void CheckIfBattleOver()
     {
+        if (isBattleOver)
+        {
+            return;
+        }
         if (playerUnits.Count <= 0)
         {
             isBattleOver = true;
@@ -936,6 +941,7 @@ public class BattleManager : MonoBehaviour
             dialogueManager.isWaitingForUserInput = false;
             yield return new WaitForSeconds(0.25f);
             yield return StartCoroutine(tutorialManager.NextDialogue());
+            Debug.Log("FINISHED speaking2");
             pushDialogueAfterBattleEnd = false;
         }
 
