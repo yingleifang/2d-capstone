@@ -50,6 +50,13 @@ public class BattleManager : MonoBehaviour
     public PlayerUnit unitToPlace;
     [ReadOnly]
     public bool tileSelected = false;
+
+    /// <summary>
+    /// A list of tiles which are modified separately from coloredTiles in TileManager.
+    /// Used to store tiles which can be reset separately from the tiles colored using
+    /// TileManager functionality. The color stored is the color the tile will be reset to
+    /// and not the present highlight color of the tile.
+    /// </summary>
     [ReadOnly]
     public List<(Vector3Int, Color)> highlightedTiles;
     public Vector3Int selectedTile;
