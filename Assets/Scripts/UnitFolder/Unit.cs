@@ -100,6 +100,15 @@ public abstract class Unit: MonoBehaviour
         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 
+    public IEnumerator PlayFallAnimation()
+    {
+        anim.SetTrigger("isFalling");
+        yield return null; // Wait a frame for the animation to start
+        Debug.Log("1111111111111111111111111111");
+        int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+    }
+
     public IEnumerator PlayLastWordAnimation()
     {
         anim.SetTrigger("LastWord");
@@ -139,11 +148,6 @@ public abstract class Unit: MonoBehaviour
             return;
         }
         anim.SetBool("Hide", true);
-    }
-
-    public IEnumerator PlayFallingAnimation()
-    {
-        yield break;
     }
 
     public IEnumerator PlayDamageAnimation()
@@ -454,7 +458,15 @@ public abstract class Unit: MonoBehaviour
         Destroy(gameObject);
         yield break;
     }
-    
+
+    public IEnumerator Fall()
+    {
+        audio.PlayDisposable(deathSound);
+        yield return StartCoroutine(PlayFallAnimation());
+        Destroy(gameObject);
+        yield break;
+    }
+
     public void decreaseCoolDown(int numDecrease = 1)
     {
         if (currentCoolDown == 0)

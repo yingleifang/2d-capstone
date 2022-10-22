@@ -140,7 +140,7 @@ public class TileManager : MonoBehaviour
         tilePos = new List<Vector3Int>();
     }
 
-    public void ShatterTiles(int turn)
+    public IEnumerator ShatterTiles(int turn)
     {
         foreach (var info in LevelManager.instance.tileInfo)
         {
@@ -151,21 +151,7 @@ public class TileManager : MonoBehaviour
                 map.SetAnimationFrame(info.Key, 0);
             }
         }
-        StartCoroutine(WaitForAnimation());
-    }
-
-    public bool ShatterTileState(int turnPast)
-    {
-        if (turnPast == 2)
-        {
-            ShatterTiles(1);
-            return true;
-        }else if (turnPast == 3)
-        {
-            ShatterTiles(2);
-            return true;
-        }
-        return false;
+        yield return StartCoroutine(WaitForAnimation());
     }
 
     //private void Update()

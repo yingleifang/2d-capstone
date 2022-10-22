@@ -808,7 +808,14 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(ui.DisableEndTurnButton());
             yield return StartCoroutine(performEnemyMoves());
 
-            if (tileManager.ShatterTileState(ui.turnCountDown.totalTurn - ui.turnCountDown.currentTurn))
+            var turnPast = ui.turnCountDown.totalTurn - ui.turnCountDown.currentTurn;
+            if (turnPast == 2){
+                yield return StartCoroutine(tileManager.ShatterTiles(1));
+            }else if (turnPast == 3)
+            {
+                yield return StartCoroutine(tileManager.ShatterTiles(2));
+            }
+            if (turnPast == 2 || turnPast == 3)
             {
                 foreach (var unit in enemyUnits.ToArray())
                 {
@@ -821,11 +828,10 @@ public class BattleManager : MonoBehaviour
                 {
                     if (tileManager.IsImpassableTile(unit.location, false))
                     {
-                        yield return StartCoroutine(KillUnit(unit));
+                        yield return StartCoroutine(UnitFall(unit));
                     }
                 }
             }
-
             StartCoroutine(UpdateBattleState());
             CheckIfBattleOver();
         }
@@ -952,6 +958,24 @@ public class BattleManager : MonoBehaviour
         Debug.Log("ENEMY UNITS: " + enemyUnits.Count);
         tileManager.RemoveUnitFromTile(unit.location);
         yield return StartCoroutine(unit.Die());    
+    }
+
+    public IEnumerator UnitFall(Unit unit)
+    {
+        if (unit is PlayerUnit)
+        {
+            playerUnits.Remove((PlayerUnit)unit);
+        }
+        else if (unit is EnemyUnit)
+        {
+            enemyUnits.Remove((EnemyUnit)unit);
+        }
+        else
+        {
+            Debug.LogError("Removing a null unit");
+        }
+        tileManager.RemoveUnitFromTile(unit.location);
+        yield return StartCoroutine(unit.Fall());
     }
 
     public void CheckIfBattleOver()
@@ -1121,11 +1145,11 @@ public class BattleManager : MonoBehaviour
             yield return enemy.performAction(GetState());
             yield return StartCoroutine(UpdateBattleState());
             postProcessingSettings.DisableEnemyGlow(enemy);
-            CheckIfBattleOver();
-            if(isBattleOver)
-            {
-                yield break;
-            }
+            //CheckIfBattleOver();
+            //if(isBattleOver)
+            //{
+            //    yield break;
+            //}
         }
 
         if (pushDialogueAfterEnemyTurn)
