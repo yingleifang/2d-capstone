@@ -359,8 +359,7 @@ public class BattleManager : MonoBehaviour
 
                         if (pushDialogueAfterAttack)
                         {
-                            Debug.Log("SMH");
-                            dialogueManager.isWaitingForUserInput = false;
+                            dialogueManager.doSkipDialogue = true;
                         }
 
                         yield return StartCoroutine(UpdateBattleState());
@@ -475,15 +474,12 @@ public class BattleManager : MonoBehaviour
 
         while (tutorialManager.index < 5)
         {
-            Debug.Log("here");
             yield return StartCoroutine(tutorialManager.NextDialogue());
         }
 
         // Handles unit selection tutorial
-        ovisButton.enabled = false;
         StartCoroutine(ui.ShowSelectionWindow(false));
-        yield return StartCoroutine(tutorialManager.NextDialogue());
-        ovisButton.enabled = true;
+        tutorialManager.disableBattleInteraction = true;
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
         // Wait until user does what is asked. This is not the only thing stopping
@@ -496,7 +492,6 @@ public class BattleManager : MonoBehaviour
 
         //Advise user to watch for tiles
         unitToPlace.spriteRenderer.enabled = false;
-        tutorialManager.disableBattleInteraction = true;
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
 
@@ -653,6 +648,73 @@ public class BattleManager : MonoBehaviour
         tutorialManager.index = tutorialManager.NumLines() - 1;
 
         
+    }
+
+    private IEnumerator InitializeBattleTutorial2()
+    {
+        TurnOnPreview();
+        ui.InitializeTurnCount(turnsPerBattle);
+        isPlayerTurn = false;
+
+        // Done to delay coroutine to allow units to add themselves to unitsToSpawn
+        yield return new WaitForFixedUpdate();
+
+        // Place units waiting to be spawned on new map
+        Debug.Log("Units to spawn: " + unitsToSpawn.Count);
+        List<Coroutine> animations = new List<Coroutine>();
+        foreach (Unit unit in unitsToSpawn.ToArray())
+        {
+            yield return StartCoroutine(SpawnUnit(unit.location, unit));
+        }
+
+        yield return StartCoroutine(UpdateBattleState());
+
+        animations.Clear();
+
+        foreach(Unit unit in unitsToSpawn)
+        {
+            unit.StartOfBattle();
+        }
+
+        // Activate any start of battle abilities
+        foreach (Unit unit in unitsToSpawn.ToArray())
+        {
+            // Check that unit didn't die already
+            if (unit)
+            {
+                yield return StartCoroutine(unit.StartOfBattleAbility(GetState()));
+            }
+        }
+
+        /*foreach (Coroutine anim in animations)
+        {
+            yield return anim;
+        }*/
+
+        yield return StartCoroutine(UpdateBattleState());
+
+        unitsToSpawn.Clear();
+
+        yield return new WaitForSeconds(0.5f);
+
+        // Place unit at start of round
+        isPlacingUnit = true;
+        unitToPlace = null;
+        acceptingInput = true;
+        yield return StartCoroutine(ui.ShowSelectionWindow());
+
+        yield return new WaitUntil(() => !isPlacingUnit);
+
+        CheckIfBattleOver();
+
+        yield return StartCoroutine(StartOfPlayerTurn());
+        isBattleOver = false;
+        if(selectedUnit && selectedUnit is PlayerUnit)
+        {
+            postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
+        }
+        selectedUnit = null;
+        isPlayerTurn = true;        
     }
 
     private IEnumerator InitializeBattle()
@@ -939,15 +1001,12 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator NextLevel()
     {
-        Debug.Log("NEXTING"); 
         postProcessingSettings.DisableTheGlow(playerUnits);
         if (pushDialogueAfterBattleEnd)
         {
-            Debug.Log("Here");
-            dialogueManager.isWaitingForUserInput = false;
+            dialogueManager.doSkipDialogue = true;
             yield return new WaitForSeconds(0.25f);
             yield return StartCoroutine(tutorialManager.NextDialogue());
-            Debug.Log("FINISHED speaking2");
             pushDialogueAfterBattleEnd = false;
         }
 
@@ -1071,7 +1130,7 @@ public class BattleManager : MonoBehaviour
 
         if (pushDialogueAfterEnemyTurn)
         {
-            dialogueManager.isWaitingForUserInput = false;
+            dialogueManager.doSkipDialogue = true;
         }
 
         yield return StartCoroutine(StartOfPlayerTurn());
@@ -1147,7 +1206,7 @@ public class BattleManager : MonoBehaviour
 
             if (dialogueManager)
             {
-                dialogueManager.isWaitingForUserInput = false;
+                dialogueManager.doSkipDialogue = true;
             }
         }
     }
@@ -1162,7 +1221,7 @@ public class BattleManager : MonoBehaviour
 
         if (forcedUnitMovementTile.z == 0)
         {
-            dialogueManager.isWaitingForUserInput = false;
+            dialogueManager.doSkipDialogue = true;
         }
     }
 

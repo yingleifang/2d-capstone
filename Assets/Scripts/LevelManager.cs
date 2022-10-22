@@ -77,7 +77,7 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        if (currentLevel - 1 < numTutorialLevels)
+        if (currentLevel <= numTutorialLevels)
         {
             isTutorial = true;
         }
@@ -262,7 +262,8 @@ public class LevelManager : MonoBehaviour
         Debug.Log("############");
         Debug.Log("Current real level: " + currentLevel);
         //levelTransitionObj.LoadNextLevel();
-        //Still in tutorial
+        
+        //Still in tutorial. Check if next level will be still tutorial level
         if (currentLevel + 1 <= numTutorialLevels && !overrideTutorial)
         {
             currentLevel++;

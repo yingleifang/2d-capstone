@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour
     private Coroutine speakingFxn;
     private int index = 0;
     [HideInInspector] public bool isWaitingForUserInput = false;
+    [HideInInspector] public bool doSkipDialogue = false;
 
 
     // Start is called before the first frame update
@@ -82,16 +83,6 @@ public class DialogueManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Prematurely ends the current dialogue.
-    /// </summary>
-    public void SkipDialogue()
-    {
-        Debug.Log("SKIPPED");
-        StopSpeaking();
-        speechText.text = speechString;  
-    }
-
-    /// <summary>
     /// Activates the speechPanel and prints out the text to it. Waits for user input after it finishes
     /// </summary>
     public IEnumerator StartSpeaking(string speakerString, string textString, bool additive, float textSpeed = .015f)
@@ -112,7 +103,7 @@ public class DialogueManager : MonoBehaviour
             speechText.text += textString[i];
             i++;
             yield return new WaitForSeconds(textSpeed);
-            if (!isWaitingForUserInput)
+            if (!isWaitingForUserInput || doSkipDialogue)
             {
                 speechText.text = speechString; 
                 break;
@@ -120,12 +111,14 @@ public class DialogueManager : MonoBehaviour
         }
 
         isWaitingForUserInput = true;
-        while (isWaitingForUserInput)
+        while (isWaitingForUserInput && !doSkipDialogue)
         {
             yield return new WaitForEndOfFrame();
         }
         Debug.Log(speechText.text);
         Debug.Log("FINISHED speaking1");
+
+        doSkipDialogue = false;
         StopSpeaking();
     }
 

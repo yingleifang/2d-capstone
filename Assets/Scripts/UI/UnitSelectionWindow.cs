@@ -30,28 +30,44 @@ public class UnitSelectionWindow : MonoBehaviour
         yield break;
     }
 
-    public void LoadUnitSelection()
+    public void LoadUnitSelection(bool random = true)
     {
         int numNeeded = numUnitsInSelection;
         int numLeftInList = unitPrefabs.Count;
 
-        //Randomly select a set of prefabs from the list to load
-        foreach (PlayerUnit prefab in unitPrefabs)
+        if (!random)
         {
-            if (Random.Range(1, numLeftInList) <= numNeeded)
+            foreach (PlayerUnit prefab in unitPrefabs)
             {
                 selectedUnitPrefabs.Add(prefab);
-                numNeeded--;
-            }
-            numLeftInList--;
-            if (numNeeded <= 0)
+                if (selectedUnitPrefabs.Count == 3)
+                {
+                    break;
+                }  
+            }      
+        }
+
+        else
+        {
+            //Randomly select a set of prefabs from the list to load
+            foreach (PlayerUnit prefab in unitPrefabs)
             {
-                break;
+                if (Random.Range(1, numLeftInList) <= numNeeded)
+                {
+                    selectedUnitPrefabs.Add(prefab);
+                    numNeeded--;
+                }
+                numLeftInList--;
+                if (numNeeded <= 0)
+                {
+                    break;
+                }
             }
         }
 
         for (int i = 0; i < unitIcons.Count; i++)
         {
+            Debug.Log("HEREzzz11");
             unitIcons[i].Initialize(selectedUnitPrefabs[i]);
         }
     }
@@ -60,14 +76,7 @@ public class UnitSelectionWindow : MonoBehaviour
     {
         Debug.Log("Preparing to show unit selection window");
 
-        if (random)
-        {
-            LoadUnitSelection();
-        }
-        else
-        {
-            Debug.Log("Unit selection window not randomized");
-        }
+        LoadUnitSelection(random);
         
         // Play appearing animation
         LeanTween.scale(gameObject, new Vector3(1, 1, 1), 0.3f);
@@ -78,6 +87,15 @@ public class UnitSelectionWindow : MonoBehaviour
     public void SelectUnit(PurchasableScript unit)
     {
         BattleManager.instance.SetUnitToPlace(unit.unitPrefab);
+
+        Debug.Log(LevelManager.currentLevel);
+        Debug.Log(BattleManager.instance.dialogueManager);
+        if (LevelManager.currentLevel == 1 && BattleManager.instance.dialogueManager)
+        {
+            Debug.Log("FALSED");
+            dialogueManager.doSkipDialogue = true;
+        }
+
         unitInfoWindow.HideStats();
         StartCoroutine(Hide());
     }
