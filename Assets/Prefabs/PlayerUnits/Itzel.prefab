@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5861352186040890681}
   - component: {fileID: 4263800792818241864}
+  - component: {fileID: 8427145116041011576}
+  - component: {fileID: 4710682565159608836}
   m_Layer: 0
   m_Name: Itzel
   m_TagString: Untagged
@@ -59,10 +61,10 @@ MonoBehaviour:
   currentCoolDown: 0
   abilityRange: 1
   location: {x: 0, y: 0, z: 0}
-  anim: {fileID: 0}
+  anim: {fileID: 4710682565159608836}
   audio: {fileID: 801927026241297909}
   spriteRenderer: {fileID: 6003465355433994046}
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: b51b25f450b61694a9163312a5990189, type: 3}
   characterName: Itzel
   characterDescription: 
   healthBarFill: {fileID: 74940804942085185}
@@ -92,6 +94,52 @@ MonoBehaviour:
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}
+--- !u!61 &8427145116041011576
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828874258425572458}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.37164044, y: 4.939609}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.672542, y: 6.52168}
+  m_EdgeRadius: 0
+--- !u!95 &4710682565159608836
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828874258425572458}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 3ea4b59092624244dbab3bec0457ce63, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3865654897551626055
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +164,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3865654897551626055}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.08, y: 8.450001, z: 5.682473}
+  m_LocalPosition: {x: -0.42, y: 8.12, z: 5.682473}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -152,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6317358000679834654}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1800001, y: 7.36, z: 5.682473}
+  m_LocalPosition: {x: -0.11, y: 4.45, z: 5.682473}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -200,7 +248,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 8cdf6da7640b2334a8e1efcea9c498ab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7740df382f35227408f76aefa617280c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -510,11 +558,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4532155604154493234, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.31
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4532155604154493234, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 9.26
+      value: 8.29
       objectReference: {fileID: 0}
     - target: {fileID: 4532155604154493234, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

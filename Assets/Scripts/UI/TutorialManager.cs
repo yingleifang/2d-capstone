@@ -7,7 +7,7 @@ public class TutorialManager : MonoBehaviour
 {
 
     public TextMeshProUGUI textComp;
-    private string[] lines = {
+    private static string[] lines1 = {
         "Itzel: Hey! Hey! Over here! Are you alright? You just fell down here right? Were you looking for the treasure too?",
         "No need to be so surprised. We're not the only fools who ended up down here searching for that fable.",
         "The treasure? That's the last thing you should be worrying about. You'll realize soon enough that it's better to get out of here as soon as you can.",
@@ -29,6 +29,20 @@ public class TutorialManager : MonoBehaviour
         "There are no other possible moves left. End your turn.",
         "Itzel: What? What's going on?"
     };
+
+    private static string[] lines2 = {
+        "Itzel: No... It can't end like this...",
+        "System: After all enemies are defeated, allies will drop to the next level while maintaining their position and health.",
+        "Thus, it is imperative to be mindful of hazards on the next stage.",
+        "From now on, a next battle preview will be overlayed on the map during battle.",
+        "Tiles overlayed with orange (shown on the map) indicate that there will be an enemy on that tile on the NEXT stage.",
+        "Tiles overlayed with black and yellow stripes (shown on the map) indicate that there will be a hazard on that tile on the NEXT stage.",
+        "Tiles overlayed with red (shown on the map) indicate that there will be an impassable tile there on the NEXT stage.",
+        "Allies and enemies which drop onto these tiles during the level switch will DIE. Be particularly mindful of these tiles.",
+    };
+
+    private string[][] dialogue = {lines1, lines2};
+
     public float textSpeed;
 
     public GameObject unitSelection;
@@ -59,6 +73,7 @@ public class TutorialManager : MonoBehaviour
         battlePreviewButton.SetActive(false);
         index = 0;
         disableBattleInteraction = false;
+        
     }
 
    // public void Continue()
@@ -79,16 +94,16 @@ public class TutorialManager : MonoBehaviour
     public IEnumerator NextDialogue()
     {
         Debug.Log(index);
-        if (index > lines.Length - 1)
+        if (index > dialogue[LevelManager.currentLevel - 1].Length - 1)
         {
             Debug.Log("BREAKING <.<");
             yield break;
         }
-        yield return StartCoroutine(dialogueManager.Say(lines[index++], false, textSpeed));
+        yield return StartCoroutine(dialogueManager.Say(dialogue[LevelManager.currentLevel - 1][index++], false, textSpeed));
     }
 
     public int NumLines()
     {
-        return lines.Length;
+        return dialogue[LevelManager.currentLevel - 1].Length;
     }
 }

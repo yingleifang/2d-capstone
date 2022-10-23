@@ -55,7 +55,7 @@ public class LevelManager : MonoBehaviour
     /// Set to true if you want to test non-tutorial levels
     /// </summary>
     public bool overrideTutorial;
-    private int numTutorialLevels = 1;
+    private int numTutorialLevels = 2;
 
     [HideInInspector]
     public static LevelManager instance;

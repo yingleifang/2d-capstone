@@ -22,6 +22,7 @@ public class BattleState : ScriptableObject
 {
     public List<PlayerUnit> playerUnits;
     public List<EnemyUnit> enemyUnits;
+    public List<NPCUnit> NPCUnits;
     public TileManager tileManager;
     [HideInInspector] public BattleManager battleManager;
 
@@ -37,6 +38,7 @@ public class BattleManager : MonoBehaviour
     private BattleState state;
     public List<PlayerUnit> playerUnits;
     public List<EnemyUnit> enemyUnits;
+    public List<NPCUnit> NPCUnits;
     public List<Unit> unitsToSpawn;
     public TileManager tileManager;
     public int turnsPerBattle = 5;
@@ -176,12 +178,12 @@ public class BattleManager : MonoBehaviour
             Debug.Log("SETTING DATA");
             setEnemyData();
             StartCoroutine(InitializeBattle());
+            regeneratePreviews();
         }
         else
         {
             StartCoroutine(InitializeBattleTutorial());
         }
-        regeneratePreviews();
     }
 
     /// <summary>
@@ -551,6 +553,7 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(UpdateBattleState());
 
         animations.Clear();
+        unitsToSpawn.Clear();
 
         //Discussing clicking units
         tutorialManager.disableBattleInteraction = false;
@@ -652,10 +655,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator InitializeBattleTutorial2()
     {
-        TurnOnPreview();
-        ui.InitializeTurnCount(turnsPerBattle);
         isPlayerTurn = false;
-
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
 
@@ -664,8 +664,12 @@ public class BattleManager : MonoBehaviour
         List<Coroutine> animations = new List<Coroutine>();
         foreach (Unit unit in unitsToSpawn.ToArray())
         {
+            Debug.Log(unit);
             yield return StartCoroutine(SpawnUnit(unit.location, unit));
         }
+
+        // NPC dialogue
+        yield return StartCoroutine(tutorialManager.NextDialogue());
 
         yield return StartCoroutine(UpdateBattleState());
 
@@ -892,8 +896,12 @@ public class BattleManager : MonoBehaviour
             }
             else if (unit is EnemyUnit)
             {
-                
+                Debug.Log("ADDING: " + unit.isDead);
                 enemyUnits.Add((EnemyUnit)unit);
+            }
+            else if (unit is NPCUnit)
+            {
+                NPCUnits.Add((NPCUnit)unit);
             }
             else
             {
@@ -916,6 +924,9 @@ public class BattleManager : MonoBehaviour
             {
                 // No empty space on map for falling unit
                 yield return StartCoroutine(KillUnit(unit));
+
+                //Is this correct? Does not seem so. We want to get rid of the unit from the other
+                // data structs as well as destroying the unit. Should just deactivate the sprite.
                 Destroy(unit.gameObject);
                 yield break;
             }
@@ -951,6 +962,10 @@ public class BattleManager : MonoBehaviour
         {
             enemyUnits.Remove((EnemyUnit)unit);
         }
+        else if (unit is NPCUnit)
+        {
+            NPCUnits.Remove((NPCUnit)unit);
+        }
         else
         {
             Debug.LogError("Removing a null unit");
@@ -969,6 +984,10 @@ public class BattleManager : MonoBehaviour
         else if (unit is EnemyUnit)
         {
             enemyUnits.Remove((EnemyUnit)unit);
+        }
+        else if (unit is NPCUnit)
+        {
+            NPCUnits.Remove((NPCUnit)unit);
         }
         else
         {
@@ -1007,6 +1026,7 @@ public class BattleManager : MonoBehaviour
     {
         state.playerUnits = playerUnits;
         state.enemyUnits = enemyUnits;
+        state.NPCUnits = NPCUnits;
         state.tileManager = tileManager;
         state.battleManager = this;
         return state;
@@ -1039,14 +1059,10 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(player.Undim());
         }
 
-        LevelManager.instance.IncrementLevel();
-
         int index;
-        if (!LevelManager.instance.isTutorial && tutorialManager)
+        if (LevelManager.instance.isTutorial && tutorialManager)
         {
-            ResetAll();
             index = SceneManager.GetActiveScene().buildIndex + 1;
-            Debug.Log(index);
         }
         else
         {
@@ -1054,14 +1070,22 @@ public class BattleManager : MonoBehaviour
             index = LevelManager.currentLevel < LevelManager.instance.totalLevels ? SceneManager.GetActiveScene().buildIndex : 7;
             Debug.Log("index: " + index);
         }
+        LevelManager.instance.IncrementLevel();
+
+        if (!LevelManager.instance.isTutorial && tutorialManager)
+        {
+            ResetAll();
+        }
 
         acceptingInput = false;
 
         unitsToSpawn.AddRange(enemyUnits);
         unitsToSpawn.AddRange(playerUnits);
+        unitsToSpawn.AddRange(NPCUnits);
 
         enemyUnits.Clear();
         playerUnits.Clear();
+        NPCUnits.Clear();
 
         yield return StartCoroutine(ui.SwitchScene(index));
         Debug.Log("Next level finished loading");
@@ -1100,9 +1124,23 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("SETTING DATA");
             setEnemyData();
+            regeneratePreviews();
+            StartCoroutine(InitializeBattle());
         } 
-        regeneratePreviews();
-        StartCoroutine(InitializeBattle());
+        else 
+        {
+            switch (LevelManager.currentLevel)
+            {
+                case 2:
+                    StartCoroutine(InitializeBattleTutorial2());
+                    break;
+                default:
+                    Debug.LogError("SHouldn't be in here");
+                    break;
+            }
+
+        }
+        
     }
 
     public void SkipTutorial()
@@ -1176,6 +1214,14 @@ public class BattleManager : MonoBehaviour
         }
 
         foreach (Unit unit in enemyUnits.ToArray())
+        {
+            if (unit.isDead)
+            {
+                animations.Add(StartCoroutine(KillUnit(unit)));
+            }
+        }
+
+        foreach (Unit unit in NPCUnits.ToArray())
         {
             if (unit.isDead)
             {
@@ -1372,8 +1418,13 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(unit.gameObject);
         }
+        foreach(NPCUnit unit in NPCUnits)
+        {
+            Destroy(unit.gameObject);
+        }
         playerUnits.Clear();
         enemyUnits.Clear();
+        NPCUnits.Clear();
         unitsToSpawn.Clear();
     }
 
