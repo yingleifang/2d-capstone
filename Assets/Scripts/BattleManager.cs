@@ -193,9 +193,14 @@ public class BattleManager : MonoBehaviour
     {
         var curGeneratePreviews = Resources.FindObjectsOfTypeAll<generatePreviews>();
         Debug.Log(curGeneratePreviews);
+        if (!curGeneratePreviews[0])
+        {
+            Debug.LogError("Can't find preview layer q_q");
+        }
         previewLayer = curGeneratePreviews[0].gameObject;
+        
         curGeneratePreviews[0].ShowEnemyPreview(LevelManager.instance.nextSceneEnemyInfo, GetState());
-        curGeneratePreviews[0].ShowHazzardPreview(LevelManager.instance.nextSceneTileInfo, GetState());
+        curGeneratePreviews[0].ShowHazzardAndImpassablePreview(LevelManager.instance.nextSceneTileInfo, GetState());
     }
 
     // Update is called once per frame
@@ -659,6 +664,9 @@ public class BattleManager : MonoBehaviour
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
 
+        // Discussing location and health being maintained
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
         // Place units waiting to be spawned on new map
         Debug.Log("Units to spawn: " + unitsToSpawn.Count);
         List<Coroutine> animations = new List<Coroutine>();
@@ -667,11 +675,63 @@ public class BattleManager : MonoBehaviour
             Debug.Log(unit);
             yield return StartCoroutine(SpawnUnit(unit.location, unit));
         }
+        yield return StartCoroutine(UpdateBattleState());
 
         // NPC dialogue
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
-        yield return StartCoroutine(UpdateBattleState());
+        // Discussing why Itzel died
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        //Advising to be careful of next stage hazards
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        var curGeneratePreviews = Resources.FindObjectsOfTypeAll<generatePreviews>();
+        if (!curGeneratePreviews[0])
+        {
+            Debug.LogError("Can't find preview layer q_q");
+        }
+        previewLayer = curGeneratePreviews[0].gameObject;
+
+        TurnOnPreview();
+
+        //Talk about enemy overlay
+        curGeneratePreviews[0].ShowEnemyPreview(LevelManager.instance.nextSceneEnemyInfo, GetState());
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        
+        // Disable enemy overview temporarily to talk about other ones
+        foreach (Transform child in previewLayer.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+
+        // Talk about hazard overlay
+        curGeneratePreviews[0].ShowHazardPreview(LevelManager.instance.nextSceneTileInfo, GetState());
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        // Disable hazard overview temporarily to talk about other ones
+        foreach (Transform child in previewLayer.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+
+        //Talk about impassable overlay
+        curGeneratePreviews[0].ShowImpassablePreview(LevelManager.instance.nextSceneTileInfo, GetState());
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        // Emphasize the effect of units falling on impassable tiles
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        // Talk about the overlay being active for the rest of the game
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        // Activate all overlay elements
+        foreach (Transform child in previewLayer.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+
+        yield return StartCoroutine(tutorialManager.NextDialogue());
 
         animations.Clear();
 
@@ -689,6 +749,15 @@ public class BattleManager : MonoBehaviour
                 yield return StartCoroutine(unit.StartOfBattleAbility(GetState()));
             }
         }
+
+        // Talk about start of battle abilities
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        // Talk about in battle abilities
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(tutorialManager.NextDialogue());
 
         /*foreach (Coroutine anim in animations)
         {
@@ -1050,6 +1119,7 @@ public class BattleManager : MonoBehaviour
         {
             dialogueManager.doSkipDialogue = true;
             yield return new WaitForSeconds(0.25f);
+            dialogueManager.doSkipDialogue = false;
             yield return StartCoroutine(tutorialManager.NextDialogue());
             pushDialogueAfterBattleEnd = false;
         }
@@ -1103,6 +1173,7 @@ public class BattleManager : MonoBehaviour
         tileManager = FindObjectOfType<TileManager>();
         // This is probably also unnecessary if we structure things better
         ui = FindObjectOfType<UIController>();
+        tutorialManager = FindObjectOfType<TutorialManager>();
         LevelManager.instance.map = FindObjectOfType<Tilemap>();
         Debug.Log("Found new TileManager: " + tileManager != null);
 
