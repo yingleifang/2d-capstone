@@ -67,7 +67,6 @@ public class UnitSelectionWindow : MonoBehaviour
 
         for (int i = 0; i < unitIcons.Count; i++)
         {
-            Debug.Log("HEREzzz11");
             unitIcons[i].Initialize(selectedUnitPrefabs[i]);
         }
     }

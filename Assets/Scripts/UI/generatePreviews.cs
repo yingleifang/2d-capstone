@@ -28,31 +28,58 @@ public class generatePreviews : MonoBehaviour
         foreach (var loc in nextSceneenemyInfo)
         {
             var targetTransform = state.tileManager.CellToWorldPosition(loc.Item2);
-            GameObject gameObject = Instantiate(enemyAvatar, targetTransform, Quaternion.identity);
-            gameObject.transform.SetParent(transform, false);
+            GameObject instantiatedObject = Instantiate(enemyAvatar, targetTransform, Quaternion.identity);
+            instantiatedObject.transform.SetParent(transform, false);
             state.tileManager.SetTileOverlay(loc.Item2, enemyOverlay);
         }
 
     }
 
-    public void ShowHazzardPreview(Dictionary<Vector3Int, (TileDataScriptableObject, int)> nextSceneTileInfo, BattleState state)
+    public void ShowHazzardAndImpassablePreview(Dictionary<Vector3Int, (TileDataScriptableObject, int)> nextSceneTileInfo, BattleState state)
     {
         foreach (var loc in nextSceneTileInfo)
         {
             if (loc.Value.Item1.hazardous == true)
             {
                 var targetTransform = state.tileManager.CellToWorldPosition(loc.Key);
-                GameObject gameObject = Instantiate(hazardAvatar, targetTransform, Quaternion.identity);
-                gameObject.transform.SetParent(transform, false);
+                GameObject instantiatedObject = Instantiate(hazardAvatar, targetTransform, Quaternion.identity);
+                instantiatedObject.transform.SetParent(transform, false);
                 state.tileManager.SetTileOverlay(loc.Key, hazardOverlay);
             } else if (loc.Value.Item1.impassable == true)
             {
                 var targetTransform = state.tileManager.CellToWorldPosition(loc.Key);
-                GameObject gameObject = Instantiate(impassibleAvatar, targetTransform, Quaternion.identity);
-                gameObject.transform.SetParent(transform, false);
+                GameObject instantiatedObject = Instantiate(impassibleAvatar, targetTransform, Quaternion.identity);
+                instantiatedObject.transform.SetParent(transform, false);
                 state.tileManager.SetTileOverlay(loc.Key, impassibleOverlay);
             }
         }
+    }
 
+    public void ShowHazardPreview(Dictionary<Vector3Int, (TileDataScriptableObject, int)> nextSceneTileInfo, BattleState state)
+    {
+        foreach (var loc in nextSceneTileInfo)
+        {
+            if (loc.Value.Item1.hazardous == true)
+            {
+                var targetTransform = state.tileManager.CellToWorldPosition(loc.Key);
+                GameObject instantiatedObject = Instantiate(hazardAvatar, targetTransform, Quaternion.identity);
+                instantiatedObject.transform.SetParent(transform, false);
+                state.tileManager.SetTileOverlay(loc.Key, hazardOverlay);
+            }
+        } 
+    }
+
+    public void ShowImpassablePreview(Dictionary<Vector3Int, (TileDataScriptableObject, int)> nextSceneTileInfo, BattleState state)
+    {
+        foreach (var loc in nextSceneTileInfo)
+        {
+            if (loc.Value.Item1.impassable == true)
+            {
+                var targetTransform = state.tileManager.CellToWorldPosition(loc.Key);
+                GameObject instantiatedObject = Instantiate(impassibleAvatar, targetTransform, Quaternion.identity);
+                instantiatedObject.transform.SetParent(transform, false);
+                state.tileManager.SetTileOverlay(loc.Key, impassibleOverlay);
+            }
+        }        
     }
 }

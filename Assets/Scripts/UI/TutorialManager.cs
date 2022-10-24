@@ -31,14 +31,20 @@ public class TutorialManager : MonoBehaviour
     };
 
     private static string[] lines2 = {
-        "Itzel: No... It can't end like this...",
         "System: After all enemies are defeated, allies will drop to the next level while maintaining their position and health.",
-        "Thus, it is imperative to be mindful of hazards on the next stage.",
-        "From now on, a next battle preview will be overlayed on the map during battle.",
+        "Itzel: No... It can't end like this...",
+        "System: Itzel has died from falling on the spike hazard tile.",
+        "It is imperative to be mindful of hazards on the next stage.",
         "Tiles overlayed with orange (shown on the map) indicate that there will be an enemy on that tile on the NEXT stage.",
         "Tiles overlayed with black and yellow stripes (shown on the map) indicate that there will be a hazard on that tile on the NEXT stage.",
         "Tiles overlayed with red (shown on the map) indicate that there will be an impassable tile there on the NEXT stage.",
         "Allies and enemies which drop onto these tiles during the level switch will DIE. Be particularly mindful of these tiles.",
+        "From now on, a next battle preview will be overlayed on the map during battle.",
+        "Ovis just used his start of battle ability.",
+        "All ally units have a start of battle ability which they will use after they fall down to the next level.",
+        "Ovis's start of battle ability does one damage to all units adjacent to him, ALLY or ENEMY.",
+        "Units also have in battle abilities which can be used by selecting an ally unit and clicking the \"Ability\" button.",
+        "Kill all the enemies and progress through the rest of the game."
     };
 
     private string[][] dialogue = {lines1, lines2};

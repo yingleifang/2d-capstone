@@ -72,11 +72,11 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
   damageNumberSpawnPoint: {fileID: 8822460400884863164}
   deathSound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: f1a9fa645abe054498e66f3ed508c0cf, type: 3}
     volume: 1
     pitchFluctuation: 0
   hitSound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 5d1d15a79600e37489ceddbd0399e795, type: 3}
     volume: 1
     pitchFluctuation: 0
   attackSound:
