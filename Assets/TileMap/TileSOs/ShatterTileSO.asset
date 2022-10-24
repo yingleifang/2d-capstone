@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 'It cracks under your weight. '
   tiles:
   - {fileID: 11400000, guid: d90bb2f27367c68499c729961cdc9f36, type: 2}
+  animatedTile: {fileID: 11400000, guid: a3e69ec4f12710c4a90d2fcaa7466de9, type: 2}
   movementSpeedModifier: 0
   impassable: 0
   hazardous: 0

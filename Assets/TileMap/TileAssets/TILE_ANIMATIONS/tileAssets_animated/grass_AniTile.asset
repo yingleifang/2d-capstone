@@ -29,11 +29,6 @@ MonoBehaviour:
   - {fileID: -1592109142, guid: f73e50248ba7c6043859abebfcd553e4, type: 3}
   - {fileID: -1592109142, guid: f73e50248ba7c6043859abebfcd553e4, type: 3}
   - {fileID: -1592109142, guid: f73e50248ba7c6043859abebfcd553e4, type: 3}
-  - {fileID: -1592109142, guid: f73e50248ba7c6043859abebfcd553e4, type: 3}
-  - {fileID: -1592109142, guid: f73e50248ba7c6043859abebfcd553e4, type: 3}
-  - {fileID: -1592109142, guid: f73e50248ba7c6043859abebfcd553e4, type: 3}
-  - {fileID: -1592109142, guid: f73e50248ba7c6043859abebfcd553e4, type: 3}
-  - {fileID: -1592109142, guid: f73e50248ba7c6043859abebfcd553e4, type: 3}
   m_MinSpeed: 12
   m_MaxSpeed: 12
   m_AnimationStartTime: 0

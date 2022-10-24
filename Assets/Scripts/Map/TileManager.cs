@@ -7,6 +7,8 @@ using Priority_Queue;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Drawing;
+using Color = UnityEngine.Color;
 
 /// <summary>
 /// Container class for data pertaining to a single tile
@@ -147,7 +149,7 @@ public class TileManager : MonoBehaviour
             if (info.Value.Item2 == turn)
             {
                 tilePos.Add(info.Key);
-                map.SetTile(info.Key, animatedTile);
+                map.SetTile(info.Key, info.Value.Item1.animatedTile);
                 map.SetAnimationFrame(info.Key, 0);
             }
         }
@@ -172,7 +174,7 @@ public class TileManager : MonoBehaviour
             foreach (var pos in tilePos)
             {
                 var info = LevelManager.instance.tileInfo[pos];
-                if (map.GetAnimationFrame(pos) >= animatedTile.m_AnimatedSprites.Length - 3)
+                if (map.GetAnimationFrame(pos) >= info.Item1.animatedTile.m_AnimatedSprites.Length - 3)
                 {
                     map.SetTile(pos, levelManager.typesOfTilesToSpawn[0].tiles[0]);
                     toRemove.Add(pos);

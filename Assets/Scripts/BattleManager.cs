@@ -1059,6 +1059,9 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(player.Undim());
         }
 
+        yield return StartCoroutine(tileManager.ShatterTiles(0));
+
+
         int index;
         if (LevelManager.instance.isTutorial && tutorialManager)
         {
