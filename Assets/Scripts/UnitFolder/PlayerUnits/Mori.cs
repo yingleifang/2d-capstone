@@ -25,34 +25,26 @@ public class Mori : PlayerUnit
     }
 
     /// <summary>
-    /// Does damage in a straight line from Sozzy. Assume that the
-    /// coordinate passed in is a valid target
+    /// Revives the unit that last died on a tile in range
     /// </summary>
     public override IEnumerator UseAbility(Vector3Int target, BattleState state)
     {
         Debug.Log("USING ABILITY");
-        List<Vector3Int> path = state.tileManager.FindShortestPath(location, target, false, false);
-        if (!state.tileManager.IsStraightPath(path) || path.Count > abilityRange || target == location)
+        TileManager map = state.tileManager;
+        if (target == location || !map.InBounds(target) || map.GetUnit(target) != null || map.Distance(location, target) > abilityRange)
         {
             yield break;
         }
         else
         {
-            foreach (Vector3Int coord in path)
+            Unit unitToRevive = map.GetTileDeadUnit(target);
+            if (unitToRevive == null)
             {
-                Unit curUnit = state.tileManager.GetUnit(coord);
-                Debug.Log(curUnit);
-                if (!curUnit)
-                {
-                    Debug.Log(curUnit);
-                    continue;
-                }
-                else
-                {
-                    Debug.Log(curUnit);
-                    curUnit.ChangeHealth(abilityDamage * -1);
-                }
+                yield break;
             }
+
+            // TODO: probably need to add a dedicated revive function to play a revive animation.
+            state.battleManager.SpawnUnit(target, unitToRevive);
             currentCoolDown = coolDown;
         }
         yield return null;

@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8de813545929742ba92a25d62e1efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 8938333177467687896}
   health: 3
   currentHealth: 0
   attackDamage: 2

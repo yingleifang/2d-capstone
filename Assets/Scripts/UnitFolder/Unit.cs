@@ -7,6 +7,8 @@ using TMPro;
 
 public abstract class Unit: MonoBehaviour
 {
+    public Unit prefab;
+
     public int health;
     [ReadOnly] public int currentHealth;
 

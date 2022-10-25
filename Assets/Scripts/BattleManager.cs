@@ -1283,6 +1283,7 @@ public class BattleManager : MonoBehaviour
         {
             if (unit.isDead)
             {
+                tileManager.SetTileDeadUnit(unit.location, unit);
                 animations.Add(StartCoroutine(KillUnit(unit)));
             }
         }
@@ -1291,6 +1292,7 @@ public class BattleManager : MonoBehaviour
         {
             if (unit.isDead)
             {
+                tileManager.SetTileDeadUnit(unit.location, unit);
                 animations.Add(StartCoroutine(KillUnit(unit)));
             }
         }

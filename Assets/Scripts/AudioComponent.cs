@@ -74,7 +74,7 @@ public class AudioComponent : MonoBehaviour
 
     public AudioSource PlayClipAt(SoundEffect sound, Vector3 pos)
     {
-        if (sound != null)
+        if (sound != null && sound.clip != null)
         {
             GameObject temp = new GameObject("TempAudio");
             temp.transform.position = pos;
