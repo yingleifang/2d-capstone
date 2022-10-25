@@ -62,7 +62,8 @@ public class LevelManager : MonoBehaviour
 
     List<Vector3Int> impassibleTile = new List<Vector3Int>();
 
-    public TileDataScriptableObject shatterTile;
+    public TileDataScriptableObject shatterTileOutter;
+    public TileDataScriptableObject shatterTileInner;
 
     public levelTransition levelTransitionObj;
     void Awake()
@@ -88,7 +89,8 @@ public class LevelManager : MonoBehaviour
             SetLevelCounter(1);
             LevelSetup();
         }
-        typesOfTilesToSpawn.Add(shatterTile);
+        typesOfTilesToSpawn.Add(shatterTileOutter);
+        typesOfTilesToSpawn.Add(shatterTileInner);
         map = FindObjectOfType<Tilemap>();
     }
 
@@ -170,7 +172,7 @@ public class LevelManager : MonoBehaviour
                         var crackNum = RandomNumberGenerator.GetInt32(0, 100);
                         if (crackNum < crackChance[0])
                         {
-                            curTileInfo.Add(new Vector3Int(x, y, 0), (shatterTile, 1));
+                            curTileInfo.Add(new Vector3Int(x, y, 0), (shatterTileOutter, 1));
                         }
                         else
                         {
@@ -182,7 +184,7 @@ public class LevelManager : MonoBehaviour
                         var crackNum = RandomNumberGenerator.GetInt32(0, 100);
                         if (crackNum < crackChance[1])
                         {
-                            curTileInfo.Add(new Vector3Int(x, y, 0), (shatterTile, 2));
+                            curTileInfo.Add(new Vector3Int(x, y, 0), (shatterTileInner, 2));
                         }
                         else
                         {
