@@ -74,15 +74,19 @@ public class AudioComponent : MonoBehaviour
 
     public AudioSource PlayClipAt(SoundEffect sound, Vector3 pos)
     {
-        GameObject temp = new GameObject("TempAudio");
-        temp.transform.position = pos;
-        AudioSource tempSource = temp.AddComponent<AudioSource>();
-        tempSource.clip = sound.clip;
-        tempSource.volume = sound.volume;
-        tempSource.pitch = 1 + Random.Range(0f - (sound.pitchFluctuation), 0f + (sound.pitchFluctuation));
-        tempSource.Play();
-        Destroy(temp, sound.clip.length);
-        return tempSource;
+        if (sound != null)
+        {
+            GameObject temp = new GameObject("TempAudio");
+            temp.transform.position = pos;
+            AudioSource tempSource = temp.AddComponent<AudioSource>();
+            tempSource.clip = sound.clip;
+            tempSource.volume = sound.volume;
+            tempSource.pitch = 1 + Random.Range(0f - (sound.pitchFluctuation), 0f + (sound.pitchFluctuation));
+            tempSource.Play();
+            Destroy(temp, sound.clip.length);
+            return tempSource;
+        }
+        return null;
     }
 
     public bool IsPlaying()
