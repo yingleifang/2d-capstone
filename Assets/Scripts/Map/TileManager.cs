@@ -121,6 +121,10 @@ public class TileManager : MonoBehaviour
     public static TileManager Instance {get; private set;}
     public AnimatedTile animatedTile;
 
+    public SoundEffect crackSound;
+
+    public new AudioComponent audio;
+
     LevelManager levelManager;
 
     /// <summary>
@@ -140,6 +144,7 @@ public class TileManager : MonoBehaviour
     private void Start()
     {
         tilePos = new List<Vector3Int>();
+        audio = GetComponent<AudioComponent>();
     }
 
     public IEnumerator ShatterTiles(int turn)
@@ -153,6 +158,7 @@ public class TileManager : MonoBehaviour
                 map.SetAnimationFrame(info.Key, 0);
             }
         }
+        audio.PlayDisposable(crackSound);
         yield return StartCoroutine(WaitForAnimation());
     }
 
