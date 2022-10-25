@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1858486553326194674}
-  - component: {fileID: 3206773105803365608}
+  - component: {fileID: 4310592734349704287}
   - component: {fileID: 5759568811348548860}
   - component: {fileID: 635090153760425083}
   m_Layer: 0
@@ -113,7 +113,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3206773105803365608
+--- !u!114 &4310592734349704287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1858486553326194673}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8de8c0a2d76d6544b854df1c40dcfb88, type: 3}
+  m_Script: {fileID: 11500000, guid: d3146ceee592f0941a6cc23afb45aa6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 2
@@ -131,47 +131,46 @@ MonoBehaviour:
   currentAttackDamage: 0
   attackRange: 1
   currentAttackRange: 0
-  movementSpeed: 4
+  movementSpeed: 2
   currentMovementSpeed: 0
   coolDown: 2
   currentCoolDown: 0
-  abilityRange: 0
+  abilityRange: 1
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: 5759568811348548860}
   audio: {fileID: 3311667661192937299}
   spriteRenderer: {fileID: 4316785244231713794}
   portrait: {fileID: 0}
-  characterName: Dumbell
+  characterName: Jellyfish
   characterDescription: 
   healthBarFill: {fileID: 5316833990255598534}
   healthBarBackground: {fileID: 1463624315805780811}
   damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
   damageNumberSpawnPoint: {fileID: 8434523523383027351}
   deathSound:
-    clip: {fileID: 8300000, guid: 435097acf7aaef645ae64dea0125074d, type: 3}
-    volume: 0
+    clip: {fileID: 8300000, guid: 1da1e8d51ab73994286a9b02611c6e09, type: 3}
+    volume: 1
     pitchFluctuation: 0
   hitSound:
-    clip: {fileID: 8300000, guid: 5d1d15a79600e37489ceddbd0399e795, type: 3}
-    volume: 0
+    clip: {fileID: 8300000, guid: 80a78f6c52c34164dad04ca576ead6f3, type: 3}
+    volume: 1
     pitchFluctuation: 0
   attackSound:
-    clip: {fileID: 0}
-    volume: 0
+    clip: {fileID: 8300000, guid: b95f6c5cd76268f4f8e6c25fc736c770, type: 3}
+    volume: 1
     pitchFluctuation: 0
   placementSound:
     clip: {fileID: 8300000, guid: 8fdb829d46c9442468a58eda05057130, type: 3}
     volume: 1
     pitchFluctuation: 0
   fallSound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: a74a7dec6af844847800c1d3e81a0478, type: 3}
     volume: 1
     pitchFluctuation: 0
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}
   type: 0
-  lureEffect: {fileID: 5572911778643578107, guid: ff0da0b451843b3478254dd7984b0278, type: 3}
 --- !u!95 &5759568811348548860
 Animator:
   serializedVersion: 4
@@ -256,7 +255,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.14, y: 3.32}
+  m_AnchoredPosition: {x: 0.12, y: 6.28}
   m_SizeDelta: {x: 450, y: 151.3239}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &9086809031867075906
@@ -420,7 +419,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7650218466841809398}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.38, z: 0}
+  m_LocalPosition: {x: 0, y: 6.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
