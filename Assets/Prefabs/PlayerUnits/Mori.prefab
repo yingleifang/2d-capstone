@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3349001872459977464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 3.5, z: 5.68}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -95,56 +95,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a5299a97f1e77e42aaaf6777a897843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 3
   currentHealth: 0
-  attackDamage: 0
+  attackDamage: 2
   currentAttackDamage: 0
-  attackRange: 0
+  attackRange: 4
   currentAttackRange: 0
-  movementSpeed: 0
+  movementSpeed: 2
   currentMovementSpeed: 0
-  coolDown: 0
+  coolDown: 3
   currentCoolDown: 0
-  abilityRange: 0
+  abilityRange: 1
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: -4000016707929243497}
   audio: {fileID: 994806040568335125}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 4275184632191404067}
   portrait: {fileID: 0}
-  characterName: 
+  characterName: Mori
   characterDescription: 
-  healthBarFill: {fileID: 0}
-  healthBarBackground: {fileID: 0}
-  damageNumberPrefab: {fileID: 0}
-  damageNumberSpawnPoint: {fileID: 0}
+  healthBarFill: {fileID: 5468325239775417681}
+  healthBarBackground: {fileID: 3109054312327873099}
+  damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
+  damageNumberSpawnPoint: {fileID: 2522915448391798715}
   deathSound:
     clip: {fileID: 0}
     volume: 1
     pitchFluctuation: 0
   hitSound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: a5f15202562b7a242afb1bcbf5414697, type: 3}
     volume: 1
     pitchFluctuation: 0
   attackSound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 8e243715e55653d438df951153ee3afe, type: 3}
     volume: 1
     pitchFluctuation: 0
   placementSound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 8fdb829d46c9442468a58eda05057130, type: 3}
     volume: 1
     pitchFluctuation: 0
   fallSound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 76c5a892997c5f546ab16f834ea34851, type: 3}
     volume: 1
     pitchFluctuation: 0
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}
+  startOfBattleAbilityDescription: 
+  inBattleAbilityDescription: 
+  previewClip: {fileID: 32900000, guid: 482240f33842c394ab58e943e33efd37, type: 3}
   type: 0
   hasMoved: 0
   hasAttacked: 0
   StartOfBattleAbilitySound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 7aa24c9a4ea5cb945b0a39794c69667f, type: 3}
     volume: 1
     pitchFluctuation: 0
   abilityDamage: 0
@@ -482,7 +485,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6873998744613383599}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.08, y: 8.450001, z: 5.682473}
+  m_LocalPosition: {x: -0.03, y: 5.46, z: 5.682473}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -566,11 +569,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4532155604154493234, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.34
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4532155604154493234, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 9.7
+      value: 5.61
       objectReference: {fileID: 0}
     - target: {fileID: 4532155604154493234, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -584,12 +587,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5350826931266707660, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0000038146973
+      objectReference: {fileID: 0}
+    - target: {fileID: 5350826931266707660, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.8500061
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959683242412572399, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.85006714
+      objectReference: {fileID: 0}
     - target: {fileID: 7878113871153099367, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_Name
       value: Healthbar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+--- !u!1 &3109054312327873099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5319186012446438749, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+  m_PrefabInstance: {fileID: 7130358273540863766}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5468325239775417681 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2960971374760714823, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+  m_PrefabInstance: {fileID: 7130358273540863766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6634203092827446820 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4532155604154493234, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}

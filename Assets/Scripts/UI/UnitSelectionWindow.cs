@@ -35,6 +35,8 @@ public class UnitSelectionWindow : MonoBehaviour
         int numNeeded = numUnitsInSelection;
         int numLeftInList = unitPrefabs.Count;
 
+        selectedUnitPrefabs.Clear();
+
         if (!random)
         {
             foreach (PlayerUnit prefab in unitPrefabs)
@@ -50,18 +52,13 @@ public class UnitSelectionWindow : MonoBehaviour
         else
         {
             //Randomly select a set of prefabs from the list to load
-            foreach (PlayerUnit prefab in unitPrefabs)
+            List<PlayerUnit> tempList = new List<PlayerUnit>(unitPrefabs);
+            while (selectedUnitPrefabs.Count < numNeeded)
             {
-                if (Random.Range(1, numLeftInList) <= numNeeded)
-                {
-                    selectedUnitPrefabs.Add(prefab);
-                    numNeeded--;
-                }
-                numLeftInList--;
-                if (numNeeded <= 0)
-                {
-                    break;
-                }
+                int index = Random.Range(0, tempList.Count);
+                PlayerUnit unit = tempList[index];
+                selectedUnitPrefabs.Add(unit);
+                tempList.RemoveAt(index);
             }
         }
 
