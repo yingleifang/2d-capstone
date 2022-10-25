@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: isopod
+  m_Controller: {fileID: 9100000, guid: 2b54f7dd5052cbb429c95875a9796480, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 3f826dd5d09b33d4fb6aee6f6ed28f43, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0600d3695ec899a468a965b96014546d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 40fbf28c3897f9840be664439668fc85, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 32eb8826fd2be8541b511cdd6450fadb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 182114a80a3b33f4681d0e3c1c055a77, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f9c1cffe440559e4ba968395f1b666f0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9e3555b0fcb60fa499a76ea6faa9fa84, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6098e67f79b27f54e9874e603696884d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1180ce7f51774164da4a7138e1f8ff1d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e660ad0a6c8cfdf4888a607ee46d87ae, type: 2}

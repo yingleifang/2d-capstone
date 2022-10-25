@@ -112,7 +112,11 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   portrait: {fileID: 0}
   characterName: 
-  characterDescription: 
+  characterDescription: A clerical cat belonging to the Holy Order of Felix, who
+    accompanies Locke and co on their quest to find the sacred relic known as Atamos.
+    Mori is a quiet and reserved party member, hoping to acquire the sacred weapon
+    and secure it for his Order in the ongoing war taking place outside the scope
+    of this game.
   healthBarFill: {fileID: 0}
   healthBarBackground: {fileID: 0}
   damageNumberPrefab: {fileID: 0}
@@ -140,6 +144,9 @@ MonoBehaviour:
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}
+  startOfBattleAbilityDescription: 
+  inBattleAbilityDescription: 
+  previewClip: {fileID: 0}
   type: 0
   hasMoved: 0
   hasAttacked: 0
