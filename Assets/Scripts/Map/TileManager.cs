@@ -255,7 +255,38 @@ public class TileManager : MonoBehaviour
     /// <param name="overlay">the overlay on the tile</param>
     public void SetTileOverlay(Vector3Int tilePos, Overlay overlay)
     {
-        dynamicTileDatas[tilePos].overlay = overlay;
+        if (dynamicTileDatas.ContainsKey(tilePos))
+        {
+            dynamicTileDatas[tilePos].overlay = overlay;
+        }
+    }
+
+    /// <summary>
+    /// Stores the given unit as the last unit that died on the given tile.
+    /// Used for Mori's ability to revive units.
+    /// </summary>
+    /// <param name="tilePos">the tile to set</param>
+    /// <param name="unit">the unit to set as the last killed unit</param>
+    public void SetTileDeadUnit(Vector3Int tilePos, Unit unit)
+    {
+        if (dynamicTileDatas.ContainsKey(tilePos))
+        {
+            dynamicTileDatas[tilePos].deadUnit = unit.prefab;
+        }
+    }
+
+    /// <summary>
+    /// Returns the unit that last died on the given tile.
+    /// </summary>
+    /// <param name="tilePos">the tile to check</param>
+    /// <returns>the unit that last died on the given tile. Returns null if no unit died.</returns>
+    public Unit GetTileDeadUnit(Vector3Int tilePos)
+    {
+        if (!dynamicTileDatas.ContainsKey(tilePos))
+        {
+            return null;
+        }
+        return dynamicTileDatas[tilePos].deadUnit;
     }
 
     /// </summary>
