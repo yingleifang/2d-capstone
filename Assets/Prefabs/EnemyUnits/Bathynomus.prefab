@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de8c0a2d76d6544b854df1c40dcfb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
   health: 4
   currentHealth: 0
   attackDamage: 2
@@ -182,7 +183,7 @@ Animator:
   m_GameObject: {fileID: 1858486553326194673}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: b26cb8298752733458436125cd79cd76, type: 2}
+  m_Controller: {fileID: 22100000, guid: a79471e5e8f0f29409d4aabf3c85cbad, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
