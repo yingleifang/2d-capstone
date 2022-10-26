@@ -196,6 +196,9 @@ public class TileManager : MonoBehaviour
     void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
+        map = FindObjectOfType<Tilemap>();
+        Debug.Log(map);
+        Debug.Log(levelManager);
 
         if (!LevelManager.instance.isTutorial)
         {
@@ -208,6 +211,7 @@ public class TileManager : MonoBehaviour
         unitLocations = new Dictionary<Unit, Vector3Int>();
         foreach (TileDataScriptableObject tileData in LevelManager.instance.typesOfTilesToSpawn)
         {
+            Debug.Log(tileData);
             foreach (TileBase tile in tileData.tiles)
             {
                 baseTileDatas.Add(tile, tileData);

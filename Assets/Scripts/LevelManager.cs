@@ -57,6 +57,11 @@ public class LevelManager : MonoBehaviour
     public bool overrideTutorial;
     private int numTutorialLevels = 2;
 
+    public int NumTutorialLevels
+    {
+        get {return numTutorialLevels;}
+    }
+
     [HideInInspector]
     public static LevelManager instance;
 
@@ -86,7 +91,7 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("aWake");
             isTutorial = false;
-            SetLevelCounter(1);
+            currentLevel = numTutorialLevels;
             LevelSetup();
         }
         typesOfTilesToSpawn.Add(shatterTileOutter);
@@ -129,6 +134,7 @@ public class LevelManager : MonoBehaviour
     public void RefreshNewGame()
     {
         currentLevel = 1;
+        Debug.Log("REFRESHING");
         isTutorial = true;
         tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
         nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
@@ -138,7 +144,22 @@ public class LevelManager : MonoBehaviour
 
     public void SetLevelCounter(int level)
     {
+        //Still in tutorial.
         currentLevel = level;
+        if (level <= numTutorialLevels && !overrideTutorial)
+        {
+            return;
+        }
+        //Otherwise, we know we're finished with the tutorial
+        else
+        {
+            isTutorial = false;
+            //In the case that we start with tutorial levels, we will not have called LevelSetup()
+            if (nextSceneEnemyInfo.Count == 0)
+            {
+                LevelSetup();
+            }
+        }
     }
 
     /// <summary>
@@ -205,7 +226,7 @@ public class LevelManager : MonoBehaviour
     public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, Dictionary<Vector3Int, (TileDataScriptableObject, int)> curTileInfo, int currentLevel)
     {
         map = FindObjectOfType<Tilemap>();
-        int totalEnemy = currentLevel < 3 ? currentLevel: 3;
+        int totalEnemy = currentLevel - numTutorialLevels < 3 ? currentLevel - numTutorialLevels: 3;
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
         {
@@ -226,7 +247,7 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < totalEnemy; i++)
         {
-            if (currentLevel < 2)
+            if (currentLevel - numTutorialLevels < 2)
             {
                 curEnemyInfo.Add((0, possiblePositions[i]));
             }
@@ -265,7 +286,7 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Current real level: " + currentLevel);
         //levelTransitionObj.LoadNextLevel();
         
-        //Still in tutorial. Check if next level will be still tutorial level
+        //Still in tutorial.
         if (currentLevel + 1 <= numTutorialLevels && !overrideTutorial)
         {
             currentLevel++;
@@ -276,18 +297,12 @@ public class LevelManager : MonoBehaviour
         {
             isTutorial = false;
             //In the case that we start with tutorial levels, we will not have called LevelSetup()
-            Debug.Log("nextsceneenemyinfo count :" + nextSceneEnemyInfo.Count);
             if (nextSceneEnemyInfo.Count == 0)
             {
-                Debug.Log("nextsceneenemyinfoinside: " + nextSceneEnemyInfo.Count);
-                // Set to zero because of increment after
-                SetLevelCounter(0);
                 LevelSetup();
-                Debug.Log("nextsceneenemyinfoinside: " + nextSceneEnemyInfo.Count);
             }
-            currentLevel++;
         }
-        
+        currentLevel++;
     }
 
     /// <summary>

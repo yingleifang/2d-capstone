@@ -759,6 +759,8 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(tutorialManager.NextDialogue());
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
+        dialogueManager.HideDialogueWindow();
+
         /*foreach (Coroutine anim in animations)
         {
             yield return anim;
@@ -781,6 +783,9 @@ public class BattleManager : MonoBehaviour
         CheckIfBattleOver();
 
         yield return StartCoroutine(StartOfPlayerTurn());
+        tutorialManager.endTurnButton.SetActive(true);
+        StartCoroutine(ui.EnableEndTurnButton());
+
         isBattleOver = false;
         if(selectedUnit && selectedUnit is PlayerUnit)
         {
@@ -1140,7 +1145,8 @@ public class BattleManager : MonoBehaviour
         else
         {
             Debug.Log("current level: " + LevelManager.currentLevel);
-            index = LevelManager.currentLevel < LevelManager.instance.totalLevels ? SceneManager.GetActiveScene().buildIndex : 7;
+            index = LevelManager.currentLevel - LevelManager.instance.NumTutorialLevels < 
+                    LevelManager.instance.totalLevels ? SceneManager.GetActiveScene().buildIndex : 8;
             Debug.Log("index: " + index);
         }
         LevelManager.instance.IncrementLevel();
@@ -1161,6 +1167,108 @@ public class BattleManager : MonoBehaviour
         NPCUnits.Clear();
 
         yield return StartCoroutine(ui.SwitchScene(index));
+        Debug.Log("Next level finished loading");
+
+        LevelManager.instance.PrepareNextBattle();
+
+        foreach (Unit unit in unitsToSpawn)
+        {
+            unit.Hide();
+        }
+
+        yield return null; // Need to wait a frame for the new level to load
+
+        // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
+        tileManager = FindObjectOfType<TileManager>();
+        // This is probably also unnecessary if we structure things better
+        ui = FindObjectOfType<UIController>();
+        tutorialManager = FindObjectOfType<TutorialManager>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
+        LevelManager.instance.map = FindObjectOfType<Tilemap>();
+        Debug.Log("Found new TileManager: " + tileManager != null);
+
+        // If statement below destroys everything if we reach the win screen
+        // Should probably be handled more elegantly
+        if (tileManager == null || ui == null)
+        {
+            LevelManager.instance.RefreshNewGame();
+            Debug.Log("No TileManager or UIController found. Destroying GameManager");
+            foreach (Unit unit in unitsToSpawn)
+            {
+                Destroy(unit.gameObject);
+            }
+
+            Destroy(gameObject);
+            yield break;
+        }
+        if (!LevelManager.instance.isTutorial)
+        {
+            Debug.Log("SETTING DATA");
+            setEnemyData();
+            regeneratePreviews();
+            StartCoroutine(InitializeBattle());
+        } 
+        else 
+        {
+            switch (LevelManager.currentLevel)
+            {
+                case 2:
+                    StartCoroutine(InitializeBattleTutorial2());
+                    break;
+                default:
+                    Debug.LogError("SHouldn't be in here " + LevelManager.currentLevel);
+                    break;
+            }
+
+        }
+        
+    }
+
+    public void SkipTutorialButton()
+    {
+        StartCoroutine(SkipTutorial());
+    }
+
+    IEnumerator SkipTutorial()
+    {
+        forcedUnitPlacementTile = new Vector3Int(0, 0, -1);
+        forcedUnitMovementTile = new Vector3Int(0, 0, -1);
+        pushDialogueAfterEnemyTurn = false;
+        pushDialogueAfterAttack = false;
+        pushDialogueAfterBattleEnd = false;
+        isPlacingUnit = false;
+        if (unitToPlace)
+        {
+            Destroy(unitToPlace.gameObject);
+        }
+        if (dialogueManager)
+        {
+            Destroy(dialogueManager.speechPanel);
+        }
+        unitToPlace = null;
+
+        LevelManager.instance.SetLevelCounter(LevelManager.instance.NumTutorialLevels);
+
+        postProcessingSettings.DisableTheGlow(playerUnits);
+
+        foreach (PlayerUnit player in playerUnits)
+        {
+            StartCoroutine(player.Undim());
+        }
+
+        yield return StartCoroutine(tileManager.ShatterTiles(0));
+
+        LevelManager.instance.IncrementLevel();
+        ResetAll();
+
+
+        acceptingInput = false;
+
+        enemyUnits.Clear();
+        playerUnits.Clear();
+        NPCUnits.Clear();
+
+        yield return StartCoroutine(ui.SwitchScene(LevelManager.instance.NumTutorialLevels + 2));
         Debug.Log("Next level finished loading");
 
         LevelManager.instance.PrepareNextBattle();
@@ -1213,28 +1321,7 @@ public class BattleManager : MonoBehaviour
                     break;
             }
 
-        }
-        
-    }
-
-    public void SkipTutorial()
-    {
-        forcedUnitPlacementTile = new Vector3Int(0, 0, -1);
-        forcedUnitMovementTile = new Vector3Int(0, 0, -1);
-        pushDialogueAfterEnemyTurn = false;
-        pushDialogueAfterAttack = false;
-        pushDialogueAfterBattleEnd = false;
-        isPlacingUnit = false;
-        if (unitToPlace)
-        {
-            Destroy(unitToPlace.gameObject);
-        }
-        if (dialogueManager)
-        {
-            Destroy(dialogueManager.speechPanel);
-        }
-        unitToPlace = null;
-        StartCoroutine(NextLevel());
+        }        
     }
 
     
