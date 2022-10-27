@@ -111,7 +111,7 @@ MonoBehaviour:
   anim: {fileID: -4000016707929243497}
   audio: {fileID: 994806040568335125}
   spriteRenderer: {fileID: 4275184632191404067}
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 10fdfe375d5823744a1556a925ef47e5, type: 3}
   characterName: Mori
   characterDescription: "A clerical cat belonging to the Holy Order of Felix, who\r
     accompanies Locke and co on their quest to find the sacred relic known as Atamos.\r
