@@ -26,6 +26,14 @@ public class DialogueManager : MonoBehaviour
         speechText.text = "";
     }
 
+    private void Update() 
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isWaitingForUserInput = false;
+        }
+    }
+
     /// <summary>
     /// Takes a textString and outputs it into the dialogue box. If additive is true, original
     /// text is box remains there. Grabs speaker information from textString. textString should be

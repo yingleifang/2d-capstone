@@ -83,7 +83,10 @@ public class PostProcessingSettings : MonoBehaviour
 
     public void EnableEnemyGlow(EnemyUnit enemyUnit)
     {
+        Debug.Log("HERE");
         var spriteGlow = enemyUnit.gameObject.transform.GetComponentInChildren<SpriteGlowEffect>();
+        Debug.Log(CanMoveAndAttackGlowBrightness);
+        Debug.Log(EnemyOutlineWidth);
         spriteGlow.GlowBrightness = CanMoveAndAttackGlowBrightness;
         spriteGlow.OutlineWidth = EnemyOutlineWidth;
     }

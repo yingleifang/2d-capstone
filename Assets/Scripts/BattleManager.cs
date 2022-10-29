@@ -499,6 +499,7 @@ public class BattleManager : MonoBehaviour
 
         //Advise user to watch for tiles
         unitToPlace.spriteRenderer.enabled = false;
+        Debug.Log("WE TALKING");
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
 
@@ -560,19 +561,29 @@ public class BattleManager : MonoBehaviour
         animations.Clear();
         unitsToSpawn.Clear();
 
-        //Discussing clicking units
-        tutorialManager.disableBattleInteraction = false;
-        //Force impossible to click tile to prevent movement
-        forcedUnitMovementTile = new Vector3Int(-1000, -1, 0);
+        //Discussing hovering
         yield return StartCoroutine(tutorialManager.NextDialogue());
         
 
         //prompt to click enemy unit
+        tutorialManager.disableBattleInteraction = false;
+        //Force impossible to click tile to prevent movement
+        forcedUnitMovementTile = new Vector3Int(-1000, -1, 0);
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        // Discuss deselecting units
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
         //prompt to click ally unit and move
         forcedUnitMovementTile = new Vector3Int(-2, -1, 0);
         tileManager.SetTileColor(forcedUnitMovementTile, Color.red);
+
+        yield return StartCoroutine(StartOfPlayerTurn());
+        if(selectedUnit && selectedUnit is PlayerUnit)
+        {
+            postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
+        }
+
         yield return StartCoroutine(tutorialManager.NextDialogue());  
 
         bool notMoved = true;
@@ -588,9 +599,6 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         tileManager.ClearHighlights();
-
-        // Unrestrict future unit movements
-        forcedUnitMovementTile.z = -1;
 
         //prompt to end turn
         ui.HideUnitInfoWindow();
@@ -610,10 +618,20 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        //Force impossible to click tile to prevent movement
+        forcedUnitMovementTile = new Vector3Int(-1000, -1, 0);
+
+        //Make sure user does not skip ahead.
+        tutorialManager.disableBattleInteraction = true;
+
         pushDialogueAfterEnemyTurn = false;
+
+        // Discuss what happened during enemy turn
+        yield return StartCoroutine(tutorialManager.NextDialogue());
         
         // Prompt to attack
         pushDialogueAfterAttack = true;
+        tutorialManager.disableBattleInteraction = false;
         yield return StartCoroutine(ui.DisableEndTurnButton());
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
@@ -629,6 +647,9 @@ public class BattleManager : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }      
+
+        // Unrestrict future unit movements
+        forcedUnitMovementTile.z = -1;
 
         ui.HideUnitInfoWindow();
         yield return StartCoroutine(ui.EnableEndTurnButton());
@@ -654,8 +675,6 @@ public class BattleManager : MonoBehaviour
         }
 
         tutorialManager.index = tutorialManager.NumLines() - 1;
-
-        
     }
 
     private IEnumerator InitializeBattleTutorial2()
@@ -1353,7 +1372,10 @@ public class BattleManager : MonoBehaviour
 
         if (pushDialogueAfterEnemyTurn)
         {
-            dialogueManager.doSkipDialogue = true;
+            if (dialogueManager.isWaitingForUserInput)
+            {
+                dialogueManager.doSkipDialogue = true;
+            }
         }
 
         yield return StartCoroutine(StartOfPlayerTurn());
