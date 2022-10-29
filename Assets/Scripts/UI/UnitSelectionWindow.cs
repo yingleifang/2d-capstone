@@ -89,17 +89,11 @@ public class UnitSelectionWindow : MonoBehaviour
         if (LevelManager.currentLevel == 1 && BattleManager.instance.dialogueManager)
         {
             Debug.Log("FALSED");
-            dialogueManager.doSkipDialogue = true;
+            if (dialogueManager.isWaitingForUserInput)
+            {
+                dialogueManager.doSkipDialogue = true;
+            }
         }
-
-        unitInfoWindow.HideStats();
-        StartCoroutine(Hide());
-    }
-
-    public void SelectUnitTutorial(PurchasableScript unit)
-    {
-        BattleManager.instance.SetUnitToPlace(unit.unitPrefab);
-        dialogueManager.isWaitingForUserInput = false;
         unitInfoWindow.HideStats();
         StartCoroutine(Hide());
     }
