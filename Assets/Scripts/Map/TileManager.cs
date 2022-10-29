@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Drawing;
 using Color = UnityEngine.Color;
+using static UnityEditor.PlayerSettings;
 
 /// <summary>
 /// Container class for data pertaining to a single tile
@@ -147,13 +148,19 @@ public class TileManager : MonoBehaviour
         audio = GetComponent<AudioComponent>();
     }
 
-    public IEnumerator ShatterTiles(int turn)
+    public IEnumerator ShatterTiles(int turn, List<Unit> units = null)
     {
         foreach (var info in LevelManager.instance.tileInfo)
         {
             if (info.Value.Item2 == turn)
             {
                 tilePos.Add(info.Key);
+                Unit unit = GetUnit(info.Key);
+                if (unit)
+                {
+                    units.Add(unit);
+                    StartCoroutine(unit.Fall());
+                }
                 map.SetTile(info.Key, info.Value.Item1.animatedTile);
                 map.SetAnimationFrame(info.Key, 0);
             }

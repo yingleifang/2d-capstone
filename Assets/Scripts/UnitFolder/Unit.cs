@@ -106,7 +106,6 @@ public abstract class Unit: MonoBehaviour
     {
         anim.SetTrigger("isFalling");
         yield return null; // Wait a frame for the animation to start
-        Debug.Log("1111111111111111111111111111");
         int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
@@ -463,6 +462,8 @@ public abstract class Unit: MonoBehaviour
 
     public IEnumerator Fall()
     {
+        yield return new WaitForSeconds(0.6f);
+        spriteRenderer.sortingOrder = -3;
         audio.PlayDisposable(deathSound);
         yield return StartCoroutine(PlayFallAnimation());
         Destroy(gameObject);

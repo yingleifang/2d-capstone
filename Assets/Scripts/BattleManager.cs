@@ -234,7 +234,13 @@ public class BattleManager : MonoBehaviour
                     }
                     else
                     {
-                        DisplayTile(tilePos);
+                        try
+                        {
+                            DisplayTile(tilePos);
+                        }
+                        catch
+                        {
+                        }
                     }
                 }
             }
@@ -886,30 +892,20 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(ui.DisableEndTurnButton());
             yield return StartCoroutine(performEnemyMoves());
 
+            List<Unit> unitsToDestroy = new();
             var turnPast = ui.turnCountDown.totalTurn - ui.turnCountDown.currentTurn;
             if (turnPast == 2){
-                yield return StartCoroutine(tileManager.ShatterTiles(1));
+                yield return StartCoroutine(tileManager.ShatterTiles(1, unitsToDestroy));
             }else if (turnPast == 3)
             {
-                yield return StartCoroutine(tileManager.ShatterTiles(2));
+                yield return StartCoroutine(tileManager.ShatterTiles(2, unitsToDestroy));
             }
-            if (turnPast == 2 || turnPast == 3)
+
+            foreach(var unit in unitsToDestroy)
             {
-                foreach (var unit in enemyUnits.ToArray())
-                {
-                    if (tileManager.IsImpassableTile(unit.location, false))
-                    {
-                        yield return StartCoroutine(KillUnit(unit));
-                    }
-                }
-                foreach (var unit in playerUnits.ToArray())
-                {
-                    if (tileManager.IsImpassableTile(unit.location, false))
-                    {
-                        yield return StartCoroutine(UnitFall(unit));
-                    }
-                }
+                DestroyUnit(unit);
             }
+
             StartCoroutine(UpdateBattleState());
             CheckIfBattleOver();
         }
@@ -1028,6 +1024,12 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator KillUnit(Unit unit)
     {
+        DestroyUnit(unit);
+        yield return StartCoroutine(unit.Die());    
+    }
+
+    public void DestroyUnit(Unit unit)
+    {
         if (unit is PlayerUnit)
         {
             playerUnits.Remove((PlayerUnit)unit);
@@ -1046,29 +1048,6 @@ public class BattleManager : MonoBehaviour
         }
         Debug.Log("ENEMY UNITS: " + enemyUnits.Count);
         tileManager.RemoveUnitFromTile(unit.location);
-        yield return StartCoroutine(unit.Die());    
-    }
-
-    public IEnumerator UnitFall(Unit unit)
-    {
-        if (unit is PlayerUnit)
-        {
-            playerUnits.Remove((PlayerUnit)unit);
-        }
-        else if (unit is EnemyUnit)
-        {
-            enemyUnits.Remove((EnemyUnit)unit);
-        }
-        else if (unit is NPCUnit)
-        {
-            NPCUnits.Remove((NPCUnit)unit);
-        }
-        else
-        {
-            Debug.LogError("Removing a null unit");
-        }
-        tileManager.RemoveUnitFromTile(unit.location);
-        yield return StartCoroutine(unit.Fall());
     }
 
     public void CheckIfBattleOver()
