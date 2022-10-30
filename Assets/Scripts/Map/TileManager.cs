@@ -218,7 +218,6 @@ public class TileManager : MonoBehaviour
         unitLocations = new Dictionary<Unit, Vector3Int>();
         foreach (TileDataScriptableObject tileData in LevelManager.instance.typesOfTilesToSpawn)
         {
-            Debug.Log(tileData);
             foreach (TileBase tile in tileData.tiles)
             {
                 baseTileDatas.Add(tile, tileData);

@@ -241,6 +241,15 @@ public abstract class Unit: MonoBehaviour
     public IEnumerator MoveTowards(BattleState state, Vector3Int targetLocation, int numMove)
     {
         List<Vector3Int> path = state.tileManager.FindShortestPath(location, targetLocation);
+        if (path.Count == 1)
+        {
+            if (this is EnemyUnit)
+            {
+                ChangeHealth(-1);
+                yield return new WaitForSeconds(0.4f);
+            }
+        }
+
         Vector3Int goal;
         int goalIndex;
         if(numMove > path.Count)
