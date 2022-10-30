@@ -915,6 +915,14 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(ui.DisableEndTurnButton());
             yield return StartCoroutine(performEnemyMoves());
 
+            foreach (var unit in playerUnits)
+            {
+                if (unit.hasMoved == false && tileManager.IsHazardous(unit.location))
+                {
+                    unit.ChangeHealth(-1);
+                }
+            }
+
             List<Unit> unitsToDestroy = new();
             var turnPast = ui.turnCountDown.totalTurn - ui.turnCountDown.currentTurn;
             if (turnPast == 2){
@@ -926,7 +934,8 @@ public class BattleManager : MonoBehaviour
 
             foreach(var unit in unitsToDestroy)
             {
-                DestroyUnit(unit);
+                RemoveUnit(unit);
+                Destroy(unit);
             }
 
             StartCoroutine(UpdateBattleState());
@@ -1047,11 +1056,11 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator KillUnit(Unit unit)
     {
-        DestroyUnit(unit);
+        RemoveUnit(unit);
         yield return StartCoroutine(unit.Die());    
     }
 
-    public void DestroyUnit(Unit unit)
+    public void RemoveUnit(Unit unit)
     {
         if (unit is PlayerUnit)
         {
