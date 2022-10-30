@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class pauseMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public static bool gameIsPaused = false;
+    public BattleManager battleManager;
 
    // public GameObject pauseUI;
     public GameObject pausePanel;
@@ -21,13 +20,14 @@ public class pauseMenu : MonoBehaviour
         LeanTween.scale(menuButton, new Vector3(1, 1, 1), 0.3f).setDelay(0.2f);
         LeanTween.scale(settingsButton, new Vector3(1, 1, 1), 0.3f).setDelay(0.4f);
         LeanTween.scale(quitButton, new Vector3(1, 1, 1), 0.3f).setDelay(0.6f);
+        battleManager = FindObjectOfType<BattleManager>();
     }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameIsPaused)
+            if (battleManager.gameIsPaused)
             {
                 Resume();
             }
@@ -52,7 +52,7 @@ public class pauseMenu : MonoBehaviour
         pausePanel.SetActive(false);
         LeanTween.scale(pausePanel, new Vector3(0, 0, 0), 0.3f);
         //Time.timeScale = 1f;
-        gameIsPaused = false;
+        battleManager.gameIsPaused = false;
         //gameIsPaused = false;
     }
 
@@ -61,6 +61,6 @@ public class pauseMenu : MonoBehaviour
         pausePanel.SetActive(true);
         LeanTween.scale(pausePanel, new Vector3(1, 1, 1), 0.3f);
         //Time.timeScale = 0f;
-        gameIsPaused = true;
+        battleManager.gameIsPaused = true;
     }
 }

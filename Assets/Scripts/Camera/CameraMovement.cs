@@ -27,7 +27,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (pauseMenu.gameIsPaused)
+        if (BattleManager.instance.gameIsPaused)
         {
             return;
         }

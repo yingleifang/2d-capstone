@@ -84,6 +84,8 @@ public class BattleManager : MonoBehaviour
 
     private PostProcessingSettings postProcessingSettings;
 
+    public bool gameIsPaused = false;
+
 
     //Tutorial stuff
     public Button ovisButton;
@@ -446,7 +448,7 @@ public class BattleManager : MonoBehaviour
             DeselectUnit();
         }
         acceptingInput = true;
-        if (isPlayerTurn && !isBattleOver && !HasMoves())
+        if (isPlayerTurn && !isBattleOver && !HasMoves() && playerUnits.Count != 0)
         {
             StartCoroutine(ui.SetEndTurnButtonHighlight(true));
         }
@@ -585,6 +587,7 @@ public class BattleManager : MonoBehaviour
         tileManager.SetTileColor(forcedUnitMovementTile, Color.red);
 
         yield return StartCoroutine(StartOfPlayerTurn());
+        tutorialManager.endTurnButton.SetInteractable(false);
         if(selectedUnit && selectedUnit is PlayerUnit)
         {
             postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
@@ -608,7 +611,8 @@ public class BattleManager : MonoBehaviour
 
         //prompt to end turn
         ui.HideUnitInfoWindow();
-        tutorialManager.endTurnButton.SetActive(true);
+        isPlayerTurn = true;
+        tutorialManager.endTurnButton.SetInteractable(true);
         StartCoroutine(ui.EnableEndTurnButton());
         pushDialogueAfterEnemyTurn = true;
         yield return StartCoroutine(tutorialManager.NextDialogue());
@@ -808,7 +812,7 @@ public class BattleManager : MonoBehaviour
         CheckIfBattleOver();
 
         yield return StartCoroutine(StartOfPlayerTurn());
-        tutorialManager.endTurnButton.SetActive(true);
+        tutorialManager.endTurnButton.SetInteractable(true);
         StartCoroutine(ui.EnableEndTurnButton());
 
         isBattleOver = false;

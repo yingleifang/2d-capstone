@@ -1159,7 +1159,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6989220128797025267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1189,6 +1189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 789d9e38bb05d09478f2310fdd1668de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleManager: {fileID: 0}
   pausePanel: {fileID: 6989220127850782085}
   menuButton: {fileID: 6989220129535909077}
   settingsButton: {fileID: 6989220129168930053}

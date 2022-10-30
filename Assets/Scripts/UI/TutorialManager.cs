@@ -55,7 +55,7 @@ public class TutorialManager : MonoBehaviour
 
     public GameObject unitSelection;
     public GameObject continueButton;
-    public GameObject endTurnButton;
+    public EndTurnButton endTurnButton;
     public GameObject battlePreviewButton;
    // public GameObject hazards;
     public GameObject help;
@@ -77,7 +77,7 @@ public class TutorialManager : MonoBehaviour
         turnCounter.SetActive(false);
        // hazards.SetActive(false);
         unitSelection.SetActive(false);
-        endTurnButton.SetActive(false);
+        endTurnButton.SetInteractable(false);
         battlePreviewButton.SetActive(false);
         index = 0;
         disableBattleInteraction = false;

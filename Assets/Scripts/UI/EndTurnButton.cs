@@ -18,6 +18,7 @@ public class EndTurnButton : MonoBehaviour
         }
         if (button == null)
         {
+            Debug.Log("getting button");
             button = GetComponent<Button>();
         }
     }
@@ -37,6 +38,7 @@ public class EndTurnButton : MonoBehaviour
     /// <returns>a coroutine representing the animation startup</returns>
     public IEnumerator PlayHighlightAnim()
     {
+        Debug.Log("HIGHLIGHTING");
         anim.SetBool("highlighted", true);
         yield break;
     }
