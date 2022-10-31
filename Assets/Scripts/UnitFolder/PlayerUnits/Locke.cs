@@ -18,6 +18,11 @@ public class Locke : PlayerUnit
 
     public override IEnumerator UseAbility(Vector3Int target, BattleState state)
     {
+        if (location == target)
+        {
+            yield break;
+        }
+
         Unit targetUnit = state.tileManager.GetUnit(target);
         if (!targetUnit || !canUseAbility || state.tileManager.FindShortestPath(location, target).Count > abilityRange)
         {

@@ -116,10 +116,9 @@ public class TileManager : MonoBehaviour
         BOTTOM_RIGHT = 5
     }
 
-    private Dictionary<TileBase, TileDataScriptableObject> baseTileDatas;  
+    public Dictionary<TileBase, TileDataScriptableObject> baseTileDatas;  
     public Dictionary<Vector3Int, DynamicTileData> dynamicTileDatas;
     public Dictionary<Unit, Vector3Int> unitLocations;
-    public static TileManager Instance {get; private set;}
     public AnimatedTile animatedTile;
 
     public SoundEffect crackSound;

@@ -33,7 +33,7 @@ public class JellyfishEnemy : EnemyUnit
                     Unit unit = state.tileManager.GetUnit(adjacentTile);
                     if (unit != null)
                     {
-                        unit.ChangeHealth(attackDamage);
+                        unit.ChangeHealth(attackDamage * -1);
                     }
                 }
             }

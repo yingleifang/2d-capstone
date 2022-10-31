@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Tilemaps;
+
 
 public abstract class Unit: MonoBehaviour
 {
@@ -241,14 +243,16 @@ public abstract class Unit: MonoBehaviour
     public IEnumerator MoveTowards(BattleState state, Vector3Int targetLocation, int numMove)
     {
         List<Vector3Int> path = state.tileManager.FindShortestPath(location, targetLocation);
-        if (path.Count == 1)
+        TileBase startTile = BattleManager.instance.tileManager.map.GetTile(location);
+
+        // If we have a path count of one, and the target destination is occupied, then we will not move at all.
+        // However, unit still needs to take damage from hazards
+        if (path.Count == 1 && BattleManager.instance.tileManager.dynamicTileDatas[targetLocation].unit && 
+                    BattleManager.instance.tileManager.baseTileDatas[startTile].hazardous)
         {
-            if (this is EnemyUnit)
-            {
-                ChangeHealth(-1);
-                yield return new WaitForSeconds(0.4f);
-                yield break;
-            }
+            ChangeHealth(-1);
+            yield return new WaitForSeconds(0.4f);
+            yield break;
         }
 
         Vector3Int goal;
@@ -310,6 +314,7 @@ public abstract class Unit: MonoBehaviour
         {
             ChangeHealth(-1);
             audio.PlayDisposable(hitSound);
+            yield return new WaitForSeconds(.5f);
         }
     }
 

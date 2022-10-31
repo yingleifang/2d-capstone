@@ -841,6 +841,9 @@ public class BattleManager : MonoBehaviour
             yield return StartCoroutine(SpawnUnit(unit.location, unit));
         }
 
+        // Wait for damage animation to finish
+        yield return new WaitForSeconds(.5f);
+
         yield return StartCoroutine(UpdateBattleState());
 
         animations.Clear();
@@ -913,8 +916,8 @@ public class BattleManager : MonoBehaviour
             }
 
             StartCoroutine(ui.DisableEndTurnButton());
-            yield return StartCoroutine(performEnemyMoves());
 
+            // Player units still need to take damage from hazards even if they have not moved
             foreach (var unit in playerUnits)
             {
                 if (unit.hasMoved == false && tileManager.IsHazardous(unit.location))
@@ -922,6 +925,10 @@ public class BattleManager : MonoBehaviour
                     unit.ChangeHealth(-1);
                 }
             }
+
+            yield return StartCoroutine(performEnemyMoves());
+
+
 
             List<Unit> unitsToDestroy = new();
             var turnPast = ui.turnCountDown.totalTurn - ui.turnCountDown.currentTurn;
@@ -1191,6 +1198,7 @@ public class BattleManager : MonoBehaviour
 
         // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
         tileManager = FindObjectOfType<TileManager>();
+        tileManager.map = FindObjectOfType<Tilemap>();
         // This is probably also unnecessary if we structure things better
         ui = FindObjectOfType<UIController>();
         tutorialManager = FindObjectOfType<TutorialManager>();
