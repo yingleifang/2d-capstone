@@ -22,7 +22,7 @@ public class PlayerUnit : Unit
 
     private PostProcessingSettings postProcessingSettings;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         DontDestroyOnLoad(this);
         if (!anim)

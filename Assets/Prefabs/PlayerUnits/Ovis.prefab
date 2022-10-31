@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5203591249091125894}
+  unitPrefabSO: {fileID: 11400000, guid: 5e574a867c3c13b48a5780bcdaa020ba, type: 2}
   health: 4
   currentHealth: 0
   attackDamage: 2

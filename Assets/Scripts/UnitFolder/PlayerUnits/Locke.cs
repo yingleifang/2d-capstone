@@ -8,6 +8,12 @@ public class Locke : PlayerUnit
     public bool canUseAbility;
     public int abilityDamage;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        prefab = unitPrefabSO.GetPrefab("Locke");
+    }
+
     public override IEnumerator StartOfBattleAbility(BattleState state)
     {
         Debug.Log("Gathering rocks");

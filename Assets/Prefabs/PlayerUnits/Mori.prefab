@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2346994246723371822}
+  unitPrefabSO: {fileID: 11400000, guid: 5e574a867c3c13b48a5780bcdaa020ba, type: 2}
   health: 3
   currentHealth: 0
   attackDamage: 1
@@ -145,8 +146,8 @@ MonoBehaviour:
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}
-  startOfBattleAbilityDescription: 
-  inBattleAbilityDescription: 
+  startOfBattleAbilityDescription: Heals 1 HP to adjacent units
+  inBattleAbilityDescription: Revives a defeated unit on an adjacent tile
   previewClip: {fileID: 32900000, guid: 482240f33842c394ab58e943e33efd37, type: 3}
   type: 0
   hasMoved: 0
@@ -156,6 +157,7 @@ MonoBehaviour:
     volume: 1
     pitchFluctuation: 0
   abilityDamage: 0
+  startOfBattleHealing: 1
 --- !u!1 &3725819154991441377
 GameObject:
   m_ObjectHideFlags: 0

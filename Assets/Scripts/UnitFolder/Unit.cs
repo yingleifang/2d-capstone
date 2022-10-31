@@ -9,7 +9,9 @@ using UnityEngine.Tilemaps;
 
 public abstract class Unit: MonoBehaviour
 {
+    [HideInInspector]
     public Unit prefab;
+    public UnitPrefabSO unitPrefabSO;
 
     public int health;
     [ReadOnly] public int currentHealth;

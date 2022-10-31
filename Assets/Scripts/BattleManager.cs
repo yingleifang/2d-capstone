@@ -221,7 +221,7 @@ public class BattleManager : MonoBehaviour
             OutlineTile(tilePos);
 
             // Indicate tile/unit player is hovering over
-            if (acceptingInput)
+            if (acceptingInput && !selectedUnit)
             {
                 if (!tileManager.InBounds(tilePos))
                 {

@@ -7,6 +7,12 @@ public class Sozzy : PlayerUnit
     public SoundEffect StartOfBattleAbilitySound;
     public int abilityDamage;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        prefab = unitPrefabSO.GetPrefab("Sozzy");
+    }
+
     public override IEnumerator StartOfBattleAbility(BattleState state)
     {
         Debug.Log("Speeding up adjacent units");

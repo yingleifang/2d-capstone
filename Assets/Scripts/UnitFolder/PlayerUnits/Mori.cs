@@ -8,6 +8,12 @@ public class Mori : PlayerUnit
     public int abilityDamage;
     public int startOfBattleHealing = 1;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        prefab = unitPrefabSO.GetPrefab("Mori");
+    }
+
     public override IEnumerator StartOfBattleAbility(BattleState state)
     {
         Debug.Log("Speeding up adjacent units");
@@ -47,8 +53,9 @@ public class Mori : PlayerUnit
                 yield break;
             }
 
+            Unit unit = Instantiate(unitToRevive);
             // TODO: probably need to add a dedicated revive function to play a revive animation.
-            StartCoroutine(state.battleManager.SpawnUnit(target, unitToRevive));
+            StartCoroutine(state.battleManager.SpawnUnit(target, unit));
             currentCoolDown = coolDown;
         }
         yield return null;

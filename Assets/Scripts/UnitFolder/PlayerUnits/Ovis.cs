@@ -7,6 +7,12 @@ public class Ovis : PlayerUnit
     public SoundEffect StartOfBattleAbilitySound;
     public int abilityDamage;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        prefab = unitPrefabSO.GetPrefab("Ovis");
+    }
+
     public override IEnumerator StartOfBattleAbility(BattleState state)
     {
         Debug.Log("Attacking adjacent units");
