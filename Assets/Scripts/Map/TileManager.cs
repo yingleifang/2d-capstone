@@ -768,9 +768,16 @@ public class TileManager : MonoBehaviour
                 z = curCubeCoord.z;
             }
 
-            if (!xSame && !ySame && !zSame)
+            if (xSame)
             {
-                straight = false;
+                straight = ySame || zSame;
+            }
+            else
+            {
+                straight = ySame && zSame;
+            }
+            if (!straight)
+            {
                 break;
             }
         }
