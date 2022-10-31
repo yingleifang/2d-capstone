@@ -42,7 +42,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.r
-    path: Sprite
+    path: Sprite Offset/Sprite
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -70,7 +70,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Sprite
+    path: Sprite Offset/Sprite
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -98,7 +98,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Sprite
+    path: Sprite Offset/Sprite
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -126,7 +126,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: Sprite
+    path: Sprite Offset/Sprite
     classID: 212
     script: {fileID: 0}
   m_PPtrCurves:
@@ -154,7 +154,7 @@ AnimationClip:
     - time: 1.0833334
       value: {fileID: 674666, guid: 25d8c02a5fb90d848ae4f6c1c758922d, type: 3}
     attribute: m_Sprite
-    path: Sprite
+    path: Sprite Offset/Sprite
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -165,35 +165,35 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 850496168
+      path: 403503645
       attribute: 2526845255
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 850496168
+      path: 403503645
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 850496168
+      path: 403503645
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 850496168
+      path: 403503645
       attribute: 0
       script: {fileID: 0}
       typeID: 212
       customType: 23
       isPPtrCurve: 1
     - serializedVersion: 2
-      path: 850496168
+      path: 403503645
       attribute: 304273561
       script: {fileID: 0}
       typeID: 212
@@ -257,7 +257,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.r
-    path: Sprite
+    path: Sprite Offset/Sprite
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -285,7 +285,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Sprite
+    path: Sprite Offset/Sprite
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -313,7 +313,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Sprite
+    path: Sprite Offset/Sprite
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -341,7 +341,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: Sprite
+    path: Sprite Offset/Sprite
     classID: 212
     script: {fileID: 0}
   m_EulerEditorCurves: []
