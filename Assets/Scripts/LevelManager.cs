@@ -46,12 +46,25 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// List of enemy prefabs (populated in editor)
     /// </summary>
+
     public List<EnemyUnit> typesOfEnemiesToSpawn;
+
     /// <summary>
     /// List of tileSO's (populated in editor)
     /// </summary>       
     [Tooltip("hole tile must be the first item in the list, shattered tiles must be second item in the list")]
     public List<TileDataScriptableObject> typesOfTilesToSpawn;
+
+    public List<TileDataScriptableObject> AllTiles;
+
+
+    public List<TileDataScriptableObject> levelOneTiles;
+
+    public List<TileDataScriptableObject> levelTwoTiles;
+
+    public List<TileDataScriptableObject> levelThreeTiles;
+
+
     public Tilemap map;
 
     [ReadOnly] public bool isTutorial;
@@ -98,8 +111,9 @@ public class LevelManager : MonoBehaviour
             currentLevel = numTutorialLevels;
             LevelSetup();
         }
-        typesOfTilesToSpawn.Add(shatterTileOutter);
-        typesOfTilesToSpawn.Add(shatterTileInner);
+        //typesOfTilesToSpawn.Add(shatterTileOutter);
+        //typesOfTilesToSpawn.Add(shatterTileInner);
+        typesOfTilesToSpawn = levelOneTiles;
         map = FindObjectOfType<Tilemap>();
     }
 
@@ -175,6 +189,7 @@ public class LevelManager : MonoBehaviour
         int total_weight = 0;
         foreach (var tile in typesOfTilesToSpawn)
             total_weight += tile.weight;
+
 
         for (int y = -y_range; y <= y_range; y++)
         {
@@ -289,7 +304,6 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void IncrementLevel()
     {
-        Debug.Log("############");
         Debug.Log("Current real level: " + currentLevel);
         //levelTransitionObj.LoadNextLevel();
         
@@ -318,12 +332,21 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void PrepareNextBattle()
     {
+        if (currentLevel == 4)
+        {
+            typesOfTilesToSpawn = levelTwoTiles;
+        }
+        else if (currentLevel == 6)
+        {
+            typesOfTilesToSpawn = levelThreeTiles;
+        }
         map = FindObjectOfType<Tilemap>();
 
         tileInfo = nextSceneTileInfo;
         nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
         fillTileInfo(nextSceneTileInfo);
         enemyInfo = nextSceneEnemyInfo;
+
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
         fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, currentLevel + 1);
     }

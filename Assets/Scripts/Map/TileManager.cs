@@ -236,17 +236,31 @@ public class TileManager : MonoBehaviour
             SetMapConfig();
         }
 
+        InitializeTileDict();
+    }
+
+    public void InitializeTileDict()
+    {
         baseTileDatas = new Dictionary<TileBase, TileDataScriptableObject>();
         dynamicTileDatas = new Dictionary<Vector3Int, DynamicTileData>();
         unitLocations = new Dictionary<Unit, Vector3Int>();
-        foreach (TileDataScriptableObject tileData in LevelManager.instance.typesOfTilesToSpawn)
+        var targetTiles = LevelManager.instance.levelOneTiles;
+        if (LevelManager.currentLevel == 5 || LevelManager.currentLevel == 6)
+        {
+            targetTiles = LevelManager.instance.levelTwoTiles;
+        }else if (LevelManager.currentLevel == 7 || LevelManager.currentLevel == 8)
+        {
+            targetTiles = LevelManager.instance.levelThreeTiles;
+        }
+
+        foreach (TileDataScriptableObject tileData in targetTiles)
         {
             foreach (TileBase tile in tileData.tiles)
             {
                 baseTileDatas.Add(tile, tileData);
             }
         }
-        
+
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
         {
             for (int y = (int)map.localBounds.min.y; y < map.localBounds.max.y; y++)

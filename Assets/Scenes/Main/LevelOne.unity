@@ -1074,73 +1074,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &561730321
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 561730323}
-  - component: {fileID: 561730322}
-  m_Layer: 0
-  m_Name: Level Manager
-  m_TagString: crossBattle
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &561730322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 561730321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b7c6e5fdfe0d14f8033be1079e868c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  totalLevels: 6
-  enemyNumToSpawn: 0
-  random: 1
-  crackChance: 3c0000001e000000
-  typesOfEnemiesToSpawn:
-  - {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
-  - {fileID: 3206773105803365608, guid: 1888029b275ed3846a7ea613d9c02b23, type: 3}
-  - {fileID: 4310592734349704287, guid: 792d27a8094b0e24abff1a70c3256f79, type: 3}
-  typesOfTilesToSpawn:
-  - {fileID: 11400000, guid: f150f011342cd2c42aeb4e57bdd892ff, type: 2}
-  - {fileID: 11400000, guid: 9be78945db5975e48a41560accbc3c44, type: 2}
-  - {fileID: 11400000, guid: c2fb84ff8790f634ba60e9f39a23e146, type: 2}
-  - {fileID: 11400000, guid: 77d3957f96150774aa62b18aa2316abc, type: 2}
-  - {fileID: 11400000, guid: 58d94fb00c6f24f4c904f63aa4b4027b, type: 2}
-  - {fileID: 11400000, guid: 439c66e79ada37d4cbb31e6e03d8b6c4, type: 2}
-  - {fileID: 11400000, guid: 616f9755a7acdc64f9f85dc6850939b9, type: 2}
-  map: {fileID: 126890231}
-  isTutorial: 0
-  overrideTutorial: 1
-  shatterTileOutter: {fileID: 11400000, guid: 6a7ae7482a0d2744e87303aee49d5b9f, type: 2}
-  shatterTileInner: {fileID: 11400000, guid: b9cc37c5440614c47a3ae6584dee3ef9, type: 2}
-  levelTransitionObj: {fileID: 0}
---- !u!4 &561730323
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 561730321}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9257107, y: -1.2429544, z: 266.34454}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &564718174
 GameObject:
@@ -1272,7 +1206,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &564718180
 MonoBehaviour:
@@ -1448,7 +1382,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1144576253
 GameObject:
@@ -1600,7 +1534,7 @@ MonoBehaviour:
   previewLayer: {fileID: 270826227}
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
-  levelManager: {fileID: 561730322}
+  levelManager: {fileID: 0}
   mapPosition: {x: 0, y: 0, z: 0}
   gameIsPaused: 0
   ovisButton: {fileID: 0}
@@ -1624,7 +1558,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1381194081
 GameObject:
@@ -1709,7 +1643,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1381194084
 MonoBehaviour:
@@ -1771,7 +1705,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1613305216
 MonoBehaviour:
@@ -1857,7 +1791,7 @@ Transform:
   m_Children:
   - {fileID: 1144576254}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1694394293
 GameObject:
@@ -1986,7 +1920,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1694394296
 MonoBehaviour:
@@ -2052,7 +1986,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1862399856
 AudioSource:
@@ -2289,7 +2223,7 @@ Transform:
   m_Children:
   - {fileID: 126890233}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &2125215264
 Grid:
@@ -2344,7 +2278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6057924552974800868, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6057924552974800868, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_AnchorMax.x
