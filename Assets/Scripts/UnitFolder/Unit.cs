@@ -59,6 +59,8 @@ public abstract class Unit: MonoBehaviour
     public bool inMovement = false;
     public LevelManager levelManager;
 
+    private int spriteSign = 1;
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -70,6 +72,8 @@ public abstract class Unit: MonoBehaviour
         {
             anim = GetComponent<Animator>();
         }
+
+        spriteSign = MathF.Sign(spriteRenderer.transform.localScale.x);
     }
 
     public void Start() 
@@ -202,7 +206,7 @@ public abstract class Unit: MonoBehaviour
     public void FlipSprite(Vector3 target)
     {
         float sign = Mathf.Sign(target.x - transform.position.x);
-        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * sign, transform.localScale.y, transform.localScale.z);
+        spriteRenderer.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * sign * spriteSign, transform.localScale.y, transform.localScale.z);
     }
 
     public virtual IEnumerator DoAttack(Unit target)

@@ -42,6 +42,7 @@ public class Ovis : PlayerUnit
         }
         else
         {
+            FlipSprite(targetUnit.transform.position);
             yield return StartCoroutine(PlayAbilityAnimation());
             CubeCoord direction = state.tileManager.GetDirection(location, target, abilityRange);
             Debug.Log("direction: " + direction);

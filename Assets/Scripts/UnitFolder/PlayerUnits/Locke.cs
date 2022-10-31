@@ -36,6 +36,8 @@ public class Locke : PlayerUnit
         }
         else
         {
+            FlipSprite(targetUnit.transform.position);
+            yield return StartCoroutine(PlayAbilityAnimation());
             currentCoolDown = coolDown;
             targetUnit.ChangeHealth(abilityDamage * -1);
         }
