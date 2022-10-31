@@ -302,12 +302,12 @@ public class LevelManager : MonoBehaviour
         //Otherwise, we know we're finished with the tutorial
         else
         {
-            isTutorial = false;
             //In the case that we start with tutorial levels, we will not have called LevelSetup()
-            if (nextSceneEnemyInfo.Count == 0)
+            if (isTutorial)
             {
                 LevelSetup();
             }
+            isTutorial = false;
         }
         currentLevel++;
     }

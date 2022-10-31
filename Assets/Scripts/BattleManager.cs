@@ -759,9 +759,7 @@ public class BattleManager : MonoBehaviour
         {
             child.gameObject.SetActive(true);
         }
-
-        yield return StartCoroutine(tutorialManager.NextDialogue());
-
+        
         animations.Clear();
 
         foreach(Unit unit in unitsToSpawn)

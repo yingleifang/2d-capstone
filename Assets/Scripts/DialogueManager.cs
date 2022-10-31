@@ -33,7 +33,6 @@ public class DialogueManager : MonoBehaviour
         {
             isWaitingForUserInput = false;
         }
-        continueButton.Select();
     }
 
     /// <summary>

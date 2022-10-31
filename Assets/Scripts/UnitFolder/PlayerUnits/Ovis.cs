@@ -12,6 +12,7 @@ public class Ovis : PlayerUnit
         Debug.Log("Attacking adjacent units");
         List<Vector3Int> tiles = state.tileManager.GetTilesInRange(location, 1, false);
         yield return StartCoroutine(PlayEOBAnim());
+        Debug.Log("HERE");
         foreach (Vector3Int tile in tiles)
         {
             Unit unit = state.tileManager.GetUnit(tile);
