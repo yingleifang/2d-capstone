@@ -144,6 +144,7 @@ MonoBehaviour:
     volume: 1
     pitchFluctuation: 0
   abilityDamage: 2
+  flamePrefab: {fileID: 5572911778643578107, guid: ca71143ca8ffa3046a5d05e190809609, type: 3}
 --- !u!95 &31881298027716544
 Animator:
   serializedVersion: 4

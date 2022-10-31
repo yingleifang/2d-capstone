@@ -6,6 +6,7 @@ public class Sozzy : PlayerUnit
 {
     public SoundEffect StartOfBattleAbilitySound;
     public int abilityDamage;
+    public GameObject flamePrefab;
 
     protected override void Awake()
     {
@@ -37,15 +38,26 @@ public class Sozzy : PlayerUnit
     public override IEnumerator UseAbility(Vector3Int target, BattleState state)
     {
         Debug.Log("USING ABILITY");
-        List<Vector3Int> path = state.tileManager.FindShortestPath(location, target, false, false);
-        if (!state.tileManager.IsStraightPath(path) || path.Count > abilityRange || target == location)
+        TileManager map = state.tileManager;
+        List<Vector3Int> path = map.FindShortestPath(location, target, false, false);
+        if (path.Count > abilityRange || target == location)
         {
             yield break;
         }
         else
         {
+            FlipSprite(state.tileManager.CellToWorldPosition(target));
+            StartCoroutine(PlayAbilityAnimation());
+            yield return new WaitForSeconds(0.5f);
             foreach (Vector3Int coord in path)
             {
+                Vector3 worldPos = state.tileManager.CellToWorldPosition(coord);
+                GameObject effect = Instantiate(flamePrefab, worldPos, Quaternion.identity);
+                if (worldPos.x < transform.position.x)
+                {
+                    Vector3 scale = effect.transform.localScale;
+                    effect.transform.localScale = new Vector3(scale.x * -1, scale.y, scale.z);
+                }
                 Unit curUnit = state.tileManager.GetUnit(coord);
                 Debug.Log(curUnit);
                 if (!curUnit)
