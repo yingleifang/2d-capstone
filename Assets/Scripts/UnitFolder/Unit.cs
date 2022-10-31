@@ -122,6 +122,14 @@ public abstract class Unit: MonoBehaviour
         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
 
+    public IEnumerator PlayAbilityAnimation()
+    {
+        anim.SetTrigger("Ability");
+        yield return null; // Wait a frame for the animation to start
+        int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+    }
+
     public void StartMovingAnimation()
     {
         anim.SetBool("isMoving", true);

@@ -42,6 +42,7 @@ public class Ovis : PlayerUnit
         }
         else
         {
+            yield return StartCoroutine(PlayAbilityAnimation());
             CubeCoord direction = state.tileManager.GetDirection(location, target, abilityRange);
             Debug.Log("direction: " + direction);
             CubeCoord cubeDestination = state.tileManager.UnityCellToCube(target) + direction;
