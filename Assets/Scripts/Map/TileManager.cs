@@ -150,6 +150,14 @@ public class TileManager : MonoBehaviour
     {
         tilePos = new List<Vector3Int>();
         audio = GetComponent<AudioComponent>();
+
+        if (!LevelManager.instance.isTutorial)
+        {
+            Debug.Log("RANDOMIZED");
+            SetMapConfig();
+        }
+
+        InitializeTileDict();
     }
 
     public IEnumerator ShatterTiles(int turn, List<Unit> units = null)
@@ -234,14 +242,6 @@ public class TileManager : MonoBehaviour
         map = FindObjectOfType<Tilemap>();
         Debug.Log(map);
         Debug.Log(levelManager);
-
-        if (!LevelManager.instance.isTutorial)
-        {
-            Debug.Log("RANDOMIZED");
-            SetMapConfig();
-        }
-
-        InitializeTileDict();
     }
 
     public void InitializeTileDict()

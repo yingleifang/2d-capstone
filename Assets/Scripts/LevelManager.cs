@@ -90,6 +90,9 @@ public class LevelManager : MonoBehaviour
     public levelTransition levelTransitionObj;
     void Awake()
     {
+        typesOfTilesToSpawn = levelOneTiles;
+        map = FindObjectOfType<Tilemap>();
+
         if (instance == null)
         {
             instance = this;
@@ -108,13 +111,12 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("aWake");
             isTutorial = false;
-            currentLevel = numTutorialLevels;
-            LevelSetup();
+            SetLevelCounter(numTutorialLevels);
+            IncrementLevel();
+            PrepareNextBattle();
         }
         //typesOfTilesToSpawn.Add(shatterTileOutter);
         //typesOfTilesToSpawn.Add(shatterTileInner);
-        typesOfTilesToSpawn = levelOneTiles;
-        map = FindObjectOfType<Tilemap>();
     }
 
     //public void ProcessTypesOfEnemiesToSpawn()
