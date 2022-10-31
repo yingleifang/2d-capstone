@@ -53,11 +53,14 @@ public class Mori : PlayerUnit
                 yield break;
             }
 
+            FlipSprite(map.CellToWorldPosition(target));
+            yield return StartCoroutine(PlayAbilityAnimation());
             Unit unit = Instantiate(unitToRevive);
             // TODO: probably need to add a dedicated revive function to play a revive animation.
             StartCoroutine(state.battleManager.SpawnUnit(target, unit));
             currentCoolDown = coolDown;
         }
+        map.ClearTileDeadUnit(target);
         yield return null;
     }
 

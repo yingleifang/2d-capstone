@@ -333,6 +333,14 @@ public class TileManager : MonoBehaviour
         }
     }
 
+    public void ClearTileDeadUnit(Vector3Int tilePos)
+    {
+        if (dynamicTileDatas.ContainsKey(tilePos))
+        {
+            dynamicTileDatas[tilePos].deadUnit = null;
+        }
+    }
+
     /// <summary>
     /// Returns the unit that last died on the given tile.
     /// </summary>
