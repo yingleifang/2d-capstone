@@ -38,8 +38,8 @@ public class PlayerUnit : Unit
 
     public IEnumerator PlayEOBAnim()
     {
-        anim.Play("EOB Ability", 0);
-        yield return null; // Wait a frame for the animation to start
+        anim.Play("EOB Ability", 0, 0f);
+        yield return new WaitForSeconds(.1f); // Wait a frame for the animation to start
         int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }

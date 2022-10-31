@@ -188,6 +188,11 @@ public class TileManager : MonoBehaviour
                 map.SetAnimationFrame(info.Key, 0);
             }
         }
+
+        if (turn != 0 && tilePos.Count == 0)
+        {
+            yield break;
+        }
         audio.PlayDisposable(crackSound);
         yield return StartCoroutine(WaitForAnimation());
     }
