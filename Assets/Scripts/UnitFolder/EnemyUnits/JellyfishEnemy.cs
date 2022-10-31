@@ -22,7 +22,7 @@ public class JellyfishEnemy : EnemyUnit
         yield return StartCoroutine(MoveTowards(state, closest.location, currentMovementSpeed));
 
         // Attack all adjacent units
-        if(!isDead)
+        if(!isDead && state.tileManager.Distance(location, closest.location) == 1)
         {
             List<Vector3Int> adjacentTiles = state.tileManager.GetTilesInRange(location, 1, false);
             foreach (Vector3Int adjacentTile in adjacentTiles)
