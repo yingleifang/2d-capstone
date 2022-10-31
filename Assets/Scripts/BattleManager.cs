@@ -104,6 +104,7 @@ public class BattleManager : MonoBehaviour
     public void SetUnitToPlace(PlayerUnit prefab)
     {
         isPlacingUnit = true;
+        acceptingInput = true;
         unitToPlace = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
         unitToPlace.anim.SetBool("Hide", false); // Replace with method
     }
@@ -214,13 +215,13 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        // Indicate tile player is hovering over
         if (tileManager)
         {
             Vector3Int tilePos = tileManager.GetTileAtScreenPosition(Input.mousePosition);
             OutlineTile(tilePos);
 
-            if (!selectedUnit)
+            // Indicate tile/unit player is hovering over
+            if (acceptingInput)
             {
                 if (!tileManager.InBounds(tilePos))
                 {
@@ -827,6 +828,7 @@ public class BattleManager : MonoBehaviour
         TurnOnPreview();
         ui.InitializeTurnCount(turnsPerBattle);
         isPlayerTurn = false;
+        acceptingInput = false;
 
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
@@ -875,7 +877,6 @@ public class BattleManager : MonoBehaviour
         // Place unit at start of round
         isPlacingUnit = true;
         unitToPlace = null;
-        acceptingInput = true;
         yield return StartCoroutine(ui.ShowSelectionWindow());
 
         yield return new WaitUntil(() => !isPlacingUnit);
