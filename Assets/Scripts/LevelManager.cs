@@ -24,6 +24,10 @@ public class LevelManager : MonoBehaviour
 
     public int[] crackChance = new int[] {60, 40};
 
+    /// <summary>
+    /// Links a positional coordinate with the tileDataSO along with the turn (the int) at which
+    /// the tile will crack
+    /// </summary>
     public Dictionary<Vector3Int, (TileDataScriptableObject, int)> tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
     public Dictionary<Vector3Int, (TileDataScriptableObject, int)> nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
 
@@ -188,6 +192,7 @@ public class LevelManager : MonoBehaviour
                     {
                         impassibleTile.Add(new Vector3Int(x, y, 0));
                     }
+                    // Outer tiles
                     if (x == bound.Item2 || y == -y_range || x == bound.Item1 || y == y_range)
                     {
                         var crackNum = RandomNumberGenerator.GetInt32(0, 100);
@@ -200,6 +205,7 @@ public class LevelManager : MonoBehaviour
                             curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], 0));
                         }
                     }
+                    // inner tiles
                     else if (x == bound.Item2 + 1 || y == -y_range + 1 || x == bound.Item1 - 1|| y == y_range - 1)
                     {
                         var crackNum = RandomNumberGenerator.GetInt32(0, 100);
@@ -212,6 +218,7 @@ public class LevelManager : MonoBehaviour
                             curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], 0));
                         }
                     }
+                    // Area contains no cracked tiles
                     else
                     {
                         curTileInfo.Add(new Vector3Int(x, y, 0), (typesOfTilesToSpawn[index - 1], 0));

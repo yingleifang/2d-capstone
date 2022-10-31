@@ -247,6 +247,7 @@ public abstract class Unit: MonoBehaviour
             {
                 ChangeHealth(-1);
                 yield return new WaitForSeconds(0.4f);
+                yield break;
             }
         }
 

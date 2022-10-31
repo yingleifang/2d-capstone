@@ -140,6 +140,11 @@ public class TileManager : MonoBehaviour
         }
     }
 
+    private void SetMapConfigNoRandom()
+    {
+        
+    }
+
     List<Vector3Int> tilePos;
 
     private void Start()
@@ -150,6 +155,25 @@ public class TileManager : MonoBehaviour
 
     public IEnumerator ShatterTiles(int turn, List<Unit> units = null)
     {
+        // If the level isn't randomized, we will not have set the correct data for tileInfo.
+        // Since we don't really need the correct data in tileInfo for anything, I'll just
+        // manually set it so the tiles do the animation.
+        if (LevelManager.instance.tileInfo.Count == 0 && turn == 0)
+        {
+            for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
+            {
+                for (int y = (int)map.localBounds.min.y; y < map.localBounds.max.y; y++)
+                {
+                    Vector3Int coord = new Vector3Int(x, y, 0);
+                    if (map.GetTile(coord))
+                    {
+                        TileBase curTile = map.GetTile(coord);
+                        map.SetTile(coord, baseTileDatas[curTile].animatedTile);
+                        map.SetAnimationFrame(coord, 0);
+                    }
+                }
+            }            
+        }
         foreach (var info in LevelManager.instance.tileInfo)
         {
             if (info.Value.Item2 == turn)

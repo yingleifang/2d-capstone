@@ -17,6 +17,7 @@ public class DialogueManager : MonoBehaviour
     private int index = 0;
     [HideInInspector] public bool isWaitingForUserInput = false;
     [HideInInspector] public bool doSkipDialogue = false;
+    public Button continueButton;
 
 
     // Start is called before the first frame update
@@ -32,6 +33,7 @@ public class DialogueManager : MonoBehaviour
         {
             isWaitingForUserInput = false;
         }
+        continueButton.Select();
     }
 
     /// <summary>
