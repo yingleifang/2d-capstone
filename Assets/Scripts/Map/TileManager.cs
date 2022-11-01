@@ -190,7 +190,8 @@ public class TileManager : MonoBehaviour
                 Unit unit = GetUnit(info.Key);
                 if (unit)
                 {
-                    units.Add(unit);
+                    if (units != null)
+                        units.Add(unit);
                     StartCoroutine(unit.Fall());
                 }
                 map.SetTile(info.Key, info.Value.Item1.animatedTile);
@@ -233,9 +234,16 @@ public class TileManager : MonoBehaviour
             foreach (var pos in tilePos)
             {
                 var info = LevelManager.instance.tileInfo[pos];
-                if (map.GetAnimationFrame(pos) >= info.Item1.animatedTile.m_AnimatedSprites.Length - 3)
+                try
                 {
-                    map.SetTile(pos, levelManager.typesOfTilesToSpawn[0].tiles[0]);
+                    if (map.GetAnimationFrame(pos) >= info.Item1.animatedTile.m_AnimatedSprites.Length - 3)
+                    {
+                        map.SetTile(pos, levelManager.typesOfTilesToSpawn[0].tiles[0]);
+                        toRemove.Add(pos);
+                    }
+                }
+                catch
+                {
                     toRemove.Add(pos);
                 }
             }
