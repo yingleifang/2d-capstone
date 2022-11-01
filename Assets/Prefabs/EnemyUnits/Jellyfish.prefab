@@ -126,7 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
-  health: 2
+  unitPrefabSO: {fileID: 0}
+  health: 3
   currentHealth: 0
   attackDamage: 2
   currentAttackDamage: 0
