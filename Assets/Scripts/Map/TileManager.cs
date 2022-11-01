@@ -9,7 +9,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Drawing;
 using Color = UnityEngine.Color;
-using static UnityEditor.PlayerSettings;
 
 /// <summary>
 /// Container class for data pertaining to a single tile
