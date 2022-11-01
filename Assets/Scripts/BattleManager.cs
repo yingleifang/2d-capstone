@@ -585,7 +585,7 @@ public class BattleManager : MonoBehaviour
 
         //prompt to click ally unit and move
         forcedUnitMovementTile = new Vector3Int(-2, -1, 0);
-        tileManager.SetTileColor(forcedUnitMovementTile, Color.red);
+        tileManager.SetTileColor(forcedUnitMovementTile, Color.red, true);
 
         yield return StartCoroutine(StartOfPlayerTurn());
         tutorialManager.endTurnButton.SetInteractable(false);
@@ -608,7 +608,7 @@ public class BattleManager : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
-        tileManager.ClearHighlights();
+        tileManager.ClearHighlights(true);
 
         //prompt to end turn
         ui.HideUnitInfoWindow();

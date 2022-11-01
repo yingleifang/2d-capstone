@@ -104,6 +104,8 @@ public class TileManager : MonoBehaviour
 
     private List<Vector3Int> coloredTiles = new List<Vector3Int>();
 
+    private Dictionary<Vector3Int, Color> coloredTilesTutorial = new Dictionary<Vector3Int, Color>();
+
     private CubeCoord[] directions = {new CubeCoord(1, 0, -1), new CubeCoord(1, -1, 0), 
              new CubeCoord(0, -1, 1), new CubeCoord(-1, 0, 1), new CubeCoord(-1, 1, 0), new CubeCoord(0, 1, -1)};
 
@@ -831,11 +833,19 @@ public class TileManager : MonoBehaviour
     /// </summary>
     /// <param name="cellCoord">the position of the tile to change</param>
     /// <param name="color">the new color for the tile</param>
-    public void SetTileColor(Vector3Int cellCoord, Color color)
+    public void SetTileColor(Vector3Int cellCoord, Color color, bool tutorial = false)
     {
         map.SetTileFlags(cellCoord, TileFlags.None);
         map.SetColor(cellCoord, color);
-        coloredTiles.Add(cellCoord);
+        if (!tutorial)
+        {
+            coloredTiles.Add(cellCoord);
+        }
+        else
+        {
+            coloredTilesTutorial.Add(cellCoord, color);
+        }
+
     }
 
     /// <summary>
@@ -856,13 +866,30 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public void ClearHighlights()
+    public void ClearHighlights(bool tutorial = false)
     {
-        foreach(Vector3Int tile in coloredTiles)
+        if (!tutorial)
         {
-            map.SetColor(tile, Color.white);
+            foreach(Vector3Int tile in coloredTiles)
+            {
+                map.SetColor(tile, Color.white);
+            }
+            coloredTiles.Clear();
+
+            foreach(var tile in coloredTilesTutorial)
+            {
+                map.SetColor(tile.Key, tile.Value);
+            }
         }
-        coloredTiles.Clear();
+        else
+        {
+            foreach(var tile in coloredTilesTutorial)
+            {
+                map.SetColor(tile.Key, Color.white);
+            }     
+            coloredTilesTutorial.Clear();       
+        }
+
     }
 
     public CubeCoord CubeNeighbor(Vector3Int cellCoord, CubeDirections direction)
