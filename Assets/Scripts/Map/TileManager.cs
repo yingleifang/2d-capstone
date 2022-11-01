@@ -205,6 +205,15 @@ public class TileManager : MonoBehaviour
         yield return StartCoroutine(WaitForAnimation());
     }
 
+    public Vector3Int ClampPos(Vector3Int tilePos)
+    {
+        int y = Mathf.Clamp(tilePos.y, -levelManager.y_range, levelManager.y_range);
+        var xBound = levelManager.boundList[y + levelManager.y_range];
+        int x = Mathf.Clamp(tilePos.x, xBound.Item2, xBound.Item1);
+        int z = 0;
+        return new Vector3Int(x, y, z);
+    }
+
     //private void Update()
     //{
     //    if (tilePos != null)

@@ -31,8 +31,8 @@ public class LevelManager : MonoBehaviour
     public Dictionary<Vector3Int, (TileDataScriptableObject, int)> tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
     public Dictionary<Vector3Int, (TileDataScriptableObject, int)> nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
 
-    List<(int, int)> boundList = new List<(int, int)>{(3, -4),(4, -4),(4, -5),(5, -5), (4, -5), (4, -4), (3, -4)};
-    int y_range = 3;
+    public List<(int, int)> boundList = new List<(int, int)>{(3, -4),(4, -4),(4, -5),(5, -5), (4, -5), (4, -4), (3, -4)};
+    public int y_range = 3;
 
     /// <summary>
     /// Use the int to index into typesOfEnemiesToSpawn to get enemy prefab. Vector is the map position

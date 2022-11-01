@@ -254,8 +254,9 @@ public abstract class Unit: MonoBehaviour
         yield break;
     }
 
-    public IEnumerator MoveTowards(BattleState state, Vector3Int targetLocation, int numMove)
+    public IEnumerator MoveTowards(BattleState state, Vector3Int targetLocation, int numMove, bool stopBeforeTarget = true)
     {
+        Debug.Log("target: " + targetLocation);
         List<Vector3Int> path = state.tileManager.FindShortestPath(location, targetLocation);
         TileBase startTile = BattleManager.instance.tileManager.map.GetTile(location);
 
@@ -287,7 +288,7 @@ public abstract class Unit: MonoBehaviour
             goal = path[goalIndex];
         }
 
-        if(goal == targetLocation)
+        if(stopBeforeTarget && goal == targetLocation)
         {
             if(goalIndex - 1 < 0)
             {

@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
   - {fileID: 3206773105803365608, guid: 1888029b275ed3846a7ea613d9c02b23, type: 3}
   - {fileID: 4310592734349704287, guid: 792d27a8094b0e24abff1a70c3256f79, type: 3}
+  - {fileID: 7924187702642824437, guid: 2be519ca374375145874e5cd1bc16cc4, type: 3}
   typesOfTilesToSpawn:
   - {fileID: 11400000, guid: f150f011342cd2c42aeb4e57bdd892ff, type: 2}
   - {fileID: 11400000, guid: aaa8c56f60172b748b5d9695442a5cd1, type: 2}

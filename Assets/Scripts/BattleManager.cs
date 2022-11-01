@@ -1554,7 +1554,7 @@ public class BattleManager : MonoBehaviour
         postProcessingSettings.ChangeAllColorToDeSelected(playerUnits);
         if (selectedUnit is PlayerUnit)
         {
-            postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)unit);
+            postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
         }
         selectedUnit = unit;
         ui.ShowUnitInfoWindow(unit);
