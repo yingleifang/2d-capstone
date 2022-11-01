@@ -41,7 +41,7 @@ public class DialogueManager : MonoBehaviour
     /// in form: speakerString: speechString
     /// If no speakerString is given, then function infers the speaker from past speaker.
     /// </summary>
-    public IEnumerator Say(string textString, bool additive = false, float textSpeed = .015f)
+    public IEnumerator Say(string textString, bool additive = false, float textSpeed = .015f, bool disableContinue = false)
     {
         // If we are adding and there is text currently being spoken prematurely end the coroutine.
         if (additive && isSpeaking)
@@ -87,14 +87,14 @@ public class DialogueManager : MonoBehaviour
             portrait.gameObject.SetActive(true);
         }
 
-        speakingFxn = StartCoroutine(StartSpeaking(speakerString, speechString, additive, textSpeed));
+        speakingFxn = StartCoroutine(StartSpeaking(speakerString, speechString, additive, textSpeed, disableContinue));
         yield return speakingFxn;
     }
 
     /// <summary>
     /// Activates the speechPanel and prints out the text to it. Waits for user input after it finishes
     /// </summary>
-    public IEnumerator StartSpeaking(string speakerString, string textString, bool additive, float textSpeed = .015f)
+    public IEnumerator StartSpeaking(string speakerString, string textString, bool additive, float textSpeed = .015f, bool disableContinue = false)
     {
         speechPanel.SetActive(true);
         speaker.text = speakerString;
@@ -119,6 +119,10 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
+        if (disableContinue)
+        {
+            continueButton.gameObject.SetActive(false);
+        }
         isWaitingForUserInput = true;
         while (isWaitingForUserInput && !doSkipDialogue)
         {
@@ -128,6 +132,7 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("FINISHED speaking1");
 
         doSkipDialogue = false;
+        continueButton.gameObject.SetActive(true);
         StopSpeaking();
     }
 

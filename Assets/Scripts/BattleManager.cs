@@ -496,7 +496,7 @@ public class BattleManager : MonoBehaviour
         // Handles unit selection tutorial
         StartCoroutine(ui.ShowSelectionWindow(false));
         tutorialManager.disableBattleInteraction = true;
-        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(tutorialManager.NextDialogue(true));
 
         // Wait until user does what is asked. This is not the only thing stopping
         // progression. Dialogue system's isWaitingForUserInput also stops progression.
@@ -539,7 +539,7 @@ public class BattleManager : MonoBehaviour
         tileManager.SetTileColor(forcedUnitPlacementTile, Color.blue);
         unitToPlace.spriteRenderer.enabled = true;
         tutorialManager.disableBattleInteraction = false;        
-        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(tutorialManager.NextDialogue(true));
 
         // Wait until user does what is asked.
         while (isPlacingUnit)
@@ -594,7 +594,7 @@ public class BattleManager : MonoBehaviour
             postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
         }
 
-        yield return StartCoroutine(tutorialManager.NextDialogue());  
+        yield return StartCoroutine(tutorialManager.NextDialogue(true));  
 
         bool notMoved = true;
         while (notMoved)
@@ -616,7 +616,7 @@ public class BattleManager : MonoBehaviour
         tutorialManager.endTurnButton.SetInteractable(true);
         StartCoroutine(ui.EnableEndTurnButton());
         pushDialogueAfterEnemyTurn = true;
-        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(tutorialManager.NextDialogue(true));
 
         // Wait until player turn comes around again.
         while (isPlayerTurn)
@@ -644,7 +644,7 @@ public class BattleManager : MonoBehaviour
         pushDialogueAfterAttack = true;
         tutorialManager.disableBattleInteraction = false;
         yield return StartCoroutine(ui.DisableEndTurnButton());
-        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(tutorialManager.NextDialogue(true));
 
         bool notAttacked = true;
         while (notAttacked)
@@ -678,7 +678,7 @@ public class BattleManager : MonoBehaviour
 
         //prompt end turn
         Debug.Log("prompt end turn");
-        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(tutorialManager.NextDialogue(true));
 
         while (!isBattleOver)
         {

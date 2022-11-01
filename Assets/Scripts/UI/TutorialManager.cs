@@ -99,7 +99,7 @@ public class TutorialManager : MonoBehaviour
 
     //}
 
-    public IEnumerator NextDialogue()
+    public IEnumerator NextDialogue(bool disableContinue = false)
     {
         Debug.Log(index);
         if (index > dialogue[LevelManager.currentLevel - 1].Length - 1)
@@ -107,7 +107,7 @@ public class TutorialManager : MonoBehaviour
             Debug.Log("BREAKING <.<");
             yield break;
         }
-        yield return StartCoroutine(dialogueManager.Say(dialogue[LevelManager.currentLevel - 1][index++], false, textSpeed));
+        yield return StartCoroutine(dialogueManager.Say(dialogue[LevelManager.currentLevel - 1][index++], false, textSpeed, disableContinue));
     }
 
     public int NumLines()
