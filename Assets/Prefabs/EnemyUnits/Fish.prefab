@@ -358,7 +358,7 @@ Animator:
   m_GameObject: {fileID: 8109192335271719319}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 830609c8877b49841ac0c0983e4e70e4, type: 2}
+  m_Controller: {fileID: 22100000, guid: 4ac680e51186a9b45b8ee3b478160ee5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -502,6 +502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e7ab1ba02b8204b841a3a1e83db655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  unitPrefabSO: {fileID: 0}
   health: 3
   currentHealth: 0
   attackDamage: 1
