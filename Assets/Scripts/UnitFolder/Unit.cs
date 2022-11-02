@@ -248,9 +248,11 @@ public abstract class Unit: MonoBehaviour
             inMovement = true;
         }
         state.tileManager.RemoveUnitFromTile(location);
-        state.tileManager.AddUnitToTile(target, this);
 
         yield return StartCoroutine(smoothMovement(state, target));
+
+        state.tileManager.AddUnitToTile(target, this);
+
         yield break;
     }
 
@@ -304,26 +306,30 @@ public abstract class Unit: MonoBehaviour
 
     IEnumerator smoothMovement(BattleState state, Vector3Int target)
     {
-        FlipSprite(state.tileManager.CellToWorldPosition(target));
-        StartMovingAnimation();
-        while (currentWaypointIndex < path.Count)
+        Debug.Log("location: " + location + " target: " + target);
+        if (!target.Equals(location))
         {
-            var step = movementSpeed * Time.deltaTime * 10;
-            Vector3 worldPostion = state.tileManager.CellToWorldPosition(path[currentWaypointIndex]);
-            transform.position = Vector3.MoveTowards(transform.position, worldPostion, step);
-            if (Vector3.Distance(transform.position, worldPostion) < 0.00001f)
+            FlipSprite(state.tileManager.CellToWorldPosition(target));
+            StartMovingAnimation();
+            while (currentWaypointIndex < path.Count)
             {
-                currentWaypointIndex++;
+                var step = movementSpeed * Time.deltaTime * 10;
+                Vector3 worldPostion = state.tileManager.CellToWorldPosition(path[currentWaypointIndex]);
+                transform.position = Vector3.MoveTowards(transform.position, worldPostion, step);
+                if (Vector3.Distance(transform.position, worldPostion) < 0.00001f)
+                {
+                    currentWaypointIndex++;
+                }
+                yield return null;
             }
-            yield return null;
-        }
 
-        StopMovingAnimation();
+            StopMovingAnimation();
+        }
 
         path = null;
         inMovement = false;
         currentWaypointIndex = 0;
-        transform.position = state.tileManager.CellToWorldPosition(location);
+        transform.position = state.tileManager.CellToWorldPosition(target);
 
         if (state.tileManager.IsHazardous(target))
         {
