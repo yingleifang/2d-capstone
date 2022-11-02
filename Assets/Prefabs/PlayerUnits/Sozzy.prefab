@@ -86,7 +86,7 @@ MonoBehaviour:
   currentHealth: 0
   attackDamage: 1
   currentAttackDamage: 0
-  attackRange: 2
+  attackRange: 3
   currentAttackRange: 0
   movementSpeed: 2
   currentMovementSpeed: 0
