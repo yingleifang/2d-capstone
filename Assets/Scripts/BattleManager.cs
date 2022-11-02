@@ -1358,15 +1358,13 @@ public class BattleManager : MonoBehaviour
 
         foreach(EnemyUnit enemy in enemies)
         {
-            postProcessingSettings.EnableEnemyGlow(enemy);
-            yield return enemy.performAction(GetState());
-            yield return StartCoroutine(UpdateBattleState());
-            postProcessingSettings.DisableEnemyGlow(enemy);
-            //CheckIfBattleOver();
-            //if(isBattleOver)
-            //{
-            //    yield break;
-            //}
+            if (enemy != null && !enemy.isDead)
+            {
+                postProcessingSettings.EnableEnemyGlow(enemy);
+                yield return enemy.performAction(GetState());
+                yield return StartCoroutine(UpdateBattleState());
+                postProcessingSettings.DisableEnemyGlow(enemy);
+            }
         }
 
         if (pushDialogueAfterEnemyTurn)
