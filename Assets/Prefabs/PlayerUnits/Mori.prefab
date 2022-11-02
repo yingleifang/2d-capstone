@@ -146,8 +146,9 @@ MonoBehaviour:
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}
-  startOfBattleAbilityDescription: Heals 1 HP to adjacent units
-  inBattleAbilityDescription: Revives a defeated unit on an adjacent tile
+  startOfBattleAbilityDescription: Heals 1 HP to adjacent units. Can overheal.
+  inBattleAbilityDescription: Revives a defeated unit on an adjacent tile. Unit must
+    have died on that tile.
   previewClip: {fileID: 32900000, guid: 482240f33842c394ab58e943e33efd37, type: 3}
   type: 0
   hasMoved: 0
