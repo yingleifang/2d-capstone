@@ -398,6 +398,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 889205500, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1162753544, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -584,6 +588,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6989220128797025278, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989220128797025278, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989220128797025278, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989220128797025278, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -764,8 +780,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
-  hazzardAvatar: {fileID: 2016526582845031338, guid: b189cb4954d2e94498a01c36d71ff657, type: 3}
+  enemyOverlay:
+    sprite: {fileID: 0}
+    description: 
+  hazardAvatar: {fileID: 0}
+  hazardOverlay:
+    sprite: {fileID: 0}
+    description: 
   impassibleAvatar: {fileID: 2016526582845031338, guid: 12727b8798f18c8428d57ad0b6774de8, type: 3}
+  impassibleOverlay:
+    sprite: {fileID: 0}
+    description: 
 --- !u!4 &313534040
 Transform:
   m_ObjectHideFlags: 0
@@ -1563,9 +1588,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalLevels: 1
-  currentLevel: 1
   enemyNumToSpawn: 0
   random: 1
+  crackChance: 3c00000028000000
+  y_range: 3
   typesOfEnemiesToSpawn:
   - {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
   typesOfTilesToSpawn:
@@ -1577,9 +1603,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf04149aa8cdd9948821c8d58751e76c, type: 2}
   - {fileID: 11400000, guid: f150f011342cd2c42aeb4e57bdd892ff, type: 2}
   - {fileID: 11400000, guid: 616f9755a7acdc64f9f85dc6850939b9, type: 2}
+  AllTiles: []
+  levelOneTiles: []
+  levelTwoTiles: []
+  levelThreeTiles: []
   map: {fileID: 363959773}
   isTutorial: 0
   overrideTutorial: 1
+  shatterTileOutter: {fileID: 0}
+  shatterTileInner: {fileID: 0}
   levelTransitionObj: {fileID: 0}
 --- !u!4 &883816493
 Transform:
@@ -1703,6 +1735,7 @@ MonoBehaviour:
   DeSelectColor: {r: 0, g: 0.83679795, b: 1, a: 1}
   CanMoveAndAttackGlowBrightness: 5
   CanMoveAndAttackOutlineWidth: 3
+  EnemyOutlineWidth: 0
   CanAttackGlowBrightness: 3.6
   CanAttackOutlineWidth: 3
 --- !u!114 &1041821046
@@ -1768,6 +1801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUnits: []
   enemyUnits: []
+  NPCUnits: []
   unitsToSpawn: []
   tileManager: {fileID: 1720604120}
   turnsPerBattle: 5
@@ -1787,6 +1821,7 @@ MonoBehaviour:
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
   levelManager: {fileID: 883816492}
   mapPosition: {x: 0, y: 0, z: 0}
+  gameIsPaused: 0
   ovisButton: {fileID: 0}
   tutorialManager: {fileID: 0}
   dialogueManager: {fileID: 0}
@@ -1916,6 +1951,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 363959773}
+  animatedTile: {fileID: 0}
+  crackSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  audio: {fileID: 0}
 --- !u!4 &1720604121
 Transform:
   m_ObjectHideFlags: 0

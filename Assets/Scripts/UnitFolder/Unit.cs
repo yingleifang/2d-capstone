@@ -496,7 +496,7 @@ public abstract class Unit: MonoBehaviour
         spriteRenderer.sortingOrder = -3;
         audio.PlayDisposable(deathSound);
         yield return StartCoroutine(PlayFallAnimation());
-        yield break;
+        spriteRenderer.sortingOrder = 0;
     }
 
     public void decreaseCoolDown(int numDecrease = 1)
