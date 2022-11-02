@@ -132,7 +132,7 @@ MonoBehaviour:
     volume: 1
     pitchFluctuation: 0
   attackSound:
-    clip: {fileID: 8300000, guid: 8e243715e55653d438df951153ee3afe, type: 3}
+    clip: {fileID: 0}
     volume: 1
     pitchFluctuation: 0
   placementSound:
