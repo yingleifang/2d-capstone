@@ -1162,8 +1162,17 @@ public class BattleManager : MonoBehaviour
         else
         {
             Debug.Log("current level: " + LevelManager.currentLevel);
-            index = LevelManager.currentLevel - LevelManager.instance.NumTutorialLevels < 
-                    LevelManager.instance.totalLevels ? SceneManager.GetActiveScene().buildIndex : 8;
+
+            if (LevelManager.currentLevel - LevelManager.instance.NumTutorialLevels < 
+                    LevelManager.instance.totalLevels)
+            {
+                index = SceneManager.GetActiveScene().buildIndex;
+            }
+            else
+            {
+                index = 8;
+                ResetAll();
+            }
             Debug.Log("index: " + index);
         }
         LevelManager.instance.IncrementLevel();
