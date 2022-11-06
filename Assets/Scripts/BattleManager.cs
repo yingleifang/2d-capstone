@@ -930,9 +930,15 @@ public class BattleManager : MonoBehaviour
 
             List<Unit> unitsToDestroy = new();
             var turnPast = ui.turnCountDown.totalTurn - ui.turnCountDown.currentTurn;
-            if (turnPast == 2){
+            if (turnPast == 1)
+            {
+                tileManager.CrackTiles(turnPast);
+            }
+            else if (turnPast == 2){
                 yield return StartCoroutine(tileManager.ShatterTiles(turnPast - 1, unitsToDestroy));
-            }else if (turnPast == 3)
+                tileManager.CrackTiles(turnPast);
+            }
+            else if (turnPast == 3)
             {
                 yield return StartCoroutine(tileManager.ShatterTiles(turnPast - 1, unitsToDestroy));
             }

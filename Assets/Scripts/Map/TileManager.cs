@@ -161,6 +161,17 @@ public class TileManager : MonoBehaviour
         InitializeTileDict();
     }
 
+    public void CrackTiles(int turn)
+    {
+        foreach (var info in LevelManager.instance.tileInfo)
+        {
+                if (info.Value.Item2 == turn)
+                {
+                    map.SetTile(info.Key, info.Value.Item1.tiles[1]);
+                    map.SetAnimationFrame(info.Key, 0);
+                }
+        }
+    }
     public IEnumerator ShatterTiles(int turn, List<Unit> units = null)
     {
         // If the level isn't randomized, we will not have set the correct data for tileInfo.
