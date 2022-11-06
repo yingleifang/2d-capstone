@@ -184,18 +184,16 @@ public class TileManager : MonoBehaviour
         }
         foreach (var info in LevelManager.instance.tileInfo)
         {
-            if (info.Value.Item2 == turn)
+            if (turn != 0)
             {
-                tilePos.Add(info.Key);
-                Unit unit = GetUnit(info.Key);
-                if (unit)
+                if (info.Value.Item2 == turn)
                 {
-                    if (units != null)
-                        units.Add(unit);
-                    StartCoroutine(unit.Fall());
+                    HandleTileReplacement(units, info);
                 }
-                map.SetTile(info.Key, info.Value.Item1.animatedTile);
-                map.SetAnimationFrame(info.Key, 0);
+            }
+            else
+            {
+                HandleTileReplacement(units, info);
             }
         }
 
@@ -205,6 +203,20 @@ public class TileManager : MonoBehaviour
         }
         audio.PlayDisposable(crackSound);
         yield return StartCoroutine(WaitForAnimation());
+    }
+
+    private void HandleTileReplacement(List<Unit> units, KeyValuePair<Vector3Int, (TileDataScriptableObject, int)> info)
+    {
+        tilePos.Add(info.Key);
+        Unit unit = GetUnit(info.Key);
+        if (unit)
+        {
+            if (units != null)
+                units.Add(unit);
+            StartCoroutine(unit.Fall());
+        }
+        map.SetTile(info.Key, info.Value.Item1.animatedTile);
+        map.SetAnimationFrame(info.Key, 0);
     }
 
     public Vector3Int ClampPos(Vector3Int tilePos)
