@@ -1125,7 +1125,6 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator ShowGameOver()
     {
-        LevelManager.instance.RefreshNewGame();
         yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));
         foreach (EnemyUnit unit in enemyUnits.ToArray())
         {
@@ -1172,6 +1171,10 @@ public class BattleManager : MonoBehaviour
             {
                 index = 8;
                 ResetAll();
+                foreach (EnemyUnit unit in enemyUnits.ToArray())
+                {
+                    Destroy(unit.gameObject);
+                }
             }
             Debug.Log("index: " + index);
         }
@@ -1193,6 +1196,13 @@ public class BattleManager : MonoBehaviour
         NPCUnits.Clear();
 
         yield return StartCoroutine(ui.SwitchScene(index));
+
+        if (index == 8)
+        {
+            Debug.Log("Destroying battlemanager because of win screen");
+            Destroy(gameObject);
+        }
+
         Debug.Log("Next level finished loading");
 
         LevelManager.instance.PrepareNextBattle();

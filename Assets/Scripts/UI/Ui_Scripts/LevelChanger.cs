@@ -17,6 +17,7 @@ public class LevelChanger : MonoBehaviour
     public void MainMenu()
     {
         DestroyObjectWithTag("crossBattle");
+        LevelManager.instance.RefreshNewGame();
         SceneManager.LoadScene("StartMenu");
     }
 
