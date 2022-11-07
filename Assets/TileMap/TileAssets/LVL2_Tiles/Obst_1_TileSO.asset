@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Impassable. Units that fall onto these massive spikes die instantly.
   tiles:
   - {fileID: 11400000, guid: cfc02bbd8fd6a8b46b2358af18288bbe, type: 2}
+  animatedTile: {fileID: 11400000, guid: 01a25cf97f1ae454eb0ad59af629d845, type: 2}
   movementSpeedModifier: 0
   impassable: 1
   hazardous: 0

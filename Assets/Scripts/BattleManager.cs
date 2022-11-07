@@ -928,14 +928,19 @@ public class BattleManager : MonoBehaviour
             yield return StartCoroutine(performEnemyMoves());
 
 
-
             List<Unit> unitsToDestroy = new();
             var turnPast = ui.turnCountDown.totalTurn - ui.turnCountDown.currentTurn;
-            if (turnPast == 2){
-                yield return StartCoroutine(tileManager.ShatterTiles(1, unitsToDestroy));
-            }else if (turnPast == 3)
+            if (turnPast == 1)
             {
-                yield return StartCoroutine(tileManager.ShatterTiles(2, unitsToDestroy));
+                tileManager.CrackTiles(turnPast);
+            }
+            else if (turnPast == 2){
+                yield return StartCoroutine(tileManager.ShatterTiles(turnPast - 1, unitsToDestroy));
+                tileManager.CrackTiles(turnPast);
+            }
+            else if (turnPast == 3)
+            {
+                yield return StartCoroutine(tileManager.ShatterTiles(turnPast - 1, unitsToDestroy));
             }
 
             foreach(var unit in unitsToDestroy)
@@ -1150,6 +1155,7 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(player.Undim());
         }
 
+        instance.TurnOffPreview();
         yield return StartCoroutine(tileManager.ShatterTiles(0));
 
 
@@ -1258,7 +1264,7 @@ public class BattleManager : MonoBehaviour
             }
 
         }
-        
+        instance.TurnOnPreview();
     }
 
     public void SkipTutorialButton()
