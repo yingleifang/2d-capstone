@@ -504,9 +504,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
   unitPrefabSO: {fileID: 0}
-  health: 4
+  health: 2
   currentHealth: 0
-  attackDamage: 2
+  attackDamage: 1
   currentAttackDamage: 0
   attackRange: 1
   currentAttackRange: 0

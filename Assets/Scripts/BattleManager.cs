@@ -488,11 +488,6 @@ public class BattleManager : MonoBehaviour
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
 
-        while (tutorialManager.index < 5)
-        {
-            yield return StartCoroutine(tutorialManager.NextDialogue());
-        }
-
         // Handles unit selection tutorial
         StartCoroutine(ui.ShowSelectionWindow(false));
         tutorialManager.disableBattleInteraction = true;
@@ -553,10 +548,6 @@ public class BattleManager : MonoBehaviour
 
         tutorialManager.disableBattleInteraction = true;
 
-        //NPC dialogue
-        yield return StartCoroutine(tutorialManager.NextDialogue());
-        yield return StartCoroutine(tutorialManager.NextDialogue());
-
         // Place units waiting to be spawned on new map
         Debug.Log("Units to spawn: " + unitsToSpawn.Count);
         List<Coroutine> animations = new List<Coroutine>();
@@ -569,6 +560,9 @@ public class BattleManager : MonoBehaviour
 
         animations.Clear();
         unitsToSpawn.Clear();
+
+        //NPC dialogue
+        yield return StartCoroutine(tutorialManager.NextDialogue());
 
         //Discussing hovering
         yield return StartCoroutine(tutorialManager.NextDialogue());
@@ -722,6 +716,34 @@ public class BattleManager : MonoBehaviour
             Debug.LogError("Can't find preview layer q_q");
         }
         previewLayer = curGeneratePreviews[0].gameObject;
+
+        //Ensure three neutral tiles to place enemies on
+        LevelManager.instance.nextSceneTileInfo.Remove(new Vector3Int(0, 1, 0));
+        LevelManager.instance.nextSceneTileInfo.Add(new Vector3Int(0, 1, 0), 
+                    (LevelManager.instance.typesOfTilesToSpawn[2], 0));
+        LevelManager.instance.nextSceneTileInfo.Remove(new Vector3Int(1, 1, 0));
+        LevelManager.instance.nextSceneTileInfo.Add(new Vector3Int(1, 1, 0), 
+                    (LevelManager.instance.typesOfTilesToSpawn[2], 0));
+        LevelManager.instance.nextSceneTileInfo.Remove(new Vector3Int(2, 1, 0));
+        LevelManager.instance.nextSceneTileInfo.Add(new Vector3Int(2, 1, 0), 
+                    (LevelManager.instance.typesOfTilesToSpawn[2], 0));
+        // Manually set enemy positions
+        for (int i = 0; i < LevelManager.instance.nextSceneEnemyInfo.Count; i++)
+        {
+            var curInfo = LevelManager.instance.nextSceneEnemyInfo[i];
+            curInfo.Item2 = new Vector3Int(i, 1, 0);
+            LevelManager.instance.nextSceneEnemyInfo[i] = curInfo;
+        }
+
+        //Make middle tile impassable
+        LevelManager.instance.nextSceneTileInfo.Remove(new Vector3Int(0, 0, 0));
+        LevelManager.instance.nextSceneTileInfo.Add(new Vector3Int(0, 0, 0), 
+                    (LevelManager.instance.typesOfTilesToSpawn[6], 0));
+
+        //Make this tile hazardous
+        LevelManager.instance.nextSceneTileInfo.Remove(new Vector3Int(-1, 0, 0));
+        LevelManager.instance.nextSceneTileInfo.Add(new Vector3Int(-1, 0, 0), 
+                    (LevelManager.instance.typesOfTilesToSpawn[3], 0));
 
         TurnOnPreview();
 
@@ -1052,6 +1074,7 @@ public class BattleManager : MonoBehaviour
         }
 
         tileManager.AddUnitToTile(spawnLocation, unit);
+        Debug.Log("TESTING ITZEL: " + spawnLocation + " " + unit.location + " " + unit.transform.position);
         
 
         yield return StartCoroutine(tileManager.OnUnitFallOnTile(GetState(), unit, spawnLocation));
@@ -1181,10 +1204,14 @@ public class BattleManager : MonoBehaviour
                     LevelManager.instance.totalLevels)
             {
                 index = SceneManager.GetActiveScene().buildIndex;
+                if (LevelManager.currentLevel == LevelManager.instance.totalLevels - 2)
+                {
+                    index += 1;
+                }
             }
             else
             {
-                index = 8;
+                index = 9;
                 ResetAll();
                 foreach (EnemyUnit unit in enemyUnits.ToArray())
                 {
@@ -1194,11 +1221,6 @@ public class BattleManager : MonoBehaviour
             Debug.Log("index: " + index);
         }
         LevelManager.instance.IncrementLevel();
-
-        if (!LevelManager.instance.isTutorial && tutorialManager)
-        {
-            ResetAll();
-        }
 
         acceptingInput = false;
 
@@ -1212,7 +1234,7 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(ui.SwitchScene(index));
 
-        if (index == 8)
+        if (index == 9)
         {
             Debug.Log("Destroying battlemanager because of win screen");
             Destroy(gameObject);
@@ -1220,6 +1242,7 @@ public class BattleManager : MonoBehaviour
 
         Debug.Log("Next level finished loading");
 
+        Debug.Log("KILL ME: " + LevelManager.instance.levelOffset + LevelManager.currentLevel);
         LevelManager.instance.PrepareNextBattle();
 
         foreach (Unit unit in unitsToSpawn)
@@ -1310,9 +1333,9 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(tileManager.ShatterTiles(0));
 
+        LevelManager.instance.levelOffset = 0;
         LevelManager.instance.IncrementLevel();
         ResetAll();
-
 
         acceptingInput = false;
 
@@ -1340,40 +1363,9 @@ public class BattleManager : MonoBehaviour
         LevelManager.instance.map = FindObjectOfType<Tilemap>();
         Debug.Log("Found new TileManager: " + tileManager != null);
 
-        // If statement below destroys everything if we reach the win screen
-        // Should probably be handled more elegantly
-        if (tileManager == null || ui == null)
-        {
-            LevelManager.instance.RefreshNewGame();
-            Debug.Log("No TileManager or UIController found. Destroying GameManager");
-            foreach (Unit unit in unitsToSpawn)
-            {
-                Destroy(unit.gameObject);
-            }
-
-            Destroy(gameObject);
-            yield break;
-        }
-        if (!LevelManager.instance.isTutorial)
-        {
-            Debug.Log("SETTING DATA");
-            setEnemyData();
-            regeneratePreviews();
-            StartCoroutine(InitializeBattle());
-        } 
-        else 
-        {
-            switch (LevelManager.currentLevel)
-            {
-                case 2:
-                    StartCoroutine(InitializeBattleTutorial2());
-                    break;
-                default:
-                    Debug.LogError("SHouldn't be in here");
-                    break;
-            }
-
-        }        
+        setEnemyData();
+        regeneratePreviews();
+        StartCoroutine(InitializeBattle());    
     }
 
     
@@ -1632,11 +1624,21 @@ public class BattleManager : MonoBehaviour
         }
         foreach (EnemyUnit unit in enemyUnits)
         {
+            Debug.Log("Destroying: " + unit);
             Destroy(unit.gameObject);
         }
         foreach(NPCUnit unit in NPCUnits)
         {
+            Debug.Log("Destroying: " + unit);
             Destroy(unit.gameObject);
+        }
+        foreach (Unit unit in unitsToSpawn)
+        {
+            Debug.Log("Destroying: " + unit);
+            if (unit)
+            {
+                Destroy(unit.gameObject); 
+            }        
         }
         playerUnits.Clear();
         enemyUnits.Clear();

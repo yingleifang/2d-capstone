@@ -2088,7 +2088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5861352186040890681, guid: 38e9710b34642ca4a960439af68d9f7d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -70.6
+      value: -66.72
       objectReference: {fileID: 0}
     - target: {fileID: 5861352186040890681, guid: 38e9710b34642ca4a960439af68d9f7d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3711,6 +3711,10 @@ MonoBehaviour:
   map: {fileID: 1154100658}
   animatedTile: {fileID: 0}
   crackSound:
+    clip: {fileID: 8300000, guid: 3ffb8cfdd0cc89742afae4ad2181e9e6, type: 3}
+    volume: 1
+    pitchFluctuation: 0
+  shatterSound:
     clip: {fileID: 8300000, guid: c3b1d5b22b2495a49a8e5e484506a583, type: 3}
     volume: 1
     pitchFluctuation: 0
