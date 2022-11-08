@@ -49,6 +49,8 @@ public abstract class Unit: MonoBehaviour
     [SerializeField]
     protected SoundEffect deathSound, hitSound, attackSound, placementSound, fallSound;
     [SerializeField]
+
+    public bool spawnOnStart = false;
     
 
     public bool isDead = false;
@@ -76,14 +78,14 @@ public abstract class Unit: MonoBehaviour
         spriteSign = MathF.Sign(spriteRenderer.transform.localScale.x);
     }
 
-    public void Start() 
+    public virtual void Start() 
     {
         currentHealth = health;
         currentAttackDamage = attackDamage;
         currentAttackRange = attackRange;
         currentMovementSpeed = movementSpeed;
         currentCoolDown = 0;
-        if (LevelManager.instance.isTutorial)
+        if (LevelManager.instance.isTutorial || spawnOnStart)
         {
             BattleManager.instance.unitsToSpawn.Add(this);
         }
@@ -487,7 +489,7 @@ public abstract class Unit: MonoBehaviour
         healthBarFill.SetActive(false);
     }
 
-    public IEnumerator Die() 
+    public virtual IEnumerator Die() 
     {
         audio.PlayDisposable(deathSound);
         yield return StartCoroutine(PlayLastWordAnimation());

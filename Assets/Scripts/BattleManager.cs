@@ -1138,6 +1138,15 @@ public class BattleManager : MonoBehaviour
         Destroy(gameObject); // Or similarly reset the battle manager
     }
 
+    /// <summary>
+    /// Invokes the NextLevel coroutine.
+    /// Easy callback for other scripts
+    /// </summary>
+    public void StartNextLevel()
+    {
+        StartCoroutine(NextLevel());
+    }
+
     IEnumerator NextLevel()
     {
         postProcessingSettings.DisableTheGlow(playerUnits);
