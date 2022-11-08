@@ -548,9 +548,6 @@ public class BattleManager : MonoBehaviour
 
         tutorialManager.disableBattleInteraction = true;
 
-        //NPC dialogue
-        yield return StartCoroutine(tutorialManager.NextDialogue());
-
         // Place units waiting to be spawned on new map
         Debug.Log("Units to spawn: " + unitsToSpawn.Count);
         List<Coroutine> animations = new List<Coroutine>();
@@ -563,6 +560,9 @@ public class BattleManager : MonoBehaviour
 
         animations.Clear();
         unitsToSpawn.Clear();
+
+        //NPC dialogue
+        yield return StartCoroutine(tutorialManager.NextDialogue());
 
         //Discussing hovering
         yield return StartCoroutine(tutorialManager.NextDialogue());
@@ -1074,6 +1074,7 @@ public class BattleManager : MonoBehaviour
         }
 
         tileManager.AddUnitToTile(spawnLocation, unit);
+        Debug.Log("TESTING ITZEL: " + spawnLocation + " " + unit.location + " " + unit.transform.position);
         
 
         yield return StartCoroutine(tileManager.OnUnitFallOnTile(GetState(), unit, spawnLocation));

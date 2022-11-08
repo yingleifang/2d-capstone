@@ -13,7 +13,7 @@ public class TutorialManager : MonoBehaviour
         "Spike tiles (highlighted in red) will deal one damage to units who end their turn on them.",
         "Impassable tiles (highlighted in red) will prevent units from moving on them or being placed on them.",
         "To place a unit, left click on a valid tile twice. Place your unit on the blue highlighted hexagon.",
-        "Itzel: Hey! Don't panic, I fell down here just like you. There's a monster ahead. Let's take care of it before talking.",
+        "Itzel: Huh?! What happened? What is that thing? Did you fall in here too?",
         "System: Hovering over units and tiles will show their information.",
         "Left clicking an enemy will show its \"threat area\" in red. This is the range in which it can attack units (its movement speed + attack range).",
         "Left clicking an ally will select it, and show its movement range in blue. To unselect a unit click on it again.",
