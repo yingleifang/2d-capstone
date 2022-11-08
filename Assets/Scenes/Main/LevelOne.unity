@@ -1969,6 +1969,10 @@ MonoBehaviour:
   map: {fileID: 126890231}
   animatedTile: {fileID: 11400000, guid: a3e69ec4f12710c4a90d2fcaa7466de9, type: 2}
   crackSound:
+    clip: {fileID: 8300000, guid: 3ffb8cfdd0cc89742afae4ad2181e9e6, type: 3}
+    volume: 1
+    pitchFluctuation: 0
+  shatterSound:
     clip: {fileID: 8300000, guid: c3b1d5b22b2495a49a8e5e484506a583, type: 3}
     volume: 1
     pitchFluctuation: 0

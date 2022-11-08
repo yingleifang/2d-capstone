@@ -123,6 +123,8 @@ public class TileManager : MonoBehaviour
     public AnimatedTile animatedTile;
 
     public SoundEffect crackSound;
+    public SoundEffect shatterSound;
+
 
     public new AudioComponent audio;
 
@@ -163,6 +165,7 @@ public class TileManager : MonoBehaviour
 
     public void CrackTiles(int turn)
     {
+        audio.PlayDisposable(crackSound);
         foreach (var info in LevelManager.instance.tileInfo)
         {
                 if (info.Value.Item2 == turn)
@@ -212,7 +215,7 @@ public class TileManager : MonoBehaviour
         {
             yield break;
         }
-        audio.PlayDisposable(crackSound);
+        audio.PlayDisposable(shatterSound);
         yield return StartCoroutine(WaitForAnimation());
     }
 
