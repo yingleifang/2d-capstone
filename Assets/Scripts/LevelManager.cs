@@ -14,6 +14,10 @@ public class LevelManager : MonoBehaviour
     // public int y_min = -2;
     // public int y_max = 3;
     public static int currentLevel = 1;
+    public int DifficultyLevel
+    {
+        get{return currentLevel + levelOffset - NumTutorialLevels;}
+    }
     public static int levelNums = 2;
 
     public int totalLevels;
@@ -73,6 +77,8 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public bool overrideTutorial;
     private int numTutorialLevels = 2;
+    [HideInInspector]
+    public int levelOffset;
 
     public int NumTutorialLevels
     {
@@ -92,6 +98,7 @@ public class LevelManager : MonoBehaviour
     {
         typesOfTilesToSpawn = levelOneTiles;
         map = FindObjectOfType<Tilemap>();
+        levelOffset = 2;
 
         if (instance == null)
         {
@@ -138,14 +145,15 @@ public class LevelManager : MonoBehaviour
     /// </summary>  
     public void LevelSetup()
     {
+        Debug.Log("REFRESHING");
         tileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
         nextSceneTileInfo = new Dictionary<Vector3Int, (TileDataScriptableObject, int)>();
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
         enemyInfo = new List<(int, Vector3Int)>();
         fillTileInfo(tileInfo);
         fillTileInfo(nextSceneTileInfo);
-        fillEnemyInfo(enemyInfo, tileInfo, currentLevel);
-        fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, currentLevel + 1);
+        fillEnemyInfo(enemyInfo, tileInfo, DifficultyLevel);
+        fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, DifficultyLevel + 1);
     }
 
     /// <summary>
@@ -177,6 +185,7 @@ public class LevelManager : MonoBehaviour
             //In the case that we start with tutorial levels, we will not have called LevelSetup()
             if (nextSceneEnemyInfo.Count == 0)
             {
+                Debug.Log("SETTING");
                 LevelSetup();
             }
         }
@@ -242,15 +251,16 @@ public class LevelManager : MonoBehaviour
                     }
                 }
         }
+
     }
 
     /// <summary>
     /// Fills the list with indexes of enemy prefabs and locations of enemy prefabs (random).
     /// </summary> 
-    public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, Dictionary<Vector3Int, (TileDataScriptableObject, int)> curTileInfo, int currentLevel)
+    public void fillEnemyInfo(List<(int, Vector3Int)> curEnemyInfo, Dictionary<Vector3Int, (TileDataScriptableObject, int)> curTileInfo, int difficultyLevel)
     {
         map = FindObjectOfType<Tilemap>();
-        int totalEnemy = currentLevel - numTutorialLevels < 3 ? currentLevel - numTutorialLevels: 3;
+        int totalEnemy = difficultyLevel < 3 ? difficultyLevel : 3;
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
         {
@@ -271,7 +281,7 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < totalEnemy; i++)
         {
-            if (currentLevel - numTutorialLevels < 2)
+            if (difficultyLevel < 2)
             {
                 curEnemyInfo.Add((0, possiblePositions[i]));
             }
@@ -306,7 +316,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void IncrementLevel()
     {
-        Debug.Log("Current real level: " + currentLevel);
+        Debug.Log("Current real level: " + currentLevel + numTutorialLevels + levelOffset);
         //levelTransitionObj.LoadNextLevel();
         
         //Still in tutorial.
@@ -319,7 +329,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             //In the case that we start with tutorial levels, we will not have called LevelSetup()
-            if (isTutorial)
+            if (nextSceneEnemyInfo.Count == 0)
             {
                 LevelSetup();
             }
@@ -350,6 +360,6 @@ public class LevelManager : MonoBehaviour
         enemyInfo = nextSceneEnemyInfo;
 
         nextSceneEnemyInfo = new List<(int, Vector3Int)>();
-        fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, currentLevel + 1);
+        fillEnemyInfo(nextSceneEnemyInfo, nextSceneTileInfo, DifficultyLevel + 1);
     }
 }

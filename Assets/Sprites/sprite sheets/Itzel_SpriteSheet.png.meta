@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -125,9 +125,546 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3861
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adaee91aa38750e4cbd8fd92b5311f60
+      internalID: 1321226623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 3861
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: befcd36623095204bbce0851b773ec2c
+      internalID: 661871585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 3861
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7fcafac04e29a24eb22cc9e72ce50b3
+      internalID: 1692011442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 3861
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbd2107b6195b8d4195d423809230cf2
+      internalID: -2099142086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 5120
+        y: 3861
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c34a3485fe0942644960ffc15864cf26
+      internalID: 1740780658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 3861
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f08d7313ed109de4ca5fc3e22d1845fb
+      internalID: -1635223677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 7680
+        y: 3861
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 842925797fe4897458a815ed66b8935b
+      internalID: -616733512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 8960
+        y: 3861
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ef1cb883947c124283361403025806d
+      internalID: -156256804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2574
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f52b19096915c1443a4cc629be3cc06e
+      internalID: -1189107119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 2574
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbb5a9e77a1fcb342a220aa32a193a44
+      internalID: -1468834640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2574
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e97b1c42f5646e24ea74b33f96ee0dc0
+      internalID: -546704826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 2574
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 137d0262b92829045bf0aa458df8e853
+      internalID: 453039751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 5120
+        y: 2574
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27baf77d50758c74ab90c0b38414fd27
+      internalID: -1647706195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 2574
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5855cd9bb02ede44a5cb26c22391b7b
+      internalID: 448612449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_14
+      rect:
+        serializedVersion: 2
+        x: 7680
+        y: 2574
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cac41a67520c5ac4fbce4db93a515d42
+      internalID: 1591401233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_15
+      rect:
+        serializedVersion: 2
+        x: 8960
+        y: 2574
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adb0dd411c5e07149853bb0688b7c691
+      internalID: 1067968302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1287
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adc1d16d5d8acfb45851c585fa422c70
+      internalID: -1525650135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1287
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f4b8cd8deaf86f408cc7824be70aea5
+      internalID: 2112761789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1287
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 495fe97b92912bc48a8122e1c157249c
+      internalID: 137851633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 1287
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6ce10aac3b3391499232e3b4a86dbdb
+      internalID: -1075260302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55fe284b4c012d844ad4cffc67c0e13d
+      internalID: -135772857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_21
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f49ef1311ba7e9a4598f98ab9a786f72
+      internalID: -1759577670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fce0a78ceaddb094b83c8b5514d5cbca
+      internalID: -1275991909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_23
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 0
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b3424f309d75c644bdd1dfba66e4b6a
+      internalID: 236364531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Itzel_SpriteSheet_24
+      rect:
+        serializedVersion: 2
+        x: 5120
+        y: 0
+        width: 1280.875
+        height: 1287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ba31bc89d31d1c46938ee651729c35b
+      internalID: -138161038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -138,7 +675,32 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Itzel_SpriteSheet_6: -616733512
+      Itzel_SpriteSheet_10: -546704826
+      Itzel_SpriteSheet_7: -156256804
+      Itzel_SpriteSheet_1: 661871585
+      Itzel_SpriteSheet_4: 1740780658
+      Itzel_SpriteSheet_15: 1067968302
+      Itzel_SpriteSheet_0: 1321226623
+      Itzel_SpriteSheet_11: 453039751
+      Itzel_SpriteSheet_14: 1591401233
+      Itzel_SpriteSheet_16: -1525650135
+      Itzel_SpriteSheet_17: 2112761789
+      Itzel_SpriteSheet_19: -1075260302
+      Itzel_SpriteSheet_23: 236364531
+      Itzel_SpriteSheet_22: -1275991909
+      Itzel_SpriteSheet_8: -1189107119
+      Itzel_SpriteSheet_2: 1692011442
+      Itzel_SpriteSheet_24: -138161038
+      Itzel_SpriteSheet_12: -1647706195
+      Itzel_SpriteSheet_21: -1759577670
+      Itzel_SpriteSheet_9: -1468834640
+      Itzel_SpriteSheet_3: -2099142086
+      Itzel_SpriteSheet_20: -135772857
+      Itzel_SpriteSheet_5: -1635223677
+      Itzel_SpriteSheet_13: 448612449
+      Itzel_SpriteSheet_18: 137851633
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

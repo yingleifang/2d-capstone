@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4263800792818241864}
+  unitPrefabSO: {fileID: 0}
   health: 4
   currentHealth: 0
   attackDamage: 3
@@ -131,7 +132,7 @@ Animator:
   m_GameObject: {fileID: 1828874258425572458}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 3ea4b59092624244dbab3bec0457ce63, type: 2}
+  m_Controller: {fileID: 22100000, guid: 3dbb673b0eb7e8a4a81609a2c36ad282, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -249,7 +250,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7740df382f35227408f76aefa617280c, type: 3}
+  m_Sprite: {fileID: 1321226623, guid: 49febf1b492f0c542bf872bddb2f45ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
