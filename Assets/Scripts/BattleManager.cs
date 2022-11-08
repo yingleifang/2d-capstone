@@ -1622,7 +1622,10 @@ public class BattleManager : MonoBehaviour
         foreach (Unit unit in unitsToSpawn)
         {
             Debug.Log("Destroying: " + unit);
-            Destroy(unit.gameObject);            
+            if (unit)
+            {
+                Destroy(unit.gameObject); 
+            }        
         }
         playerUnits.Clear();
         enemyUnits.Clear();
