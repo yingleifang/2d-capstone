@@ -1195,10 +1195,14 @@ public class BattleManager : MonoBehaviour
                     LevelManager.instance.totalLevels)
             {
                 index = SceneManager.GetActiveScene().buildIndex;
+                if (LevelManager.currentLevel == LevelManager.instance.totalLevels - 2)
+                {
+                    index += 1;
+                }
             }
             else
             {
-                index = 8;
+                index = 9;
                 ResetAll();
                 foreach (EnemyUnit unit in enemyUnits.ToArray())
                 {
@@ -1221,7 +1225,7 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(ui.SwitchScene(index));
 
-        if (index == 8)
+        if (index == 9)
         {
             Debug.Log("Destroying battlemanager because of win screen");
             Destroy(gameObject);
