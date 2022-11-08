@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 7421535317744620689}
   - component: {fileID: 933609802880105010}
   - component: {fileID: 1853876325}
-  - component: {fileID: 5322983164472611888}
+  - component: {fileID: 1379060832544993755}
   m_Layer: 0
   m_Name: Hagfish
   m_TagString: crossBattle
@@ -358,7 +358,7 @@ Animator:
   m_GameObject: {fileID: 8109192335271719319}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 4ac680e51186a9b45b8ee3b478160ee5, type: 2}
+  m_Controller: {fileID: 22100000, guid: 671f045c1cb17774ab4e9e854de3d388, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -490,7 +490,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5322983164472611888
+--- !u!114 &1379060832544993755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -521,7 +521,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1447998723661349570}
   portrait: {fileID: 0}
   characterName: Hagfish
-  characterDescription: Killing this will damage the boss
+  characterDescription: Defeating this enemy damages the boss
   healthBarFill: {fileID: 7432460306710679596}
   healthBarBackground: {fileID: 568465090257389366}
   damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
@@ -546,6 +546,7 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     pitchFluctuation: 0
+  spawnOnStart: 0
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}

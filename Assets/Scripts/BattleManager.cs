@@ -1390,6 +1390,11 @@ public class BattleManager : MonoBehaviour
                 yield return enemy.performAction(GetState());
                 yield return StartCoroutine(UpdateBattleState());
                 postProcessingSettings.DisableEnemyGlow(enemy);
+                CheckIfBattleOver();
+                if (isBattleOver)
+                {
+                    yield break;
+                }
             }
         }
 

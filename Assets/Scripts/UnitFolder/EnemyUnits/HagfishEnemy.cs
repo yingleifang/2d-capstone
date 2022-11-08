@@ -27,6 +27,7 @@ public class HagfishEnemy : EnemyUnit
         if (alive == 0)
         {
             BattleManager.instance.StartNextLevel();
+            BattleManager.instance.isBattleOver = true;
         }
         // Feel free to add code here that damages the boss
         Destroy(gameObject);
