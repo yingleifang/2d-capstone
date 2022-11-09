@@ -1204,7 +1204,7 @@ public class BattleManager : MonoBehaviour
                     LevelManager.instance.totalLevels)
             {
                 index = SceneManager.GetActiveScene().buildIndex;
-                if (LevelManager.currentLevel == LevelManager.instance.totalLevels - 2)
+                if (LevelManager.currentLevel == LevelManager.instance.totalLevels)
                 {
                     index += 1;
                 }
