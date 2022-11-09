@@ -82,9 +82,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 1613120392422211516}
   unitPrefabSO: {fileID: 11400000, guid: 5e574a867c3c13b48a5780bcdaa020ba, type: 2}
-  health: 30
+  health: 3
   currentHealth: 0
-  attackDamage: 10
+  attackDamage: 1
   currentAttackDamage: 0
   attackRange: 3
   currentAttackRange: 0
@@ -128,6 +128,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 95b60d14ead48c645b8745b931fc0db4, type: 3}
     volume: 1
     pitchFluctuation: 0
+  spawnOnStart: 0
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}
