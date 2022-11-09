@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class LevelManager : MonoBehaviour
@@ -22,7 +23,6 @@ public class LevelManager : MonoBehaviour
 
     public int totalLevels;
     
-    public int enemyNumToSpawn = 0;
 
     public bool random = true;
 
@@ -52,6 +52,9 @@ public class LevelManager : MonoBehaviour
     /// </summary>
 
     public List<EnemyUnit> typesOfEnemiesToSpawn;
+
+    public EnemyUnit hagFish;
+
 
     /// <summary>
     /// List of tileSO's (populated in editor)
@@ -261,6 +264,10 @@ public class LevelManager : MonoBehaviour
     {
         map = FindObjectOfType<Tilemap>();
         int totalEnemy = difficultyLevel < 3 ? difficultyLevel : 3;
+        if (SceneManager.GetActiveScene().buildIndex == 5)
+        {
+            typesOfEnemiesToSpawn = new List<EnemyUnit> { hagFish };
+        }
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
         {
