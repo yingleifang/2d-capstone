@@ -1192,11 +1192,14 @@ public class BattleManager : MonoBehaviour
         instance.TurnOffPreview();
         yield return StartCoroutine(tileManager.ShatterTiles(0));
 
+        unitsToSpawn.AddRange(playerUnits);
+        unitsToSpawn.AddRange(NPCUnits);
 
         int index;
         if (LevelManager.instance.isTutorial && tutorialManager)
         {
             index = SceneManager.GetActiveScene().buildIndex + 1;
+            unitsToSpawn.AddRange(enemyUnits);
         }
         else
         {
@@ -1210,6 +1213,10 @@ public class BattleManager : MonoBehaviour
                 {
                     index += 1;
                     isBossLevel = true;
+                }
+                else
+                {
+                    unitsToSpawn.AddRange(enemyUnits);
                 }
             }
             else
@@ -1226,10 +1233,6 @@ public class BattleManager : MonoBehaviour
         LevelManager.instance.IncrementLevel();
 
         acceptingInput = false;
-
-        unitsToSpawn.AddRange(enemyUnits);
-        unitsToSpawn.AddRange(playerUnits);
-        unitsToSpawn.AddRange(NPCUnits);
 
         enemyUnits.Clear();
         playerUnits.Clear();
@@ -1267,7 +1270,7 @@ public class BattleManager : MonoBehaviour
 
         // If statement below destroys everything if we reach the win screen
         // Should probably be handled more elegantly
-        if (tileManager == null || ui == null)
+        if (dialogueManager == null && (tileManager == null || ui == null))
         {
             LevelManager.instance.RefreshNewGame();
             Debug.Log("No TileManager or UIController found. Destroying GameManager");
@@ -1275,31 +1278,51 @@ public class BattleManager : MonoBehaviour
             {
                 Destroy(unit.gameObject);
             }
-
             Destroy(gameObject);
             yield break;
         }
+        // In dialogue scene
+        else if (dialogueManager != null && tileManager == null)
+        {
+            Debug.Log("Dialogue scene");
+            setEnemyData();
+            yield break;
+        }
+
         if (!LevelManager.instance.isTutorial)
         {
             Debug.Log("SETTING DATA");
             setEnemyData();
             regeneratePreviews();
             StartCoroutine(InitializeBattle());
+            instance.TurnOnPreview();
         } 
-        else 
+        else if (LevelManager.currentLevel == 2)
         {
-            switch (LevelManager.currentLevel)
-            {
-                case 2:
-                    StartCoroutine(InitializeBattleTutorial2());
-                    break;
-                default:
-                    Debug.LogError("SHouldn't be in here " + LevelManager.currentLevel);
-                    break;
-            }
-
+            StartCoroutine(InitializeBattleTutorial2());
+            instance.TurnOnPreview();
         }
+    }
+
+    /// <summary>
+    /// Used for instances where the NextLevel() function needs to be interrupted midway. Use after
+    /// switching to the next scene where battlemanager is needed
+    /// </summary>
+    public IEnumerator FinishLevelTransition()
+    {
+        // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
+        tileManager = FindObjectOfType<TileManager>();
+        tileManager.map = FindObjectOfType<Tilemap>();
+        // This is probably also unnecessary if we structure things better
+        ui = FindObjectOfType<UIController>();
+        tutorialManager = FindObjectOfType<TutorialManager>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
+        LevelManager.instance.map = FindObjectOfType<Tilemap>();
+        Debug.Log("Found new TileManager: " + tileManager != null);
+        regeneratePreviews();
+        StartCoroutine(InitializeBattle());
         instance.TurnOnPreview();
+        yield break;
     }
 
     public void SkipTutorialButton()
