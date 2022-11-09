@@ -1799,7 +1799,6 @@ MonoBehaviour:
   tileSelected: 0
   selectedTile: {x: 0, y: 0, z: 0}
   selectedTilePrevColor: {r: 1, g: 1, b: 1, a: 1}
-  isBossLevel: 1
   previewLayer: {fileID: 270826227}
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
@@ -1887,7 +1886,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -4
-  m_Sprite: {fileID: 21300000, guid: 1cb5e0b585a0e6e4a8142e80c42ad36b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6bc8b154ef6b63d4eb0d597df359b75c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
