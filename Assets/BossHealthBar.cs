@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class BossHealthBar : MonoBehaviour
 {
-    public Slider slider;
+    public static Slider slider;
 
     private void Start()
     {
         slider = GetComponent<Slider>();
+        slider.value = BattleManager.bossHealth;
     }
-    public void BossTakeDamage(int damage)
+    public static void BossTakeDamage(int damage)
     {
+        BattleManager.bossHealth -= damage;
         slider.value -= damage;   
     }
 }

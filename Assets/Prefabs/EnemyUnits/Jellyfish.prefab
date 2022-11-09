@@ -103,7 +103,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858486553326194673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4, y: 2.8125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -138,7 +138,7 @@ MonoBehaviour:
   coolDown: 2
   currentCoolDown: 0
   abilityRange: 1
-  location: {x: 0, y: 0, z: 0}
+  location: {x: -1, y: 1, z: 0}
   anim: {fileID: 5759568811348548860}
   audio: {fileID: 3311667661192937299}
   spriteRenderer: {fileID: 4316785244231713794}
@@ -169,6 +169,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a74a7dec6af844847800c1d3e81a0478, type: 3}
     volume: 1
     pitchFluctuation: 0
+  spawnOnStart: 0
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}

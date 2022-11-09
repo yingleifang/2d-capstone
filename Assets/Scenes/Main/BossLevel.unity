@@ -208,9 +208,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 10
+  m_MaxValue: 6
   m_WholeNumbers: 1
-  m_Value: 10
+  m_Value: 6
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -226,7 +226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049439a89738887498373fc0282ec081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
 --- !u!1 &126890230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,10 +1799,10 @@ MonoBehaviour:
   tileSelected: 0
   selectedTile: {x: 0, y: 0, z: 0}
   selectedTilePrevColor: {r: 1, g: 1, b: 1, a: 1}
+  isBossLevel: 1
   previewLayer: {fileID: 270826227}
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
-  levelManager: {fileID: 0}
   mapPosition: {x: 0, y: 0, z: 0}
   gameIsPaused: 0
   ovisButton: {fileID: 0}
@@ -2593,6 +2592,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
+      propertyPath: hagFish
+      value: 
+      objectReference: {fileID: 1379060832544993755, guid: ebe1c75a791dde1429699b92c8ec52bb, type: 3}
+    - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
       propertyPath: enemyNumToSpawn
       value: 0
       objectReference: {fileID: 0}
@@ -2600,6 +2603,26 @@ PrefabInstance:
       propertyPath: overrideTutorial
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
+      propertyPath: typesOfEnemiesToSpawnBossLevel.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
+      propertyPath: typesOfEnemiesToSpawnBossLevel.Array.data[0]
+      value: 
+      objectReference: {fileID: 3206773105803365608, guid: 1888029b275ed3846a7ea613d9c02b23, type: 3}
+    - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
+      propertyPath: typesOfEnemiesToSpawnBossLevel.Array.data[1]
+      value: 
+      objectReference: {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+    - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
+      propertyPath: typesOfEnemiesToSpawnBossLevel.Array.data[2]
+      value: 
+      objectReference: {fileID: 4310592734349704287, guid: 792d27a8094b0e24abff1a70c3256f79, type: 3}
+    - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
+      propertyPath: typesOfEnemiesToSpawnBossLevel.Array.data[3]
+      value: 
+      objectReference: {fileID: 7924187702642824437, guid: 2be519ca374375145874e5cd1bc16cc4, type: 3}
     - target: {fileID: 4363867772526855479, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
       propertyPath: m_Name
       value: LevelManager

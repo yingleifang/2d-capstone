@@ -31,6 +31,7 @@ public class HagfishEnemy : EnemyUnit
         }
         // Feel free to add code here that damages the boss
         Destroy(gameObject);
+        BossHealthBar.BossTakeDamage(1);
         yield break;
     }
 }

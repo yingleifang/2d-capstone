@@ -53,6 +53,8 @@ public class LevelManager : MonoBehaviour
 
     public List<EnemyUnit> typesOfEnemiesToSpawn;
 
+    public List<EnemyUnit> typesOfEnemiesToSpawnBossLevel;
+
     public EnemyUnit hagFish;
 
 
@@ -264,9 +266,9 @@ public class LevelManager : MonoBehaviour
     {
         map = FindObjectOfType<Tilemap>();
         int totalEnemy = difficultyLevel < 3 ? difficultyLevel : 3;
-        if (SceneManager.GetActiveScene().buildIndex == 5)
+        if (currentLevel == totalLevels)
         {
-            typesOfEnemiesToSpawn = new List<EnemyUnit> { hagFish };
+            typesOfEnemiesToSpawn.Add(hagFish);
         }
         var possiblePositions = new List<Vector3Int>();
         for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
@@ -291,6 +293,9 @@ public class LevelManager : MonoBehaviour
             if (difficultyLevel < 2)
             {
                 curEnemyInfo.Add((0, possiblePositions[i]));
+            }else if (currentLevel >= totalLevels)
+            {
+                curEnemyInfo.Add((typesOfEnemiesToSpawn.Count - 1, possiblePositions[i]));
             }
             else
             {
@@ -299,6 +304,37 @@ public class LevelManager : MonoBehaviour
             }
             
         }
+    }
+
+    public Unit GetSpawnUnit()
+    {
+        int k = RandomNumberGenerator.GetInt32(typesOfEnemiesToSpawnBossLevel.Count);
+        Debug.Log(typesOfEnemiesToSpawnBossLevel.Count);
+        Debug.Log(k);
+        return typesOfEnemiesToSpawnBossLevel[k];
+    }
+
+    public Vector3Int GetSpawnLocation()
+    {
+        var possiblePositions = new List<Vector3Int>();
+
+        for (int x = (int)map.localBounds.min.x + 2; x < map.localBounds.max.x - 2; x++)
+        {
+            for (int y = (int)map.localBounds.min.y + 2; y < map.localBounds.max.y - 2; y++)
+            {
+                if (!map.GetTile(new Vector3Int(x, y, 0)))
+                {
+                    continue;
+                }
+                if (tileInfo[new Vector3Int(x, y, 0)].Item1.impassable == true || tileInfo[new Vector3Int(x, y, 0)].Item1.hazardous == true)
+                {
+                    continue;
+                }
+                possiblePositions.Add(new Vector3Int(x, y, 0));
+            }
+        }
+        Shuffle(possiblePositions);
+        return possiblePositions[0];
     }
 
     /// <summary>

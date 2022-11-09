@@ -12,6 +12,7 @@ using static UnityEngine.UI.CanvasScaler;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
 using SpriteGlow;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Stores lists of player units, enemy units, the battle manager, and the
@@ -66,7 +67,9 @@ public class BattleManager : MonoBehaviour
     public Color selectedTilePrevColor = Color.white;
 
     private bool playerGaveInput = false;   // Indicates if playerInput has been set
-    private bool playerInput = false;       // Indicates a player's choice
+    private bool playerInput = false;       // Indicates a player's choice\
+
+    public static bool isBossLevel = false;
 
     public GameObject previewLayer;
     public bool previewVisible = false;
@@ -77,8 +80,6 @@ public class BattleManager : MonoBehaviour
     public GameObject tileOutlinePrefab;
     private GameObject tileOutline;
 
-    public LevelManager levelManager;
-
 
     public Vector3 mapPosition;
 
@@ -86,6 +87,7 @@ public class BattleManager : MonoBehaviour
 
     public bool gameIsPaused = false;
 
+    public static int bossHealth = 6;
 
     //Tutorial stuff
     public Button ovisButton;
@@ -1207,6 +1209,7 @@ public class BattleManager : MonoBehaviour
                 if (LevelManager.currentLevel == LevelManager.instance.totalLevels)
                 {
                     index += 1;
+                    isBossLevel = true;
                 }
             }
             else
@@ -1398,6 +1401,11 @@ public class BattleManager : MonoBehaviour
             }
         }
 
+        if (isBossLevel)
+        {
+            yield return SpawnEnemyInBattle();
+        }
+
         if (pushDialogueAfterEnemyTurn)
         {
             if (dialogueManager.isWaitingForUserInput)
@@ -1413,6 +1421,13 @@ public class BattleManager : MonoBehaviour
         yield break;
     }
 
+    private IEnumerator SpawnEnemyInBattle()
+    {
+        var location = LevelManager.instance.GetSpawnLocation();
+        var unitType = LevelManager.instance.GetSpawnUnit();
+        Unit unit = Instantiate(unitType);
+        yield return StartCoroutine(SpawnUnit(location, unit));
+    }
     public IEnumerator UpdateBattleState()
     {
         List<Coroutine> animations = new List<Coroutine>();
