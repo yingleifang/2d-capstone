@@ -1211,7 +1211,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                index = 9;
+                index = 7;
                 ResetAll();
                 foreach (EnemyUnit unit in enemyUnits.ToArray())
                 {
@@ -1234,7 +1234,7 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(ui.SwitchScene(index));
 
-        if (index == 9)
+        if (index == 7)
         {
             Debug.Log("Destroying battlemanager because of win screen");
             Destroy(gameObject);
