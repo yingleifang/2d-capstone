@@ -134,6 +134,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76dffee3ee29264ca204825d0ce1ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &13249128
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4123666351204730810, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_Name
+      value: Cursor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 948.61096
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 455.92273
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.525164
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123666351204730812, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b9d97604bcb54b94bb0ae2615d7d40e2, type: 3}
 --- !u!1 &26406064
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,6 +455,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 36610579, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 889205500, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -405,6 +466,14 @@ PrefabInstance:
     - target: {fileID: 1162753544, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1573650756, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1573650756, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6057924551868220691, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1588,12 +1657,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalLevels: 1
-  enemyNumToSpawn: 0
   random: 1
   crackChance: 3c00000028000000
   y_range: 3
   typesOfEnemiesToSpawn:
   - {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+  typesOfEnemiesToSpawnBossLevel: []
+  hagFish: {fileID: 0}
   typesOfTilesToSpawn:
   - {fileID: 11400000, guid: 9be78945db5975e48a41560accbc3c44, type: 2}
   - {fileID: 11400000, guid: c2fb84ff8790f634ba60e9f39a23e146, type: 2}
@@ -1610,6 +1680,7 @@ MonoBehaviour:
   map: {fileID: 363959773}
   isTutorial: 0
   overrideTutorial: 1
+  levelOffset: 0
   shatterTileOutter: {fileID: 0}
   shatterTileInner: {fileID: 0}
   levelTransitionObj: {fileID: 0}
@@ -1819,7 +1890,6 @@ MonoBehaviour:
   previewLayer: {fileID: 313534038}
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
-  levelManager: {fileID: 883816492}
   mapPosition: {x: 0, y: 0, z: 0}
   gameIsPaused: 0
   ovisButton: {fileID: 0}
@@ -1953,6 +2023,10 @@ MonoBehaviour:
   map: {fileID: 363959773}
   animatedTile: {fileID: 0}
   crackSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  shatterSound:
     clip: {fileID: 0}
     volume: 1
     pitchFluctuation: 0
