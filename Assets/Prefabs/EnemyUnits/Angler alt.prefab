@@ -142,7 +142,7 @@ MonoBehaviour:
   anim: {fileID: 5759568811348548860}
   audio: {fileID: 3311667661192937299}
   spriteRenderer: {fileID: 4316785244231713794}
-  portrait: {fileID: 21300000, guid: 50abe672c12113d42be23c004ad34d17, type: 3}
+  portrait: {fileID: 21300000, guid: 91eaf6c1651977e4d951758176711c66, type: 3}
   characterName: Dumbell
   characterDescription: A fat angler fish that likes to target far away units. Will
     occasionally lure its prey closer to it.
@@ -170,6 +170,7 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     pitchFluctuation: 0
+  spawnOnStart: 0
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}

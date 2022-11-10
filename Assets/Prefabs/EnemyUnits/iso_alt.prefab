@@ -142,7 +142,7 @@ MonoBehaviour:
   anim: {fileID: 5759568811348548860}
   audio: {fileID: 3311667661192937299}
   spriteRenderer: {fileID: 4316785244231713794}
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 02de57a2c61a2d249865506ac16815e7, type: 3}
   characterName: Dumbell
   characterDescription: 
   healthBarFill: {fileID: 5316833990255598534}
@@ -169,6 +169,7 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     pitchFluctuation: 0
+  spawnOnStart: 0
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}

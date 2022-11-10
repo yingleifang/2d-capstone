@@ -142,7 +142,7 @@ MonoBehaviour:
   anim: {fileID: 5759568811348548860}
   audio: {fileID: 3311667661192937299}
   spriteRenderer: {fileID: 4316785244231713794}
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 5dec451c5ea7d5f44ae222867705f516, type: 3}
   characterName: Jellyfish
   characterDescription: 
   healthBarFill: {fileID: 5316833990255598534}
@@ -169,6 +169,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a74a7dec6af844847800c1d3e81a0478, type: 3}
     volume: 1
     pitchFluctuation: 0
+  spawnOnStart: 0
   isDead: 0
   inMovement: 0
   levelManager: {fileID: 0}

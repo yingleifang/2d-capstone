@@ -519,7 +519,7 @@ MonoBehaviour:
   anim: {fileID: 7421535317744620689}
   audio: {fileID: 4594956451681412236}
   spriteRenderer: {fileID: 1447998723661349570}
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 01c69f653ad791d4a976fbfb8494121e, type: 3}
   characterName: Hagfish
   characterDescription: Defeating this enemy damages the boss
   healthBarFill: {fileID: 7432460306710679596}
