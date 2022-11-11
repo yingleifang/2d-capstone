@@ -146,10 +146,17 @@ public abstract class Unit: MonoBehaviour
         anim.SetBool("isMoving", false);
     }
 
-    public IEnumerator PlayAppearAnimation()
+    public IEnumerator PlayAppearAnimation(bool inBattle)
     {
         anim.SetBool("Hide", false);
-        anim.SetTrigger("Appear");
+        if (inBattle)
+        {
+            anim.SetTrigger("AppearInBattle");
+        }
+        else
+        {
+            anim.SetTrigger("Appear");
+        }
         yield return null; // Wait a frame for the animation to start
         int state = anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
         yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).fullPathHash == state && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
@@ -415,7 +422,7 @@ public abstract class Unit: MonoBehaviour
     /// <param name="state">current state of the battle</param>
     /// <param name="target">location to spawn at</param>
     /// <returns></returns>
-    public IEnumerator AppearAt(BattleState state, Vector3Int target)
+    public IEnumerator AppearAt(BattleState state, Vector3Int target, bool inBattle = false)
     {
         if (state.tileManager.GetTile(target) == null)
         {
@@ -424,7 +431,7 @@ public abstract class Unit: MonoBehaviour
 
         SetLocation(state, target);
 
-        yield return StartCoroutine(PlayAppearAnimation());
+        yield return StartCoroutine(PlayAppearAnimation(inBattle));
     }
 
     public void SetLocation(BattleState state, Vector3Int target)

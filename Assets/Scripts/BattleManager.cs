@@ -69,7 +69,7 @@ public class BattleManager : MonoBehaviour
     private bool playerGaveInput = false;   // Indicates if playerInput has been set
     private bool playerInput = false;       // Indicates a player's choice\
 
-    public static bool isBossLevel = false;
+    public static bool isBossLevel = true;
 
     public GameObject previewLayer;
     public bool previewVisible = false;
@@ -1023,7 +1023,7 @@ public class BattleManager : MonoBehaviour
         instance.playerGaveInput = true;
     }
 
-    public IEnumerator SpawnUnit(Vector3Int location, Unit unit, bool addToUnitList = true)
+    public IEnumerator SpawnUnit(Vector3Int location, Unit unit, bool addToUnitList = true, bool inBattle = false)
     {
         if(addToUnitList)
         {
@@ -1055,7 +1055,7 @@ public class BattleManager : MonoBehaviour
             // Unit fell on another unit!
             Debug.Log("Falling unit collision!");
             // Unit collision animation
-            yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation));
+            yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation, inBattle));
             mapUnit.ChangeHealth(-1);
             if (!tileManager.FindClosestFreeTile(spawnLocation, out spawnLocation))
             {
@@ -1072,7 +1072,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation));
+            yield return StartCoroutine(unit.AppearAt(GetState(), spawnLocation, inBattle));
         }
 
         tileManager.AddUnitToTile(spawnLocation, unit);
@@ -1449,7 +1449,7 @@ public class BattleManager : MonoBehaviour
         var location = LevelManager.instance.GetSpawnLocation();
         var unitType = LevelManager.instance.GetSpawnUnit();
         Unit unit = Instantiate(unitType);
-        yield return StartCoroutine(SpawnUnit(location, unit));
+        yield return StartCoroutine(SpawnUnit(location, unit, true, true));
     }
     public IEnumerator UpdateBattleState()
     {
