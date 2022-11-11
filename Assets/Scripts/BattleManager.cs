@@ -1687,6 +1687,7 @@ public class BattleManager : MonoBehaviour
         enemyUnits.Clear();
         NPCUnits.Clear();
         unitsToSpawn.Clear();
+        isBossLevel = false;
     }
 
     private void ShowUnitMoveRange(PlayerUnit unit)
