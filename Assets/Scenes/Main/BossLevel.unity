@@ -2485,6 +2485,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1090683056932953619, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090683056932953619, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.9165039
+      objectReference: {fileID: 0}
+    - target: {fileID: 3111793424087143395, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8
+      objectReference: {fileID: 0}
     - target: {fileID: 6057924551960540364, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2493,6 +2505,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1617878357}
+    - target: {fileID: 6057924552145935489, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_text
+      value: Next Battle Preview
+      objectReference: {fileID: 0}
     - target: {fileID: 6057924552974800866, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_Name
       value: Canvas

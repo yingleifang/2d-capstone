@@ -1,12 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Locke : PlayerUnit
 {
     public SoundEffect StartOfBattleAbilitySound;
     public bool canUseAbility;
     public int abilityDamage;
+
+    private TileManager tileManager;
 
     protected override void Awake()
     {
@@ -17,6 +19,22 @@ public class Locke : PlayerUnit
     public override IEnumerator StartOfBattleAbility(BattleState state)
     {
         Debug.Log("Gathering rocks");
+        var position = transform.position;
+        tileManager = FindObjectOfType<TileManager>();
+        Debug.Log(position);
+        var cellPos = tileManager.map.WorldToCell(position);
+        Debug.Log(cellPos);
+
+        if (cellPos != null)
+        {
+            Debug.Log(LevelManager.instance);
+            var tile = LevelManager.instance.tileInfo[cellPos];
+            if (tile.Item1.bonusStatModifier == 0)
+            {
+                health += 1;
+                currentHealth += 1;
+            }
+        }
         yield return StartCoroutine(PlayEOBAnim());
         canUseAbility = true;
         yield break;

@@ -59,7 +59,6 @@ public abstract class Unit: MonoBehaviour
     protected int currentWaypointIndex = 0;
     protected List<Vector3Int> path = null;
     public bool inMovement = false;
-    public LevelManager levelManager;
 
     private int spriteSign = 1;
 

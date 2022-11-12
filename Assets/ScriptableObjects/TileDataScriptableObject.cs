@@ -11,7 +11,7 @@ public class TileDataScriptableObject : ScriptableObject
     public string description = "A basic tile with no notable features.";
     public TileBase[] tiles;
     public AnimatedTile animatedTile;
-    public int movementSpeedModifier;
+    public int bonusStatModifier;
     public bool impassable;
     public bool hazardous;
     public int weight = 1;
