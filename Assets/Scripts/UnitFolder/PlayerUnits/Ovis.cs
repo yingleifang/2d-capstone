@@ -51,15 +51,14 @@ public class Ovis : PlayerUnit
             Unit destinationUnit = state.tileManager.GetUnit(destination);
             Debug.Log(targetUnit);
             Debug.Log(destinationUnit);
-            targetUnit.ChangeHealth(abilityDamage * -1);
             if (state.tileManager.IsImpassableTile(destination, false))
             {
-                targetUnit.ChangeHealth(abilityDamage * -1);
+                targetUnit.ChangeHealth((abilityDamage + 1) * -1);
             }
             else if (state.tileManager.GetUnit(destination))
             {
                 destinationUnit.ChangeHealth(abilityDamage * -1);
-                targetUnit.ChangeHealth(abilityDamage * -1);
+                targetUnit.ChangeHealth((abilityDamage + 1) * -1);
             }
             else
             {
