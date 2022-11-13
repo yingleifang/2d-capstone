@@ -353,7 +353,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388900033}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 773c7ec1856c8424391058a3f0b870ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea5f5fab4f887f744ab87746b1e36fd4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1186,6 +1186,11 @@ MonoBehaviour:
   isWaitingForUserInput: 0
   doSkipDialogue: 0
   continueButton: {fileID: 405977217}
+  portraits:
+  - {fileID: 21300000, guid: 0c278431768e6fd4eb4a522cbf35b9f6, type: 3}
+  - {fileID: 21300000, guid: ea5f5fab4f887f744ab87746b1e36fd4, type: 3}
+  - {fileID: 21300000, guid: 6ac77e8a51df53145929c5a98cd88383, type: 3}
+  - {fileID: 21300000, guid: dbdc77bc9c74b384a9308b2a5229dc07, type: 3}
 --- !u!224 &1808424038
 RectTransform:
   m_ObjectHideFlags: 0

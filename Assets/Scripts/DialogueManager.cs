@@ -18,6 +18,7 @@ public class DialogueManager : MonoBehaviour
     [HideInInspector] public bool isWaitingForUserInput = false;
     [HideInInspector] public bool doSkipDialogue = false;
     public Button continueButton;
+    public Sprite[] portraits;
 
 
     // Start is called before the first frame update
@@ -82,7 +83,23 @@ public class DialogueManager : MonoBehaviour
         {
             portrait.gameObject.SetActive(false);            
         }
-        else
+        else if (speakerString.Equals("Itzel"))
+        {
+            portrait.gameObject.SetActive(true);
+        }
+        else if (speakerString.Equals("Mori"))
+        {
+            portrait.gameObject.SetActive(true);
+        }
+        else if (speakerString.Equals("Sozzy"))
+        {
+            portrait.gameObject.SetActive(true);
+        }
+        else if (speakerString.Equals("Ovis"))
+        {
+            portrait.gameObject.SetActive(true);
+        }   
+        else if (speakerString.Equals("Locke"))
         {
             portrait.gameObject.SetActive(true);
         }
