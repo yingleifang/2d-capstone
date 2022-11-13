@@ -143,13 +143,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 76c5a892997c5f546ab16f834ea34851, type: 3}
     volume: 1
     pitchFluctuation: 0
+  spawnOnStart: 0
   isDead: 0
   inMovement: 0
-  levelManager: {fileID: 0}
   startOfBattleAbilityDescription: Heals 1 HP to adjacent units. Can overheal.
   inBattleAbilityDescription: Revives a defeated unit on an adjacent tile. Unit must
     have died on that tile.
-  previewClip: {fileID: 32900000, guid: 482240f33842c394ab58e943e33efd37, type: 3}
+  previewClip: {fileID: 32900000, guid: d5f783dbd574c784bbcd205453a94770, type: 3}
   type: 0
   hasMoved: 0
   hasAttacked: 0

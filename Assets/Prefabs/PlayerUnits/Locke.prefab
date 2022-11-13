@@ -437,15 +437,15 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ba1af60cbb31d7741b3441ca74993e07, type: 3}
     volume: 1
     pitchFluctuation: 0
+  spawnOnStart: 0
   isDead: 0
   inMovement: 0
-  levelManager: {fileID: 0}
   startOfBattleAbilityDescription: Picks something up from the ground. Depending
     on the type of tile Locke is standing on, his in-battle ability gains different
     effects.
   inBattleAbilityDescription: Throw things he's found at enemies up to 2 tiles away.
     Deals 2 damage.
-  previewClip: {fileID: 32900000, guid: 6828f57dbe820724a930726d30436273, type: 3}
+  previewClip: {fileID: 32900000, guid: 9a82d097647995949a2ad38f9fe313a4, type: 3}
   type: 0
   hasMoved: 0
   hasAttacked: 0
