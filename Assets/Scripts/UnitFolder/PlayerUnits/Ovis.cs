@@ -62,6 +62,8 @@ public class Ovis : PlayerUnit
             }
             else
             {
+                targetUnit.ChangeHealth(abilityDamage * -1);
+                yield return new WaitForSeconds(.15f);
                 yield return StartCoroutine(targetUnit.DoMovement(state, destination));
             }
             currentCoolDown = coolDown;
