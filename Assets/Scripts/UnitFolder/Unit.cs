@@ -474,7 +474,7 @@ public abstract class Unit: MonoBehaviour
             Debug.Log("_______________________________");
             instance.Initialize("+" + amount + " " + text, color);
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
     }
 
     public void ChangeHealth(int amount)

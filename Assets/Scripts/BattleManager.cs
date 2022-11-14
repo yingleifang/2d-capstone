@@ -1112,6 +1112,13 @@ public class BattleManager : MonoBehaviour
             isBattleOver = true;
             StartCoroutine(NextLevel());
         }
+        if (isBossLevel)
+        {
+            foreach (var unit in playerUnits)
+            {
+                unit.RegenHealth();
+            }
+        }
         Debug.Log("Enemies left: " + enemyUnits.Count);
     }
 
