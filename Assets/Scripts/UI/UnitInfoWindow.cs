@@ -8,14 +8,24 @@ public class UnitInfoWindow : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI healthText, attackRangeText, movementSpeedText, cooldownText,
-                    nameText, attackDamageText, descriptionText;
+                    nameText, attackDamageText, passiveText, abilityText;
+    public GameObject abilityTabButton, statPanel, passivePanel, abilityPanel;
+    public Button statsTabButton;
     public Button abilityButton;
     [SerializeField]
     private Image portraitImage;
+    private Unit displayedUnit;
+    public VideoPlayerFix videoPlayer;
 
     public void ShowStats(Unit unit, bool spawned = true)
     {
         gameObject.SetActive(true);
+        if (displayedUnit != unit)
+        {
+            ShowStatsTab();
+            statsTabButton.Select();
+        }
+        displayedUnit = unit;
 
         if (unit is NPCUnit)
         {
@@ -23,12 +33,12 @@ public class UnitInfoWindow : MonoBehaviour
             if (unit.currentCoolDown == 0)
             {
                 abilityButton.interactable = true;
-                cooldownText.text = "Ability Cooldown: READY";
+                cooldownText.text = "Cooldown: READY";
             }
             else
             {
                 abilityButton.interactable = false;
-                cooldownText.text = "Ability Cooldown: " + unit.currentCoolDown;
+                cooldownText.text = "Cooldown: " + unit.currentCoolDown;
             }
             attackRangeText.text = unit.attackRange.ToString();
             movementSpeedText.text = unit.movementSpeed.ToString();
@@ -46,18 +56,18 @@ public class UnitInfoWindow : MonoBehaviour
             if (unit.currentCoolDown == 0)
             {
                 abilityButton.interactable = true;
-                cooldownText.text = "Ability Cooldown: READY";
+                cooldownText.text = "Cooldown: READY";
             }
             else
             {
                 abilityButton.interactable = false;
-                cooldownText.text = "Ability Cooldown: " + unit.currentCoolDown;
+                cooldownText.text = "Cooldown: " + unit.currentCoolDown;
             }    
         }
         else
         {
             healthText.text = "Health: " + unit.health;
-            cooldownText.text = "Ability Cooldown: " + unit.coolDown;
+            cooldownText.text = "Cooldown: " + unit.coolDown;
         }  
         attackRangeText.text = unit.attackRange.ToString();
         movementSpeedText.text = unit.movementSpeed.ToString();
@@ -67,11 +77,36 @@ public class UnitInfoWindow : MonoBehaviour
 
         if (unit is PlayerUnit player)
         {
-            descriptionText.text = player.startOfBattleAbilityDescription;
+            passiveText.text = player.startOfBattleAbilityDescription;
+            abilityText.text = player.inBattleAbilityDescription;
+            videoPlayer.PlayClip(player.previewClip);
+            abilityTabButton.SetActive(true);
         } else if (unit is EnemyUnit enemy)
         {
-            descriptionText.text = enemy.characterDescription;
+            passiveText.text = enemy.characterDescription;
+            abilityTabButton.SetActive(false);
         }
+    }
+
+    public void ShowStatsTab()
+    {
+        statPanel.SetActive(true);
+        passivePanel.SetActive(false);
+        abilityPanel.SetActive(false);
+    }
+
+    public void ShowPassiveTab()
+    {
+        statPanel.SetActive(false);
+        passivePanel.SetActive(true);
+        abilityPanel.SetActive(false);
+    }
+
+    public void ShowAbilityTab()
+    {
+        statPanel.SetActive(false);
+        passivePanel.SetActive(false);
+        abilityPanel.SetActive(true);
     }
 
     /// <summary>
