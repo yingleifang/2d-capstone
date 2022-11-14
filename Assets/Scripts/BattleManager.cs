@@ -930,11 +930,11 @@ public class BattleManager : MonoBehaviour
             {
                 tileManager.CrackTiles(turnPast);
             }
-            else if (turnPast == 2){
+            else if (turnPast == 2 && !tutorialManager){
                 yield return StartCoroutine(tileManager.ShatterTiles(turnPast - 1, unitsToDestroy));
                 tileManager.CrackTiles(turnPast);
             }
-            else if (turnPast == 3)
+            else if (turnPast == 3 && !tutorialManager)
             {
                 yield return StartCoroutine(tileManager.ShatterTiles(turnPast - 1, unitsToDestroy));
             }
