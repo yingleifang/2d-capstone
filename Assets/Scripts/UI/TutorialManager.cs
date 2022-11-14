@@ -8,21 +8,22 @@ public class TutorialManager : MonoBehaviour
 
     public TextMeshProUGUI textComp;
     private static string[] lines1 = {
-        "System: A unit selection window will appear at the start of every level. Left click Ovis to add him to your team.",
-        "Before selecting a tile to place your unit on, be mindful of the various types of tiles on the map.",
-        "Spike tiles (highlighted in red) will deal one damage to units who end their turn on them.",
+        "System: Welcome to the Abyss! During your exploration of the abyss, there are a few important ideas to keep in mind.",
+        "First off, be mindful of the various types of tiles on the map.",
+        "Spike tiles (highlighted in red) will deal one damage to units who move onto them, land on them, or end their turn on them.",
         "Impassable tiles (highlighted in red) will prevent units from moving on them or being placed on them.",
-        "To place a unit, left click on a valid tile twice. Place your unit on the blue highlighted hexagon.",
-        "Itzel: Huh?! What happened? What is that thing? Did you fall in here too?",
+        "Itzel: Huh?! Where am I? What is that thing?",
+        "System: Before the beginning of every level, you will be prompted to add a unit to your team. Choose one by left clicking it.",
+        "To place a unit, left click on a valid tile twice.",
+        "Itzel: Whoa! Are you okay?",
         "System: Hovering over units and tiles will show their information.",
         "Left clicking an enemy will show its \"threat area\" in red. This is the range in which it can attack units (its movement speed + attack range).",
         "Left clicking an ally will select it, and show its movement range in blue. To unselect a unit click on it again.",
-        "While an ally is selected, it can be moved by double left clicking on tiles in its movement range. Move your unit to the red hexagon.",
-        "End your turn by clicking the \"End Turn\" button on the bottom right.",
-        "The enemy attacked your unit, but had to walk onto the spike hazard tile to do so, taking one damage in the process.",
-        "Attack the enemy by selecting your unit and double clicking the enemy unit.",
-        "Units may move and attack or attack in place. A unit may not attack and move. After a unit has attacked, they will fade to indicate they have no more actions.",
-        "There are no other possible moves left. End your turn.",
+        "While an ally is selected, it can be moved by double left clicking on tiles in its movement range.",
+        "You can end your turn by clicking the \"End Turn\" button on the bottom right.",
+        "You can attack enemies by double clicking them while an ally unit is selected. If a unit is on a spike tile when it attacks, it will take damage.",
+        "After a unit attacks, they can no longer move and will fade to indicate they have no more actions.",
+        "Kill all enemies and complete the level.",
         "Itzel: What? What's going on?"
     };
 
@@ -102,6 +103,11 @@ public class TutorialManager : MonoBehaviour
             yield break;
         }
         yield return StartCoroutine(dialogueManager.Say(dialogue[LevelManager.currentLevel - 1][index++], false, textSpeed, disableContinue));
+    }
+
+    public IEnumerator SpecificDialogue(string text, bool disableContinue = false)
+    {
+        yield return StartCoroutine(dialogueManager.Say(text, false, textSpeed, disableContinue));
     }
 
     public int NumLines()

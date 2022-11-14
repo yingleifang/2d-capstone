@@ -69,7 +69,7 @@ public class BattleManager : MonoBehaviour
     private bool playerGaveInput = false;   // Indicates if playerInput has been set
     private bool playerInput = false;       // Indicates a player's choice\
 
-    public static bool isBossLevel = true;
+    public static bool isBossLevel = false;
 
     public GameObject previewLayer;
     public bool previewVisible = false;
@@ -93,11 +93,12 @@ public class BattleManager : MonoBehaviour
     public Button ovisButton;
     public TutorialManager tutorialManager;
     public DialogueManager dialogueManager;
-    public Vector3Int forcedUnitPlacementTile = new Vector3Int(0, 0, -1);
     public Vector3Int forcedUnitMovementTile = new Vector3Int(0, 0, -1);
+    public bool pushDialogueAfterMove = false;
     public bool pushDialogueAfterEnemyTurn = false;
     public bool pushDialogueAfterAttack = false;
     public bool pushDialogueAfterBattleEnd = false;
+    public bool disableAttack = false;
 
     /// <summary>
     /// Instantiates a unit prefab which is updated in the update loop to follow the
@@ -212,7 +213,7 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
         // For other clicks, we do not want to do anything if we are over an UI object.
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject() || (ui && ui.unitSelectionWindow && ui.unitSelectionWindow.gameObject.activeSelf))
         {
             return;
         }
@@ -352,7 +353,7 @@ public class BattleManager : MonoBehaviour
             // Handle attacking before moving
 
             // Handle selecting attack target
-            if (isPlayerTurn && selectedUnit is PlayerUnit unit)
+            if (isPlayerTurn && selectedUnit is PlayerUnit unit && !disableAttack)
             {
                 // Handle attacking before moving
                 Vector3Int attackPosition;
@@ -492,24 +493,11 @@ public class BattleManager : MonoBehaviour
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
 
-        // Handles unit selection tutorial
-        StartCoroutine(ui.ShowSelectionWindow(false));
-        tutorialManager.disableBattleInteraction = true;
-        yield return StartCoroutine(tutorialManager.NextDialogue(true));
-
-        // Wait until user does what is asked. This is not the only thing stopping
-        // progression. Dialogue system's isWaitingForUserInput also stops progression.
-        // However, both are needed otherwise the system will break.
-        while (ui.unitSelectionWindow.gameObject.activeSelf)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-
-        //Advise user to watch for tiles
-        unitToPlace.spriteRenderer.enabled = false;
-        Debug.Log("WE TALKING");
+        // Welcome message
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
+        //Advise user to watch for tiles
+        yield return StartCoroutine(tutorialManager.NextDialogue());
 
         //Highlight hazardous and talk about them
         foreach (Vector3Int tileLocation in tileManager.dynamicTileDatas.Keys)
@@ -533,9 +521,35 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(tutorialManager.NextDialogue());
         tileManager.ClearHighlights();
 
+        // Place units waiting to be spawned on new map
+        Debug.Log("Units to spawn: " + unitsToSpawn.Count);
+        List<Coroutine> animations = new List<Coroutine>();
+        foreach (Unit unit in unitsToSpawn.ToArray())
+        {
+            yield return StartCoroutine(SpawnUnit(unit.location, unit));
+        }
+
+        // NPC dialogue
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        // Handles unit selection tutorial
+        StartCoroutine(ui.ShowSelectionWindow(false));
+        tutorialManager.disableBattleInteraction = true;
+        yield return StartCoroutine(tutorialManager.NextDialogue(true));
+
+        // Wait until user does what is asked. This is not the only thing stopping
+        // progression. Dialogue system's isWaitingForUserInput also stops progression.
+        // However, both are needed otherwise the system will break.
+        while (ui.unitSelectionWindow.gameObject.activeSelf)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        unitToPlace.spriteRenderer.enabled = false;
+        tutorialManager.disableBattleInteraction = false;
+        disableAttack = true;
+
         //Tell user how to place unit
-        forcedUnitPlacementTile = new Vector3Int(-3, -1, 0);
-        tileManager.SetTileColor(forcedUnitPlacementTile, Color.blue);
         unitToPlace.spriteRenderer.enabled = true;
         tutorialManager.disableBattleInteraction = false;        
         yield return StartCoroutine(tutorialManager.NextDialogue(true));
@@ -546,31 +560,25 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        //Unrestrict placement
-        forcedUnitPlacementTile.z = -1;
         tileManager.ClearHighlights();
 
         tutorialManager.disableBattleInteraction = true;
-
-        // Place units waiting to be spawned on new map
-        Debug.Log("Units to spawn: " + unitsToSpawn.Count);
-        List<Coroutine> animations = new List<Coroutine>();
-        foreach (Unit unit in unitsToSpawn.ToArray())
-        {
-            yield return StartCoroutine(SpawnUnit(unit.location, unit));
-        }
 
         yield return StartCoroutine(UpdateBattleState());
 
         animations.Clear();
         unitsToSpawn.Clear();
 
+        if (playerUnits[0].currentHealth != playerUnits[0].health)
+        {
+            yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage as it fell on a spike tile. Try to avoid this mistake in the future!"));
+        }
+
         //NPC dialogue
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
         //Discussing hovering
         yield return StartCoroutine(tutorialManager.NextDialogue());
-        
 
         //prompt to click enemy unit
         tutorialManager.disableBattleInteraction = false;
@@ -582,101 +590,63 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
         //prompt to click ally unit and move
-        forcedUnitMovementTile = new Vector3Int(-2, -1, 0);
-        tileManager.SetTileColor(forcedUnitMovementTile, Color.red, true);
-
         yield return StartCoroutine(StartOfPlayerTurn());
-        tutorialManager.endTurnButton.SetInteractable(false);
-        if(selectedUnit && selectedUnit is PlayerUnit)
+        pushDialogueAfterMove = true;
+        pushDialogueAfterEnemyTurn = true;
+        forcedUnitMovementTile.z = -1;
+        int lastHealth = playerUnits[0].currentHealth;
+        yield return StartCoroutine(tutorialManager.NextDialogue());  
+
+        if (lastHealth != playerUnits[0].currentHealth)
         {
-            postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
+            yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage as it moved onto or ended its turn a spike tile. Try to avoid this mistake in the future!"));
         }
 
-        yield return StartCoroutine(tutorialManager.NextDialogue(true));  
-
-        bool notMoved = true;
-        while (notMoved)
-        {
-            foreach (PlayerUnit playerUnit in playerUnits)
-            {
-                if (playerUnit.hasMoved)
-                {
-                    notMoved = false;
-                }
-            }
-            yield return new WaitForEndOfFrame();
-        }
-        tileManager.ClearHighlights(true);
+        pushDialogueAfterMove = false;
 
         //prompt to end turn
-        ui.HideUnitInfoWindow();
-        isPlayerTurn = true;
-        tutorialManager.endTurnButton.SetInteractable(true);
-        StartCoroutine(ui.EnableEndTurnButton());
-        pushDialogueAfterEnemyTurn = true;
-        yield return StartCoroutine(tutorialManager.NextDialogue(true));
-
-        // Wait until player turn comes around again.
-        while (isPlayerTurn)
+        if (pushDialogueAfterEnemyTurn)
         {
-            yield return new WaitForEndOfFrame();
+            yield return StartCoroutine(tutorialManager.NextDialogue());
+            pushDialogueAfterEnemyTurn = false;
         }
 
-        while (!isPlayerTurn)
+        lastHealth = playerUnits[0].currentHealth;
+        if (lastHealth != playerUnits[0].currentHealth)
         {
-            yield return new WaitForEndOfFrame();
+            yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage moved onto or ended its turn a spike tile. Try to avoid this mistake in the future!"));
         }
-
-        //Force impossible to click tile to prevent movement
-        forcedUnitMovementTile = new Vector3Int(-1000, -1, 0);
-
-        //Make sure user does not skip ahead.
-        tutorialManager.disableBattleInteraction = true;
-
-        pushDialogueAfterEnemyTurn = false;
-
-        // Discuss what happened during enemy turn
-        yield return StartCoroutine(tutorialManager.NextDialogue());
         
         // Prompt to attack
         pushDialogueAfterAttack = true;
-        tutorialManager.disableBattleInteraction = false;
-        yield return StartCoroutine(ui.DisableEndTurnButton());
-        yield return StartCoroutine(tutorialManager.NextDialogue(true));
+        disableAttack = false;
+        lastHealth = playerUnits[0].currentHealth;
+        yield return StartCoroutine(tutorialManager.NextDialogue());
 
-        bool notAttacked = true;
-        while (notAttacked)
+        if (isBattleOver && playerUnits.Count == 0)
         {
-            foreach (PlayerUnit playerUnit in playerUnits)
-            {
-                if (playerUnit.hasAttacked)
-                {
-                    notAttacked = false;
-                }
-            }
-            yield return new WaitForEndOfFrame();
-        }      
+            tutorialManager.index = tutorialManager.NumLines() - 1;
+            yield break;
+        }
 
-        // Unrestrict future unit movements
-        forcedUnitMovementTile.z = -1;
+        if (lastHealth != playerUnits[0].currentHealth)
+        {
+            yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage as it attacked, moved, or ended its turn on a spike tile. Try to avoid this mistake in the future!"));
+        }
 
-        ui.HideUnitInfoWindow();
-        yield return StartCoroutine(ui.EnableEndTurnButton());
         pushDialogueAfterAttack = false;
 
         //Discussing attack mechanics
         Debug.Log("talk attack mechanics");
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+
         if (isBattleOver)
         {
-            tutorialManager.index = tutorialManager.NumLines() - 1;
             yield break;
         }
-
-        //prompt end turn
-        Debug.Log("prompt end turn");
-        yield return StartCoroutine(tutorialManager.NextDialogue(true));
 
         while (!isBattleOver)
         {
@@ -1157,9 +1127,15 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator ShowGameOver()
     {
+        if (dialogueManager && tutorialManager)
+        {
+            dialogueManager.StopSpeaking();
+            yield return StartCoroutine(tutorialManager.SpecificDialogue("System: When you run out of ally units, you lose the game. Don't let it get you down. Try again with your new knowledge!"));
+        }
         yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));
         foreach (EnemyUnit unit in enemyUnits.ToArray())
         {
+
             Destroy(unit.gameObject);
         }
         Destroy(gameObject); // Or similarly reset the battle manager
@@ -1323,10 +1299,11 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator SkipTutorial()
     {
-        forcedUnitPlacementTile = new Vector3Int(0, 0, -1);
         forcedUnitMovementTile = new Vector3Int(0, 0, -1);
         pushDialogueAfterEnemyTurn = false;
+        pushDialogueAfterMove = false;
         pushDialogueAfterAttack = false;
+        disableAttack = false;
         pushDialogueAfterBattleEnd = false;
         isPlacingUnit = false;
         if (unitToPlace)
@@ -1425,6 +1402,8 @@ public class BattleManager : MonoBehaviour
             if (dialogueManager.isWaitingForUserInput)
             {
                 dialogueManager.doSkipDialogue = true;
+                pushDialogueAfterEnemyTurn = false;
+                tutorialManager.index = 13;
             }
         }
 
@@ -1498,10 +1477,6 @@ public class BattleManager : MonoBehaviour
     {
         if (tileManager.InBounds(tilePos) && curUnit == null && unitToPlace)
         {
-            if (forcedUnitPlacementTile.z == 0 && tilePos != forcedUnitPlacementTile)
-            {
-                yield break;
-            }
             if (!tileSelected || !tilePos.Equals(selectedTile))
             {
                 SelectTile(tilePos);
@@ -1531,7 +1506,7 @@ public class BattleManager : MonoBehaviour
         if (unit is PlayerUnit)
             postProcessingSettings.CanAttackGlow((PlayerUnit)unit);
 
-        if (forcedUnitMovementTile.z == 0)
+        if (pushDialogueAfterMove)
         {
             dialogueManager.doSkipDialogue = true;
         }
@@ -1622,10 +1597,6 @@ public class BattleManager : MonoBehaviour
             if (!player.hasMoved)
             {
                 ShowUnitMoveRange(player);
-                if (forcedUnitMovementTile.z == 0)
-                {
-                    tileManager.SetTileColor(forcedUnitMovementTile, Color.red);
-                }
             }
             else if (!player.hasAttacked)
             {

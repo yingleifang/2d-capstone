@@ -18,6 +18,7 @@ public class DialogueManager : MonoBehaviour
     [HideInInspector] public bool isWaitingForUserInput = false;
     [HideInInspector] public bool doSkipDialogue = false;
     public Button continueButton;
+    public bool continueDisabled;
     public Sprite[] portraits;
 
 
@@ -30,7 +31,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !continueDisabled)
         {
             isWaitingForUserInput = false;
         }
@@ -143,7 +144,9 @@ public class DialogueManager : MonoBehaviour
         if (disableContinue)
         {
             continueButton.gameObject.SetActive(false);
+            continueDisabled = true;
         }
+        
         isWaitingForUserInput = true;
         while (isWaitingForUserInput && !doSkipDialogue)
         {
@@ -153,6 +156,7 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("FINISHED speaking1");
 
         doSkipDialogue = false;
+        continueDisabled = false;
         continueButton.gameObject.SetActive(true);
         StopSpeaking();
     }
