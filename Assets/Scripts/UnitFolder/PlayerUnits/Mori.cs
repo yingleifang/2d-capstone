@@ -25,7 +25,7 @@ public class Mori : PlayerUnit
             if (unit && unit != this && unit is PlayerUnit player)
             {
                 player.ChangeHealth(startOfBattleHealing);
-                yield return new WaitForSeconds(0.1f);
+                yield return StartCoroutine(unit.SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", 1, Color.green));
             }
         }
         yield break;

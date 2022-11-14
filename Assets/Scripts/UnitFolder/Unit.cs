@@ -472,7 +472,6 @@ public abstract class Unit: MonoBehaviour
         if (damageNumberPrefab)
         {
             DamageNumber instance = Instantiate(damageNumberPrefab, damageNumberSpawnPoint.position, Quaternion.identity);
-            Debug.Log("_______________________________");
             instance.Initialize("+" + amount + " " + text, color);
         }
         yield return new WaitForSeconds(0.3f);
