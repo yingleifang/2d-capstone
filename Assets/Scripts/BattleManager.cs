@@ -1492,7 +1492,6 @@ public class BattleManager : MonoBehaviour
             DeselectTile();
             Debug.Log("Unit placement location: " + tilePos);
             PlayerUnit unit = unitToPlace;
-            unitToPlace = null;
             unit.location = tilePos;
             yield return StartCoroutine(SpawnUnit(tilePos, unit));
             unitsToSpawn.Remove(unit);
@@ -1502,6 +1501,9 @@ public class BattleManager : MonoBehaviour
             {
                 dialogueManager.doSkipDialogue = true;
             }
+            Debug.Log(unitToPlace);
+            yield return StartCoroutine(unitToPlace.StartOfBattleAbility(state));
+            unitToPlace = null;
         }
     }
 

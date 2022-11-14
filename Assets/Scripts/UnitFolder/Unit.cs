@@ -228,6 +228,7 @@ public abstract class Unit: MonoBehaviour
 
     public virtual IEnumerator StartOfBattleAbility(BattleState state)
     {
+        Debug.Log("------------------");
         yield break;
     }
 

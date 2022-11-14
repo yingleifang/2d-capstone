@@ -35,7 +35,6 @@ public class VideoPlayerFix : MonoBehaviour
         {
             // Need a path to the file so it plays on web builds
             string file = System.IO.Path.GetFileName(clip.originalPath);
-            Debug.Log("Clip name: " + file);
             player.url = System.IO.Path.Combine(Application.streamingAssetsPath, file);
             player.Play();
             player.playOnAwake = true;
