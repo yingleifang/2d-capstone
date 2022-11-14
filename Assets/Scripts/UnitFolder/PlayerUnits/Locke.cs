@@ -24,6 +24,7 @@ public class Locke : PlayerUnit
         Debug.Log(position);
         var cellPos = tileManager.map.WorldToCell(position);
         Debug.Log(cellPos);
+        yield return StartCoroutine(PlayEOBAnim());
 
         if (cellPos != null)
         {
@@ -31,11 +32,21 @@ public class Locke : PlayerUnit
             var tile = LevelManager.instance.tileInfo[cellPos];
             if (tile.Item1.bonusStatModifier == 0)
             {
+                yield return StartCoroutine(SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", 1, Color.green));
                 health += 1;
                 currentHealth += 1;
             }
+            else if (tile.Item1.bonusStatModifier == 1)
+            {
+                yield return StartCoroutine(SpawnStatNumber("<sprite=\"fast\" name=\"fast\">", 1, Color.green));
+                movementSpeed += 1;
+            }
+            else if (tile.Item1.bonusStatModifier == 2)
+            {
+                yield return StartCoroutine(SpawnStatNumber("<sprite=\"sword\" name=\"sword\">", 1, Color.green));
+                attackDamage += 1;
+            }
         }
-        yield return StartCoroutine(PlayEOBAnim());
         canUseAbility = true;
         yield break;
     }

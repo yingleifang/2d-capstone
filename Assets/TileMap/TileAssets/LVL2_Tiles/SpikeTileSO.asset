@@ -17,7 +17,7 @@ MonoBehaviour:
   tiles:
   - {fileID: 11400000, guid: 16909ad58cf187545b18a5e38707a182, type: 2}
   animatedTile: {fileID: 11400000, guid: 979a28bba4b70564690b95a9a91a02ea, type: 2}
-  movementSpeedModifier: 0
+  bonusStatModifier: 2
   impassable: 0
   hazardous: 1
   weight: 1

@@ -466,6 +466,17 @@ public abstract class Unit: MonoBehaviour
         }
     }
 
+    public IEnumerator SpawnStatNumber(string text, int amount, Color color)
+    {
+        if (damageNumberPrefab)
+        {
+            DamageNumber instance = Instantiate(damageNumberPrefab, damageNumberSpawnPoint.position, Quaternion.identity);
+            Debug.Log("_______________________________");
+            instance.Initialize("+" + amount + " " + text, color);
+        }
+        yield return new WaitForSeconds(0.5f);
+    }
+
     public void ChangeHealth(int amount)
     {
         currentHealth += amount;
