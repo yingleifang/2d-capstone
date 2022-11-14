@@ -474,8 +474,10 @@ public class BattleManager : MonoBehaviour
 
     private void setEnemyData()
     {
+        Debug.Log("zereeeeeee");
         foreach (var curInfo in LevelManager.instance.enemyInfo)
         {
+            Debug.Log("hereeeeeee");
             EnemyUnit curEnemy = Instantiate(LevelManager.instance.typesOfEnemiesToSpawn[curInfo.Item1]);
             curEnemy.SetLocation(GetState(), curInfo.Item2);
             enemyUnits.Add(curEnemy);
@@ -1205,11 +1207,11 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("current level: " + LevelManager.currentLevel);
 
-            if (LevelManager.currentLevel - LevelManager.instance.NumTutorialLevels < 
+            if (LevelManager.currentLevel - LevelManager.instance.NumTutorialLevels <= 
                     LevelManager.instance.totalLevels)
             {
                 index = SceneManager.GetActiveScene().buildIndex;
-                if (LevelManager.currentLevel == LevelManager.instance.totalLevels)
+                if (LevelManager.currentLevel - LevelManager.instance.NumTutorialLevels == LevelManager.instance.totalLevels)
                 {
                     index += 1;
                     isBossLevel = true;
@@ -1238,6 +1240,8 @@ public class BattleManager : MonoBehaviour
         playerUnits.Clear();
         NPCUnits.Clear();
 
+        LevelManager.instance.PrepareNextBattle();
+
         yield return StartCoroutine(ui.SwitchScene(index));
 
         if (index == 7)
@@ -1249,7 +1253,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Next level finished loading");
 
         Debug.Log("KILL ME: " + LevelManager.instance.levelOffset + LevelManager.currentLevel);
-        LevelManager.instance.PrepareNextBattle();
+        
 
         foreach (Unit unit in unitsToSpawn)
         {
@@ -1258,13 +1262,27 @@ public class BattleManager : MonoBehaviour
 
         yield return null; // Need to wait a frame for the new level to load
 
-        // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
         tileManager = FindObjectOfType<TileManager>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
+
+        // In dialogue scene
+        if (dialogueManager != null && tileManager == null)
+        {
+            CampfireDialogueManager cmdManager = FindObjectOfType<CampfireDialogueManager>();
+            ui = FindObjectOfType<UIController>();
+            Debug.Log("Dialogue scene");
+            yield return StartCoroutine(cmdManager.SayDialogue());
+            yield return StartCoroutine(ui.SwitchScene(SceneManager.GetActiveScene().buildIndex + 1));
+            yield return null;
+        }
+
+        tileManager = FindObjectOfType<TileManager>();
+        // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
         tileManager.map = FindObjectOfType<Tilemap>();
         // This is probably also unnecessary if we structure things better
+        dialogueManager = FindObjectOfType<DialogueManager>();
         ui = FindObjectOfType<UIController>();
         tutorialManager = FindObjectOfType<TutorialManager>();
-        dialogueManager = FindObjectOfType<DialogueManager>();
         LevelManager.instance.map = FindObjectOfType<Tilemap>();
         Debug.Log("Found new TileManager: " + tileManager != null);
 
@@ -1281,13 +1299,7 @@ public class BattleManager : MonoBehaviour
             Destroy(gameObject);
             yield break;
         }
-        // In dialogue scene
-        else if (dialogueManager != null && tileManager == null)
-        {
-            Debug.Log("Dialogue scene");
-            setEnemyData();
-            yield break;
-        }
+
 
         if (!LevelManager.instance.isTutorial)
         {
@@ -1302,27 +1314,6 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(InitializeBattleTutorial2());
             instance.TurnOnPreview();
         }
-    }
-
-    /// <summary>
-    /// Used for instances where the NextLevel() function needs to be interrupted midway. Use after
-    /// switching to the next scene where battlemanager is needed
-    /// </summary>
-    public IEnumerator FinishLevelTransition()
-    {
-        // Should refactor code so we don't need to find the tileManager. Should be returned by the level changing function
-        tileManager = FindObjectOfType<TileManager>();
-        tileManager.map = FindObjectOfType<Tilemap>();
-        // This is probably also unnecessary if we structure things better
-        ui = FindObjectOfType<UIController>();
-        tutorialManager = FindObjectOfType<TutorialManager>();
-        dialogueManager = FindObjectOfType<DialogueManager>();
-        LevelManager.instance.map = FindObjectOfType<Tilemap>();
-        Debug.Log("Found new TileManager: " + tileManager != null);
-        regeneratePreviews();
-        StartCoroutine(InitializeBattle());
-        instance.TurnOnPreview();
-        yield break;
     }
 
     public void SkipTutorialButton()

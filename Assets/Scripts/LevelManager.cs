@@ -293,13 +293,13 @@ public class LevelManager : MonoBehaviour
             if (difficultyLevel < 2)
             {
                 curEnemyInfo.Add((0, possiblePositions[i]));
-            }else if (currentLevel >= totalLevels)
+            }else if (currentLevel - numTutorialLevels >= totalLevels)
             {
                 curEnemyInfo.Add((typesOfEnemiesToSpawn.Count - 1, possiblePositions[i]));
             }
             else
             {
-                int k = RandomNumberGenerator.GetInt32(typesOfEnemiesToSpawn.Count);
+                int k = RandomNumberGenerator.GetInt32(typesOfEnemiesToSpawn.Count - 1);
                 curEnemyInfo.Add((k, possiblePositions[i]));
             }
             
@@ -387,6 +387,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void PrepareNextBattle()
     {
+        Debug.Log("changing tile dict");
         if (currentLevel == 4)
         {
             typesOfTilesToSpawn = levelTwoTiles;

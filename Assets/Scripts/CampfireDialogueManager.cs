@@ -51,13 +51,15 @@ public class CampfireDialogueManager : MonoBehaviour
                 {
                     aliveUnits.Add("Sozzy");
                 }
+                unit.currentHealth = unit.health;
             }
-            else if (unit is Locke)
+            else if (unit is Locke playerUnit)
             {
                 if (!aliveUnits.Contains("Locke"))
                 {
                     aliveUnits.Add("Locke");
                 }
+                unit.currentHealth = unit.health;
             }
             else if (unit is Ovis)
             {
@@ -65,6 +67,7 @@ public class CampfireDialogueManager : MonoBehaviour
                 {
                     aliveUnits.Add("Ovis");
                 }
+                unit.currentHealth = unit.health;
             }
             else if (unit is Mori)
             {
@@ -72,27 +75,28 @@ public class CampfireDialogueManager : MonoBehaviour
                 {
                     aliveUnits.Add("Mori");
                 }
+                unit.currentHealth = unit.health;
             }
         }
 
 
-        if (aliveUnits.Count == 1)
+        if (aliveUnits.Count == 1 && BattleManager.instance.unitsToSpawn.Count == 1)
         {
             if (aliveUnits.Contains("Sozzy"))
             {
-                finalLines.Add("No, no, no, no, no. Help me. Help me please. Locke, anyone...");
+                finalLines.Add("Sozzy: I never should have gone here.");
             }
             else if (aliveUnits.Contains("Locke"))
             {
-                finalLines.Add("This isn't how its supposed to be. Why... Why did it turn out like this?");
+                finalLines.Add("Locke: This isn't how its supposed to be. Why... Why did it turn out like this?");
             }
             else if (aliveUnits.Contains("Ovis"))
             {
-                finalLines.Add("A fate akin to the others of my kind. I shall face it with honor.");
+                finalLines.Add("Ovis: A fate akin to the others of my kind. I shall face it with honor.");
             }
             else if (aliveUnits.Contains("Mori"))
             {
-                finalLines.Add("If this is God's will, then so be it.");
+                finalLines.Add("Mori: If this is God's will, then so be it.");
             }
         }
 
@@ -115,22 +119,19 @@ public class CampfireDialogueManager : MonoBehaviour
             finalLines.Add(lines[aliveUnits[index]][subIndex]);
         }
 
-        StartCoroutine(SayDialogue());
-
+        finalLines.Add("System: The health of all your units has been fully restored");
     }
 
     public IEnumerator SayDialogue(bool disableContinue = false)
     {
-        yield return StartCoroutine(dialogueManager.Say(finalLines[0], false, .015f, disableContinue));
+        int index = 0;
+        yield return StartCoroutine(dialogueManager.Say(finalLines[index++], false, .015f, disableContinue));
 
-        if (finalLines.Count == 2)
+        if (finalLines.Count == 3)
         {
-            yield return StartCoroutine(dialogueManager.Say(finalLines[1], false, .015f, disableContinue));
+            yield return StartCoroutine(dialogueManager.Say(finalLines[index++], false, .015f, disableContinue));
         }
-
-        yield return StartCoroutine(uiController.SwitchScene(SceneManager.GetActiveScene().buildIndex + 1));
-        yield return null;
-        yield return StartCoroutine(BattleManager.instance.FinishLevelTransition());
+        yield return StartCoroutine(dialogueManager.Say(finalLines[index++], false, .015f, disableContinue));
 
     }
 

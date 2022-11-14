@@ -290,6 +290,7 @@ public class TileManager : MonoBehaviour
 
     public void InitializeTileDict()
     {
+        Debug.Log("initializing tile dict");
         baseTileDatas = new Dictionary<TileBase, TileDataScriptableObject>();
         dynamicTileDatas = new Dictionary<Vector3Int, DynamicTileData>();
         unitLocations = new Dictionary<Unit, Vector3Int>();

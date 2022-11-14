@@ -90,18 +90,22 @@ public class DialogueManager : MonoBehaviour
         else if (speakerString.Equals("Mori"))
         {
             portrait.gameObject.SetActive(true);
+            portrait.gameObject.GetComponent<Image>().sprite = portraits[0];
         }
         else if (speakerString.Equals("Sozzy"))
         {
             portrait.gameObject.SetActive(true);
+            portrait.gameObject.GetComponent<Image>().sprite = portraits[1];
         }
         else if (speakerString.Equals("Ovis"))
         {
             portrait.gameObject.SetActive(true);
+            portrait.gameObject.GetComponent<Image>().sprite = portraits[2];
         }   
         else if (speakerString.Equals("Locke"))
         {
             portrait.gameObject.SetActive(true);
+            portrait.gameObject.GetComponent<Image>().sprite = portraits[3];
         }
 
         speakingFxn = StartCoroutine(StartSpeaking(speakerString, speechString, additive, textSpeed, disableContinue));
