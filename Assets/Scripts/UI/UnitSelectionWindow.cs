@@ -17,6 +17,9 @@ public class UnitSelectionWindow : MonoBehaviour
     private int numUnitsInSelection = 3;
     public PlayerUnit selectedUnit;
     public Button confirmButton;
+    public Animator anim;
+    public bool minimized = false;
+    public TextMeshProUGUI minimizeButtonText;
 
     private void Awake()
     {
@@ -108,8 +111,22 @@ public class UnitSelectionWindow : MonoBehaviour
         else
         {
             // Minimize selection
-            unitInfoWindow.HideStats();
-            StartCoroutine(Hide());
+            ToggleMinimize();
+        }
+    }
+
+    public void ToggleMinimize()
+    {
+        minimized = !minimized;
+        anim.SetBool("Minimized", minimized);
+        if (minimized)
+        {
+            minimizeButtonText.text = "v";
+            BattleManager.instance.acceptingInput = true;
+        } else
+        {
+            minimizeButtonText.text = "-";
+            BattleManager.instance.UndoUnitToPlace();
         }
     }
 }

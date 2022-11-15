@@ -112,6 +112,19 @@ public class BattleManager : MonoBehaviour
         unitToPlace.anim.SetBool("Hide", false); // Replace with method
     }
 
+    /// <summary>
+    /// Destroys the unit being placed.
+    /// Called when un-minimizing the unit selection window.
+    /// </summary>
+    public void UndoUnitToPlace()
+    {
+        acceptingInput = false;
+        if (unitToPlace)
+        {
+            Destroy(unitToPlace.gameObject);
+        }
+    }
+
     private void Awake()
     {
         tileManager = FindObjectOfType<TileManager>();
@@ -213,7 +226,7 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
         // For other clicks, we do not want to do anything if we are over an UI object.
-        if (EventSystem.current.IsPointerOverGameObject() || (ui && ui.unitSelectionWindow && ui.unitSelectionWindow.gameObject.activeSelf))
+        if (EventSystem.current.IsPointerOverGameObject() || (ui && ui.unitSelectionWindow && (ui.unitSelectionWindow.gameObject.activeSelf && !ui.unitSelectionWindow.minimized)))
         {
             return;
         }
@@ -1494,6 +1507,7 @@ public class BattleManager : MonoBehaviour
             PlayerUnit unit = unitToPlace;
             unit.location = tilePos;
             unitToPlace = null;
+            ui.unitSelectionWindow.gameObject.SetActive(false);
             yield return StartCoroutine(SpawnUnit(tilePos, unit));
             unitsToSpawn.Remove(unit);
             isPlacingUnit = false;
