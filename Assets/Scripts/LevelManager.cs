@@ -279,7 +279,7 @@ public class LevelManager : MonoBehaviour
                 {
                     continue;
                 }
-                if (curTileInfo[new Vector3Int(x, y, 0)].Item1.impassable == true || curTileInfo[new Vector3Int(x, y, 0)].Item1.hazardous == true)
+                if (curTileInfo[new Vector3Int(x, y, 0)].Item1.impassable == true || curTileInfo[new Vector3Int(x, y, 0)].Item1.hazardous == true || curTileInfo[new Vector3Int(x, y, 0)].Item2 != 0)
                 {
                     continue;
                 }
