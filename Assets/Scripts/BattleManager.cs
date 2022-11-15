@@ -123,6 +123,7 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(unitToPlace.gameObject);
         }
+        DeselectTile();
     }
 
     private void Awake()
