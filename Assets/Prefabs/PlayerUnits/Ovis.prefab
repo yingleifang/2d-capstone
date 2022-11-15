@@ -132,9 +132,11 @@ MonoBehaviour:
   inMovement: 0
   startOfBattleAbilityDescription: Smashes the ground dealing 1 damage to all adjacent
     units at the start of battle.
+  abilityName: Shield Bash
   inBattleAbilityDescription: Shoves an adjacent unit one square away. Deals 1 damage
     when pushing units into objects or other units.
   previewClip: {fileID: 32900000, guid: 55f777a3e55e2714b9c7468e30116f39, type: 3}
+  talkSprite: {fileID: 21300000, guid: 6ac77e8a51df53145929c5a98cd88383, type: 3}
   type: 1
   hasMoved: 0
   hasAttacked: 0
