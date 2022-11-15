@@ -6,12 +6,13 @@ using UnityEngine;
 public class HagfishEnemy : EnemyUnit
 {
     public static int alive = 0;
-
+   
+    public AnimatorOverrideController animatorController;
     public override void Start()
     {
+        anim.SetBool("Hide", true);
         base.Start();
         alive++;
-        anim.SetBool("Hide", true);
     }
 
     public override IEnumerator performAction(BattleState state)

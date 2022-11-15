@@ -844,8 +844,10 @@ public class BattleManager : MonoBehaviour
             foreach (var curInfo in LevelManager.instance.enemyInfo)
             {
                 HagfishEnemy hagfish = (HagfishEnemy)tileManager.GetUnit(curInfo.Item2);
-                Debug.Log(hagfish);
-                yield return StartCoroutine(hagfish.AppearAt(state, hagfish.location));
+                //Animator animator = hagfish.GetComponent<Animator>();
+                //animator.runtimeAnimatorController = hagfish.animatorController;
+                //hagfish
+                yield return StartCoroutine(hagfish.AppearAt(state, hagfish.location, true));
             }
 
             foreach (var unit in playerUnits)

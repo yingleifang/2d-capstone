@@ -147,14 +147,13 @@ public abstract class Unit: MonoBehaviour
 
     public IEnumerator PlayAppearAnimation(bool inBattle)
     {
-        Debug.Log("--------------------------");
-        anim.SetBool("Hide", false);
         if (inBattle)
         {
             anim.SetTrigger("AppearInBattle");
         }
         else
         {
+            anim.SetBool("Hide", false);
             anim.SetTrigger("Appear");
         }
         yield return null; // Wait a frame for the animation to start
@@ -433,6 +432,10 @@ public abstract class Unit: MonoBehaviour
         SetLocation(state, target);
 
         yield return StartCoroutine(PlayAppearAnimation(inBattle));
+        if (inBattle)
+        {
+            anim.SetBool("Hide", false);
+        }
     }
 
     public void SetLocation(BattleState state, Vector3Int target)
