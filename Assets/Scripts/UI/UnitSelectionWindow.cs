@@ -68,11 +68,36 @@ public class UnitSelectionWindow : MonoBehaviour
         }
     }
 
-    public IEnumerator Show(bool random = true)
+    public void LoadTutorialUnitSelection()
+    {
+        int numNeeded = numUnitsInSelection;
+        int numLeftInList = unitPrefabs.Count;
+
+        selectedUnitPrefabs.Clear();
+
+
+        foreach (PlayerUnit prefab in unitPrefabs)
+        {
+            if (prefab is Locke)
+            {
+                selectedUnitPrefabs.Add(prefab);
+            }
+        }      
+        unitIcons[1].Initialize(selectedUnitPrefabs[0]);
+    }
+
+    public IEnumerator Show(bool random = true, bool tutorial = false)
     {
         Debug.Log("Preparing to show unit selection window");
 
-        LoadUnitSelection(random);
+        if (!tutorial)
+        {
+            LoadUnitSelection(random);
+        }
+        else
+        {
+            LoadTutorialUnitSelection();
+        }
         
         // Play appearing animation
         LeanTween.scale(gameObject, new Vector3(1, 1, 1), 0.3f);

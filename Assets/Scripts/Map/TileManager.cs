@@ -566,11 +566,16 @@ public class TileManager : MonoBehaviour
 
     /// <summary>
     /// Returns the distance between two coordinates on the map while accounting for impassable
-    /// tiles
+    /// tiles. If no path is found, then return an arbitrarily large number.
     /// </summary>
     public int RealDistance(Vector3Int start, Vector3Int end, bool unitBlocks = true)
     {
-        return FindShortestPath(start, end, unitBlocks).Count;
+        int dist = FindShortestPath(start, end, unitBlocks).Count;
+        if (dist == 0)
+        {
+            dist = 10000;
+        }
+        return dist;
     }
 
     /// <summary>
