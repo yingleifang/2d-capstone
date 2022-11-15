@@ -549,7 +549,6 @@ MonoBehaviour:
   spawnOnStart: 0
   isDead: 0
   inMovement: 0
-  levelManager: {fileID: 0}
   type: 0
 --- !u!1 &8640427160434365333
 GameObject:
