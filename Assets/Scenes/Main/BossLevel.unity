@@ -1680,11 +1680,12 @@ MonoBehaviour:
   ovisButton: {fileID: 0}
   tutorialManager: {fileID: 0}
   dialogueManager: {fileID: 0}
-  forcedUnitPlacementTile: {x: 0, y: 0, z: -1}
   forcedUnitMovementTile: {x: 0, y: 0, z: -1}
+  pushDialogueAfterMove: 0
   pushDialogueAfterEnemyTurn: 0
   pushDialogueAfterAttack: 0
   pushDialogueAfterBattleEnd: 0
+  disableAttack: 0
 --- !u!4 &1275022861
 Transform:
   m_ObjectHideFlags: 0
@@ -2512,6 +2513,10 @@ PrefabInstance:
     - target: {fileID: 6057924552974800866, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924552974800866, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6057924552974800868, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_Pivot.x
