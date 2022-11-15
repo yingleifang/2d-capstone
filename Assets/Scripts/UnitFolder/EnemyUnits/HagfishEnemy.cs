@@ -1,16 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class HagfishEnemy : EnemyUnit
 {
     public static int alive = 0;
-   
-    public AnimatorOverrideController animatorController;
+
     public override void Start()
     {
-        anim.SetBool("Hide", true);
         base.Start();
         alive++;
     }

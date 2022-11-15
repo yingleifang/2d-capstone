@@ -13,7 +13,7 @@ public class TutorialManager : MonoBehaviour
         "Spike tiles (highlighted in red) will deal one damage to units who move onto them, land on them, or end their turn on them.",
         "Impassable tiles (highlighted in red) will prevent units from moving on them or being placed on them.",
         "Itzel: Huh?! Where am I? What is that thing?",
-        "System: Before the beginning of every level, you will be prompted to add a unit to your team. Choose one by left clicking it.",
+        "System: Before the beginning of every level, you will be prompted to add a unit to your team. Choose one by left clicking it and clicking the confirm button.",
         "To place a unit, left click on a valid tile twice.",
         "After a unit is placed, they will use their \"Start of Battle Ability\". Ovis (the character you selected) does one damage to all units around him, ally or foe.",
         "Itzel: Whoa! Are you okay?",
@@ -39,8 +39,9 @@ public class TutorialManager : MonoBehaviour
         "From now on, a next battle preview will be overlayed on the map during battle.",
         "Ovis just used his start of battle ability which deals one damage to all units adjacent to him, ally or enemy.",
         "All ally units activate their start of battle ability after they fall or are placed.",
-        "Units also have in battle abilities which can be used by selecting an ally unit and clicking the \"Ability\" button.",
-        "Add Locke to your team and use his ability to kill the trapped enemy.",
+        "Units also have in battle abilities which can be used by selecting an ally unit, navigating to the ability tab, and clicking the \"Ability\" button.",
+        "Add Locke to your team.",
+        "The health of all units will regenerate at the end of the turn for specifically this level. Find a way to kill the enemy. (Hint, use your abilities, they have no cooldowns this level)."
     };
 
     private string[][] dialogue = {lines1, lines2};

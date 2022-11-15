@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Tilemaps;
+
 
 public class Locke : PlayerUnit
 {
@@ -29,19 +31,20 @@ public class Locke : PlayerUnit
         if (cellPos != null)
         {
             Debug.Log(LevelManager.instance);
-            var tile = LevelManager.instance.tileInfo[cellPos];
-            if (tile.Item1.bonusStatModifier == 0)
+            TileBase startTile = tileManager.map.GetTile(location);
+            TileDataScriptableObject tile = tileManager.baseTileDatas[startTile];
+            if (tile.bonusStatModifier == 0)
             {
                 yield return StartCoroutine(SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", 1, Color.green));
                 health += 1;
                 currentHealth += 1;
             }
-            else if (tile.Item1.bonusStatModifier == 1)
+            else if (tile.bonusStatModifier == 1)
             {
                 yield return StartCoroutine(SpawnStatNumber("<sprite=\"fast\" name=\"fast\">", 1, Color.green));
                 movementSpeed += 1;
             }
-            else if (tile.Item1.bonusStatModifier == 2)
+            else if (tile.bonusStatModifier == 2)
             {
                 yield return StartCoroutine(SpawnStatNumber("<sprite=\"sword\" name=\"sword\">", 1, Color.green));
                 attackDamage += 1;

@@ -115,6 +115,7 @@ public class UnitSelectionWindow : MonoBehaviour
     {
         selectedUnit = unit.unitPrefab;
         confirmButton.interactable = true;
+        dialogueManager.HideDialogueWindow();
     }
 
     public void ConfirmUnit()
@@ -129,9 +130,9 @@ public class UnitSelectionWindow : MonoBehaviour
             if (dialogueManager.isWaitingForUserInput)
             {
                 dialogueManager.doSkipDialogue = true;
-                unitInfoWindow.HideStats();
-                StartCoroutine(Hide());
             }
+            unitInfoWindow.HideStats();
+            StartCoroutine(Hide());
         }
         else
         {

@@ -549,7 +549,9 @@ public class BattleManager : MonoBehaviour
         // Handles unit selection tutorial
         StartCoroutine(ui.ShowSelectionWindow(false));
         tutorialManager.disableBattleInteraction = true;
-        yield return StartCoroutine(tutorialManager.NextDialogue(true));
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        dialogueManager.HideDialogueWindow();
 
         // Wait until user does what is asked. This is not the only thing stopping
         // progression. Dialogue system's isWaitingForUserInput also stops progression.
@@ -785,7 +787,6 @@ public class BattleManager : MonoBehaviour
 
         // Talk about in battle abilities
         yield return StartCoroutine(tutorialManager.NextDialogue());
-        yield return StartCoroutine(tutorialManager.NextDialogue());
 
         /*foreach (Coroutine anim in animations)
         {
@@ -804,8 +805,13 @@ public class BattleManager : MonoBehaviour
         acceptingInput = true;
         yield return StartCoroutine(ui.ShowSelectionWindow(false, true));
 
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        dialogueManager.HideDialogueWindow();
+
+
         yield return new WaitUntil(() => !isPlacingUnit);
 
+    
         CheckIfBattleOver();
 
         yield return StartCoroutine(StartOfPlayerTurn());
@@ -818,7 +824,9 @@ public class BattleManager : MonoBehaviour
             postProcessingSettings.ChangeColorToDeSelected((PlayerUnit)selectedUnit);
         }
         selectedUnit = null;
-        isPlayerTurn = true;        
+        isPlayerTurn = true;
+
+        yield return StartCoroutine(tutorialManager.NextDialogue(true));        
     }
 
     private IEnumerator InitializeBattle()
@@ -837,23 +845,6 @@ public class BattleManager : MonoBehaviour
         foreach (Unit unit in unitsToSpawn.ToArray())
         {
             yield return StartCoroutine(SpawnUnit(unit.location, unit));
-        }
-
-        if (isBossLevel)
-        {
-            foreach (var curInfo in LevelManager.instance.enemyInfo)
-            {
-                HagfishEnemy hagfish = (HagfishEnemy)tileManager.GetUnit(curInfo.Item2);
-                //Animator animator = hagfish.GetComponent<Animator>();
-                //animator.runtimeAnimatorController = hagfish.animatorController;
-                //hagfish
-                yield return StartCoroutine(hagfish.AppearAt(state, hagfish.location, true));
-            }
-
-            foreach (var unit in playerUnits)
-            {
-               unit.RegenHealth();
-            }
         }
 
         // Wait for damage animation to finish
@@ -945,7 +936,7 @@ public class BattleManager : MonoBehaviour
 
             List<Unit> unitsToDestroy = new();
             var turnPast = ui.turnCountDown.totalTurn - ui.turnCountDown.currentTurn;
-            if (turnPast == 1)
+            if (turnPast == 1 && !tutorialManager)
             {
                 tileManager.CrackTiles(turnPast);
             }
@@ -964,6 +955,37 @@ public class BattleManager : MonoBehaviour
                 Destroy(unit);
             }
 
+            if (LevelManager.currentLevel == 2)
+            {
+                foreach (PlayerUnit unit in playerUnits)
+                {
+                    int numHealthRestore = unit.health - unit.currentHealth;
+                    yield return StartCoroutine(unit.SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", numHealthRestore, Color.green));
+                    unit.ChangeHealth(numHealthRestore);
+                    unit.currentCoolDown = 0;
+                }
+                foreach (EnemyUnit unit in enemyUnits)
+                {
+                    int numHealthRestore = unit.health - unit.currentHealth;
+                    yield return StartCoroutine(unit.SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", numHealthRestore, Color.green));
+                    unit.ChangeHealth(numHealthRestore);
+                    unit.currentCoolDown = 0;
+                }
+
+                if (ui.turnCountDown.currentTurn == 2)
+                {
+                    dialogueManager.StopSpeaking();
+                    yield return StartCoroutine(tutorialManager.SpecificDialogue("System: You can use abilities by clicking a unit, clicking the \"Ability\" tab, clicking the \"Use Ability\" button, " +
+                                "and double clicking an enemy in range.", true));                    
+                }
+                
+                if (ui.turnCountDown.currentTurn == 1)
+                {
+                    dialogueManager.StopSpeaking();
+                    yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Try combining Locke's ability with Ovis's basic attack. " +
+                                    "You can use abilities by clicking a unit, clicking the \"Ability\" tab, clicking the \"Use Ability\" button, and double clicking an enemy on a red hexagon.", true));
+                }
+            }
             StartCoroutine(UpdateBattleState());
             CheckIfBattleOver();
         }
@@ -1126,10 +1148,17 @@ public class BattleManager : MonoBehaviour
             isBattleOver = true;
             StartCoroutine(NextLevel());
         }
-        else if (ui.isOutOfTurns())
+        else if (ui.isOutOfTurns() && LevelManager.currentLevel != 2)
         { 
             isBattleOver = true;
             StartCoroutine(NextLevel());
+        }
+        if (isBossLevel)
+        {
+            foreach (var unit in playerUnits)
+            {
+                unit.RegenHealth();
+            }
         }
         Debug.Log("Enemies left: " + enemyUnits.Count);
     }
@@ -1193,22 +1222,29 @@ public class BattleManager : MonoBehaviour
         unitsToSpawn.AddRange(playerUnits);
         unitsToSpawn.AddRange(NPCUnits);
 
-        int index = SceneManager.GetActiveScene().buildIndex;
+        int index;
         if (LevelManager.instance.isTutorial && tutorialManager)
         {
-            index += 1;
+            index = SceneManager.GetActiveScene().buildIndex + 1;
             unitsToSpawn.AddRange(enemyUnits);
         }
         else
         {
             Debug.Log("current level: " + LevelManager.currentLevel);
 
-            if (LevelManager.currentLevel + 1 < LevelManager.instance.totalLevels)
+            if (LevelManager.currentLevel - LevelManager.instance.NumTutorialLevels <= 
+                    LevelManager.instance.totalLevels)
             {
-                unitsToSpawn.AddRange(enemyUnits);
-            }else if (LevelManager.currentLevel + 1 == LevelManager.instance.totalLevels){
-                index += 1;
-                isBossLevel = true;
+                index = SceneManager.GetActiveScene().buildIndex;
+                if (LevelManager.currentLevel - LevelManager.instance.NumTutorialLevels == LevelManager.instance.totalLevels)
+                {
+                    index += 1;
+                    isBossLevel = true;
+                }
+                else
+                {
+                    unitsToSpawn.AddRange(enemyUnits);
+                }
             }
             else
             {

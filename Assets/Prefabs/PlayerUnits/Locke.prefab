@@ -445,7 +445,7 @@ MonoBehaviour:
     effects.
   abilityName: Blink Strike
   inBattleAbilityDescription: Throw things he's found at enemies up to 2 tiles away.
-    Deals 2 damage.
+    Deals 4 damage.
   previewClip: {fileID: 32900000, guid: 9a82d097647995949a2ad38f9fe313a4, type: 3}
   talkSprite: {fileID: 21300000, guid: dbdc77bc9c74b384a9308b2a5229dc07, type: 3}
   type: 0
@@ -456,7 +456,7 @@ MonoBehaviour:
     volume: 0.2
     pitchFluctuation: 0
   canUseAbility: 1
-  abilityDamage: 2
+  abilityDamage: 4
 --- !u!95 &31881298027716544
 Animator:
   serializedVersion: 4
