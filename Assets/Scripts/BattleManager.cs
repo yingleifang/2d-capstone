@@ -582,6 +582,9 @@ public class BattleManager : MonoBehaviour
         animations.Clear();
         unitsToSpawn.Clear();
 
+        // Explain Ovis SOB ability
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+
         if (playerUnits[0].currentHealth != playerUnits[0].health)
         {
             yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage as it fell on a spike tile. Try to avoid this mistake in the future!"));
@@ -616,19 +619,6 @@ public class BattleManager : MonoBehaviour
         }
 
         pushDialogueAfterMove = false;
-
-        //prompt to end turn
-        if (pushDialogueAfterEnemyTurn)
-        {
-            yield return StartCoroutine(tutorialManager.NextDialogue());
-            pushDialogueAfterEnemyTurn = false;
-        }
-
-        lastHealth = playerUnits[0].currentHealth;
-        if (lastHealth != playerUnits[0].currentHealth)
-        {
-            yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage moved onto or ended its turn a spike tile. Try to avoid this mistake in the future!"));
-        }
         
         // Prompt to attack
         pushDialogueAfterAttack = true;
@@ -636,24 +626,20 @@ public class BattleManager : MonoBehaviour
         lastHealth = playerUnits[0].currentHealth;
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
-        if (isBattleOver && playerUnits.Count == 0)
-        {
-            tutorialManager.index = tutorialManager.NumLines() - 1;
-            yield break;
-        }
-
         if (lastHealth != playerUnits[0].currentHealth)
         {
             yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage as it attacked, moved, or ended its turn on a spike tile. Try to avoid this mistake in the future!"));
         }
-
         pushDialogueAfterAttack = false;
 
         //Discussing attack mechanics
         Debug.Log("talk attack mechanics");
         yield return StartCoroutine(tutorialManager.NextDialogue());
 
+        // Kill all enemy type beat
         yield return StartCoroutine(tutorialManager.NextDialogue());
+
+        dialogueManager.HideDialogueWindow();
 
 
         if (isBattleOver)
@@ -713,6 +699,11 @@ public class BattleManager : MonoBehaviour
                     (LevelManager.instance.typesOfTilesToSpawn[2], 0));
         LevelManager.instance.nextSceneTileInfo.Remove(new Vector3Int(2, 1, 0));
         LevelManager.instance.nextSceneTileInfo.Add(new Vector3Int(2, 1, 0), 
+                    (LevelManager.instance.typesOfTilesToSpawn[2], 0));
+        
+        //Ensure no hazard tile under target enemy on this stage.
+        LevelManager.instance.nextSceneTileInfo.Remove(new Vector3Int(4, 0, 0));
+        LevelManager.instance.nextSceneTileInfo.Add(new Vector3Int(4, 0, 0), 
                     (LevelManager.instance.typesOfTilesToSpawn[2], 0));
         // Manually set enemy positions
         for (int i = 0; i < LevelManager.instance.nextSceneEnemyInfo.Count; i++)
@@ -790,13 +781,10 @@ public class BattleManager : MonoBehaviour
         // Talk about start of battle abilities
         yield return StartCoroutine(tutorialManager.NextDialogue());
         yield return StartCoroutine(tutorialManager.NextDialogue());
-        yield return StartCoroutine(tutorialManager.NextDialogue());
 
         // Talk about in battle abilities
         yield return StartCoroutine(tutorialManager.NextDialogue());
         yield return StartCoroutine(tutorialManager.NextDialogue());
-
-        dialogueManager.HideDialogueWindow();
 
         /*foreach (Coroutine anim in animations)
         {
@@ -813,7 +801,7 @@ public class BattleManager : MonoBehaviour
         isPlacingUnit = true;
         unitToPlace = null;
         acceptingInput = true;
-        yield return StartCoroutine(ui.ShowSelectionWindow());
+        yield return StartCoroutine(ui.ShowSelectionWindow(false, true));
 
         yield return new WaitUntil(() => !isPlacingUnit);
 
@@ -1150,6 +1138,7 @@ public class BattleManager : MonoBehaviour
         if (dialogueManager && tutorialManager)
         {
             dialogueManager.StopSpeaking();
+            tutorialManager.index = tutorialManager.NumLines() - 1;
             yield return StartCoroutine(tutorialManager.SpecificDialogue("System: When you run out of ally units, you lose the game. Don't let it get you down. Try again with your new knowledge!"));
         }
         yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));

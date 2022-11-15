@@ -15,13 +15,13 @@ public class TutorialManager : MonoBehaviour
         "Itzel: Huh?! Where am I? What is that thing?",
         "System: Before the beginning of every level, you will be prompted to add a unit to your team. Choose one by left clicking it.",
         "To place a unit, left click on a valid tile twice.",
+        "After a unit is placed, they will use their \"Start of Battle Ability\". Ovis (the character you selected) does one damage to all units around him, ally or foe.",
         "Itzel: Whoa! Are you okay?",
         "System: Hovering over units and tiles will show their information.",
         "Left clicking an enemy will show its \"threat area\" in red. This is the range in which it can attack units (its movement speed + attack range).",
         "Left clicking an ally will select it, and show its movement range in blue. To unselect a unit click on it again.",
         "While an ally is selected, it can be moved by double left clicking on tiles in its movement range.",
-        "You can end your turn by clicking the \"End Turn\" button on the bottom right.",
-        "You can attack enemies by double clicking them while an ally unit is selected. If a unit is on a spike tile when it attacks, it will take damage.",
+        "While an ally unit is selected, double left clicking on enemies within attack range will attack them. If a unit is on a spike tile when it attacks, it will take damage.",
         "After a unit attacks, they can no longer move and will fade to indicate they have no more actions.",
         "Kill all enemies and complete the level.",
         "Itzel: What? What's going on?"
@@ -37,11 +37,10 @@ public class TutorialManager : MonoBehaviour
         "Tiles overlayed with red (shown on the map) indicate that there will be an impassable tile there on the NEXT stage.",
         "Allies and enemies which drop onto these tiles during the level switch will DIE. Be particularly mindful of these tiles.",
         "From now on, a next battle preview will be overlayed on the map during battle.",
-        "Ovis just used his start of battle ability.",
-        "All ally units have a start of battle ability which they will use after they fall down to the next level.",
-        "Ovis's start of battle ability does one damage to all units adjacent to him, ALLY or ENEMY.",
+        "Ovis just used his start of battle ability which deals one damage to all units adjacent to him, ally or enemy.",
+        "All ally units activate their start of battle ability after they fall or are placed.",
         "Units also have in battle abilities which can be used by selecting an ally unit and clicking the \"Ability\" button.",
-        "Kill all the enemies and progress through the rest of the game."
+        "Add Locke to your team and use his ability to kill the trapped enemy.",
     };
 
     private string[][] dialogue = {lines1, lines2};
