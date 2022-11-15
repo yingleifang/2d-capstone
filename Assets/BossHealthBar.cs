@@ -15,6 +15,9 @@ public class BossHealthBar : MonoBehaviour
     public static void BossTakeDamage(int damage)
     {
         BattleManager.bossHealth -= damage;
-        slider.value -= damage;   
+        if (slider != null)
+        {
+            slider.value -= damage;
+        }
     }
 }
