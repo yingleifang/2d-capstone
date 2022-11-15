@@ -825,6 +825,17 @@ public class BattleManager : MonoBehaviour
             yield return StartCoroutine(SpawnUnit(unit.location, unit));
         }
 
+        if (isBossLevel)
+        {
+            Debug.Log(LevelManager.instance.enemyInfo.Count);
+            foreach (var curInfo in LevelManager.instance.enemyInfo)
+            {
+                HagfishEnemy hagfish = (HagfishEnemy)tileManager.GetUnit(curInfo.Item2);
+                Debug.Log(hagfish);
+                yield return StartCoroutine(hagfish.AppearAt(state, hagfish.location));
+            }
+        }
+
         // Wait for damage animation to finish
         yield return new WaitForSeconds(.5f);
 
@@ -1169,29 +1180,22 @@ public class BattleManager : MonoBehaviour
         unitsToSpawn.AddRange(playerUnits);
         unitsToSpawn.AddRange(NPCUnits);
 
-        int index;
+        int index = SceneManager.GetActiveScene().buildIndex;
         if (LevelManager.instance.isTutorial && tutorialManager)
         {
-            index = SceneManager.GetActiveScene().buildIndex + 1;
+            index += 1;
             unitsToSpawn.AddRange(enemyUnits);
         }
         else
         {
             Debug.Log("current level: " + LevelManager.currentLevel);
 
-            if (LevelManager.currentLevel - LevelManager.instance.NumTutorialLevels <= 
-                    LevelManager.instance.totalLevels)
+            if (LevelManager.currentLevel + 1 < LevelManager.instance.totalLevels)
             {
-                index = SceneManager.GetActiveScene().buildIndex;
-                if (LevelManager.currentLevel - LevelManager.instance.NumTutorialLevels == LevelManager.instance.totalLevels)
-                {
-                    index += 1;
-                    isBossLevel = true;
-                }
-                else
-                {
-                    unitsToSpawn.AddRange(enemyUnits);
-                }
+                unitsToSpawn.AddRange(enemyUnits);
+            }else if (LevelManager.currentLevel + 1 == LevelManager.instance.totalLevels){
+                index += 1;
+                isBossLevel = true;
             }
             else
             {

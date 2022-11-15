@@ -147,6 +147,7 @@ public abstract class Unit: MonoBehaviour
 
     public IEnumerator PlayAppearAnimation(bool inBattle)
     {
+        Debug.Log("--------------------------");
         anim.SetBool("Hide", false);
         if (inBattle)
         {

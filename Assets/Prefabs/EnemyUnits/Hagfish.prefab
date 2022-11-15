@@ -550,6 +550,7 @@ MonoBehaviour:
   isDead: 0
   inMovement: 0
   type: 0
+  animatorController: {fileID: 22100000, guid: 671f045c1cb17774ab4e9e854de3d388, type: 2}
 --- !u!1 &8640427160434365333
 GameObject:
   m_ObjectHideFlags: 0

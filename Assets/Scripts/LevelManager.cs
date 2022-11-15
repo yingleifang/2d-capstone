@@ -266,7 +266,7 @@ public class LevelManager : MonoBehaviour
     {
         map = FindObjectOfType<Tilemap>();
         int totalEnemy = difficultyLevel < 3 ? difficultyLevel : 3;
-        if (currentLevel == totalLevels)
+        if (currentLevel + 1 == totalLevels)
         {
             typesOfEnemiesToSpawn.Add(hagFish);
         }
@@ -293,7 +293,7 @@ public class LevelManager : MonoBehaviour
             if (difficultyLevel < 2)
             {
                 curEnemyInfo.Add((0, possiblePositions[i]));
-            }else if (currentLevel - numTutorialLevels >= totalLevels)
+            }else if (currentLevel + 1 == totalLevels)
             {
                 curEnemyInfo.Add((typesOfEnemiesToSpawn.Count - 1, possiblePositions[i]));
             }

@@ -5215,7 +5215,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.2
+  m_fontSize: 24.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5886,7 +5886,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.8
+  m_fontSize: 37.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6789,7 +6789,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 67
+  m_fontSize: 61.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7789,7 +7789,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 242.85
+  m_fontSize: 221.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8066,7 +8066,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.35
+  m_fontSize: 64.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8998,7 +8998,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 242.85
+  m_fontSize: 221.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9706,7 +9706,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.35
+  m_fontSize: 64.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9978,15 +9978,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 0}
   nameText: {fileID: 1404982159811788050}
-  unitImage: {fileID: 6372536693099366552}
+  unitPortrait: {fileID: 0}
+  unitSprite: {fileID: 0}
   healthText: {fileID: 93140085405467463}
   attackText: {fileID: 8719763606228373529}
   movementText: {fileID: 6961629864854181233}
   rangeText: {fileID: 7699628020008275866}
   startOfBattleText: {fileID: 7532964646610144325}
+  abilityName: {fileID: 0}
   inBattleText: {fileID: 4150061660468469044}
   cooldownText: {fileID: 8674857000173805370}
   videoPlayer: {fileID: 8723599470403068801}
+  statsTab: {fileID: 0}
+  passiveTab: {fileID: 0}
+  abilityTab: {fileID: 0}
+  statsButton: {fileID: 0}
 --- !u!222 &5717407539891978404
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10042,7 +10048,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.85
+  m_fontSize: 35.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10282,7 +10288,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.35
+  m_fontSize: 64.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10386,6 +10392,8 @@ MonoBehaviour:
   canvas: {fileID: 6057924552909089690}
   dialogue: {fileID: 157835802}
   dialogueManager: {fileID: 2049737519}
+  selectedUnit: {fileID: 0}
+  confirmButton: {fileID: 0}
 --- !u!224 &5939622119306227868
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11208,15 +11216,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 0}
   nameText: {fileID: 585716535922370033}
-  unitImage: {fileID: 4841459318869627003}
+  unitPortrait: {fileID: 0}
+  unitSprite: {fileID: 0}
   healthText: {fileID: 1879544383416523684}
   attackText: {fileID: 7087908311901735162}
   movementText: {fileID: 8918025257337245074}
   rangeText: {fileID: 8179960933986260857}
   startOfBattleText: {fileID: 8346835516693943462}
+  abilityName: {fileID: 0}
   inBattleText: {fileID: 2506366257744233943}
   cooldownText: {fileID: 7150825296441477081}
   videoPlayer: {fileID: 7084143235295558498}
+  statsTab: {fileID: 0}
+  passiveTab: {fileID: 0}
+  abilityTab: {fileID: 0}
+  statsButton: {fileID: 0}
 --- !u!222 &6104195123187532045
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11700,7 +11714,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.65
+  m_fontSize: 30.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -12394,7 +12408,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.9
+  m_fontSize: 36.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14411,15 +14425,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 0}
   nameText: {fileID: 2444032008341755296}
-  unitImage: {fileID: 7708545897678118954}
+  unitPortrait: {fileID: 0}
+  unitSprite: {fileID: 0}
   healthText: {fileID: 3737824512079817717}
   attackText: {fileID: 5446926942566463659}
   movementText: {fileID: 5911291751633583555}
   rangeText: {fileID: 6363339015437838120}
   startOfBattleText: {fileID: 6494184693761877239}
+  abilityName: {fileID: 0}
   inBattleText: {fileID: 793327234306962822}
   cooldownText: {fileID: 5401721990968588168}
   videoPlayer: {fileID: 5442035561858304819}
+  statsTab: {fileID: 0}
+  passiveTab: {fileID: 0}
+  abilityTab: {fileID: 0}
+  statsButton: {fileID: 0}
 --- !u!222 &9065115069822822422
 CanvasRenderer:
   m_ObjectHideFlags: 0

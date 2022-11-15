@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class HagfishEnemy : EnemyUnit
@@ -10,6 +11,7 @@ public class HagfishEnemy : EnemyUnit
     {
         base.Start();
         alive++;
+        anim.SetBool("Hide", true);
     }
 
     public override IEnumerator performAction(BattleState state)
