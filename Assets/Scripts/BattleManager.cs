@@ -1112,6 +1112,13 @@ public class BattleManager : MonoBehaviour
             isBattleOver = true;
             StartCoroutine(NextLevel());
         }
+        if (isBossLevel)
+        {
+            foreach (var unit in playerUnits)
+            {
+                unit.RegenHealth();
+            }
+        }
         Debug.Log("Enemies left: " + enemyUnits.Count);
     }
 
@@ -1485,8 +1492,8 @@ public class BattleManager : MonoBehaviour
             DeselectTile();
             Debug.Log("Unit placement location: " + tilePos);
             PlayerUnit unit = unitToPlace;
-            unitToPlace = null;
             unit.location = tilePos;
+            unitToPlace = null;
             yield return StartCoroutine(SpawnUnit(tilePos, unit));
             unitsToSpawn.Remove(unit);
             isPlacingUnit = false;
@@ -1495,6 +1502,8 @@ public class BattleManager : MonoBehaviour
             {
                 dialogueManager.doSkipDialogue = true;
             }
+            Debug.Log(unitToPlace);
+            yield return StartCoroutine(unit.StartOfBattleAbility(state));
         }
     }
 

@@ -111,5 +111,12 @@ public class PlayerUnit : Unit
         }
         return false;
     }
+
+    public void RegenHealth()
+    {
+        var additionalHealth = health - currentHealth;
+        currentHealth = health;
+        StartCoroutine(SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", additionalHealth, Color.green));
+    }
     
 }
