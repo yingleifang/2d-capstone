@@ -1596,11 +1596,12 @@ MonoBehaviour:
   ovisButton: {fileID: 0}
   tutorialManager: {fileID: 0}
   dialogueManager: {fileID: 0}
-  forcedUnitPlacementTile: {x: 0, y: 0, z: -1}
   forcedUnitMovementTile: {x: 0, y: 0, z: -1}
+  pushDialogueAfterMove: 0
   pushDialogueAfterEnemyTurn: 0
   pushDialogueAfterAttack: 0
   pushDialogueAfterBattleEnd: 0
+  disableAttack: 0
 --- !u!4 &1275022861
 Transform:
   m_ObjectHideFlags: 0
