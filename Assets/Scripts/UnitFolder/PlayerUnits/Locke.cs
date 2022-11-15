@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Tilemaps;
-
+using System.Linq;
 
 public class Locke : PlayerUnit
 {
@@ -11,6 +11,8 @@ public class Locke : PlayerUnit
     public int abilityDamage;
 
     private TileManager tileManager;
+
+    public int distanceMoved = 0;
 
     protected override void Awake()
     {
@@ -51,6 +53,33 @@ public class Locke : PlayerUnit
             }
         }
         canUseAbility = true;
+        yield break;
+    }
+
+    public override IEnumerator DoAttack(Unit target)
+    {
+        distanceMoved = 0;
+        return base.DoAttack(target);
+    }
+
+    public override IEnumerator DoMovement(BattleState state, Vector3Int target, bool unitBlocks = true)
+    {
+        if (state.tileManager.GetTile(target) == null)
+        {
+            yield break;
+        }
+        if (path == null)
+        {
+            path = state.tileManager.FindShortestPath(location, target, unitBlocks);
+            abilityDamage = path.Count;
+            inMovement = true;
+        }
+        state.tileManager.RemoveUnitFromTile(location);
+
+        yield return StartCoroutine(smoothMovement(state, target));
+
+        state.tileManager.AddUnitToTile(target, this);
+
         yield break;
     }
 

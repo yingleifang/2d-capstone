@@ -313,7 +313,7 @@ public abstract class Unit: MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
-    IEnumerator smoothMovement(BattleState state, Vector3Int target)
+    protected IEnumerator smoothMovement(BattleState state, Vector3Int target)
     {
         Debug.Log("location: " + location + " target: " + target);
         if (!target.Equals(location))
