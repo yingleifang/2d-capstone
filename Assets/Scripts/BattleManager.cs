@@ -841,12 +841,16 @@ public class BattleManager : MonoBehaviour
 
         if (isBossLevel)
         {
-            Debug.Log(LevelManager.instance.enemyInfo.Count);
             foreach (var curInfo in LevelManager.instance.enemyInfo)
             {
                 HagfishEnemy hagfish = (HagfishEnemy)tileManager.GetUnit(curInfo.Item2);
                 Debug.Log(hagfish);
                 yield return StartCoroutine(hagfish.AppearAt(state, hagfish.location));
+            }
+
+            foreach (var unit in playerUnits)
+            {
+               unit.RegenHealth();
             }
         }
 
@@ -1124,13 +1128,6 @@ public class BattleManager : MonoBehaviour
         { 
             isBattleOver = true;
             StartCoroutine(NextLevel());
-        }
-        if (isBossLevel)
-        {
-            foreach (var unit in playerUnits)
-            {
-                unit.RegenHealth();
-            }
         }
         Debug.Log("Enemies left: " + enemyUnits.Count);
     }
