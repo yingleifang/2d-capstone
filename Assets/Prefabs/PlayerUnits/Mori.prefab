@@ -147,9 +147,11 @@ MonoBehaviour:
   isDead: 0
   inMovement: 0
   startOfBattleAbilityDescription: Heals 1 HP to adjacent units. Can overheal.
+  abilityName: Revive
   inBattleAbilityDescription: Revives a defeated unit on an adjacent tile. Unit must
     have died on that tile.
   previewClip: {fileID: 32900000, guid: d5f783dbd574c784bbcd205453a94770, type: 3}
+  talkSprite: {fileID: 21300000, guid: 0c278431768e6fd4eb4a522cbf35b9f6, type: 3}
   type: 0
   hasMoved: 0
   hasAttacked: 0

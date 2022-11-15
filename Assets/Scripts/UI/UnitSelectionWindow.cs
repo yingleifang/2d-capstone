@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UnitSelectionWindow : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class UnitSelectionWindow : MonoBehaviour
     public DialogueManager dialogueManager;
     private UnitInfoWindow unitInfoWindow;
     private int numUnitsInSelection = 3;
+    public PlayerUnit selectedUnit;
+    public Button confirmButton;
 
     private void Awake()
     {
@@ -107,7 +110,13 @@ public class UnitSelectionWindow : MonoBehaviour
 
     public void SelectUnit(PurchasableScript unit)
     {
-        BattleManager.instance.SetUnitToPlace(unit.unitPrefab);
+        selectedUnit = unit.unitPrefab;
+        confirmButton.interactable = true;
+    }
+
+    public void ConfirmUnit()
+    {
+        BattleManager.instance.SetUnitToPlace(selectedUnit);
 
         Debug.Log(LevelManager.currentLevel);
         Debug.Log(BattleManager.instance.dialogueManager);
@@ -117,9 +126,15 @@ public class UnitSelectionWindow : MonoBehaviour
             if (dialogueManager.isWaitingForUserInput)
             {
                 dialogueManager.doSkipDialogue = true;
+                unitInfoWindow.HideStats();
+                StartCoroutine(Hide());
             }
         }
-        unitInfoWindow.HideStats();
-        StartCoroutine(Hide());
+        else
+        {
+            // Minimize selection
+            unitInfoWindow.HideStats();
+            StartCoroutine(Hide());
+        }
     }
 }

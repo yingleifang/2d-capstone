@@ -133,9 +133,11 @@ MonoBehaviour:
   inMovement: 0
   startOfBattleAbilityDescription: Increases the movement speed of all adjacent allies
     by 1 for a single battle.
+  abilityName: Fire Breath
   inBattleAbilityDescription: Spits fire up to two tiles away in a straight line.
     All units along the line take 2 damage.
   previewClip: {fileID: 32900000, guid: 38231af598404e64a8fa32d475b3d120, type: 3}
+  talkSprite: {fileID: 21300000, guid: ea5f5fab4f887f744ab87746b1e36fd4, type: 3}
   type: 2
   hasMoved: 0
   hasAttacked: 0
