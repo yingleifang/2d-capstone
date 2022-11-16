@@ -326,7 +326,7 @@ public class LevelManager : MonoBehaviour
                 {
                     continue;
                 }
-                if (tileInfo[new Vector3Int(x, y, 0)].Item1.impassable == true || tileInfo[new Vector3Int(x, y, 0)].Item1.hazardous == true)
+                if (tileInfo[new Vector3Int(x, y, 0)].Item1.impassable == true || tileInfo[new Vector3Int(x, y, 0)].Item1.hazardous == true || tileInfo[new Vector3Int(x, y, 0)].Item2 != 0)
                 {
                     continue;
                 }
