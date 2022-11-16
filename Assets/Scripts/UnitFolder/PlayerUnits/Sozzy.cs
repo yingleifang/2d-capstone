@@ -25,6 +25,7 @@ public class Sozzy : PlayerUnit
             if (unit && unit != this && unit is PlayerUnit player)
             {
                 player.currentMovementSpeed += 1;
+                player.movementSpeed += 1;
                 yield return StartCoroutine(unit.SpawnStatNumber("<sprite=\"fast\" name=\"fast\">", 1, Color.green));
             }
         }
