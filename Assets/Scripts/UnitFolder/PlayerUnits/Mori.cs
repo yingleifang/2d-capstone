@@ -61,6 +61,7 @@ public class Mori : PlayerUnit
             currentCoolDown = coolDown;
         }
         map.ClearTileDeadUnit(target);
+        map.ClearTileDecoration(target);
         yield return null;
     }
 

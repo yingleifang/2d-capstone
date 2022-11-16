@@ -17,7 +17,7 @@ public class PlayerUnit : Unit
     public string inBattleAbilityDescription;
     public VideoClip previewClip;
     public Sprite talkSprite;
-
+    public GameObject gravePrefab;
     public UnitType type;
     public bool hasMoved = false;
     public bool hasAttacked = false;

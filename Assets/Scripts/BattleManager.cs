@@ -1122,8 +1122,20 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator KillUnit(Unit unit)
     {
+        GameObject grave = null;
+        Vector3Int spawnLocation = Vector3Int.zero;
+        if (unit is PlayerUnit player)
+        {
+            grave = player.gravePrefab;
+            spawnLocation = player.location;
+        }
         RemoveUnit(unit);
-        yield return StartCoroutine(unit.Die());    
+        yield return StartCoroutine(unit.Die());
+        if (grave != null)
+        {
+            GameObject instance = Instantiate(grave, tileManager.CellToWorldPosition(spawnLocation), Quaternion.identity);
+            tileManager.SetTileDecoration(spawnLocation, instance);
+        }
     }
 
     public void RemoveUnit(Unit unit)

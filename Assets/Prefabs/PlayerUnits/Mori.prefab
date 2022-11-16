@@ -152,6 +152,7 @@ MonoBehaviour:
     have died on that tile.
   previewClip: {fileID: 32900000, guid: d5f783dbd574c784bbcd205453a94770, type: 3}
   talkSprite: {fileID: 21300000, guid: 0c278431768e6fd4eb4a522cbf35b9f6, type: 3}
+  gravePrefab: {fileID: 398906933221523826, guid: f50071fc0095b094db0799f374ea2184, type: 3}
   type: 0
   hasMoved: 0
   hasAttacked: 0

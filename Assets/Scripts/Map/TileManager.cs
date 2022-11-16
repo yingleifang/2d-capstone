@@ -177,6 +177,7 @@ public class TileManager : MonoBehaviour
     }
     public IEnumerator ShatterTiles(int turn, List<Unit> units = null)
     {
+        RemoveAllDecorations();
         // If the level isn't randomized, we will not have set the correct data for tileInfo.
         // Since we don't really need the correct data in tileInfo for anything, I'll just
         // manually set it so the tiles do the animation.
@@ -375,6 +376,48 @@ public class TileManager : MonoBehaviour
         if (dynamicTileDatas.ContainsKey(tilePos))
         {
             dynamicTileDatas[tilePos].deadUnit = unit.prefab;
+        }
+    }
+
+    /// <summary>
+    /// Stores the given object as decoration on a the given tile.
+    /// Used to store gravestone locations.
+    /// </summary>
+    /// <param name="tilePos">the tile to set the decoration of</param>
+    /// <param name="decoration">the decoration object</param>
+    public void SetTileDecoration(Vector3Int tilePos, GameObject decoration)
+    {
+        if (dynamicTileDatas.ContainsKey(tilePos))
+        {
+            dynamicTileDatas[tilePos].decoration = decoration;
+        }
+    }
+
+    /// <summary>
+    /// Clears and destroys any decorations on the given tile.
+    /// </summary>
+    /// <param name="tilePos">the tile position</param>
+    public void ClearTileDecoration(Vector3Int tilePos)
+    {
+        if (dynamicTileDatas.ContainsKey(tilePos))
+        {
+            if (dynamicTileDatas[tilePos].decoration != null)
+            {
+                Destroy(dynamicTileDatas[tilePos].decoration.gameObject);
+                dynamicTileDatas[tilePos].decoration = null;
+            }
+        }
+    }
+
+    public void RemoveAllDecorations()
+    {
+        foreach (var data in dynamicTileDatas.Values)
+        {
+            if (data.decoration != null)
+            {
+                Destroy(data.decoration.gameObject);
+                data.decoration = null;
+            }
         }
     }
 

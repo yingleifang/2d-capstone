@@ -138,6 +138,7 @@ MonoBehaviour:
     All units along the line take 2 damage.
   previewClip: {fileID: 32900000, guid: 38231af598404e64a8fa32d475b3d120, type: 3}
   talkSprite: {fileID: 21300000, guid: ea5f5fab4f887f744ab87746b1e36fd4, type: 3}
+  gravePrefab: {fileID: 398906933221523826, guid: f50071fc0095b094db0799f374ea2184, type: 3}
   type: 2
   hasMoved: 0
   hasAttacked: 0

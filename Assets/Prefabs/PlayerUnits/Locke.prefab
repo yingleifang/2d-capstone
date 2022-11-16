@@ -448,6 +448,7 @@ MonoBehaviour:
     attack. Current Damage:'
   previewClip: {fileID: 32900000, guid: 9a82d097647995949a2ad38f9fe313a4, type: 3}
   talkSprite: {fileID: 21300000, guid: dbdc77bc9c74b384a9308b2a5229dc07, type: 3}
+  gravePrefab: {fileID: 398906933221523826, guid: f50071fc0095b094db0799f374ea2184, type: 3}
   type: 0
   hasMoved: 0
   hasAttacked: 0
