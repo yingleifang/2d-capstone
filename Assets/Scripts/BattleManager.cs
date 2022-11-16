@@ -397,10 +397,6 @@ public class BattleManager : MonoBehaviour
 
                         yield return StartCoroutine(UpdateBattleState());
                         CheckIfBattleOver();
-                        if (curUnit.isDead)
-                        {
-                            ui.HideUnitInfoWindow();
-                        }
                     }
                 }
 
@@ -420,11 +416,6 @@ public class BattleManager : MonoBehaviour
                     ui.ShowUnitInfoWindow(ui.unitWhoseWindowIsOpen);
                     yield return StartCoroutine(UpdateBattleState());
                     CheckIfBattleOver();
-
-                    if (curUnit.isDead)
-                    {
-                        ui.HideUnitInfoWindow();
-                    }
                 }
             }
             else
