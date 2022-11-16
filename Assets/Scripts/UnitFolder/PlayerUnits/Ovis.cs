@@ -65,7 +65,8 @@ public class Ovis : PlayerUnit
                 targetUnit.ChangeHealth(abilityDamage * -1);
                 yield return new WaitForSeconds(.15f);
                 if (targetUnit.GetComponent("HagfishEnemy") == true)
-                    yield return StartCoroutine(targetUnit.PlayDamageAnimation());
+                    Debug.Log("ur trying to push a hagfish dont");
+                // return StartCoroutine(targetUnit.PlayDamageAnimation());
                 else
                     yield return StartCoroutine(targetUnit.DoMovement(state, destination));
 
