@@ -27,8 +27,9 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (BattleManager.instance.gameIsPaused)
+        if (BattleManager.instance.gameIsPaused || BattleManager.instance.ui.unitSelectionWindow.gameObject.activeSelf)
         {
+            StartCoroutine(WaitForSeconds(.2f));
             return;
         }
         PanCamera();
@@ -42,6 +43,11 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    private IEnumerator WaitForSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+    }
+
     private void PanCamera()
     {
         if (Input.GetMouseButtonDown(0))
@@ -53,6 +59,7 @@ public class CameraMovement : MonoBehaviour
             difference *= dragSpeed;
             cam.transform.position = ClampCamera(cam.transform.position + difference);
         }
+        cam.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, -10);
     }
 
     public void ZoomIn()
