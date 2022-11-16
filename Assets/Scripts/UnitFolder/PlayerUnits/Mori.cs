@@ -57,11 +57,15 @@ public class Mori : PlayerUnit
             yield return StartCoroutine(PlayAbilityAnimation());
             Unit unit = Instantiate(unitToRevive);
             // TODO: probably need to add a dedicated revive function to play a revive animation.
-            StartCoroutine(state.battleManager.SpawnUnit(target, unit));
+            yield return StartCoroutine(state.battleManager.SpawnUnit(target, unit));
             currentCoolDown = coolDown;
+            map.ClearTileDeadUnit(target);
+            map.ClearTileDecoration(target);
+            if (unit is PlayerUnit player)
+            {
+                BattleManager.instance.postProcessingSettings.CanMoveAndAttackGlow(player);
+            }
         }
-        map.ClearTileDeadUnit(target);
-        map.ClearTileDecoration(target);
         yield return null;
     }
 
