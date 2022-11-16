@@ -8,6 +8,7 @@ public class HagfishEnemy : EnemyUnit
 
     public override void Start()
     {
+        anim.SetBool("Hide", true);
         base.Start();
         alive++;
     }
