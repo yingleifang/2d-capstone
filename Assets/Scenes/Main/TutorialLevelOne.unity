@@ -496,7 +496,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63887768}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9692c613b5ba0b642bbf75a693d8db8a, type: 3}
   m_Name: 
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63887768}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 705e41da44fb5f343b25445a7cb5fde1, type: 3}
   m_Name: 
@@ -943,7 +943,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textSpeed: 0.015
   unitSelection: {fileID: 2037496997}
-  continueButton: {fileID: 2096561380}
   endTurnButton: {fileID: 1566494644}
   battlePreviewButton: {fileID: 875840217}
   help: {fileID: 1330873573}
@@ -7714,7 +7713,7 @@ PrefabInstance:
       objectReference: {fileID: 1379060832544993755, guid: ebe1c75a791dde1429699b92c8ec52bb, type: 3}
     - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
       propertyPath: totalLevels
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
       propertyPath: typesOfEnemiesToSpawnBossLevel.Array.size

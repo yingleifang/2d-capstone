@@ -1241,7 +1241,7 @@ public class BattleManager : MonoBehaviour
             {
                 unitsToSpawn.AddRange(enemyUnits);
             }
-            else if (LevelManager.currentLevel + 1 == LevelManager.instance.totalLevels)
+            else if (LevelManager.currentLevel + 1 <= LevelManager.instance.totalLevels + 1)
             {
                 index += 1;
                 isBossLevel = true;
