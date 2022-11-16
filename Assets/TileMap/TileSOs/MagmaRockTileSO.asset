@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: MagmaRockTileSO
   m_EditorClassIdentifier: 
   tileName: Magma
-  description: Hot burning coals make it rather unpleasant. (Currently no effect)
+  description: Hot burning coals.
   tiles:
   - {fileID: 11400000, guid: 70a7ce211cd0bac4d9c1623e3da2c2a5, type: 2}
-  movementSpeedModifier: 0
+  animatedTile: {fileID: 0}
+  bonusStatModifier: 0
   impassable: 0
   hazardous: 0
   weight: 4

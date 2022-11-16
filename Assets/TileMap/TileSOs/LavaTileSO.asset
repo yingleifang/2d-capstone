@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: LavaTileSO
   m_EditorClassIdentifier: 
   tileName: Lava
-  description: Impassable. Hot. (Currently kills units that fall on it)
+  description: Burns up any units that fall on it.
   tiles:
   - {fileID: 11400000, guid: 6c81fe77dd53bf248a837f0b0d5f22b4, type: 2}
-  movementSpeedModifier: 0
+  animatedTile: {fileID: 0}
+  bonusStatModifier: 0
   impassable: 1
   hazardous: 0
   weight: 1

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ShatterTileSO
   m_EditorClassIdentifier: 
   tileName: Unstable Stone
-  description: 'It cracks under your weight. '
+  description: 'Could collapse at any moment... '
   tiles:
   - {fileID: 11400000, guid: cd450a62d8278044fab3d3d429d698e9, type: 2}
   - {fileID: 11400000, guid: d90bb2f27367c68499c729961cdc9f36, type: 2}
   animatedTile: {fileID: 11400000, guid: a3e69ec4f12710c4a90d2fcaa7466de9, type: 2}
-  movementSpeedModifier: 0
+  bonusStatModifier: 0
   impassable: 0
   hazardous: 0
   weight: 0

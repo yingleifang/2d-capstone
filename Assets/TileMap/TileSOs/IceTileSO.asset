@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: IceTileSO
   m_EditorClassIdentifier: 
   tileName: Ice
-  description: Slippery. (Currently no effect)
+  description: Slippery.
   tiles:
   - {fileID: 11400000, guid: da0ee00d403de74489ca252cf9f5c3a9, type: 2}
-  movementSpeedModifier: 0
+  animatedTile: {fileID: 0}
+  bonusStatModifier: 0
   impassable: 0
   hazardous: 0
   weight: 1
