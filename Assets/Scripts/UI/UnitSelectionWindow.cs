@@ -115,7 +115,11 @@ public class UnitSelectionWindow : MonoBehaviour
     {
         selectedUnit = unit.unitPrefab;
         confirmButton.interactable = true;
-        dialogueManager.HideDialogueWindow();
+
+        if (dialogueManager)
+        {
+            dialogueManager.HideDialogueWindow();
+        }
     }
 
     public void ConfirmUnit()
