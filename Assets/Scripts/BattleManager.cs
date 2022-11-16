@@ -947,6 +947,7 @@ public class BattleManager : MonoBehaviour
             }
 
             // Decrements turn counter as well
+            ui.DecrementTurnCount();
             yield return StartCoroutine(performEnemyMoves());
 
             List<Unit> unitsToDestroy = new();
@@ -1475,7 +1476,6 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(StartOfPlayerTurn());
         DeselectUnit();
-        ui.DecrementTurnCount();
 
         yield break;
     }
