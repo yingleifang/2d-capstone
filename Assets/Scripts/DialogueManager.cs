@@ -143,6 +143,7 @@ public class DialogueManager : MonoBehaviour
 
         if (disableContinue)
         {
+            Debug.Log("HERE");
             continueButton.gameObject.SetActive(false);
             continueDisabled = true;
         }

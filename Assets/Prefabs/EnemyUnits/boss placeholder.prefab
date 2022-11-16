@@ -366,6 +366,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2960971374760714823, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3913279673100289612, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_Color.b
       value: 0.12941177
@@ -460,6 +464,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4532155604154493234, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319186012446438749, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7878113871153099367, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}

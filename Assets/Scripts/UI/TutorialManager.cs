@@ -41,7 +41,7 @@ public class TutorialManager : MonoBehaviour
         "All ally units activate their start of battle ability after they fall or are placed.",
         "Units also have in battle abilities which can be used by selecting an ally unit, navigating to the ability tab, and clicking the \"Ability\" button.",
         "Add Locke to your team.",
-        "The health of all units will regenerate at the end of the turn for specifically this level. Find a way to kill the enemy. (Hint, use your abilities, they have no cooldowns this level)."
+        "The health of all units will regenerate at the end of the turn for specifically this level. Find a way to kill the enemy during the span of one turn. (Hint, use your abilities, they have no cooldowns this level)."
     };
 
     private string[][] dialogue = {lines1, lines2};

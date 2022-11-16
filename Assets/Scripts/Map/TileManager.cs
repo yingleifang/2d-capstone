@@ -190,24 +190,60 @@ public class TileManager : MonoBehaviour
                     if (map.GetTile(coord))
                     {
                         TileBase curTile = map.GetTile(coord);
+                        tilePos.Add(coord);
+                        Unit unit = GetUnit(coord);
+                        if (unit)
+                        {
+                            if (units != null)
+                                units.Add(unit);
+                            StartCoroutine(unit.Fall());
+                        }
                         map.SetTile(coord, baseTileDatas[curTile].animatedTile);
                         map.SetAnimationFrame(coord, 0);
                     }
                 }
             }            
         }
-        foreach (var info in LevelManager.instance.tileInfo)
+
+        if (turn != 0)
         {
-            if (turn != 0)
+            foreach (var info in LevelManager.instance.tileInfo)
             {
                 if (info.Value.Item2 == turn)
                 {
                     HandleTileReplacement(units, info);
                 }
             }
+        }
+        else
+        {
+            if (BattleManager.instance.ui.turnCountDown.currentTurn <= 2)
+            {
+                foreach (var info in LevelManager.instance.tileInfo)
+                {
+                    if (info.Value.Item2 == turn)
+                    {
+                        HandleTileReplacement(units, info);
+                    }
+                }
+            }
+            else if (BattleManager.instance.ui.turnCountDown.currentTurn <= 3)
+            {
+                foreach (var info in LevelManager.instance.tileInfo)
+                {
+                    if (info.Value.Item2 == 1)
+                    {
+                        continue;
+                    }
+                    HandleTileReplacement(units, info);
+                }
+            }
             else
             {
-                HandleTileReplacement(units, info);
+                foreach (var info in LevelManager.instance.tileInfo)
+                {
+                    HandleTileReplacement(units, info);
+                }
             }
         }
 
@@ -257,24 +293,49 @@ public class TileManager : MonoBehaviour
         while (tilePos.Count > 0)
         {
             List<Vector3Int> toRemove = new List<Vector3Int>();
-            foreach (var pos in tilePos)
+
+            if (LevelManager.currentLevel == 1 || LevelManager.currentLevel == 2)
             {
-                var info = LevelManager.instance.tileInfo[pos];
-                try
+                foreach (var pos in tilePos)
                 {
-                    if (map.GetAnimationFrame(pos) >= info.Item1.animatedTile.m_AnimatedSprites.Length - 3)
+                    TileBase curTile = map.GetTile(pos);
+                    try
                     {
-                        map.SetTile(pos, levelManager.typesOfTilesToSpawn[0].tiles[0]);
+                        if (map.GetAnimationFrame(pos) >= baseTileDatas[curTile].animatedTile.m_AnimatedSprites.Length - 3)
+                        {
+                            map.SetTile(pos, levelManager.typesOfTilesToSpawn[0].tiles[0]);
+                            toRemove.Add(pos);
+                        }
+                    }                    
+                    catch
+                    {
                         toRemove.Add(pos);
                     }
                 }
-                catch
-                {
-                    toRemove.Add(pos);
-                }
+                tilePos.RemoveAll(x => toRemove.Contains(x));
+                yield return new WaitForSeconds(.6f);
             }
-            tilePos.RemoveAll(x => toRemove.Contains(x));
-            yield return new WaitForSeconds(0.1f);
+            else
+            {
+                foreach (var pos in tilePos)
+                {
+                    var info = LevelManager.instance.tileInfo[pos];
+                    try
+                    {
+                        if (map.GetAnimationFrame(pos) >= info.Item1.animatedTile.m_AnimatedSprites.Length - 3)
+                        {
+                            map.SetTile(pos, levelManager.typesOfTilesToSpawn[0].tiles[0]);
+                            toRemove.Add(pos);
+                        }
+                    }
+                    catch
+                    {
+                        toRemove.Add(pos);
+                    }
+                }
+                tilePos.RemoveAll(x => toRemove.Contains(x));
+                yield return new WaitForSeconds(0.1f);
+            }
         }
         tilePos = new List<Vector3Int>();
     }
