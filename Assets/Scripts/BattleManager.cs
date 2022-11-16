@@ -1381,6 +1381,7 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(tileManager.ShatterTiles(0));
 
         LevelManager.instance.levelOffset = 0;
+        LevelManager.instance.LevelSetup();
         LevelManager.instance.IncrementLevel();
         ResetAll();
 
@@ -1392,7 +1393,7 @@ public class BattleManager : MonoBehaviour
 
         yield return StartCoroutine(ui.SwitchScene(LevelManager.instance.NumTutorialLevels + 2));
         Debug.Log("Next level finished loading");
-
+        
         LevelManager.instance.PrepareNextBattle();
 
         foreach (Unit unit in unitsToSpawn)
