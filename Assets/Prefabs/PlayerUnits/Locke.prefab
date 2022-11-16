@@ -440,12 +440,12 @@ MonoBehaviour:
   spawnOnStart: 0
   isDead: 0
   inMovement: 0
-  startOfBattleAbilityDescription: Picks something up from the ground. Depending
-    on the type of tile Locke is standing on, his in-battle ability gains different
-    effects.
+  startOfBattleAbilityDescription: Picks something up from the ground and gains stats.
+    Gains attack from hazard tiles, movement speed from stone and water tiles, and
+    health from all other tiles
   abilityName: Blink Strike
   inBattleAbilityDescription: 'Deal damage based on how far he moved since his last
-    attack. Current Damage:'
+    attack. '
   previewClip: {fileID: 32900000, guid: 9a82d097647995949a2ad38f9fe313a4, type: 3}
   talkSprite: {fileID: 21300000, guid: dbdc77bc9c74b384a9308b2a5229dc07, type: 3}
   type: 0
