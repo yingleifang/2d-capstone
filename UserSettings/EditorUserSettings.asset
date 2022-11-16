@@ -26,7 +26,6 @@ EditorUserSettings:
     RecentlyUsedSceneGuid-6:
       value: 07010650570c0c025e5b547749270e444f4e4b28752d76347e2c1c6bb6b0643a
       flags: 0
-<<<<<<< Updated upstream
     RecentlyUsedSceneGuid-7:
       value: 07535604560c0f080c5a5c2715265c441015417f292d73617e7d1f6be3e3656a
       flags: 0
@@ -45,11 +44,6 @@ EditorUserSettings:
     UnityEditor.ShaderGraph.InspectorWindow:
       value: 18135939215a0a5004000b0e15254b524c1119263f2d6a722016393ce1eb3d36e5d339f9a5602b2e2c07a37e0901373ae01e0008f707250d171df81a53a5485d41895ac825e0100ec20313c0d91cddccd3d0c7efcca9bd80908fecb0f9cfddf1eff4e7a1b1eae482f0fcaee1e1928b86d888ed969b938797a7cf
       flags: 0
-=======
-    RecentlyUsedSceneGuid-6:
-      value: 50530c5700515e585a5c5b7447205c44434f1c737b7923337a2c4462b3e46639
-      flags: 0
->>>>>>> Stashed changes
     vcSharedLogLevel:
       value: 0d5e400f0650
       flags: 0

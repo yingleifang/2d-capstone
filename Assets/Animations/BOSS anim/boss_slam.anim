@@ -21,19 +21,19 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: c9796c96e3ea5834e872576d21591442, type: 3}
-    - time: 0.16666667
+    - time: 0.083333336
       value: {fileID: 21300000, guid: c6be62a33ebebe64883d507521a4e7e3, type: 3}
-    - time: 0.33333334
+    - time: 0.16666667
       value: {fileID: 21300000, guid: 67bc2253e7be2b34686e817b865fb291, type: 3}
-    - time: 0.5
+    - time: 0.25
       value: {fileID: 21300000, guid: d3b8dfa612661574fabbca9d65b83315, type: 3}
-    - time: 0.6666667
+    - time: 0.33333334
       value: {fileID: 21300000, guid: 7cbd606591c7fd94780e6d2b031eea92, type: 3}
-    attribute: m_Sprite
-    path: Sprite
-    classID: 212
-    script: {fileID: 0}
-  m_SampleRate: 30
+    attribute: portrait
+    path: 
+    classID: 114
+    script: {fileID: 11500000, guid: 64cf9ca463b24ec429ec3daf28da0fbd, type: 3}
+  m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -41,11 +41,11 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 850496168
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
+      path: 0
+      attribute: 2504013051
+      script: {fileID: 11500000, guid: 64cf9ca463b24ec429ec3daf28da0fbd, type: 3}
+      typeID: 114
+      customType: 0
       isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 21300000, guid: c9796c96e3ea5834e872576d21591442, type: 3}
@@ -58,7 +58,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.70000005
+    m_StopTime: 0.35000002
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -78,14 +78,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.16666667
+  - time: 0.083333336
     functionName: PlaySoundAnim
     data: 
     objectReferenceParameter: {fileID: 8300000, guid: 53433d0575e1e0347a55f48579a0fa60, type: 3}
     floatParameter: 1
     intParameter: 0
     messageOptions: 0
-  - time: 0.6666667
+  - time: 0.33333334
     functionName: PlaySoundAnim
     data: 
     objectReferenceParameter: {fileID: 8300000, guid: 5d50502c482e27c419e9bc4b2a80ed1f, type: 3}
