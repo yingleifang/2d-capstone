@@ -389,7 +389,7 @@ public class BattleManager : MonoBehaviour
                     if (!isBattleOver && unit && !unit.isDead)
                     {
                         yield return StartCoroutine(unit.DoAttack(curUnit));
-
+                        ui.ShowUnitInfoWindow(ui.unitWhoseWindowIsOpen);
                         if (pushDialogueAfterAttack)
                         {
                             dialogueManager.doSkipDialogue = true;
@@ -397,6 +397,10 @@ public class BattleManager : MonoBehaviour
 
                         yield return StartCoroutine(UpdateBattleState());
                         CheckIfBattleOver();
+                        if (curUnit.isDead)
+                        {
+                            ui.HideUnitInfoWindow();
+                        }
                     }
                 }
 
@@ -413,8 +417,14 @@ public class BattleManager : MonoBehaviour
                     DeselectTile();
                     tileManager.ClearHighlights();
                     yield return StartCoroutine(unit.DoAttack(curUnit));
+                    ui.ShowUnitInfoWindow(ui.unitWhoseWindowIsOpen);
                     yield return StartCoroutine(UpdateBattleState());
                     CheckIfBattleOver();
+
+                    if (curUnit.isDead)
+                    {
+                        ui.HideUnitInfoWindow();
+                    }
                 }
             }
             else
@@ -446,6 +456,7 @@ public class BattleManager : MonoBehaviour
                 CheckIfBattleOver();
                 if (!isBattleOver && unit && !unit.isDead && !unit.hasAttacked)
                 {
+                    ui.ShowUnitInfoWindow(ui.unitWhoseWindowIsOpen);
                     ShowUnitAttackRange(unit);
                 }
                 else
@@ -1542,7 +1553,6 @@ public class BattleManager : MonoBehaviour
     {
         tileManager.ClearHighlights();
         yield return StartCoroutine(unit.DoMovement(state, tilePos));
-        ui.ShowUnitInfoWindow(unit);
         yield return StartCoroutine(UpdateBattleState());
         if (unit is PlayerUnit)
             postProcessingSettings.CanAttackGlow((PlayerUnit)unit);

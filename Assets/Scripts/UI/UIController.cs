@@ -21,6 +21,7 @@ public class UIController : MonoBehaviour
     public new AudioComponent audio;
     [SerializeField]
     private SoundEffect clickSound;
+    public Unit unitWhoseWindowIsOpen;
 
     /// <summary>
     /// Displays the given tile data in the info window
@@ -190,6 +191,8 @@ public class UIController : MonoBehaviour
     {
         HideTileWindow();
         unitInfoWindow.ShowStats(unit);
+        unitWhoseWindowIsOpen = unit;
+        Debug.Log("SHOWING " + unit);
     }
 
     /// <summary>
@@ -203,6 +206,7 @@ public class UIController : MonoBehaviour
         {
             tileInfoWindow.Hide();
         }
+        unitWhoseWindowIsOpen = null;
     }
 
     public void StartButton()
