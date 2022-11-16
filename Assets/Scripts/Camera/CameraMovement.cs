@@ -33,7 +33,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (BattleManager.instance.gameIsPaused || BattleManager.instance.ui.unitSelectionWindow.gameObject.activeSelf)
+        if (BattleManager.instance.gameIsPaused || (BattleManager.instance.ui.unitSelectionWindow != null && BattleManager.instance.ui.unitSelectionWindow.gameObject.activeSelf))
         {
             dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
             return;

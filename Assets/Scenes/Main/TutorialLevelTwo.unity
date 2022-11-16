@@ -7372,7 +7372,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2049737519}
         m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
         m_MethodName: ContinueButton
         m_Mode: 1
@@ -10573,6 +10573,7 @@ MonoBehaviour:
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
   mapPosition: {x: 0, y: 0, z: 0}
+  postProcessingSettings: {fileID: 0}
   gameIsPaused: 0
   ovisButton: {fileID: 0}
   tutorialManager: {fileID: 162341415}
@@ -14165,7 +14166,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2049737519}
         m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
         m_MethodName: ContinueButton
         m_Mode: 1
