@@ -29,10 +29,10 @@ AnimationClip:
       value: {fileID: 21300000, guid: d3b8dfa612661574fabbca9d65b83315, type: 3}
     - time: 0.6666667
       value: {fileID: 21300000, guid: 7cbd606591c7fd94780e6d2b031eea92, type: 3}
-    attribute: portrait
-    path: 
-    classID: 114
-    script: {fileID: 11500000, guid: 64cf9ca463b24ec429ec3daf28da0fbd, type: 3}
+    attribute: m_Sprite
+    path: Sprite
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 30
   m_WrapMode: 0
   m_Bounds:
@@ -41,11 +41,11 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
-      attribute: 2504013051
-      script: {fileID: 11500000, guid: 64cf9ca463b24ec429ec3daf28da0fbd, type: 3}
-      typeID: 114
-      customType: 0
+      path: 850496168
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 21300000, guid: c9796c96e3ea5834e872576d21591442, type: 3}
