@@ -113,10 +113,15 @@ public class CampfireDialogueManager : MonoBehaviour
             //Remove unit from selection
             aliveUnits.RemoveAt(index);
 
-            index = Random.Range(0, aliveUnits.Count);
-            tempLines = lines[aliveUnits[index]];
-            subIndex = Random.Range(0, lines[aliveUnits[index]].Length);
-            finalLines.Add(lines[aliveUnits[index]][subIndex]);
+
+            if (aliveUnits.Count != 0)
+            {
+                index = Random.Range(0, aliveUnits.Count);
+                tempLines = lines[aliveUnits[index]];
+                subIndex = Random.Range(0, lines[aliveUnits[index]].Length);
+                finalLines.Add(lines[aliveUnits[index]][subIndex]);
+            }
+
         }
 
         finalLines.Add("System: The health of all your units has been fully restored");
