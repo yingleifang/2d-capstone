@@ -1133,6 +1133,7 @@ public class BattleManager : MonoBehaviour
         if (grave != null)
         {
             GameObject instance = Instantiate(grave, tileManager.CellToWorldPosition(spawnLocation), Quaternion.identity);
+            tileManager.ClearTileDecoration(spawnLocation);
             tileManager.SetTileDecoration(spawnLocation, instance);
         }
     }
