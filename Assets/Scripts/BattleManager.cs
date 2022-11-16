@@ -351,6 +351,11 @@ public class BattleManager : MonoBehaviour
                 DeselectUnit();
                 usingAbility = false;
                 playerUnit.hasAttacked = true;
+                if (playerUnit.hasMoved)
+                {
+                    postProcessingSettings.DisableGlow(playerUnit);
+                    yield return StartCoroutine(playerUnit.Dim());
+                }
                 yield return StartCoroutine(UpdateBattleState());
                 CheckIfBattleOver();
             }   
