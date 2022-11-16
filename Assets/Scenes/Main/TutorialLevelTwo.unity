@@ -393,10 +393,18 @@ PrefabInstance:
     - target: {fileID: 6989220129472371227, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 692546935}
+    - target: {fileID: 6989220129472371227, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
       objectReference: {fileID: 0}
     - target: {fileID: 6989220129535909075, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 692546935}
+    - target: {fileID: 6989220129535909075, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
@@ -11584,6 +11592,7 @@ GameObject:
   - component: {fileID: 1680802957}
   - component: {fileID: 1680802956}
   - component: {fileID: 1680802955}
+  - component: {fileID: 1680802958}
   m_Layer: 5
   m_Name: SkipTutorial
   m_TagString: Untagged
@@ -11706,6 +11715,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680802953}
   m_CullTransparentMesh: 1
+--- !u!114 &1680802958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680802953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deee3d3655970134291e0c4ff8547084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1680802955}
 --- !u!1 &1706577097
 GameObject:
   m_ObjectHideFlags: 0
