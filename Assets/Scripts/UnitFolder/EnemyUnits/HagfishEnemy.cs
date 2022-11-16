@@ -8,14 +8,28 @@ public class HagfishEnemy : EnemyUnit
 
     public override void Start()
     {
+        anim.SetBool("Hide", true);
         base.Start();
         alive++;
     }
 
     public override IEnumerator performAction(BattleState state)
     {
-        // Does nothing for now!
-        yield break;
+        PlayerUnit closest = FindClosestPlayerUnit(state);
+
+        if (!closest)
+        {
+            // No player units? Something's wrong
+            Debug.LogError("No player units detected :( (FishEnemy performAction method)");
+            yield break;
+        }
+
+        // Attack the unit if they're in range
+        if (!isDead && IsTileInAttackRange(closest.location))
+        {
+            yield return StartCoroutine(DoAttack(closest));
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     public override IEnumerator Die()

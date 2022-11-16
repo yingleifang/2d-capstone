@@ -11,7 +11,6 @@ public class UnitSelectionWindow : MonoBehaviour
     private List<PlayerUnit> selectedUnitPrefabs = new List<PlayerUnit>();
     public List<PurchasableScript> unitIcons = new List<PurchasableScript>();
     public GameObject canvas;
-    public GameObject dialogue;
     public DialogueManager dialogueManager;
     private UnitInfoWindow unitInfoWindow;
     private int numUnitsInSelection = 3;
@@ -108,6 +107,8 @@ public class UnitSelectionWindow : MonoBehaviour
         // Play appearing animation
         LeanTween.scale(gameObject, new Vector3(1, 1, 1), 0.3f);
         gameObject.SetActive(true);
+        BattleManager.instance.ui.HideTileWindow();
+        BattleManager.instance.ui.HideUnitInfoWindow();
         yield break;
     }
 
@@ -115,11 +116,6 @@ public class UnitSelectionWindow : MonoBehaviour
     {
         selectedUnit = unit.unitPrefab;
         confirmButton.interactable = true;
-
-        if (dialogueManager)
-        {
-            dialogueManager.HideDialogueWindow();
-        }
     }
 
     public void ConfirmUnit()
@@ -128,15 +124,16 @@ public class UnitSelectionWindow : MonoBehaviour
 
         Debug.Log(LevelManager.currentLevel);
         Debug.Log(BattleManager.instance.dialogueManager);
-        if (LevelManager.currentLevel == 1 && BattleManager.instance.dialogueManager)
+        if ((LevelManager.currentLevel == 1 || LevelManager.currentLevel == 2) && BattleManager.instance.dialogueManager)
         {
             Debug.Log("FALSED");
+            unitInfoWindow.HideStats();
+            StartCoroutine(Hide());
+            
             if (dialogueManager.isWaitingForUserInput)
             {
                 dialogueManager.doSkipDialogue = true;
             }
-            unitInfoWindow.HideStats();
-            StartCoroutine(Hide());
         }
         else
         {

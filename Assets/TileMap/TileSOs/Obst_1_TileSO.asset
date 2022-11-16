@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Obst_1_TileSO
   m_EditorClassIdentifier: 
   tileName: Stalagmite
-  description: Impassable. Units that fall onto these massive spikes die instantly.
+  description: Impassable. Skewers anything that falls on it.
   tiles:
   - {fileID: 11400000, guid: cfc02bbd8fd6a8b46b2358af18288bbe, type: 2}
-  movementSpeedModifier: 0
+  animatedTile: {fileID: 0}
+  bonusStatModifier: 0
   impassable: 1
   hazardous: 0
   weight: 1

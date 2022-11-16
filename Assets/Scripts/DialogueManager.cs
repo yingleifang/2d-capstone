@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public GameObject speechPanel;
-    public TextMeshProUGUI speaker;
+    public GameObject[] speechPanels;
+    public TextMeshProUGUI[] speakers;
     public string speakerString;
-    public TextMeshProUGUI speechText;
+    public TextMeshProUGUI[] speechTexts;
     public string speechString;
     public bool isSpeaking {get {return speakingFxn != null;}}
     public Image portrait;
@@ -17,7 +17,7 @@ public class DialogueManager : MonoBehaviour
     private int index = 0;
     [HideInInspector] public bool isWaitingForUserInput = false;
     [HideInInspector] public bool doSkipDialogue = false;
-    public Button continueButton;
+    public Button[] continueButtons;
     public bool continueDisabled;
     public Sprite[] portraits;
 
@@ -25,8 +25,12 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speaker.text = "";
-        speechText.text = "";
+        for (int i = 0; i < speechPanels.Length; i++)
+        {
+            speakers[i].text = "";
+            speechTexts[i].text = "";
+        }
+
     }
 
     private void Update() 
@@ -43,13 +47,13 @@ public class DialogueManager : MonoBehaviour
     /// in form: speakerString: speechString
     /// If no speakerString is given, then function infers the speaker from past speaker.
     /// </summary>
-    public IEnumerator Say(string textString, bool additive = false, float textSpeed = .015f, bool disableContinue = false)
+    public IEnumerator Say(string textString, bool additive = false, float textSpeed = .015f, bool disableContinue = false, int bubble = 0)
     {
         // If we are adding and there is text currently being spoken prematurely end the coroutine.
         if (additive && isSpeaking)
         {
             StopSpeaking();
-            speechText.text = speechString;
+            speechTexts[bubble].text = speechString;
         }
         // Otherwise, we are trying to start another coroutine at the same time. Error.
         else if (isSpeaking)
@@ -64,13 +68,13 @@ public class DialogueManager : MonoBehaviour
         // No speaker data, infer
         if (parts.Length < 2)
         {
-            if (speaker.text.Length <= 0)
+            if (speakers[bubble].text.Length <= 0)
             {
                 speakerString = "System";
             }
             else
             {
-                speakerString = speaker.text;
+                speakerString = speakers[bubble].text;
             }
             speechString = parts[0];
         }
@@ -109,21 +113,29 @@ public class DialogueManager : MonoBehaviour
             portrait.gameObject.GetComponent<Image>().sprite = portraits[3];
         }
 
-        speakingFxn = StartCoroutine(StartSpeaking(speakerString, speechString, additive, textSpeed, disableContinue));
+        speakingFxn = StartCoroutine(StartSpeaking(speakerString, speechString, additive, textSpeed, disableContinue, bubble));
         yield return speakingFxn;
     }
 
     /// <summary>
     /// Activates the speechPanel and prints out the text to it. Waits for user input after it finishes
     /// </summary>
-    public IEnumerator StartSpeaking(string speakerString, string textString, bool additive, float textSpeed = .015f, bool disableContinue = false)
+    public IEnumerator StartSpeaking(string speakerString, string textString, bool additive, float textSpeed = .015f, bool disableContinue = false, int bubble = 0)
     {
-        speechPanel.SetActive(true);
-        speaker.text = speakerString;
+        speechPanels[bubble].SetActive(true);
+        for (int z = 0; z < speechPanels.Length; z++)
+        {
+            if (z != bubble)
+            {
+                speechPanels[z].SetActive(false);
+            }
+        }
+
+        speakers[bubble].text = speakerString;
         
         if (!additive)
         {
-            speechText.text = "";
+            speechTexts[bubble].text = "";
         }
 
         isWaitingForUserInput = true;
@@ -131,19 +143,21 @@ public class DialogueManager : MonoBehaviour
         int i = 0;
         while (i < textString.Length)
         {
-            speechText.text += textString[i];
+            speechTexts[bubble].text += textString[i];
             i++;
             yield return new WaitForSeconds(textSpeed);
             if (!isWaitingForUserInput || doSkipDialogue)
             {
-                speechText.text = speechString; 
+                speechTexts[bubble].text = speechString; 
                 break;
             }
         }
 
         if (disableContinue)
         {
-            continueButton.gameObject.SetActive(false);
+            Debug.Log("HERE");
+            continueButtons[bubble].gameObject.SetActive(false);
+            Debug.Log(continueButtons[bubble].gameObject.activeSelf);
             continueDisabled = true;
         }
         
@@ -152,12 +166,14 @@ public class DialogueManager : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
         }
-        Debug.Log(speechText.text);
+        Debug.Log(isWaitingForUserInput);
+        Debug.Log(doSkipDialogue);
+        Debug.Log(speechTexts[bubble].text);
         Debug.Log("FINISHED speaking1");
 
         doSkipDialogue = false;
         continueDisabled = false;
-        continueButton.gameObject.SetActive(true);
+        continueButtons[bubble].gameObject.SetActive(true);
         StopSpeaking();
     }
 
@@ -172,7 +188,8 @@ public class DialogueManager : MonoBehaviour
 
     public void HideDialogueWindow()
     {
-        speechPanel.SetActive(false);
+        speechPanels[0].SetActive(false);
+        speechPanels[1].SetActive(false);
     }
 
     public void ContinueButton()

@@ -19,7 +19,7 @@ public class Locke : PlayerUnit
         base.Awake();
         prefab = unitPrefabSO.GetPrefab("Locke");
         currentAbilityDamage = abilityDamage;
-        inBattleAbilityDescription += currentAbilityDamage;
+        inBattleAbilityDescription += "Current Damage: " + currentAbilityDamage;
     }
 
     public override IEnumerator StartOfBattleAbility(BattleState state)

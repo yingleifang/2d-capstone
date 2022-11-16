@@ -802,6 +802,7 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     pitchFluctuation: 0
+  unitWhoseWindowIsOpen: {fileID: 0}
 --- !u!1 &552673903
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,15 +1383,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50dd9a5e8aec0fb4a8741814dff2d033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speechPanel: {fileID: 215567316}
-  speaker: {fileID: 645697482}
+  speechPanels:
+  - {fileID: 215567316}
+  speakers:
+  - {fileID: 645697482}
   speakerString: 
-  speechText: {fileID: 119769587}
+  speechTexts:
+  - {fileID: 119769587}
   speechString: 
   portrait: {fileID: 388900035}
   isWaitingForUserInput: 0
   doSkipDialogue: 0
-  continueButton: {fileID: 405977217}
+  continueButtons:
+  - {fileID: 405977217}
+  continueDisabled: 0
   portraits:
   - {fileID: 21300000, guid: 0c278431768e6fd4eb4a522cbf35b9f6, type: 3}
   - {fileID: 21300000, guid: ea5f5fab4f887f744ab87746b1e36fd4, type: 3}

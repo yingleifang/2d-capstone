@@ -112,11 +112,11 @@ public class PlayerUnit : Unit
         return false;
     }
 
-    public void RegenHealth()
+    public IEnumerator RegenHealth()
     {
         var additionalHealth = health - currentHealth;
+        yield return StartCoroutine(SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", additionalHealth, Color.green));
         currentHealth = health;
-        StartCoroutine(SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", additionalHealth, Color.green));
     }
-    
+
 }

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: lvl2_PlainTileSO
   m_EditorClassIdentifier: 
   tileName: Glowing Earth
-  description: Cold, unfeeling, and a little unstable.
+  description: Cold and unfeeling.
   tiles:
   - {fileID: 11400000, guid: 32e0201266a48a248a9f1359398a18c2, type: 2}
-  movementSpeedModifier: 0
+  animatedTile: {fileID: 0}
+  bonusStatModifier: 0
   impassable: 0
   hazardous: 0
   weight: 5
