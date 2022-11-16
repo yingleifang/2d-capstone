@@ -84,7 +84,7 @@ public class CampfireDialogueManager : MonoBehaviour
         {
             if (aliveUnits.Contains("Sozzy"))
             {
-                finalLines.Add("Sozzy: I never should have gone here.");
+                finalLines.Add("Sozzy: I... I don't understand. Why did this happen?");
             }
             else if (aliveUnits.Contains("Locke"))
             {
