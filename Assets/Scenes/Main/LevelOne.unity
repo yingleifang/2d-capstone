@@ -1286,6 +1286,7 @@ MonoBehaviour:
   mapMinY: -7
   mapMaxX: 1
   mapMaxY: 7
+  background: {fileID: 1381194082}
 --- !u!114 &922542332 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6057924552974800869, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}

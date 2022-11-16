@@ -592,6 +592,7 @@ MonoBehaviour:
   mapMinY: -4
   mapMaxX: 1
   mapMaxY: 4
+  background: {fileID: 294741828}
 --- !u!1 &86554236
 GameObject:
   m_ObjectHideFlags: 0

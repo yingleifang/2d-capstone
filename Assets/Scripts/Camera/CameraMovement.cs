@@ -18,18 +18,24 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private float mapMinX, mapMinY, mapMaxX, mapMaxY;
 
+    public SpriteRenderer background;
+
     private float camSize;
 
     private void Start()
     {
         camSize = cam.orthographicSize;
+        mapMinX = background.transform.position.x - background.bounds.size.x / 2f;
+        mapMaxX = background.transform.position.x + background.bounds.size.x / 2f;
+        mapMinY = background.transform.position.y - background.bounds.size.y / 2f;
+        mapMaxY = background.transform.position.y + background.bounds.size.y / 2f;
     }
 
     private void Update()
     {
         if (BattleManager.instance.gameIsPaused || BattleManager.instance.ui.unitSelectionWindow.gameObject.activeSelf)
         {
-            StartCoroutine(WaitForSeconds(.2f));
+            dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
             return;
         }
         PanCamera();
@@ -41,11 +47,6 @@ public class CameraMovement : MonoBehaviour
         {
             Zoomout();
         }
-    }
-
-    private IEnumerator WaitForSeconds(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
     }
 
     private void PanCamera()
@@ -81,12 +82,12 @@ public class CameraMovement : MonoBehaviour
 
     private Vector3 ClampCamera(Vector3 targetPosition)
     {
-        //float camHeight = cam.orthographicSize;
-        //float camWidth = cam.orthographicSize * cam.aspect;
-        float minX = mapMinX * (camSize / cam.orthographicSize);
-        float maxX = mapMaxX * (camSize / cam.orthographicSize);
-        float minY = mapMinY * (camSize / cam.orthographicSize);
-        float maxY = mapMaxY * (camSize / cam.orthographicSize);
+        float camHeight = cam.orthographicSize;
+        float camWidth = cam.orthographicSize * cam.aspect;
+        float minX = mapMinX + camWidth;
+        float maxX = mapMaxX - camWidth;
+        float minY = mapMinY + camHeight;
+        float maxY = mapMaxY - camHeight;
         float newX = Mathf.Clamp(targetPosition.x, minX, maxX);
         float newY = Mathf.Clamp(targetPosition.y, minY, maxY);
 

@@ -1286,6 +1286,7 @@ MonoBehaviour:
   mapMinY: -7
   mapMaxX: 1
   mapMaxY: 7
+  background: {fileID: 1381194082}
 --- !u!1001 &908677916
 PrefabInstance:
   m_ObjectHideFlags: 0
