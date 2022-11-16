@@ -66,7 +66,7 @@ public class Locke : PlayerUnit
 
     public override IEnumerator DoMovement(BattleState state, Vector3Int target, bool unitBlocks = true)
     {
-        postProcessingSettings.CanAttackGlow(this);
+                postProcessingSettings.CanAttackGlow(this);
         hasMoved = true;
         if (state.tileManager.GetTile(target) == null)
         {

@@ -1558,6 +1558,7 @@ public class BattleManager : MonoBehaviour
     {
         tileManager.ClearHighlights();
         yield return StartCoroutine(unit.DoMovement(state, tilePos));
+        ui.ShowUnitInfoWindow(unit);
         yield return StartCoroutine(UpdateBattleState());
         if (unit is PlayerUnit)
             postProcessingSettings.CanAttackGlow((PlayerUnit)unit);
