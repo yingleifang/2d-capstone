@@ -556,9 +556,17 @@ public class BattleManager : MonoBehaviour
         // Handles unit selection tutorial
         StartCoroutine(ui.ShowSelectionWindow(false));
         tutorialManager.disableBattleInteraction = true;
-        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(tutorialManager.NextDialogue(false, 1));
 
-        dialogueManager.HideDialogueWindow();
+        if (!unitToPlace)
+        {
+            Debug.Log("HERE MAN");
+            yield return StartCoroutine(tutorialManager.NextDialogue(true, 1));
+        }
+        else
+        {
+            tutorialManager.index++;
+        }
 
         // Wait until user does what is asked. This is not the only thing stopping
         // progression. Dialogue system's isWaitingForUserInput also stops progression.
@@ -788,12 +796,10 @@ public class BattleManager : MonoBehaviour
         acceptingInput = true;
         yield return StartCoroutine(ui.ShowSelectionWindow(false, true));
 
-        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(tutorialManager.NextDialogue(true, 1));
         dialogueManager.HideDialogueWindow();
 
-
         yield return new WaitUntil(() => !isPlacingUnit);
-
     
         CheckIfBattleOver();
 
@@ -1355,7 +1361,8 @@ public class BattleManager : MonoBehaviour
         }
         if (dialogueManager)
         {
-            Destroy(dialogueManager.speechPanel);
+            Destroy(dialogueManager.speechPanels[0]);
+            Destroy(dialogueManager.speechPanels[1]);
         }
         unitToPlace = null;
 
@@ -1447,7 +1454,6 @@ public class BattleManager : MonoBehaviour
             {
                 dialogueManager.doSkipDialogue = true;
                 pushDialogueAfterEnemyTurn = false;
-                tutorialManager.index = 13;
             }
         }
 

@@ -6,14 +6,14 @@ using TMPro;
 public class TutorialManager : MonoBehaviour
 {
 
-    public TextMeshProUGUI textComp;
     private static string[] lines1 = {
         "System: Welcome to the Abyss! During your exploration of the abyss, there are a few important ideas to keep in mind.",
         "First off, be mindful of the various types of tiles on the map.",
         "Spike tiles (highlighted in red) will deal one damage to units who move onto them, land on them, or end their turn on them.",
         "Impassable tiles (highlighted in red) will prevent units from moving on them or being placed on them.",
         "Itzel: Huh?! Where am I? What is that thing?",
-        "System: Before the beginning of every level, you will be prompted to add a unit to your team. Choose one by left clicking it and clicking the confirm button.",
+        "System: Before the beginning of every level, you will be prompted to add a unit to your team. You can learn about a unit by clicking the \"Stats\", \"Passive\", and \"Ability\" buttons below its portrait.",
+        "Choose Ovis by left clicking it and clicking the confirm button.",
         "To place a unit, left click on a valid tile twice.",
         "After a unit is placed, they will use their \"Start of Battle Ability\". Ovis (the character you selected) does one damage to all units around him, ally or foe.",
         "Itzel: Whoa! Are you okay?",
@@ -49,7 +49,6 @@ public class TutorialManager : MonoBehaviour
     public float textSpeed;
 
     public GameObject unitSelection;
-    public GameObject continueButton;
     public EndTurnButton endTurnButton;
     public GameObject battlePreviewButton;
    // public GameObject hazards;
@@ -94,7 +93,7 @@ public class TutorialManager : MonoBehaviour
 
     //}
 
-    public IEnumerator NextDialogue(bool disableContinue = false)
+    public IEnumerator NextDialogue(bool disableContinue = false, int bubble = 0)
     {
         Debug.Log(index);
         if (index > dialogue[LevelManager.currentLevel - 1].Length - 1)
@@ -102,12 +101,12 @@ public class TutorialManager : MonoBehaviour
             Debug.Log("BREAKING <.<");
             yield break;
         }
-        yield return StartCoroutine(dialogueManager.Say(dialogue[LevelManager.currentLevel - 1][index++], false, textSpeed, disableContinue));
+        yield return StartCoroutine(dialogueManager.Say(dialogue[LevelManager.currentLevel - 1][index++], false, textSpeed, disableContinue, bubble));
     }
 
-    public IEnumerator SpecificDialogue(string text, bool disableContinue = false)
+    public IEnumerator SpecificDialogue(string text, bool disableContinue = false, int bubble = 0)
     {
-        yield return StartCoroutine(dialogueManager.Say(text, false, textSpeed, disableContinue));
+        yield return StartCoroutine(dialogueManager.Say(text, false, textSpeed, disableContinue, bubble));
     }
 
     public int NumLines()

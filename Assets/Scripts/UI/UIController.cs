@@ -192,7 +192,6 @@ public class UIController : MonoBehaviour
         HideTileWindow();
         unitInfoWindow.ShowStats(unit);
         unitWhoseWindowIsOpen = unit;
-        Debug.Log("SHOWING " + unit);
     }
 
     /// <summary>
