@@ -22,7 +22,7 @@ public class PlayerUnit : Unit
     public bool hasMoved = false;
     public bool hasAttacked = false;
 
-    private PostProcessingSettings postProcessingSettings;
+    protected PostProcessingSettings postProcessingSettings;
 
     protected virtual void Awake()
     {

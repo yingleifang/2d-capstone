@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Tilemaps;
-using System.Linq;
 
 public class Locke : PlayerUnit
 {
@@ -67,6 +66,8 @@ public class Locke : PlayerUnit
 
     public override IEnumerator DoMovement(BattleState state, Vector3Int target, bool unitBlocks = true)
     {
+        postProcessingSettings.CanAttackGlow(this);
+        hasMoved = true;
         if (state.tileManager.GetTile(target) == null)
         {
             yield break;
