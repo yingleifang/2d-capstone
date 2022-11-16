@@ -64,7 +64,11 @@ public class Ovis : PlayerUnit
             {
                 targetUnit.ChangeHealth(abilityDamage * -1);
                 yield return new WaitForSeconds(.15f);
-                yield return StartCoroutine(targetUnit.DoMovement(state, destination));
+                if (targetUnit.GetComponent("HagfishEnemy") == true)
+                    yield return StartCoroutine(targetUnit.PlayDamageAnimation());
+                else
+                    yield return StartCoroutine(targetUnit.DoMovement(state, destination));
+
             }
             currentCoolDown = coolDown;
         }
