@@ -83,7 +83,7 @@ public class BattleManager : MonoBehaviour
 
     public Vector3 mapPosition;
 
-    private PostProcessingSettings postProcessingSettings;
+    public PostProcessingSettings postProcessingSettings;
 
     public bool gameIsPaused = false;
 

@@ -25,6 +25,21 @@ public class PostProcessingSettings : MonoBehaviour
 
     [SerializeField]
     private int CanAttackOutlineWidth;
+
+    public static PostProcessingSettings instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void ShowTheGlow(List<PlayerUnit> playerUnits)
     {
         foreach (var playerUnit in playerUnits)
