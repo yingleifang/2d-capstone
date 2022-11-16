@@ -1250,13 +1250,16 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("current level: " + LevelManager.currentLevel);
 
-            if (LevelManager.currentLevel + 1 < LevelManager.instance.totalLevels)
+            if (LevelManager.currentLevel < LevelManager.instance.totalLevels - LevelManager.instance.BossLevels)
             {
                 unitsToSpawn.AddRange(enemyUnits);
             }
-            else if (LevelManager.currentLevel + 1 <= LevelManager.instance.totalLevels + 1)
+            else if (LevelManager.currentLevel == LevelManager.instance.totalLevels - LevelManager.instance.BossLevels)
             {
                 index += 1;
+                isBossLevel = true;
+            }else if (LevelManager.currentLevel + 1 <= LevelManager.instance.totalLevels)
+            {
                 isBossLevel = true;
             }
             else
