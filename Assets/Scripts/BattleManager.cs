@@ -847,10 +847,10 @@ public class BattleManager : MonoBehaviour
                 yield return StartCoroutine(hagfish.AppearAt(state, hagfish.location, true));
             }
 
-            foreach (var unit in playerUnits)
-            {
-                unit.RegenHealth();
-            }
+            //foreach (var unit in playerUnits)
+            //{
+            //    yield return StartCoroutine(unit.RegenHealth());
+            //}
         }
 
         // Wait for damage animation to finish

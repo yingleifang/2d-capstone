@@ -474,6 +474,7 @@ public abstract class Unit: MonoBehaviour
             DamageNumber instance = Instantiate(damageNumberPrefab, damageNumberSpawnPoint.position, Quaternion.identity);
             instance.Initialize("+" + amount + " " + text, color);
         }
+        healthBarFill.GetComponent<Image>().fillAmount = (float)currentHealth / (float)health;
         yield return new WaitForSeconds(0.3f);
     }
 
