@@ -402,7 +402,7 @@ MonoBehaviour:
   currentMovementSpeed: 0
   coolDown: 2
   currentCoolDown: 0
-  abilityRange: 2
+  abilityRange: 1
   location: {x: 0, y: 0, z: 0}
   anim: {fileID: 31881298027716544}
   audio: {fileID: 8250693603298723489}
@@ -456,7 +456,8 @@ MonoBehaviour:
     volume: 0.2
     pitchFluctuation: 0
   canUseAbility: 1
-  abilityDamage: 4
+  abilityDamage: 1
+  currentAbilityDamage: 0
   distanceMoved: 0
 --- !u!95 &31881298027716544
 Animator:

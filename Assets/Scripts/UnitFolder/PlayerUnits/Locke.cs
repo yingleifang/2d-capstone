@@ -7,7 +7,8 @@ public class Locke : PlayerUnit
 {
     public SoundEffect StartOfBattleAbilitySound;
     public bool canUseAbility;
-    public int abilityDamage = 0;
+    public int abilityDamage;
+    public int currentAbilityDamage;
 
     private TileManager tileManager;
 
@@ -17,7 +18,8 @@ public class Locke : PlayerUnit
     {
         base.Awake();
         prefab = unitPrefabSO.GetPrefab("Locke");
-        inBattleAbilityDescription += distanceMoved;
+        currentAbilityDamage = abilityDamage;
+        inBattleAbilityDescription += currentAbilityDamage;
     }
 
     public override IEnumerator StartOfBattleAbility(BattleState state)
@@ -59,8 +61,8 @@ public class Locke : PlayerUnit
     public override IEnumerator DoAttack(Unit target)
     {
         distanceMoved = 0;
-        abilityDamage = 0;
-        inBattleAbilityDescription = inBattleAbilityDescription.Remove(inBattleAbilityDescription.Length - 1, 1) + abilityDamage;
+        currentAbilityDamage = abilityDamage;
+        inBattleAbilityDescription = inBattleAbilityDescription.Remove(inBattleAbilityDescription.Length - 1, 1) + currentAbilityDamage;
         return base.DoAttack(target);
     }
 
@@ -75,8 +77,8 @@ public class Locke : PlayerUnit
         if (path == null)
         {
             path = state.tileManager.FindShortestPath(location, target, unitBlocks);
-            abilityDamage = path.Count;
-            inBattleAbilityDescription = inBattleAbilityDescription.Remove(inBattleAbilityDescription.Length - 1, 1) + abilityDamage;
+            currentAbilityDamage = path.Count + abilityDamage;
+            inBattleAbilityDescription = inBattleAbilityDescription.Remove(inBattleAbilityDescription.Length - 1, 1) + currentAbilityDamage;
             inMovement = true;
         }
         state.tileManager.RemoveUnitFromTile(location);
@@ -105,7 +107,7 @@ public class Locke : PlayerUnit
             FlipSprite(targetUnit.transform.position);
             yield return StartCoroutine(PlayAbilityAnimation());
             currentCoolDown = coolDown;
-            targetUnit.ChangeHealth(abilityDamage * -1);
+            targetUnit.ChangeHealth(currentAbilityDamage * -1);
         }
         yield return null;
     }
