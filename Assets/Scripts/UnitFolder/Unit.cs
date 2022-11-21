@@ -472,7 +472,14 @@ public abstract class Unit: MonoBehaviour
         if (damageNumberPrefab)
         {
             DamageNumber instance = Instantiate(damageNumberPrefab, damageNumberSpawnPoint.position, Quaternion.identity);
-            instance.Initialize("+" + amount + " " + text, color);
+            if (amount > 0)
+            {
+                instance.Initialize("+" + amount + " " + text, color);
+            }
+            else
+            {
+                instance.Initialize("-" + amount + " " + text, color);
+            }
         }
         healthBarFill.GetComponent<Image>().fillAmount = (float)currentHealth / (float)health;
         yield return new WaitForSeconds(0.3f);
@@ -484,7 +491,7 @@ public abstract class Unit: MonoBehaviour
         if (amount < 0)
         {
             audio.PlayDisposable(hitSound);
-            SpawnDamageNumber(Mathf.Abs(amount).ToString(), Color.white);
+            StartCoroutine(SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", amount, Color.white));
             StartCoroutine(PlayDamageAnimation());
         }
         if (currentHealth <= 0)

@@ -1006,7 +1006,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.067, y: 0.2532433}
   m_AnchorMax: {x: 0.9465147, y: 0.8092433}
-  m_AnchoredPosition: {x: 0.49620056, y: 21.618}
+  m_AnchoredPosition: {x: 0.49621582, y: 21.617996}
   m_SizeDelta: {x: 0.99243, y: 0.8167}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &163898934
@@ -7713,7 +7713,7 @@ PrefabInstance:
       objectReference: {fileID: 1379060832544993755, guid: ebe1c75a791dde1429699b92c8ec52bb, type: 3}
     - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
       propertyPath: totalLevels
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4363867772526855478, guid: 83e4dda8befbff34f80952a5b8db47a6, type: 3}
       propertyPath: typesOfEnemiesToSpawnBossLevel.Array.size
@@ -9355,6 +9355,7 @@ MonoBehaviour:
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
   mapPosition: {x: 0, y: 0, z: 0}
+  postProcessingSettings: {fileID: 0}
   gameIsPaused: 0
   ovisButton: {fileID: 0}
   tutorialManager: {fileID: 162341415}
