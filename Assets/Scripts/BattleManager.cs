@@ -1272,6 +1272,8 @@ public class BattleManager : MonoBehaviour
             }
             Debug.Log("index: " + index);
         }
+
+
         LevelManager.instance.IncrementLevel();
 
         acceptingInput = false;
@@ -1345,7 +1347,10 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("SETTING DATA");
             setEnemyData();
-            regeneratePreviews();
+            if (LevelManager.currentLevel != LevelManager.instance.totalLevels)
+            {
+                regeneratePreviews();
+            }
             StartCoroutine(InitializeBattle());
             instance.TurnOnPreview();
         } 
