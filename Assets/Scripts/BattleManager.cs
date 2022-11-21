@@ -496,10 +496,8 @@ public class BattleManager : MonoBehaviour
 
     private void setEnemyData()
     {
-        Debug.Log("zereeeeeee");
         foreach (var curInfo in LevelManager.instance.enemyInfo)
         {
-            Debug.Log("hereeeeeee");
             EnemyUnit curEnemy = Instantiate(LevelManager.instance.typesOfEnemiesToSpawn[curInfo.Item1]);
             curEnemy.SetLocation(GetState(), curInfo.Item2);
             enemyUnits.Add(curEnemy);
