@@ -1472,7 +1472,7 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        if (isBossLevel)
+        if (isBossLevel && enemyUnits.Count < 6)
         {
             yield return SpawnEnemyInBattle();
         }
@@ -1495,6 +1495,10 @@ public class BattleManager : MonoBehaviour
     private IEnumerator SpawnEnemyInBattle()
     {
         var location = LevelManager.instance.GetSpawnLocation();
+        while (tileManager.GetUnit(location) != null)
+        {
+            location = LevelManager.instance.GetSpawnLocation();
+        }
         var unitType = LevelManager.instance.GetSpawnUnit();
         Unit unit = Instantiate(unitType);
         yield return StartCoroutine(SpawnUnit(location, unit, true, true));
