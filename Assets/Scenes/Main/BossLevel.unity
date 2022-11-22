@@ -1770,7 +1770,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1381194083}
   - component: {fileID: 1381194082}
-  - component: {fileID: 1381194084}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -1845,18 +1844,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1381194084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381194081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae6222716d4b9dc45a92b21c6c3f4ac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1613305213
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,7 +1990,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1694394295}
   - component: {fileID: 1694394294}
-  - component: {fileID: 1694394296}
   m_Layer: 0
   m_Name: BattleMusic
   m_TagString: Untagged
@@ -2021,8 +2007,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2c475da5031606b41a782e2692072292, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: 1940cc3a1f308724599ed78ac4c72cf4, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -2122,18 +2108,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1694394296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1694394293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0efb886658a6efd458ea10f251063aaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1862399853
 GameObject:
   m_ObjectHideFlags: 0
