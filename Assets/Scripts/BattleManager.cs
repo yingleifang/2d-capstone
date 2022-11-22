@@ -819,7 +819,14 @@ public class BattleManager : MonoBehaviour
     private IEnumerator InitializeBattle()
     {
         TurnOnPreview();
-        ui.InitializeTurnCount(turnsPerBattle);
+        if (!isBossLevel)
+        {
+            ui.InitializeTurnCount(turnsPerBattle);
+        }
+        else
+        {
+            ui.InitializeTurnCount(TurnCountDown.totalHagfish);
+        }
         isPlayerTurn = false;
         acceptingInput = false;
 
@@ -945,7 +952,9 @@ public class BattleManager : MonoBehaviour
             }
 
             // Decrements turn counter as well
-            ui.DecrementTurnCount();
+            if (!isBossLevel) {
+                ui.DecrementTurnCount();
+            }
             yield return StartCoroutine(performEnemyMoves());
 
             List<Unit> unitsToDestroy = new();
@@ -1176,7 +1185,7 @@ public class BattleManager : MonoBehaviour
             isBattleOver = true;
             StartCoroutine(NextLevel());
         }
-        else if (ui.isOutOfTurns() && LevelManager.currentLevel != 2)
+        else if (ui.isOutOfTurns() && LevelManager.currentLevel != 2 && !isBossLevel)
         { 
             isBattleOver = true;
             StartCoroutine(NextLevel());

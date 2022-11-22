@@ -1734,6 +1734,7 @@ MonoBehaviour:
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
   mapPosition: {x: 0, y: 0, z: 0}
+  postProcessingSettings: {fileID: 0}
   gameIsPaused: 0
   ovisButton: {fileID: 0}
   tutorialManager: {fileID: 0}
@@ -2540,6 +2541,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_margin.x
+      value: -40.861668
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401104888, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_margin.z
+      value: -59.720795
+      objectReference: {fileID: 0}
     - target: {fileID: 1573650756, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2559,6 +2568,22 @@ PrefabInstance:
     - target: {fileID: 3111793424087143395, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924551512980317, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 554.4308
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924551512980317, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 90.407
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924551512980317, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -277.2105
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057924551512980317, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -45.20401
       objectReference: {fileID: 0}
     - target: {fileID: 6057924551960540364, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

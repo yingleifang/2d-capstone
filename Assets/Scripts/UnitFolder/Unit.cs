@@ -478,7 +478,7 @@ public abstract class Unit: MonoBehaviour
             }
             else
             {
-                instance.Initialize("-" + amount + " " + text, color);
+                instance.Initialize(amount + " " + text, color);
             }
         }
         healthBarFill.GetComponent<Image>().fillAmount = (float)currentHealth / (float)health;

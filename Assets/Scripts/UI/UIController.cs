@@ -50,7 +50,7 @@ public class UIController : MonoBehaviour
     /// <param name="turns">the number of turns to set the turn counter to</param>
     public void InitializeTurnCount(int turns)
     {
-        turnCountDown.Initialize(turns);
+        turnCountDown.Initialize(turns, LevelManager.currentLevel > LevelManager.instance.totalLevels - LevelManager.instance.BossLevels);
     }
 
     /// <summary>
@@ -68,6 +68,11 @@ public class UIController : MonoBehaviour
     public void DecrementTurnCount()
     {
         turnCountDown.Decrement();
+    }
+
+    public void DecrementBoss()
+    {
+        turnCountDown.DecrementBoss();
     }
 
     public IEnumerator ShowPlayerTurnAnim()

@@ -11,6 +11,10 @@ public class TurnCountDown : MonoBehaviour
 
     public int currentTurn = 10;
 
+    public static int totalHagfish = 3;
+    public static int hagfishLeft = 3;
+
+
     public TextMeshProUGUI textElement;
 
     public Slider slider;
@@ -20,12 +24,19 @@ public class TurnCountDown : MonoBehaviour
     /// Updates the display to the new value
     /// </summary>
     /// <param name="turns">the number of turns to set the count down to</param>
-    public void Initialize(int turns)
+    public void Initialize(int targetNum, bool isBossLevel)
     {
-        totalTurn = turns;
-        currentTurn = turns;
-        slider.maxValue = turns;
-        UpdateDisplay();
+        if (!isBossLevel)
+        {
+            totalTurn = targetNum;
+            currentTurn = targetNum;
+            UpdateDisplay();
+        }
+        else
+        {
+            hagfishLeft = totalHagfish;
+            UpdateDisplayBoss();
+        }
     }
 
     /// <summary>
@@ -33,8 +44,12 @@ public class TurnCountDown : MonoBehaviour
     /// </summary>
     public void UpdateDisplay()
     {
-        slider.value = currentTurn;
         textElement.text = string.Format("Turns left:{0}", currentTurn);
+    }
+
+    public void UpdateDisplayBoss()
+    {
+        textElement.text = string.Format("Hagfish left:{0}", hagfishLeft);
     }
 
     /// <summary>
@@ -46,9 +61,15 @@ public class TurnCountDown : MonoBehaviour
         UpdateDisplay();
     }
 
+    public void DecrementBoss()
+    {
+        hagfishLeft -= 1;
+        UpdateDisplayBoss();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        Initialize(totalTurn);
+        Initialize(totalTurn, LevelManager.currentLevel > LevelManager.instance.totalLevels - LevelManager.instance.BossLevels);
     }
 }
