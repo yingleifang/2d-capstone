@@ -29,6 +29,8 @@ public class LevelManager : MonoBehaviour
 
     public int[] crackChance = new int[] {60, 40};
 
+    private int offSet = 0;
+
     /// <summary>
     /// Links a positional coordinate with the tileDataSO along with the turn (the int) at which
     /// the tile will crack
@@ -98,6 +100,8 @@ public class LevelManager : MonoBehaviour
 
     public TileDataScriptableObject shatterTileOutter;
     public TileDataScriptableObject shatterTileInner;
+
+    private int spawnOffSet = 0;
 
     public levelTransition levelTransitionObj;
     void Awake()
@@ -272,9 +276,10 @@ public class LevelManager : MonoBehaviour
             typesOfEnemiesToSpawn.Add(hagFish);
         }
         var possiblePositions = new List<Vector3Int>();
-        for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
+        for (int y = -y_range + offSet; y <= y_range - offSet; y++)
         {
-            for (int y = (int)map.localBounds.min.y; y < map.localBounds.max.y; y++)
+            var bound = boundList[y + y_range];
+            for (int x = bound.Item2 + offSet; x <= bound.Item1 - offSet; x++)
             {
                 if (!map.GetTile(new Vector3Int(x, y, 0)))
                 {
@@ -318,10 +323,10 @@ public class LevelManager : MonoBehaviour
     public Vector3Int GetSpawnLocation()
     {
         var possiblePositions = new List<Vector3Int>();
-
-        for (int x = (int)map.localBounds.min.x + 2; x < map.localBounds.max.x - 2; x++)
+        for (int y = -y_range + offSet; y <= y_range - offSet; y++)
         {
-            for (int y = (int)map.localBounds.min.y + 2; y < map.localBounds.max.y - 2; y++)
+            var bound = boundList[y + y_range];
+            for (int x = bound.Item2 + offSet; x <= bound.Item1 - offSet; x++)
             {
                 if (!map.GetTile(new Vector3Int(x, y, 0)))
                 {
@@ -396,6 +401,14 @@ public class LevelManager : MonoBehaviour
         else if (currentLevel == 6)
         {
             typesOfTilesToSpawn = levelThreeTiles;
+        }
+        if (BattleManager.isBossLevel)
+        {
+            offSet = 1;
+        }
+        else
+        {
+            offSet = 0;
         }
         map = FindObjectOfType<Tilemap>();
 
