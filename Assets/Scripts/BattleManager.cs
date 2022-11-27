@@ -825,6 +825,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            //lightingManager.changeLights();
             ui.InitializeTurnCount(TurnCountDown.totalHagfish);
         }
         isPlayerTurn = false;
@@ -849,6 +850,7 @@ public class BattleManager : MonoBehaviour
                 //Animator animator = hagfish.GetComponent<Animator>();
                 //animator.runtimeAnimatorController = hagfish.animatorController;
                 //hagfish
+
                 yield return StartCoroutine(hagfish.AppearAt(state, hagfish.location, true));
             }
 

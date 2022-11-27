@@ -9,10 +9,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - tileMap_light
   - Water
   - UI
-  - 
+  - background
   - 
   - 
   - 
@@ -39,6 +39,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: background
+    uniqueID: 2190316087
+    locked: 0
+  - name: tileMap
+    uniqueID: 3016550753
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
