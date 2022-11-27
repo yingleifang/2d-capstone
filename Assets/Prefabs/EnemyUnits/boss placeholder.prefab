@@ -94,9 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7439754414042797085}
   - component: {fileID: 7421535317744620689}
-  - component: {fileID: 933609802880105010}
   - component: {fileID: 1853876325}
-  - component: {fileID: 1379060832544993755}
+  - component: {fileID: 954404188}
   m_Layer: 0
   m_Name: boss placeholder
   m_TagString: crossBattle
@@ -132,7 +131,7 @@ Animator:
   m_GameObject: {fileID: 8109192335271719319}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 0e501ec7d08e4db428a7d78af114fd8d, type: 2}
+  m_Controller: {fileID: 9100000, guid: ebe6aab9aae0d1643a83be8a6c467969, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -142,32 +141,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!61 &933609802880105010
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8109192335271719319}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.069318056, y: 1.8161356}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 6.184998, y: 6.129544}
-  m_EdgeRadius: 0
 --- !u!82 &1853876325
 AudioSource:
   m_ObjectHideFlags: 0
@@ -264,7 +237,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1379060832544993755
+--- !u!114 &954404188
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,57 +246,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8109192335271719319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64cf9ca463b24ec429ec3daf28da0fbd, type: 3}
+  m_Script: {fileID: 11500000, guid: 19f8e8c16a01cb544a67959b37ab64c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  unitPrefabSO: {fileID: 0}
-  health: 3
-  currentHealth: 0
-  attackDamage: 0
-  currentAttackDamage: 0
-  attackRange: 0
-  currentAttackRange: 0
-  movementSpeed: 0
-  currentMovementSpeed: 0
-  coolDown: 0
-  currentCoolDown: 0
-  abilityRange: 0
-  location: {x: 0, y: 0, z: 0}
-  anim: {fileID: 7421535317744620689}
-  audio: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 01c69f653ad791d4a976fbfb8494121e, type: 3}
-  characterName: Hagfish
-  characterDescription: Defeating this enemy damages the boss
-  healthBarFill: {fileID: 7432460306710679596}
-  healthBarBackground: {fileID: 568465090257389366}
-  damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
-  damageNumberSpawnPoint: {fileID: 8773935397455337480}
-  deathSound:
-    clip: {fileID: 0}
-    volume: 1
-    pitchFluctuation: 0
-  hitSound:
-    clip: {fileID: 0}
-    volume: 1
-    pitchFluctuation: 0
-  attackSound:
-    clip: {fileID: 0}
-    volume: 1
-    pitchFluctuation: 0
-  placementSound:
-    clip: {fileID: 0}
-    volume: 1
-    pitchFluctuation: 0
-  fallSound:
-    clip: {fileID: 0}
-    volume: 1
-    pitchFluctuation: 0
-  spawnOnStart: 0
-  isDead: 0
-  inMovement: 0
-  type: 0
+  animator: {fileID: 0}
 --- !u!1 &8640427160434365333
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,16 +402,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
---- !u!1 &568465090257389366 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5319186012446438749, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
-  m_PrefabInstance: {fileID: 5634597429037249131}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7432460306710679596 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2960971374760714823, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}
-  m_PrefabInstance: {fileID: 5634597429037249131}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8131089699481885529 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4532155604154493234, guid: aafdf1b53d2a67a418ecdee0a2af238c, type: 3}

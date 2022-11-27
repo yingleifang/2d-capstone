@@ -1026,6 +1026,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 954404188, guid: 2b64de6c88b286244b35c338076e9a1f, type: 3}
+      propertyPath: slam
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d50502c482e27c419e9bc4b2a80ed1f, type: 3}
+    - target: {fileID: 954404188, guid: 2b64de6c88b286244b35c338076e9a1f, type: 3}
+      propertyPath: screech
+      value: 
+      objectReference: {fileID: 8300000, guid: 9913195dbedc1af43b2bbedea46af986, type: 3}
+    - target: {fileID: 954404188, guid: 2b64de6c88b286244b35c338076e9a1f, type: 3}
+      propertyPath: slamRoar
+      value: 
+      objectReference: {fileID: 8300000, guid: 53433d0575e1e0347a55f48579a0fa60, type: 3}
+    - target: {fileID: 954404188, guid: 2b64de6c88b286244b35c338076e9a1f, type: 3}
+      propertyPath: takeDamage
+      value: 
+      objectReference: {fileID: 8300000, guid: 4b5e3215d26a046439bbab1565f2ed41, type: 3}
     - target: {fileID: 7439754414042797085, guid: 2b64de6c88b286244b35c338076e9a1f, type: 3}
       propertyPath: m_RootOrder
       value: 12

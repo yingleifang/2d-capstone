@@ -1244,6 +1244,11 @@ public class BattleManager : MonoBehaviour
         }
 
         instance.TurnOffPreview();
+        if (isBossLevel == true)
+        {
+            BossController boss = FindObjectOfType<BossController>();
+            yield return StartCoroutine(boss.SlamAnimation());
+        }
         yield return StartCoroutine(tileManager.ShatterTiles(0));
 
         unitsToSpawn.AddRange(playerUnits);

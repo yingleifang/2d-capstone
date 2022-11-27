@@ -6,11 +6,13 @@ public class HagfishEnemy : EnemyUnit
 {
     public static int alive = 0;
 
+    public BossController bossController;
     public override void Start()
     {
         anim.SetBool("Hide", true);
         base.Start();
         alive++;
+        bossController = FindObjectOfType<BossController>();
     }
 
     public override IEnumerator performAction(BattleState state)
@@ -37,6 +39,7 @@ public class HagfishEnemy : EnemyUnit
         audio.PlayDisposable(deathSound);
         yield return StartCoroutine(PlayLastWordAnimation());
         yield return StartCoroutine(PlayDeathAnimation());
+        StartCoroutine(bossController.DamageAnimation());
         alive--;
         if (alive == 0)
         {
@@ -44,10 +47,10 @@ public class HagfishEnemy : EnemyUnit
             BattleManager.instance.isBattleOver = true;
         }
         // Feel free to add code here that damages the boss
-        Destroy(gameObject);
         BossHealthBar.BossTakeDamage(1);
         TurnCountDown hagFishCount = FindObjectOfType<TurnCountDown>();
         hagFishCount.DecrementBoss();
+        Destroy(gameObject);
         yield break;
     }
 }
