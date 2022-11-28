@@ -2500,7 +2500,7 @@ GameObject:
   - component: {fileID: 1161124595}
   - component: {fileID: 1161124596}
   m_Layer: 3
-  m_Name: light_stage1.3
+  m_Name: tilemap global light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3168,7 +3168,7 @@ GameObject:
   - component: {fileID: 1285432195}
   - component: {fileID: 1285432196}
   m_Layer: 3
-  m_Name: light_stage1.2
+  m_Name: ray2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3183,7 +3183,7 @@ Transform:
   m_GameObject: {fileID: 1285432194}
   m_LocalRotation: {x: -0, y: -0, z: -0.23938091, w: 0.97092575}
   m_LocalPosition: {x: 12.6122265, y: 24.017479, z: -6821.5625}
-  m_LocalScale: {x: 2.1, y: 19.76, z: 1}
+  m_LocalScale: {x: 2.1, y: 22.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1426908758}
@@ -3206,7 +3206,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.824
   m_Color: {r: 1, g: 0.64199775, b: 0.2867924, a: 1}
-  m_Intensity: 0.67
+  m_Intensity: 0.6
   m_LightVolumeIntensity: 0.1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 61e9ccb337928d82
@@ -4165,7 +4165,7 @@ GameObject:
   - component: {fileID: 1538738406}
   - component: {fileID: 1538738407}
   m_Layer: 6
-  m_Name: light_stage1.3
+  m_Name: bg global light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4202,7 +4202,7 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.409
-  m_Color: {r: 0.82452834, g: 1, b: 0.97499967, a: 1}
+  m_Color: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
   m_Intensity: 1.2
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -5480,7 +5480,7 @@ GameObject:
   - component: {fileID: 1975019419}
   - component: {fileID: 1975019420}
   m_Layer: 3
-  m_Name: light_stage1
+  m_Name: ray1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5518,7 +5518,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.824
   m_Color: {r: 1, g: 0.6467333, b: 0.29622638, a: 1}
-  m_Intensity: 0.67
+  m_Intensity: 0.6
   m_LightVolumeIntensity: 0.1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 61e9ccb337928d82
