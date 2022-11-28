@@ -1593,6 +1593,7 @@ MonoBehaviour:
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
   mapPosition: {x: 0, y: 0, z: 0}
+  postProcessingSettings: {fileID: 0}
   gameIsPaused: 0
   ovisButton: {fileID: 0}
   tutorialManager: {fileID: 0}
@@ -2379,6 +2380,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5161716980445749496, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -23.119019
+      objectReference: {fileID: 0}
+    - target: {fileID: 5161716980445749496, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 30.232666
+      objectReference: {fileID: 0}
     - target: {fileID: 6057924551960540364, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

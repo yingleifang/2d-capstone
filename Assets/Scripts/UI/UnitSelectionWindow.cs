@@ -152,7 +152,7 @@ public class UnitSelectionWindow : MonoBehaviour
             BattleManager.instance.acceptingInput = true;
         } else
         {
-            minimizeButtonText.text = "-";
+            minimizeButtonText.text = "x";
             BattleManager.instance.UndoUnitToPlace();
         }
     }
