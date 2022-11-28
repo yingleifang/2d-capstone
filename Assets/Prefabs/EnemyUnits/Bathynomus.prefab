@@ -144,7 +144,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4316785244231713794}
   portrait: {fileID: 21300000, guid: 76e1206916a15974281ab6cd01094652, type: 3}
   characterName: Bathynomus
-  characterDescription: 
+  characterDescription: Ranged attacker that runs from player units
   healthBarFill: {fileID: 5316833990255598534}
   healthBarBackground: {fileID: 1463624315805780811}
   damageNumberPrefab: {fileID: 7453925885683627685, guid: 47a5359cfc3baf940b86c615508c705b, type: 3}
@@ -172,7 +172,6 @@ MonoBehaviour:
   spawnOnStart: 0
   isDead: 0
   inMovement: 0
-  levelManager: {fileID: 0}
   type: 0
 --- !u!95 &5759568811348548860
 Animator:

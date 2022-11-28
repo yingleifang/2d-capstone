@@ -13833,6 +13833,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelectionWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 5939622120962527882, guid: a68927fa1117a464a95aa7901b58125e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5939622120962527883, guid: a68927fa1117a464a95aa7901b58125e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
