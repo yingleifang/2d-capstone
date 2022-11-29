@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Button selected;
+    public Button startingSelected;
+
+    public void Start()
     {
-        
+        if (startingSelected)
+        {
+            Select(startingSelected);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Select(Button button)
     {
-        
+        if (selected)
+        {
+            selected.animator.SetBool("Select", false);
+        }
+
+        button.animator.SetBool("Select", true);
+        selected = button;
     }
 }

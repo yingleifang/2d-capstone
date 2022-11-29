@@ -19,15 +19,13 @@ public class UnitInfoWindow : MonoBehaviour
     private Image portraitImage;
     private Unit displayedUnit;
     public VideoPlayerFix videoPlayer;
+    public TabManager tabManager;
 
     public void ShowStats(Unit unit, bool spawned = true)
     {
         gameObject.SetActive(true);
-        if (displayedUnit != unit)
-        {
-            ShowStatsTab();
-            statsTabButton.Select();
-        }
+        ShowStatsTab();
+        tabManager.Select(statsTabButton);
         displayedUnit = unit;
 
         if (unit is NPCUnit)
