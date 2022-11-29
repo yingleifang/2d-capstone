@@ -6,12 +6,15 @@ using UnityEngine.UI;
 
 public class UnitInfoWindow : MonoBehaviour
 {
+    
+    public Animator anim;
     [SerializeField]
     private TextMeshProUGUI healthText, attackRangeText, movementSpeedText, cooldownText,
-                    nameText, attackDamageText, passiveText, abilityText;
-    public GameObject abilityTabButton, statPanel, passivePanel, abilityPanel;
+                    nameText, attackDamageText, passiveText, abilityText, abilityName;
+    public GameObject abilityTabButton, statPanel, passivePanel, abilityPanel, mainPanel;
     public Button statsTabButton;
     public Button abilityButton;
+    public TextMeshProUGUI abilityButtonText;
     [SerializeField]
     private Image portraitImage;
     private Unit displayedUnit;
@@ -56,13 +59,15 @@ public class UnitInfoWindow : MonoBehaviour
             if (unit.currentCoolDown == 0)
             {
                 abilityButton.interactable = true;
-                cooldownText.text = "Cooldown: READY";
+                abilityButtonText.text = "Use Ability";
+                abilityButton.animator.SetBool("Cooldown", false);
             }
             else
             {
                 abilityButton.interactable = false;
-                cooldownText.text = "Cooldown: " + unit.currentCoolDown;
-            }    
+                abilityButtonText.text = "Cooldown: " + unit.currentCoolDown;
+                abilityButton.animator.SetBool("Cooldown", true);
+            }
         }
         else
         {
@@ -79,8 +84,18 @@ public class UnitInfoWindow : MonoBehaviour
         {
             passiveText.text = player.startOfBattleAbilityDescription;
             abilityText.text = player.inBattleAbilityDescription;
+            abilityName.text = player.abilityName;
+            cooldownText.text = "Cooldown: " + unit.coolDown + " Turns";
             videoPlayer.PlayClip(player.previewClip);
             abilityTabButton.SetActive(true);
+            if (player.hasAttacked)
+            {
+                abilityButton.interactable = false;
+                if (player.currentCoolDown == 0)
+                {
+                    abilityButtonText.text = "Already Attacked";
+                }
+            }
         } else if (unit is EnemyUnit enemy)
         {
             passiveText.text = enemy.characterDescription;
@@ -104,9 +119,16 @@ public class UnitInfoWindow : MonoBehaviour
 
     public void ShowAbilityTab()
     {
-        statPanel.SetActive(false);
-        passivePanel.SetActive(false);
         abilityPanel.SetActive(true);
+        mainPanel.SetActive(false);
+        anim.SetBool("Show Ability", true);
+    }
+
+    public void ShowMainPanel()
+    {
+        abilityPanel.SetActive(false);
+        mainPanel.SetActive(true);
+        anim.SetBool("Show Ability", false);
     }
 
     /// <summary>
