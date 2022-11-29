@@ -491,6 +491,9 @@ public class BattleManager : MonoBehaviour
             {
                 tileManager.HighlightPath(unit.GetTilesInAbilityRange(), Color.red);
             }
+        } else
+        {
+            SelectUnit(selectedUnit);
         }
     }
 
