@@ -12,8 +12,8 @@ public class PlayerUnit : Unit
 
     [TextArea]
     public string startOfBattleAbilityDescription;
-    [TextArea]
     public string abilityName;
+    [TextArea]
     public string inBattleAbilityDescription;
     public VideoClip previewClip;
     public Sprite talkSprite;
