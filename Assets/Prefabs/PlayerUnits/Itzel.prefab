@@ -93,9 +93,9 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     pitchFluctuation: 0
+  spawnOnStart: 0
   isDead: 0
   inMovement: 0
-  levelManager: {fileID: 0}
 --- !u!61 &8427145116041011576
 BoxCollider2D:
   m_ObjectHideFlags: 0

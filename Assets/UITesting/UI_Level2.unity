@@ -183,8 +183,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackSquare: {fileID: 1544589323}
   unitSelectionWindow: {fileID: 196113205}
+  unitSelectionTutorial: {fileID: 0}
   unitInfoWindow: {fileID: 1000913123}
-  endTurnButton: {fileID: 1024984799}
+  tileInfoWindow: {fileID: 0}
+  endTurnButton: {fileID: 0}
+  endTurnWarning: {fileID: 0}
+  turnCountDown: {fileID: 0}
+  playerTurnPopup: {fileID: 0}
+  enemyTurnPopup: {fileID: 0}
+  isTutorial: 0
+  audio: {fileID: 0}
+  clickSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  unitWhoseWindowIsOpen: {fileID: 0}
 --- !u!114 &109875693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +268,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3075251589031316048, guid: a68927fa1117a464a95aa7901b58125e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.0000916
+      value: -2.000122
       objectReference: {fileID: 0}
     - target: {fileID: 5939622120962527882, guid: a68927fa1117a464a95aa7901b58125e, type: 3}
       propertyPath: m_Name
@@ -418,17 +431,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUnits: []
   enemyUnits: []
+  NPCUnits: []
   unitsToSpawn: []
-  map: {fileID: 1302962865}
+  tileManager: {fileID: 0}
+  turnsPerBattle: 5
   isBattleOver: 0
   isPlayerTurn: 1
   isPlacingUnit: 0
   acceptingInput: 1
+  usingAbility: 0
   selectedUnit: {fileID: 0}
   ui: {fileID: 109875692}
   unitToPlace: {fileID: 0}
-  turnCounter: {fileID: 1796130704}
+  tileSelected: 0
+  selectedTile: {x: 0, y: 0, z: 0}
+  selectedTilePrevColor: {r: 1, g: 1, b: 1, a: 1}
   previewLayer: {fileID: 0}
+  previewVisible: 0
+  tileOutlinePrefab: {fileID: 0}
+  mapPosition: {x: 0, y: 0, z: 0}
+  postProcessingSettings: {fileID: 0}
+  gameIsPaused: 0
+  ovisButton: {fileID: 0}
+  tutorialManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  forcedUnitMovementTile: {x: 0, y: 0, z: -1}
+  pushDialogueAfterMove: 0
+  pushDialogueAfterEnemyTurn: 0
+  pushDialogueAfterAttack: 0
+  pushDialogueAfterBattleEnd: 0
+  disableAttack: 0
 --- !u!4 &538519608
 Transform:
   m_ObjectHideFlags: 0
@@ -496,6 +528,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1447998723661349570, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7243422476876719891, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: location.x
       value: 2
@@ -1455,17 +1491,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3287922799981939696, guid: d297c49cbd7dd5f499cd4b653a7a3dd3, type: 3}
   m_PrefabInstance: {fileID: 1024984797}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1024984799 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3287922799981939697, guid: d297c49cbd7dd5f499cd4b653a7a3dd3, type: 3}
-  m_PrefabInstance: {fileID: 1024984797}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1124330462
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,9 +1740,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 923769900}
-  tileDatas:
-  - {fileID: 11400000, guid: c794c8b7bd2d1f44ebb60bd9386a82c7, type: 2}
-  - {fileID: 11400000, guid: c2fb84ff8790f634ba60e9f39a23e146, type: 2}
+  animatedTile: {fileID: 0}
+  crackSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  shatterSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  audio: {fileID: 0}
 --- !u!4 &1302962866
 Transform:
   m_ObjectHideFlags: 0
@@ -1868,6 +1900,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1447998723661349570, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7243422476876719891, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: location.x
       value: 3
@@ -1963,7 +1999,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2322,6 +2358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalTurn: 10
   currentTurn: 10
+  textElement: {fileID: 0}
   slider: {fileID: 1796130705}
 --- !u!114 &1796130705
 MonoBehaviour:

@@ -207,7 +207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2015667059}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -596,13 +596,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8264826747869016569, guid: e8d5fec484d603b42bcc5b58fe71f066, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8d5fec484d603b42bcc5b58fe71f066, type: 3}
---- !u!1 &180895926 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8264826747215317848, guid: e8d5fec484d603b42bcc5b58fe71f066, type: 3}
-  m_PrefabInstance: {fileID: 180895924}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &341742576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,6 +1852,10 @@ PrefabInstance:
       propertyPath: location.x
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1447998723661349570, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7439754414042797085, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -1933,6 +1936,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 341742577}
+  animatedTile: {fileID: 0}
+  crackSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  shatterSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  audio: {fileID: 0}
 --- !u!4 &631245151
 Transform:
   m_ObjectHideFlags: 0
@@ -2183,6 +2196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUnits: []
   enemyUnits: []
+  NPCUnits: []
   unitsToSpawn: []
   tileManager: {fileID: 631245150}
   turnsPerBattle: 5
@@ -2200,8 +2214,18 @@ MonoBehaviour:
   previewLayer: {fileID: 1481628437}
   previewVisible: 0
   tileOutlinePrefab: {fileID: 5703073897236901462, guid: 0ca80a25331156a46895a3e91bc45759, type: 3}
-  levelManager: {fileID: 1326160338}
   mapPosition: {x: 0, y: 0, z: 0}
+  postProcessingSettings: {fileID: 0}
+  gameIsPaused: 0
+  ovisButton: {fileID: 0}
+  tutorialManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  forcedUnitMovementTile: {x: 0, y: 0, z: -1}
+  pushDialogueAfterMove: 0
+  pushDialogueAfterEnemyTurn: 0
+  pushDialogueAfterAttack: 0
+  pushDialogueAfterBattleEnd: 0
+  disableAttack: 0
 --- !u!4 &897451128
 Transform:
   m_ObjectHideFlags: 0
@@ -2493,6 +2517,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 36610580, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1401104887, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2503,7 +2531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1925277938, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 468326609685540267, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_RootOrder
@@ -2621,9 +2649,21 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6250540933181885835, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6752617090778783381, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6938978227748769028, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_RootOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7249970094023175978, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7914259393409976376, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_RootOrder
@@ -2724,7 +2764,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3100,17 +3140,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b7c6e5fdfe0d14f8033be1079e868c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x_min: -4
-  x_max: 4
-  y_min: -2
-  y_max: 3
   totalLevels: 4
-  currentLevel: 3
-  enemyNumToSpawn: 0
+  BossLevels: 2
   random: 1
+  crackChance: 3c00000028000000
+  y_range: 3
   typesOfEnemiesToSpawn:
   - {fileID: 893015178, guid: e35ec94664806fc42a197278a56b4966, type: 3}
   - {fileID: 3206773105803365608, guid: 1888029b275ed3846a7ea613d9c02b23, type: 3}
+  typesOfEnemiesToSpawnBossLevel: []
+  hagFish: {fileID: 0}
   typesOfTilesToSpawn:
   - {fileID: 11400000, guid: 9be78945db5975e48a41560accbc3c44, type: 2}
   - {fileID: 11400000, guid: c2fb84ff8790f634ba60e9f39a23e146, type: 2}
@@ -3119,9 +3158,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 439c66e79ada37d4cbb31e6e03d8b6c4, type: 2}
   - {fileID: 11400000, guid: f150f011342cd2c42aeb4e57bdd892ff, type: 2}
   - {fileID: 11400000, guid: 616f9755a7acdc64f9f85dc6850939b9, type: 2}
+  AllTiles: []
+  levelOneTiles: []
+  levelTwoTiles: []
+  levelThreeTiles: []
   map: {fileID: 341742577}
   isTutorial: 0
   overrideTutorial: 0
+  levelOffset: 0
+  shatterTileOutter: {fileID: 0}
+  shatterTileInner: {fileID: 0}
   levelTransitionObj: {fileID: 0}
 --- !u!4 &1326160339
 Transform:
@@ -3191,57 +3237,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a72871d99a76a449eea679c9ad3622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textComp: {fileID: 351468460}
-  lines:
-  - 'Hey! Hey! Over here! Are you alright? You just dropped down here right? Were
-    you looking for the treasure too? '
-  - 'No need to be so surprised. I''m not the only fool who ended up down here searching
-    for that fable. '
-  - 'The treasure? That''s the last thing you should be worrying about. You''ll realize
-    soon enough that it''s better to get out of here as soon as you can. '
-  - Wait! Wait! I'm telling the truth here. If you want the treasure, you can have
-    it if it even exists. But you have to be careful down here. There's... things.
-    Monsters. It'll be better for the both of us if we stick together. What do you
-    say?
-  - That's great! Two's better than one. What's your specialization? I'm a ranger.
-  - 'A unit selection window will appear at the start of every level. Selecting a
-    unit will add it to your team. Units on your team will persist across levels.
-    Unit health, cooldowns, and map positioning will also persist across levels. '
-  - 'Select a unit from the window by clicking the left mouse button on the unit.
-    Unit information can be seen by hovering your mouse over the unit. '
-  - Before selecting a tile to place your unit on. Be mindful of the various types
-    of tiles on the map.
-  - Spike tiles will deal one damage to units who end their turn on them.
-  - Impassable tiles will prevent units from moving on them or being placed on them.
-  - Choose a valid tile to place your unit by left clicking on a tile twice, once
-    to select, and once to confirm your selection.
-  - A warrior huh? And a sheepman too? Well, we all have our circumstances. As long
-    as you can fight, I won't ask. There's an enemy ahead. I said two's better than
-    one, but I'm not looking for deadweight. Show me what you can do.
-  - 'Left clicking units will show its unit information as well as other information. '
-  - Clicking an enemy will show its "threat area" highlighted in red. This is the
-    range in which it can attack units. Try it out yourself by clicking the enemy
-    on the screen.
-  - 'Clicking an ally which has not moved yet will highlight possible squares it
-    can move to in blue. Double click squares to move to them. Try it yourself on
-    the unit you selected. '
-  - After moving an allied unit, it will be able to attack within its attack range
-    highlighted in red. Try attacking the enemy by double clicking on them. Make
-    sure your unit is selected.
-  - Units may move and attack or attack. A unit may not attack and move. After a
-    unit has attacked, they will fade to indicate they have no more actions. After
-    you are finished with moving your units, you can end your end by clicking the
-    end turn button.
-  - What strength! Finish him!
-  - 'What? What''s going on? '
   textSpeed: 0.015
   unitSelection: {fileID: 1504958366}
-  continueButton: {fileID: 172694801}
   endTurnButton: {fileID: 2117465775}
   battlePreviewButton: {fileID: 1100419435}
-  sozyExample: {fileID: 180895926}
   help: {fileID: 53476372}
   turnCounter: {fileID: 1568663599}
+  levelManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  disableBattleInteraction: 0
+  index: 0
 --- !u!114 &1396363663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3310,8 +3315,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
-  hazzardAvatar: {fileID: 2016526582845031338, guid: b189cb4954d2e94498a01c36d71ff657, type: 3}
+  enemyOverlay:
+    sprite: {fileID: 0}
+    description: 
+  hazardAvatar: {fileID: 0}
+  hazardOverlay:
+    sprite: {fileID: 0}
+    description: 
   impassibleAvatar: {fileID: 3334986738694511694, guid: 668a83c87dcfaea4cb213d3861fba8c5, type: 3}
+  impassibleOverlay:
+    sprite: {fileID: 0}
+    description: 
 --- !u!4 &1481628439
 Transform:
   m_ObjectHideFlags: 0
@@ -3535,6 +3549,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6989220128797025278, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989220128797025278, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989220128797025278, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989220128797025278, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6989220128797025278, guid: 4661208482849dd47bb1b19ddf3687b3, type: 3}
@@ -4208,11 +4234,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &2015667059 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1162753544, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-  m_PrefabInstance: {fileID: 1119991393}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2091181389
 GameObject:
   m_ObjectHideFlags: 0

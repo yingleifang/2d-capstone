@@ -125,6 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de8c0a2d76d6544b854df1c40dcfb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  unitPrefabSO: {fileID: 0}
   health: 5
   currentHealth: 0
   attackDamage: 1
@@ -168,9 +170,9 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     pitchFluctuation: 0
+  spawnOnStart: 0
   isDead: 0
   inMovement: 0
-  levelManager: {fileID: 0}
   type: 0
   lureEffect: {fileID: 5572911778643578107, guid: ff0da0b451843b3478254dd7984b0278, type: 3}
 --- !u!95 &5759568811348548860

@@ -550,6 +550,7 @@ MonoBehaviour:
   isDead: 0
   inMovement: 0
   type: 0
+  bossController: {fileID: 0}
 --- !u!1 &8640427160434365333
 GameObject:
   m_ObjectHideFlags: 0

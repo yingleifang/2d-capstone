@@ -870,7 +870,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &391847917
 GameObject:
@@ -970,6 +970,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAvatar: {fileID: 2016526582845031338, guid: d0184c5c3f11c644492b2c1fb9d22631, type: 3}
+  enemyOverlay:
+    sprite: {fileID: 0}
+    description: 
+  hazardAvatar: {fileID: 0}
+  hazardOverlay:
+    sprite: {fileID: 0}
+    description: 
+  impassibleAvatar: {fileID: 0}
+  impassibleOverlay:
+    sprite: {fileID: 0}
+    description: 
 --- !u!4 &566532301
 Transform:
   m_ObjectHideFlags: 0
@@ -985,17 +996,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &742810091 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2156714928310879960, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-  m_PrefabInstance: {fileID: 2156714927568906035}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31c19ce8607cf9f46aa9867ea62c364c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &946082638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1003,6 +1003,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1447998723661349570, guid: e35ec94664806fc42a197278a56b4966, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5784565352724314926, guid: e35ec94664806fc42a197278a56b4966, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.72
@@ -1387,17 +1391,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUnits: []
   enemyUnits: []
+  NPCUnits: []
   unitsToSpawn: []
-  map: {fileID: 1933943393}
+  tileManager: {fileID: 0}
+  turnsPerBattle: 5
   isBattleOver: 0
   isPlayerTurn: 1
   isPlacingUnit: 0
   acceptingInput: 1
+  usingAbility: 0
   selectedUnit: {fileID: 0}
-  ui: {fileID: 1775464744}
+  ui: {fileID: 0}
   unitToPlace: {fileID: 0}
-  turnCounter: {fileID: 742810091}
+  tileSelected: 0
+  selectedTile: {x: 0, y: 0, z: 0}
+  selectedTilePrevColor: {r: 1, g: 1, b: 1, a: 1}
   previewLayer: {fileID: 566532299}
+  previewVisible: 0
+  tileOutlinePrefab: {fileID: 0}
+  mapPosition: {x: 0, y: 0, z: 0}
+  postProcessingSettings: {fileID: 0}
+  gameIsPaused: 0
+  ovisButton: {fileID: 0}
+  tutorialManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  forcedUnitMovementTile: {x: 0, y: 0, z: -1}
+  pushDialogueAfterMove: 0
+  pushDialogueAfterEnemyTurn: 0
+  pushDialogueAfterAttack: 0
+  pushDialogueAfterBattleEnd: 0
+  disableAttack: 0
 --- !u!4 &1366869187
 Transform:
   m_ObjectHideFlags: 0
@@ -1450,7 +1473,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1497,17 +1520,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1775464744 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2156714927146243611, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
-  m_PrefabInstance: {fileID: 2156714927568906035}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a76dffee3ee29264ca204825d0ce1ecf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1933943392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,9 +1550,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 261551011}
-  tileDatas:
-  - {fileID: 11400000, guid: c794c8b7bd2d1f44ebb60bd9386a82c7, type: 2}
-  - {fileID: 11400000, guid: c2fb84ff8790f634ba60e9f39a23e146, type: 2}
+  animatedTile: {fileID: 0}
+  crackSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  shatterSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchFluctuation: 0
+  audio: {fileID: 0}
 --- !u!4 &1933943394
 Transform:
   m_ObjectHideFlags: 0

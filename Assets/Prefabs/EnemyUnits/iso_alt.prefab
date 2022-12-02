@@ -172,7 +172,6 @@ MonoBehaviour:
   spawnOnStart: 0
   isDead: 0
   inMovement: 0
-  levelManager: {fileID: 0}
   type: 0
   lureEffect: {fileID: 5572911778643578107, guid: ff0da0b451843b3478254dd7984b0278, type: 3}
 --- !u!95 &5759568811348548860
