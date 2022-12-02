@@ -392,11 +392,24 @@ public class BattleManager : MonoBehaviour
                     if (!isBattleOver && unit && !unit.isDead)
                     {
                         yield return StartCoroutine(unit.DoAttack(curUnit));
-                        ui.ShowUnitInfoWindow(ui.unitWhoseWindowIsOpen);
+
                         if (pushDialogueAfterAttack)
                         {
                             dialogueManager.doSkipDialogue = true;
                         }
+                        //Tutorial stuff
+                        if (LevelManager.currentLevel == 1)
+                        {
+                            TileBase startTile = tileManager.map.GetTile(unit.location);
+                            TileDataScriptableObject tile = tileManager.baseTileDatas[startTile];
+                            if (tile.hazardous)
+                            {
+                                yield return StartCoroutine(dialogueManager.Say("System: Your unit took damage as it moved onto or attacked on a spike tile. Try to avoid this mistake in the future!"));
+                                yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
+                                Debug.Log("HEREY");
+                            }
+                        }
+                        ui.ShowUnitInfoWindow(ui.unitWhoseWindowIsOpen);
 
                         yield return StartCoroutine(UpdateBattleState());
                         CheckIfBattleOver();
@@ -447,6 +460,19 @@ public class BattleManager : MonoBehaviour
                 }
                 DeselectTile();
                 yield return StartCoroutine(MoveUnit(unit, tilePos));
+                TileBase startTile = tileManager.map.GetTile(tilePos);
+                TileDataScriptableObject tile = tileManager.baseTileDatas[startTile];
+
+                //Tutorial stuff
+                if (LevelManager.currentLevel == 1)
+                {
+                    if (tile.hazardous)
+                    {
+                        yield return StartCoroutine(dialogueManager.Say("System: Your unit took damage as it moved onto or attacked on a spike tile. Try to avoid this mistake in the future!"));
+                        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
+                        Debug.Log("HEREY");
+                    }
+                }
                 CheckIfBattleOver();
                 if (!isBattleOver && unit && !unit.isDead && !unit.hasAttacked)
                 {
@@ -515,9 +541,11 @@ public class BattleManager : MonoBehaviour
 
         // Welcome message
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         //Advise user to watch for tiles
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         //Highlight hazardous and talk about them
         foreach (Vector3Int tileLocation in tileManager.dynamicTileDatas.Keys)
@@ -528,6 +556,7 @@ public class BattleManager : MonoBehaviour
             }
         }
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
         tileManager.ClearHighlights();        
 
         //Highlight impassable and talk about them
@@ -539,6 +568,7 @@ public class BattleManager : MonoBehaviour
             }
         }
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
         tileManager.ClearHighlights();
 
         // Place units waiting to be spawned on new map
@@ -551,16 +581,19 @@ public class BattleManager : MonoBehaviour
 
         // NPC dialogue
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Handles unit selection tutorial
         StartCoroutine(ui.ShowSelectionWindow(false));
         tutorialManager.disableBattleInteraction = true;
         yield return StartCoroutine(tutorialManager.NextDialogue(false, 1));
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         if (!unitToPlace)
         {
             Debug.Log("HERE MAN");
-            yield return StartCoroutine(tutorialManager.NextDialogue(true, 1));
+            yield return StartCoroutine(tutorialManager.NextDialogue(false, 1));
+            yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
         }
         else
         {
@@ -583,6 +616,7 @@ public class BattleManager : MonoBehaviour
         unitToPlace.spriteRenderer.enabled = true;
         tutorialManager.disableBattleInteraction = false;        
         yield return StartCoroutine(tutorialManager.NextDialogue(true));
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Wait until user does what is asked.
         while (isPlacingUnit)
@@ -601,47 +635,58 @@ public class BattleManager : MonoBehaviour
 
         if (playerUnits[0].currentHealth != playerUnits[0].health)
         {
-            yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage as it fell on a spike tile. Try to avoid this mistake in the future!"));
+            yield return StartCoroutine(dialogueManager.Say("System: Your unit took damage as it fell on a spike tile. Try to avoid this mistake in the future!"));
+            yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
         }
 
         // Explain Ovis SOB ability
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         //NPC dialogue
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         //Discussing hovering
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         //prompt to click enemy unit
         tutorialManager.disableBattleInteraction = false;
         //Force impossible to click tile to prevent movement
         forcedUnitMovementTile = new Vector3Int(-1000, -1, 0);
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Discuss deselecting units
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         //prompt to click ally unit and move
         yield return StartCoroutine(StartOfPlayerTurn());
         pushDialogueAfterMove = true;
         pushDialogueAfterEnemyTurn = true;
         forcedUnitMovementTile.z = -1;
-        yield return StartCoroutine(tutorialManager.NextDialogue());  
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
         pushDialogueAfterMove = false;
+        Debug.Log("HERE::::");
         
         // Prompt to attack
         pushDialogueAfterAttack = true;
         disableAttack = false;
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
         pushDialogueAfterAttack = false;
 
         //Discussing attack mechanics
         Debug.Log("talk attack mechanics");
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Kill all enemy type beat
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         dialogueManager.HideDialogueWindow();
     }
@@ -654,6 +699,7 @@ public class BattleManager : MonoBehaviour
 
         // Discussing location and health being maintained
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Place units waiting to be spawned on new map
         Debug.Log("Units to spawn: " + unitsToSpawn.Count);
@@ -667,12 +713,15 @@ public class BattleManager : MonoBehaviour
 
         // NPC dialogue
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Discussing why Itzel died
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         //Advising to be careful of next stage hazards
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         var curGeneratePreviews = Resources.FindObjectsOfTypeAll<generatePreviews>();
         if (!curGeneratePreviews[0])
@@ -719,6 +768,7 @@ public class BattleManager : MonoBehaviour
         //Talk about enemy overlay
         curGeneratePreviews[0].ShowEnemyPreview(LevelManager.instance.nextSceneEnemyInfo, GetState());
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
         
         // Disable enemy overview temporarily to talk about other ones
         foreach (Transform child in previewLayer.transform)
@@ -729,6 +779,7 @@ public class BattleManager : MonoBehaviour
         // Talk about hazard overlay
         curGeneratePreviews[0].ShowHazardPreview(LevelManager.instance.nextSceneTileInfo, GetState());
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Disable hazard overview temporarily to talk about other ones
         foreach (Transform child in previewLayer.transform)
@@ -739,12 +790,15 @@ public class BattleManager : MonoBehaviour
         //Talk about impassable overlay
         curGeneratePreviews[0].ShowImpassablePreview(LevelManager.instance.nextSceneTileInfo, GetState());
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Emphasize the effect of units falling on impassable tiles
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Talk about the overlay being active for the rest of the game
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Activate all overlay elements
         foreach (Transform child in previewLayer.transform)
@@ -771,10 +825,13 @@ public class BattleManager : MonoBehaviour
 
         // Talk about start of battle abilities
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         // Talk about in battle abilities
         yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         /*foreach (Coroutine anim in animations)
         {
@@ -794,7 +851,7 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(ui.ShowSelectionWindow(false, true));
 
         yield return StartCoroutine(tutorialManager.NextDialogue(true, 1));
-        dialogueManager.HideDialogueWindow();
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         yield return new WaitUntil(() => !isPlacingUnit);
     
@@ -812,7 +869,11 @@ public class BattleManager : MonoBehaviour
         selectedUnit = null;
         isPlayerTurn = true;
 
-        yield return StartCoroutine(tutorialManager.NextDialogue(true));        
+        yield return StartCoroutine(tutorialManager.NextDialogue());
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
+
+        yield return StartCoroutine(tutorialManager.NextDialogue(true));
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());     
     }
 
     private IEnumerator InitializeBattle()
@@ -945,8 +1006,8 @@ public class BattleManager : MonoBehaviour
             {
                 if (tileManager.IsHazardous(playerUnits[0].location) && !playerUnits[0].hasMoved)
                 {
-                    dialogueManager.StopSpeaking();
-                    yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage as it ended its turn on a spike tile. Try to avoid this mistake in the future!"));
+                    yield return StartCoroutine(dialogueManager.Say("System: Your unit took damage as it ended its turn on a spike tile. Try to avoid this mistake in the future!"));
+                    yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
                 }                
             }
 
@@ -996,17 +1057,16 @@ public class BattleManager : MonoBehaviour
 
                 if (ui.turnCountDown.currentTurn == 2)
                 {
-                    dialogueManager.StopSpeaking();
-                    yield return StartCoroutine(tutorialManager.SpecificDialogue("System: You can use abilities by clicking a unit, clicking the \"Ability\" tab, clicking the \"Use Ability\" button, " +
-                                "and double clicking an enemy in range. Locke's ability deals damage based on how far he's moved since he has last attacked.", true));                    
+                    yield return StartCoroutine(dialogueManager.Say("System: You can use abilities by clicking a unit, clicking the \"Ability\" tab, clicking the \"Use Ability\" button, " +
+                                "and double clicking an enemy in range. Locke's ability deals damage based on how far he's moved that turn.", default,  true));
+                    yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());                 
                 }
                 
                 if (ui.turnCountDown.currentTurn == 1)
                 {
-                    dialogueManager.StopSpeaking();
-                    yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Try combining Locke's ability with Ovis's basic attack. " +
-                                    "You can use abilities by clicking a unit, clicking the \"Ability\" tab, clicking the \"Use Ability\" button, and double clicking an enemy on a red hexagon. " +
-                                    "Locke's ability deals damage based on how far he's moved since he has last attacked.", true));
+                    yield return StartCoroutine(dialogueManager.Say("System: Combine Locke's ability with Ovis's basic attack. " +
+                                    "Move Locke three spaces away from the enemy. End your turn. On the next turn, move Locke in range and use his ability along with Ovis's attack", default, true));
+                    yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
                 }
             }
             StartCoroutine(UpdateBattleState());
@@ -1206,8 +1266,8 @@ public class BattleManager : MonoBehaviour
     {
         if (dialogueManager && tutorialManager)
         {
-            dialogueManager.StopSpeaking();
-            yield return StartCoroutine(tutorialManager.SpecificDialogue("System: When you run out of ally units, you lose the game. Don't let it get you down. Try again with your new knowledge!"));
+            yield return StartCoroutine(dialogueManager.Say("System: When you run out of ally units, you lose the game. Don't let it get you down. Try again with your new knowledge!"));
+            yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
         }
         yield return StartCoroutine(ui.SwitchScene("GameOverScreen"));
         foreach (EnemyUnit unit in enemyUnits.ToArray())
@@ -1232,8 +1292,8 @@ public class BattleManager : MonoBehaviour
         postProcessingSettings.DisableTheGlow(playerUnits);
         if (pushDialogueAfterBattleEnd)
         {
-            dialogueManager.StopSpeaking();
-            yield return StartCoroutine(tutorialManager.SpecificDialogue("Itzel: What? What's going on?"));
+            yield return StartCoroutine(dialogueManager.Say("Itzel: What? What's going on?"));
+            yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
             pushDialogueAfterBattleEnd = false;
         }
 
@@ -1598,21 +1658,7 @@ public class BattleManager : MonoBehaviour
         if (pushDialogueAfterMove)
         {
             dialogueManager.doSkipDialogue = true;
-            yield return dialogueManager.speakingFxn;
         }
-
-        if (LevelManager.currentLevel == 1)
-        {
-            TileBase startTile = tileManager.map.GetTile(tilePos);
-            TileDataScriptableObject tile = tileManager.baseTileDatas[startTile];
-            if (tile.hazardous)
-            {
-                dialogueManager.StopSpeaking();
-                Debug.Log(dialogueManager.doSkipDialogue);
-                yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage as it moved onto or attacked on a spike tile. Try to avoid this mistake in the future!"));
-            }
-        }
-
     }
 
     /// <summary>

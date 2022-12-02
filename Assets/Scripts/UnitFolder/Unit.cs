@@ -315,7 +315,6 @@ public abstract class Unit: MonoBehaviour
 
     protected IEnumerator smoothMovement(BattleState state, Vector3Int target)
     {
-        Debug.Log("location: " + location + " target: " + target);
         if (!target.Equals(location))
         {
             FlipSprite(state.tileManager.CellToWorldPosition(target));

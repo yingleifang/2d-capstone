@@ -392,15 +392,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8938333177467687896}
   unitPrefabSO: {fileID: 11400000, guid: 5e574a867c3c13b48a5780bcdaa020ba, type: 2}
-  health: 3
+  health: 4
   currentHealth: 0
-  attackDamage: 2
+  attackDamage: 1
   currentAttackDamage: 0
   attackRange: 1
   currentAttackRange: 0
   movementSpeed: 3
   currentMovementSpeed: 0
-  coolDown: 2
+  coolDown: 4
   currentCoolDown: 0
   abilityRange: 1
   location: {x: 0, y: 0, z: 0}

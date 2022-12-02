@@ -130,13 +130,17 @@ public class CampfireDialogueManager : MonoBehaviour
     public IEnumerator SayDialogue(bool disableContinue = false)
     {
         int index = 0;
-        yield return StartCoroutine(dialogueManager.Say(finalLines[index++], false, .015f, disableContinue));
+        yield return StartCoroutine(dialogueManager.Say(finalLines[index++], .015f, disableContinue));
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         if (finalLines.Count == 3)
         {
-            yield return StartCoroutine(dialogueManager.Say(finalLines[index++], false, .015f, disableContinue));
+            yield return StartCoroutine(dialogueManager.Say(finalLines[index++], .015f, disableContinue));
+            yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
         }
-        yield return StartCoroutine(dialogueManager.Say(finalLines[index++], false, .015f, disableContinue));
+    
+        yield return StartCoroutine(dialogueManager.Say(finalLines[index++], .015f, disableContinue));
+        yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
     }
 

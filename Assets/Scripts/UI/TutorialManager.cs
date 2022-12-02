@@ -9,7 +9,7 @@ public class TutorialManager : MonoBehaviour
     private static string[] lines1 = {
         "System: Welcome to the Abyss! During your exploration of the abyss, there are a few important ideas to keep in mind.",
         "First off, be mindful of the various types of tiles on the map.",
-        "Spike tiles (highlighted in red) will deal one damage to units who move onto them, land on them, or end their turn on them.",
+        "Spike tiles (highlighted in red) will deal one damage to units who end their turn on them.",
         "Impassable tiles (highlighted in red) will prevent units from moving on them or being placed on them.",
         "Itzel: Huh?! Where am I? What is that thing?",
         "System: Before the beginning of every level, you will be prompted to add a unit to your team. You can learn about a unit by clicking the \"Stats\", \"Passive\", and \"Ability\" buttons below its portrait.",
@@ -38,10 +38,11 @@ public class TutorialManager : MonoBehaviour
         "Allies and enemies which drop onto these tiles during the level switch will DIE. Be particularly mindful of these tiles.",
         "From now on, a next battle preview will be overlayed on the map during battle.",
         "Ovis just used his \"Passive\" which deals one damage to all units adjacent to him, ally or enemy.",
-        "All ally units activate their start of battle ability after they fall or are placed.",
+        "All ally units activate their passives after they fall or are placed.",
         "Units also have in battle abilities which can be used by selecting an ally unit, navigating to the ability tab, and clicking the \"Ability\" button.",
         "Add Locke to your team.",
-        "The health of all units will regenerate at the end of the turn for specifically this level. Find a way to kill the enemy during the span of one turn. (Hint, use your abilities, they have no cooldowns this level)."
+        "All units will regenerate to full health each turn this level.",
+        "Find a way to deal 6 damage to the enemy during the span of one turn. (Hint, use your abilities, they have no cooldowns this level)."
     };
 
     private string[][] dialogue = {lines1, lines2};
@@ -98,15 +99,10 @@ public class TutorialManager : MonoBehaviour
         Debug.Log(index);
         if (index > dialogue[LevelManager.currentLevel - 1].Length - 1)
         {
-            Debug.Log("BREAKING <.<");
+            Debug.Log("Out of bounds text <.<");
             yield break;
         }
-        yield return StartCoroutine(dialogueManager.Say(dialogue[LevelManager.currentLevel - 1][index++], false, textSpeed, disableContinue, bubble));
-    }
-
-    public IEnumerator SpecificDialogue(string text, bool disableContinue = false, int bubble = 0)
-    {
-        yield return StartCoroutine(dialogueManager.Say(text, false, textSpeed, disableContinue, bubble));
+        yield return StartCoroutine(dialogueManager.Say(dialogue[LevelManager.currentLevel - 1][index++], textSpeed, disableContinue, bubble));
     }
 
     public int NumLines()
