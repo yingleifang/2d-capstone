@@ -280,8 +280,6 @@ public class BattleManager : MonoBehaviour
 
             if (acceptingInput && Input.GetMouseButtonDown(0))
             {
-                Debug.Log(tilePos);
-
                 Unit curUnit = tileManager.GetUnit(tilePos);
 
                 if (isPlacingUnit)
@@ -626,14 +624,12 @@ public class BattleManager : MonoBehaviour
         pushDialogueAfterMove = true;
         pushDialogueAfterEnemyTurn = true;
         forcedUnitMovementTile.z = -1;
-        int lastHealth = playerUnits[0].currentHealth;
         yield return StartCoroutine(tutorialManager.NextDialogue());  
         pushDialogueAfterMove = false;
         
         // Prompt to attack
         pushDialogueAfterAttack = true;
         disableAttack = false;
-        lastHealth = playerUnits[0].currentHealth;
         yield return StartCoroutine(tutorialManager.NextDialogue());
         pushDialogueAfterAttack = false;
 
@@ -1599,6 +1595,7 @@ public class BattleManager : MonoBehaviour
         if (pushDialogueAfterMove)
         {
             dialogueManager.doSkipDialogue = true;
+            yield return dialogueManager.speakingFxn;
         }
 
         if (LevelManager.currentLevel == 1)
@@ -1608,6 +1605,7 @@ public class BattleManager : MonoBehaviour
             if (tile.hazardous)
             {
                 dialogueManager.StopSpeaking();
+                Debug.Log(dialogueManager.doSkipDialogue);
                 yield return StartCoroutine(tutorialManager.SpecificDialogue("System: Your unit took damage as it moved onto or attacked on a spike tile. Try to avoid this mistake in the future!"));
             }
         }
