@@ -223,11 +223,35 @@ public class BattleManager : MonoBehaviour
         curGeneratePreviews[0].ShowHazzardAndImpassablePreview(LevelManager.instance.nextSceneTileInfo, GetState());
     }
 
+    public static bool IsPointerOverGameObject()
+    {
+        // Check mouse
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+
+        // Check touches
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            var touch = Input.GetTouch(i);
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     // Update is called once per frame
     void Update()
     {
         // For other clicks, we do not want to do anything if we are over an UI object.
-        if (EventSystem.current.IsPointerOverGameObject() || (ui && ui.unitSelectionWindow && (ui.unitSelectionWindow.gameObject.activeSelf && !ui.unitSelectionWindow.minimized)))
+        if (IsPointerOverGameObject() || (ui && ui.unitSelectionWindow && (ui.unitSelectionWindow.gameObject.activeSelf && !ui.unitSelectionWindow.minimized)))
         {
             return;
         }
@@ -395,6 +419,7 @@ public class BattleManager : MonoBehaviour
 
                         if (pushDialogueAfterAttack)
                         {
+                            Debug.Log("PUSH AFTER ATTACK");
                             dialogueManager.doSkipDialogue = true;
                         }
                         //Tutorial stuff
@@ -694,6 +719,7 @@ public class BattleManager : MonoBehaviour
     private IEnumerator InitializeBattleTutorial2()
     {
         isPlayerTurn = false;
+        pushDialogueAfterEnemyTurn = false;
         // Done to delay coroutine to allow units to add themselves to unitsToSpawn
         yield return new WaitForFixedUpdate();
 
@@ -854,10 +880,27 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
         yield return new WaitUntil(() => !isPlacingUnit);
+        dialogueManager.HideDialogueWindow();
     
         CheckIfBattleOver();
 
         yield return StartCoroutine(StartOfPlayerTurn());
+
+        foreach (PlayerUnit unit in playerUnits)
+        {
+            int numHealthRestore = unit.health - unit.currentHealth;
+            yield return StartCoroutine(unit.SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", numHealthRestore, Color.green));
+            unit.ChangeHealth(numHealthRestore);
+            unit.currentCoolDown = 0;
+        }
+        foreach (EnemyUnit unit in enemyUnits)
+        {
+            int numHealthRestore = unit.health - unit.currentHealth;
+            yield return StartCoroutine(unit.SpawnStatNumber("<sprite=\"heart\" name=\"heart\">", numHealthRestore, Color.green));
+            unit.ChangeHealth(numHealthRestore);
+            unit.currentCoolDown = 0;
+        }
+
         tutorialManager.endTurnButton.SetInteractable(true);
         StartCoroutine(ui.EnableEndTurnButton());
 
@@ -872,6 +915,8 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(tutorialManager.NextDialogue());
         yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
 
+
+        Debug.Log("LAST");
         yield return StartCoroutine(tutorialManager.NextDialogue(true));
         yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());     
     }
@@ -1040,6 +1085,7 @@ public class BattleManager : MonoBehaviour
 
             if (LevelManager.currentLevel == 2)
             {
+                Debug.Log("curretn turn counter: " + ui.turnCountDown.currentTurn);
                 foreach (PlayerUnit unit in playerUnits)
                 {
                     int numHealthRestore = unit.health - unit.currentHealth;
@@ -1057,6 +1103,7 @@ public class BattleManager : MonoBehaviour
 
                 if (ui.turnCountDown.currentTurn == 2)
                 {
+                    dialogueManager.doSkipDialogue = true;
                     yield return StartCoroutine(dialogueManager.Say("System: You can use abilities by clicking a unit, clicking the \"Ability\" tab, clicking the \"Use Ability\" button, " +
                                 "and double clicking an enemy in range. Locke's ability deals damage based on how far he's moved that turn.", default,  true));
                     yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());                 
@@ -1064,6 +1111,7 @@ public class BattleManager : MonoBehaviour
                 
                 if (ui.turnCountDown.currentTurn == 1)
                 {
+                    dialogueManager.doSkipDialogue = true;
                     yield return StartCoroutine(dialogueManager.Say("System: Combine Locke's ability with Ovis's basic attack. " +
                                     "Move Locke three spaces away from the enemy. End your turn. On the next turn, move Locke in range and use his ability along with Ovis's attack", default, true));
                     yield return StartCoroutine(dialogueManager.WaitToFinishSpeaking());
@@ -1545,6 +1593,7 @@ public class BattleManager : MonoBehaviour
         {
             if (dialogueManager.isWaitingForUserInput)
             {
+                Debug.Log("PUSH AFTER ENEMY TURN");
                 dialogueManager.doSkipDialogue = true;
                 pushDialogueAfterEnemyTurn = false;
             }
@@ -1638,8 +1687,9 @@ public class BattleManager : MonoBehaviour
             unitsToSpawn.Remove(unit);
             isPlacingUnit = false;
 
-            if (dialogueManager)
+            if (dialogueManager && LevelManager.currentLevel == 1)
             {
+                Debug.Log("PUsh after placing");
                 dialogueManager.doSkipDialogue = true;
             }
             Debug.Log(unitToPlace);
@@ -1657,6 +1707,7 @@ public class BattleManager : MonoBehaviour
 
         if (pushDialogueAfterMove)
         {
+            Debug.Log("PUSH AFTER MOVING");
             dialogueManager.doSkipDialogue = true;
         }
     }
