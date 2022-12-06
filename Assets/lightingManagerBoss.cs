@@ -14,7 +14,6 @@ public class lightingManagerBoss : MonoBehaviour
         // turn off global light, bc u can't see shit if its off in the editor
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
-
         if (GameObject.Find("LIghtManager-lvls") != null)
         {
             oldLightManager = GameObject.Find("LIghtManager-lvls");
