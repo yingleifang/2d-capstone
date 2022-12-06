@@ -21,8 +21,14 @@ public class lightingManagerBoss : MonoBehaviour
             oldLightManager.SetActive(false);
         }
 
-            // add to do not destroy. 
-            if (instance == null)
+        if (GameObject.Find("LIghtManager-tutorial") != null)
+        {
+            oldLightManager = GameObject.Find("LIghtManager-tutorial");
+            oldLightManager.SetActive(false);
+        }
+
+        // add to do not destroy. 
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
