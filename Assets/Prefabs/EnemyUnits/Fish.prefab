@@ -520,7 +520,7 @@ MonoBehaviour:
   audio: {fileID: 4594956451681412236}
   spriteRenderer: {fileID: 1447998723661349570}
   portrait: {fileID: 21300000, guid: cd1528c2ef3520d46b7e8ff186878bde, type: 3}
-  characterName: White Fishbelly
+  characterName: Fishbelly
   characterDescription: A monstrosity that relentlessy pursues the closest unit.
   healthBarFill: {fileID: 7432460306710679596}
   healthBarBackground: {fileID: 568465090257389366}
