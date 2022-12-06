@@ -1694,6 +1694,7 @@ public class BattleManager : MonoBehaviour
             }
             Debug.Log(unitToPlace);
             yield return StartCoroutine(unit.StartOfBattleAbility(state));
+            yield return StartCoroutine(UpdateBattleState());
         }
     }
 
