@@ -513,6 +513,11 @@ public abstract class Unit: MonoBehaviour
         healthBarFill.SetActive(false);
     }
 
+    public Coroutine StartDeath()
+    {
+        return StartCoroutine(Die());
+    }
+
     public virtual IEnumerator Die() 
     {
         audio.PlayDisposable(deathSound);

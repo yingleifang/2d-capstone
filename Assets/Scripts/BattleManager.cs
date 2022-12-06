@@ -1080,7 +1080,7 @@ public class BattleManager : MonoBehaviour
             foreach(var unit in unitsToDestroy)
             {
                 RemoveUnit(unit);
-                Destroy(unit);
+                Destroy(unit.gameObject);
             }
 
             if (LevelManager.currentLevel == 2)
@@ -1244,7 +1244,7 @@ public class BattleManager : MonoBehaviour
             spawnLocation = player.location;
         }
         RemoveUnit(unit);
-        yield return StartCoroutine(unit.Die());
+        yield return unit.StartDeath();
         if (grave != null && !tileManager.IsImpassableTile(spawnLocation))
         {
             GameObject instance = Instantiate(grave, tileManager.CellToWorldPosition(spawnLocation), Quaternion.identity);
@@ -1273,6 +1273,10 @@ public class BattleManager : MonoBehaviour
         }
         Debug.Log("ENEMY UNITS: " + enemyUnits.Count);
         tileManager.RemoveUnitFromTile(unit.location);
+        if (selectedUnit == unit)
+        {
+            selectedUnit = null;
+        }
     }
 
     public void CheckIfBattleOver()
