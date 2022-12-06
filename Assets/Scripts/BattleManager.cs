@@ -223,11 +223,35 @@ public class BattleManager : MonoBehaviour
         curGeneratePreviews[0].ShowHazzardAndImpassablePreview(LevelManager.instance.nextSceneTileInfo, GetState());
     }
 
+    public static bool IsPointerOverGameObject()
+    {
+        // Check mouse
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+
+        // Check touches
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            var touch = Input.GetTouch(i);
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     // Update is called once per frame
     void Update()
     {
         // For other clicks, we do not want to do anything if we are over an UI object.
-        if (EventSystem.current.IsPointerOverGameObject() || (ui && ui.unitSelectionWindow && (ui.unitSelectionWindow.gameObject.activeSelf && !ui.unitSelectionWindow.minimized)))
+        if (IsPointerOverGameObject() || (ui && ui.unitSelectionWindow && (ui.unitSelectionWindow.gameObject.activeSelf && !ui.unitSelectionWindow.minimized)))
         {
             return;
         }
