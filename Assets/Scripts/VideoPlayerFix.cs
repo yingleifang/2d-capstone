@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using UnityEngine.Networking;
 
 public class VideoPlayerFix : MonoBehaviour
 {
@@ -35,9 +36,25 @@ public class VideoPlayerFix : MonoBehaviour
         {
             // Need a path to the file so it plays on web builds
             string file = System.IO.Path.GetFileName(clip.originalPath);
-            player.url = System.IO.Path.Combine(Application.streamingAssetsPath, file);
-            player.Play();
-            player.playOnAwake = true;
+            string url = System.IO.Path.Combine(Application.streamingAssetsPath, file);
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                StartCoroutine(GetRequest(url));
+            } else
+            {
+                player.url = url;
+                player.Play();
+                player.playOnAwake = true;
+            }
         }
+    }
+
+    IEnumerator GetRequest(string url)
+    {
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+        player.url = www.url;
+        player.Play();
+        player.playOnAwake = true;
     }
 }
