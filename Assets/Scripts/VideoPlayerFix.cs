@@ -35,26 +35,33 @@ public class VideoPlayerFix : MonoBehaviour
         if (clip)
         {
             // Need a path to the file so it plays on web builds
-            string file = System.IO.Path.GetFileName(clip.originalPath);
-            string url = System.IO.Path.Combine(Application.streamingAssetsPath, file);
-            if (Application.platform == RuntimePlatform.Android)
+            
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
-                StartCoroutine(GetRequest(url));
+                string file = System.IO.Path.GetFileName(clip.originalPath);
+                string url = System.IO.Path.Combine(Application.streamingAssetsPath, file);
+                player.source = VideoSource.Url;
+                player.url = url;
+                
             } else
             {
-                player.url = url;
-                player.Play();
-                player.playOnAwake = true;
+                player.clip = clip;
+                player.source = VideoSource.VideoClip;
             }
+            player.Play();
+            player.playOnAwake = true;
         }
     }
 
     IEnumerator GetRequest(string url)
     {
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        yield return www.SendWebRequest();
-        player.url = www.url;
-        player.Play();
-        player.playOnAwake = true;
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
+        {
+            yield return www.SendWebRequest();
+            player.url = www.url;
+            player.Play();
+            player.playOnAwake = true;
+        }
+            
     }
 }
