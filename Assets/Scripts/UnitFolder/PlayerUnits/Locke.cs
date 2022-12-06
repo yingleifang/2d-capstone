@@ -47,11 +47,13 @@ public class Locke : PlayerUnit
             {
                 yield return StartCoroutine(SpawnStatNumber("<sprite=\"fast\" name=\"fast\">", 1, Color.green));
                 movementSpeed += 1;
+                currentMovementSpeed += 1;
             }
             else if (tile.bonusStatModifier == 2)
             {
                 yield return StartCoroutine(SpawnStatNumber("<sprite=\"sword\" name=\"sword\">", 1, Color.green));
                 attackDamage += 1;
+                currentAttackDamage += 1;
             }
         }
         canUseAbility = true;
