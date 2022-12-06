@@ -1245,7 +1245,7 @@ public class BattleManager : MonoBehaviour
         }
         RemoveUnit(unit);
         yield return StartCoroutine(unit.Die());
-        if (grave != null)
+        if (grave != null && !tileManager.IsImpassableTile(spawnLocation))
         {
             GameObject instance = Instantiate(grave, tileManager.CellToWorldPosition(spawnLocation), Quaternion.identity);
             tileManager.ClearTileDecoration(spawnLocation);
