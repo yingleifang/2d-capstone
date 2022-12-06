@@ -100,6 +100,10 @@ public class BattleManager : MonoBehaviour
     public bool pushDialogueAfterBattleEnd = false;
     public bool disableAttack = false;
 
+    //light prefab
+    public GameObject lightManagerPrefab;
+    GameObject lightManagerObj;
+
     /// <summary>
     /// Instantiates a unit prefab which is updated in the update loop to follow the
     /// mouse of the player
@@ -142,6 +146,17 @@ public class BattleManager : MonoBehaviour
         mapPosition = tileManager.transform.position;
         highlightedTiles = new List<(Vector3Int, Color)>();
         postProcessingSettings = FindObjectOfType<PostProcessingSettings>();
+
+        if (GameObject.Find("LightManager") == null)
+        {
+            
+            lightManagerObj = Instantiate(lightManagerPrefab);
+
+        }
+        else
+        {
+            lightManagerObj = GameObject.Find("LightManager");
+        }
     }
 
     public void EndTurn()
@@ -930,7 +945,10 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            lightManagerObj.transform.GetChild(1).gameObject.SetActive(false);
+            lightManagerObj.transform.GetChild(2).gameObject.SetActive(true);
             ui.InitializeTurnCount(TurnCountDown.totalHagfish);
+           
         }
         isPlayerTurn = false;
         acceptingInput = false;
@@ -1327,6 +1345,7 @@ public class BattleManager : MonoBehaviour
 
             Destroy(unit.gameObject);
         }
+        Destroy(lightManagerObj);
         Destroy(gameObject); // Or similarly reset the battle manager
     }
 
@@ -1414,6 +1433,7 @@ public class BattleManager : MonoBehaviour
         if (index == 7)
         {
             Debug.Log("Destroying battlemanager because of win screen");
+            Destroy(lightManagerObj);
             Destroy(gameObject);
         }
 

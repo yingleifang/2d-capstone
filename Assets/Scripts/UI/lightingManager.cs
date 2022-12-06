@@ -42,26 +42,6 @@ public class lightingManager : MonoBehaviour
 
     }
 
-
-
-    void onSceneLoad(Scene scene, LoadSceneMode mode)
-    {
-
-        current = LevelManager.currentLevel;
-        totalLevels = levelManager.totalLevels;
-        bossLvls = levelManager.BossLevels;
-
-        Debug.Log(current);
-
-        //change lights to match new bg
-        if (current > 2)
-        {
-            changeLights();
-        }
-
-
-
-    }
     void changeLights()
     {
         lightGO = gameObject.transform.GetChild(1).gameObject;

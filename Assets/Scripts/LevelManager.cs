@@ -104,11 +104,16 @@ public class LevelManager : MonoBehaviour
     private int spawnOffSet = 0;
 
     public levelTransition levelTransitionObj;
+
+    
+
     void Awake()
     {
         typesOfTilesToSpawn = levelOneTiles;
         map = FindObjectOfType<Tilemap>();
         levelOffset = 2;
+
+     
 
         if (instance == null)
         {
