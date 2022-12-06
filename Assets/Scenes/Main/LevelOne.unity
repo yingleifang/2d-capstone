@@ -4041,12 +4041,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4722405647227648893, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722405647227648893, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722405647227648893, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 35.375977
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4722405647227648893, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -36.123047
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5161716980445749496, guid: 2180dfea4d6119643823dbf4ce4bc138, type: 3}
       propertyPath: m_Pivot.y
