@@ -132,7 +132,9 @@ public class UnitSelectionWindow : MonoBehaviour
             
             if (dialogueManager.isWaitingForUserInput)
             {
+                Debug.Log("PUsh after confirming unit");
                 dialogueManager.doSkipDialogue = true;
+                dialogueManager.HideDialogueWindow();
             }
         }
         else
