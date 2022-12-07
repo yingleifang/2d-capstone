@@ -175,14 +175,15 @@ public class TileManager : MonoBehaviour
                 }
         }
     }
+
     public IEnumerator ShatterTiles(int turn, List<Unit> units = null)
     {
-        RemoveAllDecorations();
         // If the level isn't randomized, we will not have set the correct data for tileInfo.
         // Since we don't really need the correct data in tileInfo for anything, I'll just
         // manually set it so the tiles do the animation.
         if (LevelManager.instance.tileInfo.Count == 0 && turn == 0)
         {
+            RemoveAllDecorations();
             for (int x = (int)map.localBounds.min.x; x < map.localBounds.max.x; x++)
             {
                 for (int y = (int)map.localBounds.min.y; y < map.localBounds.max.y; y++)
@@ -258,6 +259,7 @@ public class TileManager : MonoBehaviour
 
     private void HandleTileReplacement(List<Unit> units, KeyValuePair<Vector3Int, (TileDataScriptableObject, int)> info)
     {
+        ClearTileDecoration(info.Key);
         tilePos.Add(info.Key);
         Unit unit = GetUnit(info.Key);
         if (unit)
